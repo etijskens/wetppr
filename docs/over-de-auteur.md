@@ -16,7 +16,7 @@
   wetenschappelijk programmeren voor HPC-omgevingen en performantie-analyse.
   Ik ben gepassioneerd door **Python**, **C++**, **Fortran** en libraries en frameworks 
   waarmee hoog-performante en parallelle applicaties kunnen gebouwd worden.
-- Sinds 2016 geef ik het vak "Parallel programmeren". Ik geef graag les
+- Sinds 2014 geef ik het vak "Parallel programmeren". Ik geef graag les
   en wil mijn ervaring van 30 jaar wetenschappelijk programmeren delen met 
   jonge onderzoekers.
 - Voor 2012 leidde ik de **DEM Research Group** aan de KU Leuven. DEM staat  
