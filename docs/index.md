@@ -3,5 +3,5 @@
 ## Table of Contents
 
 
-1. [Over de auteur](introductie.md)
-2. [Lezing 1](lecture-1.md)
+0. [Over de auteur](over-de-auteur.md)
+1. [Inleiding](inleiding.md)

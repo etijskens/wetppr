@@ -1,6 +1,9 @@
 
-# Parallel programmeren
-## Doelstellingen 
+# Parallel programmeren - 2000wetppr
+
+## Inleiding
+
+### Doelstellingen 
 
 - wat is parallel programmeren?
 - waarom parallel programmeren?
@@ -10,7 +13,7 @@
   - principes en *best practices*
   - strategie voor wetenschappelijke softwareontwikkeling
 
-## Achtergrondkennis
+### Achtergrondkennis
 
 - hoe werkt een moderne processor?
   - geheugen
@@ -18,4 +21,5 @@
   - acceleratoren (GPU) 
 - hoe werkt een supercomputer?
   - interconnect
+
 
