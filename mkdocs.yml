@@ -1,0 +1,10 @@
+site_name: Parallel programmeren
+
+theme:
+  name: "material"
+
+
+nav:
+  - index.md
+  - introductie.md
+  - lecture-1.md

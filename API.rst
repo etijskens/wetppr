@@ -1,6 +1,0 @@
-***
-API
-***
-
-.. automodule:: wetppr
-   :members:
