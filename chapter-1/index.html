@@ -1,0 +1,623 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../introduction/">
+      
+      
+        <link rel="next" href="../evaluation/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.10">
+    
+    
+      
+        <title>Hoofdstuk I - Parallel programmeren</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.0d440cfe.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#hoofdstuk-i" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Parallel programmeren" class="md-header__button md-logo" aria-label="Parallel programmeren" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Parallel programmeren
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Hoofdstuk I
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Parallel programmeren" class="md-nav__button md-logo" aria-label="Parallel programmeren" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Parallel programmeren
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Welkom bij Parallel programmeren
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../over-de-auteur/" class="md-nav__link">
+        Over de auteur
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide-lines/" class="md-nav__link">
+        Some guide lines
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Hoofdstuk I
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Hoofdstuk I
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-a-parallel-program" class="md-nav__link">
+    What is a parallel program?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#possible-reasons-to-parallellize-a-program" class="md-nav__link">
+    Possible reasons to parallellize a program
+  </a>
+  
+    <nav class="md-nav" aria-label="Possible reasons to parallellize a program">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-reduce-the-time-to-solution" class="md-nav__link">
+    1. Reduce the time to solution
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-solve-bigger-problems-in-the-same-time" class="md-nav__link">
+    2. Solve bigger problems in the same time
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-produce-more-accurate-solutions" class="md-nav__link">
+    3. Produce more accurate solutions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-competition" class="md-nav__link">
+    4 Competition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cant-i-just-by-a-faster-and-bigger-computer" class="md-nav__link">
+    Can't I just by a faster and bigger computer?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-parallelize-and-what-to-do-first" class="md-nav__link">
+    When to parallelize, and what to do first ...
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evaluation/" class="md-nav__link">
+        Evaluation
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assignment/" class="md-nav__link">
+        Assignment 2022-23
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-is-a-parallel-program" class="md-nav__link">
+    What is a parallel program?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#possible-reasons-to-parallellize-a-program" class="md-nav__link">
+    Possible reasons to parallellize a program
+  </a>
+  
+    <nav class="md-nav" aria-label="Possible reasons to parallellize a program">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-reduce-the-time-to-solution" class="md-nav__link">
+    1. Reduce the time to solution
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-solve-bigger-problems-in-the-same-time" class="md-nav__link">
+    2. Solve bigger problems in the same time
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-produce-more-accurate-solutions" class="md-nav__link">
+    3. Produce more accurate solutions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-competition" class="md-nav__link">
+    4 Competition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cant-i-just-by-a-faster-and-bigger-computer" class="md-nav__link">
+    Can't I just by a faster and bigger computer?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#when-to-parallelize-and-what-to-do-first" class="md-nav__link">
+    When to parallelize, and what to do first ...
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="hoofdstuk-i">Hoofdstuk I</h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is work in progress. It is incomplete, unfinished and flawed, just as life. However, sometimes <em>good enough is
+good enough</em>, and it will improve with time. </p>
+</div>
+<p>Material:</p>
+<ul>
+<li>this text, and</li>
+<li><a href="../presentations/lecture-1.pptx">this presentation</a>.</li>
+</ul>
+<h2 id="overview">Overview</h2>
+<ul>
+<li>What is a parallel program?</li>
+<li>Possible reasons to parallellize a program.</li>
+<li>When to parallallize a program, and what to do first ...</li>
+<li>Common approaches towards parallelization</li>
+<li>Case study from Molecular Dynamics</li>
+<li>Final remarks</li>
+</ul>
+<h2 id="what-is-a-parallel-program">What is a parallel program?</h2>
+<p>A parallel program is a program that distributes its work over different processing units such that parts of its 
+work load can be computed simultaneously. At the end the program gathere the partial results from the processing 
+units and combines them in a global result. If the tasks are independent from each other, the program is called 
+<strong>embarasssingly parallel</strong>. In general, the individual tasks are not independent and need to exchange information. 
+This is called <strong>communication</strong>. The opposite of a parallel program is a <strong>serial</strong> or <strong>sequential</strong> program, 
+executing all its instructions one after the other. </p>
+<h2 id="possible-reasons-to-parallellize-a-program">Possible reasons to parallellize a program</h2>
+<h3 id="1-reduce-the-time-to-solution">1. Reduce the time to solution</h3>
+<p>The term <strong>time to solution</strong> in general means the time your machine needes to solve a computational problem. If the 
+problem can be divided in smaller tasks that can be computed simultaneously, the time to solution decreases. If a 
+company can solve a research or engineering question in a week or a day, that is an important difference. A 
+processing unit has a maximum number of instructions it can execute per second, this is called its <strong>peak 
+performance</strong>. Obviously, the peak performance is a machine limit puts a hard limit to what a processing unit can 
+achieve in a given amount of time. But instructions operate on data, and moving data from main memory takes time as 
+well. A program that must process lots of data but does little computation is limited by the speed at which the 
+processing unit can fetch data from the main memory. This is called the <strong>memory bandwidht</strong> (usually in Mbits/s).
+Programs that do a lot of computation and does not move a lot of data in or out of main memory is called <strong>compute 
+limited</strong>. A program that moves a lot of data and little computation is <strong>bandwidth limited</strong>. While in the past 
+programs used to be compute bound, today, most programs are memory bound, because the speed of the processing units 
+increased much faster than the speed of memory. As a consequence, efficient memory acces patterns are crucial to the 
+performance of a program.  </p>
+<h3 id="2-solve-bigger-problems-in-the-same-time">2. Solve bigger problems in the same time</h3>
+<p>There is a third machine linit that plays a role, namely the amount of main memory. This puts a limit on the size of 
+the problem that can be treated, e.g. the number of volume elements in a CFD simulation or the number of atoms in a 
+MD simulation. If the program can distribute the work over, say 10 machines, it has 10 times the amount of memory at 
+its disposition and thus can solve a 10 times bigger problem.  </p>
+<h3 id="3-produce-more-accurate-solutions">3. Produce more accurate solutions</h3>
+<p>More accuracy can come from more complex physical models, or from using more basis functions to expand the solution.
+This leads to more computation and perhaps a prohibitively long time to solution. Problems involving discretisation 
+(the process of dividing the domain of a computational problem in small elements, as in computational fluid dynamics 
+and finite element modelling) the accuracy typically improves when the elements get smaller, as in approximating the 
+integral under a curve by rectangles. In both cases parallelizing the program may be necessary to obtain a solution. </p>
+<h3 id="4-competition">4 Competition</h3>
+<p>If a program that is in competition with other programs that solve the same problem, parallelization will allow it 
+to reduce the time to solution, to compute bigger problems and achieve more accurate solution. This is, obviously, a 
+competetive advantage.  </p>
+<h3 id="cant-i-just-by-a-faster-and-bigger-computer">Can't I just by a faster and bigger computer?</h3>
+<p>Nope, that fairy tale ended approximately at the beginning of this century with the advent of the multi-processor 
+computer. Increasing the peak performance by increasing the clock frwquency was no longer possible, because the 
+power consumption of a processor increases as the third power of the clock frequency. At a certain point it became 
+impossible or too expensive to cool the processor. The only way to get a processor execute more instructions per 
+second was to put more processing units on it (cores). At that point serial program became even slower on the new 
+multi-processors because the clock frequency was reduced to remain inside the power envelope. Moore's law predicts 
+that the number of transitors in a processor doubles every 18 months due to increasing miniaturization. With this the<br />
+combined peak performance of the multi-prorocessors increases as well, but the peak performance of the individual 
+processing units no longer does. This makes it necessary to parallellize programs in order to keep up with Moore's 
+law. It must be said that the increase of peak performance was not always in line with Moore's law. At some point 
+the peak performance of processing units was increased by adding parallelization concept in single processing units 
+like pipelining and SIMD vectorisation. We'll come to that later.</p>
+<h3 id="when-to-parallelize-and-what-to-do-first">When to parallelize, and what to do first ...</h3>
+<p>When your program takes too long, the memory of your machine is too small for your problem or the accuracy you need 
+cannot be met, you'rd hittin the wall. Parallelisation is necessary. However, there are things to consider first. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>unfinished ...</p>
+</div>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.6df46069.min.js"></script>
+      
+    
+  </body>
+</html>
