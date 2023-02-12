@@ -6,10 +6,11 @@ theme:
 nav:
   - index.md
   - over-de-auteur.md
-  - aanwijzigingen.md
-  - inleiding.md
-  - hoofdstuk-1.md
+  - guide-lines.md
+  - introduction.md
+  - chapter-1.md
   - evaluation.md
+  - assignment.md
 
 extra_css:
     - css/extra.css

@@ -4,8 +4,9 @@
 
 
 0. [Over de auteur](over-de-auteur.md)
-1. [Inleiding](inleiding.md)
-2. [Aanwijzigingen](aanwijzigingen.md)
-3. [Hoofdstuk I](hoofdstuk-1.md)
+1. [Introduction](introduction.md)
+2. [Guide lines](guide-lines.md)
+3. [Chapter I](chapter-1.md)
 4. [Evaluation](evaluation.md)
+5. [Assignment](assignment.md)
 

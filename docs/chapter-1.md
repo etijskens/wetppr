@@ -86,4 +86,5 @@ like pipelining and SIMD vectorisation. We'll come to that later.
 When your program takes too long, the memory of your machine is too small for your problem or the accuracy you need 
 cannot be met, you'rd hittin the wall. Parallelisation is necessary. However, there are things to consider first. 
 
-!!! work to be done...
+!!! note
+    unfinished ...
