@@ -45,7 +45,6 @@ programs used to be compute bound, today, most programs are memory bound, becaus
 increased much faster than the speed of memory. As a consequence, efficient memory acces patterns are crucial to the 
 performance of a program.  
 
-
 ### 2. Solve bigger problems in the same time
 
 There is a third machine linit that plays a role, namely the amount of main memory. This puts a limit on the size of 

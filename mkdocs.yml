@@ -6,9 +6,10 @@ theme:
 nav:
   - index.md
   - over-de-auteur.md
-  - inleiding.md
   - aanwijzigingen.md
+  - inleiding.md
   - hoofdstuk-1.md
+  - evaluation.md
 
 extra_css:
     - css/extra.css
