@@ -46,6 +46,8 @@ Hier zijn verscheidene korrelige processen aan de orde:
 
 ### Spherische korrels die op een trampoline vallen
 
+![type:video](public/spheres2000_sheet4.mp4)
+
 <video controls>
   <source src="/public/spheres2000_sheet4.mp4" type="video/mp4">
 </video>
