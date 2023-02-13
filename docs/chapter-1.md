@@ -109,12 +109,15 @@ When your program takes too long, the memory of your machine is too small for yo
 cannot be met, you're hitting the wall. Parallelization seems necessary, and you feel in need of a supercomputer.
 However, supercomputers are expensive machines and resources are limited. It should come to no surprise that it is 
 expected that programs are allowed to run on supercomputers only if they make efficient use of their resources. 
-Often, serial programs provide possibilities to improve the performance. These come in two categories:
+Often, serial programs provide possibilities to improve the performance. These come in two categories: **common sense 
+optimisations** (often completely overlooked by researchers) which rely on a good understanding of the mathematical 
+formulation of the problem and the algorithm, and **code optimisations** which rely on understanding processor 
+architecture and compilers. Lets first look at common sense optimisations. 
 
 #### common sense optimisations
 
 Common sense optimizations come from a good understanding of the mathematical formulation of the problem and seeing 
-opportunities to reduce the amount of work. We give two examples. 
+opportunities to reduce the amount of work. We give three examples. 
 
 ##### 1. Magnetization of bulk ferromagnets
 
@@ -149,7 +152,7 @@ algorithm actually does. Investigation of the code itself demonstrated that it m
 memory management and that it did not vectorize. After fixing these issues, the code ran an additional 13.6x faster. 
 In total the code was sped up by an impressive 32.6x.
 
-##### Transforming the problem domain 
+##### 2. Transforming the problem domain 
 
 At another occasion I had to investigate a code for calculating a complicated sum of integrals in real space. After 
 fixing some bugs and some optimisation to improve the efficiency, it was still rather slow because the formula 
@@ -159,6 +162,20 @@ expression turned out to converge much faster and consequently far less terms ha
 of almost 2 orders of magnitude and was much more accurate. This is another example of common sense optimisation 
 originating in a good mathematical background. The natural formulation of a problem is not necessarily the best to 
 use for computation.    
+
+##### 3. Transforming data to reduce their memory footprint
+
+I recently reviewed a Python code by the Vlaamse Milieumaatschappij for modelling the migration of invertebrate aquatic 
+species in response to improving (or deteriorating) water quality. The program read a lot data from .csv files. For 
+a project it was necessary to run a parameter optimisation. That is a procedure where model parameters are varied 
+until the outcome is satisfactory. If the number of model parameters is large the number of program runs required can 
+easily reach in the 100 000s. The program was parallellized on a single node. However, the program was using that many 
+data that 18 cores of the 128 cores available on a node already consumed the available memory. By replacing the data 
+types of the columns of the datasets with datatypes with a smaller footprint, such as replacing categorical data 
+with integer ids, replacing 32-bit integers with 16-bit or even 8-bit integers, float64 real numbers with float32 or 
+float16 numbers reduced the amount of data used by a factor 8. All of a sudden much more cores could be engaged in 
+the computation and the simulation sped up considerably.   
+
 
 !!! note
     unfinished ...
