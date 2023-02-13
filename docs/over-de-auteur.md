@@ -48,11 +48,8 @@ Hier zijn verscheidene korrelige processen aan de orde:
 
 ![type:video](/public/spheres2000_sheet4.mp4)
 
-<video controls>
-  <source src="/public/spheres2000_sheet4.mp4" type="video/mp4">
-</video>
-
 ### Mpacts: ijsbreker
 
-[Mpacts ijsbreker](https://www.youtube.com/watch?v=6qd7HAVRCn8)
+Mpacts simulatie van een [ijsbreker](https://www.youtube.com/watch?v=6qd7HAVRCn8) die door een ijslaag breekt.
+
 
