@@ -19,7 +19,7 @@
     
     
       
-        <title>Hoofdstuk I - Parallel programmeren</title>
+        <title>Chapter 1 - Parallel programmeren</title>
       
     
     
@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#hoofdstuk-i" class="md-skip">
+        <a href="#chapter-i" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Hoofdstuk I
+              Chapter 1
             
           </span>
         </div>
@@ -185,21 +185,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../guide-lines/" class="md-nav__link">
-        Some guide lines
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../introduction/" class="md-nav__link">
         Introduction
       </a>
@@ -225,12 +210,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Hoofdstuk I
+          Chapter 1
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Hoofdstuk I
+        Chapter 1
       </a>
       
         
@@ -310,6 +295,39 @@
     When to parallelize, and what to do first ...
   </a>
   
+    <nav class="md-nav" aria-label="When to parallelize, and what to do first ...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-sense-optimisations" class="md-nav__link">
+    common sense optimisations
+  </a>
+  
+    <nav class="md-nav" aria-label="common sense optimisations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-magnetization-of-bulk-ferromagnets" class="md-nav__link">
+    1. Magnetization of bulk ferromagnets
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transforming-the-problem-domain" class="md-nav__link">
+    Transforming the problem domain
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -350,6 +368,21 @@
     <li class="md-nav__item">
       <a href="../assignment/" class="md-nav__link">
         Assignment 2022-23
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide-lines/" class="md-nav__link">
+        Assignment guide lines
       </a>
     </li>
   
@@ -443,6 +476,39 @@
     When to parallelize, and what to do first ...
   </a>
   
+    <nav class="md-nav" aria-label="When to parallelize, and what to do first ...">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-sense-optimisations" class="md-nav__link">
+    common sense optimisations
+  </a>
+  
+    <nav class="md-nav" aria-label="common sense optimisations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-magnetization-of-bulk-ferromagnets" class="md-nav__link">
+    1. Magnetization of bulk ferromagnets
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#transforming-the-problem-domain" class="md-nav__link">
+    Transforming the problem domain
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -466,7 +532,26 @@
 
 
 
-<h1 id="hoofdstuk-i">Hoofdstuk I</h1>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true},
+      jax: ["input/TeX","input/MathML","input/AsciiMath","output/CommonHTML"],
+      extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js","AssistiveMML.js", "[Contrib]/a11y/accessibility-menu.js"],
+      TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"],
+      equationNumbers: {
+      autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<h1 id="chapter-i">Chapter I</h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This is work in progress. It is incomplete, unfinished and flawed, just as life. However, sometimes <em>good enough is
@@ -539,7 +624,44 @@ the peak performance of processing units was increased by adding parallelization
 like pipelining and SIMD vectorisation. We'll come to that later.</p>
 <h3 id="when-to-parallelize-and-what-to-do-first">When to parallelize, and what to do first ...</h3>
 <p>When your program takes too long, the memory of your machine is too small for your problem or the accuracy you need 
-cannot be met, you're hitting the wall. Parallelization is necessary. However, there are things to consider first. </p>
+cannot be met, you're hitting the wall. Parallelization seems necessary, and you feel in need of a supercomputer.
+However, supercomputers are expensive machines and resources are limited. It should come to no surprise that it is 
+expected that programs are allowed to run on supercomputers only if they make efficient use of their resources. 
+Often, serial programs provide possibilities to improve the performance. These come in two categories:</p>
+<h4 id="common-sense-optimisations">common sense optimisations</h4>
+<p>Common sense optimizations come from a good understanding of the mathematical formulation of the problem and seeing 
+opportunities to reduce the amount of work. We give two examples. </p>
+<h5 id="1-magnetization-of-bulk-ferromagnets">1. Magnetization of bulk ferromagnets</h5>
+<p>I was asked to speed up a program for computing the magnetisation $m(T)$ of bulk ferromagnets as a function of 
+temperature $T$. This is given by a self-consistent solution of the equations:</p>
+<p>$$ m = \frac{1}{2 + 4\Phi(m)} $$</p>
+<p>$$ \Phi(m) = \frac{1}{N} \sum_{\textbf{k}} \frac{1}{e^{\beta\eta(\textbf{k})m} - 1} $$</p>
+<p>with $ \beta = 1/{k_B T} $. At $T=0$ we have $m(0) = m_0 = 0.5$, and at high $T$, $m(T)$ approaches zero.</p>
+<p>The solution is a curve like this:</p>
+<p><img alt="m(T)" src="/public/m(T).png" /></p>
+<p>The program compute this as follows: For any temperature $T$, set $m = m_0$ as an inital guess. Then iterate $ m_
+{i+1} = 1/(2 + 4\Phi(m_i)) $ until $ \Delta m = m_{i+1} - m_i $ is small. Here,</p>
+<p>$$ \Phi(m) = \sum_{n=1}^\infty \frac{a}{\pi} \left(\int_0^{\pi/a} dq e^{-nm\beta\eta_1(q)}\right)^3 $$</p>
+<p>and the integral is computed using Gauss-Legendre integration on 64 points.  </p>
+<p>Experimenting a bit with this formula one easily notices that for every $T$ the iterative procedure starts out more 
+or less the same, as they all have the same initial guess. However, if we compute tempurature points at equidistant 
+tempuratures, <em>e.g.</em> $T_j = \delta j$ for some $\delta$ and $j=0,1,2, ...$ we can use $m_j$ as an initial guess 
+instead of $m_0$. This turns out to be 1.4x faster. Not a lot but that inspired us further improve the initial guess 
+using linear interpolation of $m_j$ from $m_{j-1}$ and $m_{j-2}$ leading to a speedup of 1.94x. Finally, fixing the 
+initial guess by quadratic interpolation from  $m_{j-1}$, $m_{j-2}$ and $m_{j-3}$ the code speed up by a factor 2.4 
+and that without acttually modifying the code. This optimisation comes entirely from understanding what your 
+algorithm actually does. Investigation of the code itself demonstrated that it made suffered from a lot of dynamic 
+memory management and that it did not vectorize. After fixing these issues, the code ran an additional 13.6x faster. 
+In total the code was sped up by an impressive 32.6x.</p>
+<h5 id="transforming-the-problem-domain">Transforming the problem domain</h5>
+<p>At another occasion I had to investigate a code for calculating a complicated sum of integrals in real space. After 
+fixing some bugs and some optimisation to improve the efficiency, it was still rather slow because the formula 
+converged slowly  As the code was running almost at peak performance, so there was little room for improvement. 
+However, at some point we tried to apply the Fourier transform to get an expression in frequency space. This 
+expression turned out to converge much faster and consequently far less terms had to be computed, yielding a speedup 
+of almost 2 orders of magnitude and was much more accurate. This is another example of common sense optimisation 
+originating in a good mathematical background. The natural formulation of a problem is not necessarily the best to 
+use for computation.    </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>unfinished ...</p>
