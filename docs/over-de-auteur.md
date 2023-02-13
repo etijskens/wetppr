@@ -50,6 +50,9 @@ Hier zijn verscheidene korrelige processen aan de orde:
 
 ### Mpacts: ijsbreker
 
-Mpacts simulatie van een [ijsbreker](https://www.youtube.com/watch?v=6qd7HAVRCn8) die door een ijslaag breekt.
+Mpacts simulatie van een ijsbreker die door een ijslaag breekt.
+
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/6qd7HAVRCn8/0.jpg)](https://www.youtube.com/watch?v=6qd7HAVRCn8)
+
 
 
