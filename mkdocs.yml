@@ -17,4 +17,6 @@ extra_css:
 
 markdown_extensions:
      - markdown.extensions.admonition
+
+plugins:
      - mkdocs-video
