@@ -6,11 +6,11 @@ theme:
 nav:
   - index.md
   - over-de-auteur.md
-  - guide-lines.md
   - introduction.md
   - chapter-1.md
   - evaluation.md
   - assignment.md
+  - guide-lines.md
 
 extra_css:
     - css/extra.css

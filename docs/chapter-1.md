@@ -1,4 +1,25 @@
-# Hoofdstuk I
+[//]: # (code below is for allowing for MathJax rendering of LateX expressions)
+
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true},
+      jax: ["input/TeX","input/MathML","input/AsciiMath","output/CommonHTML"],
+      extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js","AssistiveMML.js", "[Contrib]/a11y/accessibility-menu.js"],
+      TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"],
+      equationNumbers: {
+      autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+# Chapter I
 
 !!! note
     This is work in progress. It is incomplete, unfinished and flawed, just as life. However, sometimes *good enough is
@@ -85,7 +106,59 @@ like pipelining and SIMD vectorisation. We'll come to that later.
 ### When to parallelize, and what to do first ...
 
 When your program takes too long, the memory of your machine is too small for your problem or the accuracy you need 
-cannot be met, you're hitting the wall. Parallelization is necessary. However, there are things to consider first. 
+cannot be met, you're hitting the wall. Parallelization seems necessary, and you feel in need of a supercomputer.
+However, supercomputers are expensive machines and resources are limited. It should come to no surprise that it is 
+expected that programs are allowed to run on supercomputers only if they make efficient use of their resources. 
+Often, serial programs provide possibilities to improve the performance. These come in two categories:
+
+#### common sense optimisations
+
+Common sense optimizations come from a good understanding of the mathematical formulation of the problem and seeing 
+opportunities to reduce the amount of work. We give two examples. 
+
+##### 1. Magnetization of bulk ferromagnets
+
+I was asked to speed up a program for computing the magnetisation $m(T)$ of bulk ferromagnets as a function of 
+temperature $T$. This is given by a self-consistent solution of the equations:
+
+$$ m = \frac{1}{2 + 4\Phi(m)} $$
+
+$$ \Phi(m) = \frac{1}{N} \sum_{\textbf{k}} \frac{1}{e^{\beta\eta(\textbf{k})m} - 1} $$
+
+with $ \beta = 1/{k_B T} $. At $T=0$ we have $m(0) = m_0 = 0.5$, and at high $T$, $m(T)$ approaches zero.
+
+The solution is a curve like this:
+
+![m(T)](/public/m(T).png)
+
+The program compute this as follows: For any temperature $T$, set $m = m_0$ as an inital guess. Then iterate $ m_
+{i+1} = 1/(2 + 4\Phi(m_i)) $ until $ \Delta m = m_{i+1} - m_i $ is small. Here,
+
+$$ \Phi(m) = \sum_{n=1}^\infty \frac{a}{\pi} \left(\int_0^{\pi/a} dq e^{-nm\beta\eta_1(q)}\right)^3 $$
+
+and the integral is computed using Gauss-Legendre integration on 64 points.  
+
+Experimenting a bit with this formula one easily notices that for every $T$ the iterative procedure starts out more 
+or less the same, as they all have the same initial guess. However, if we compute tempurature points at equidistant 
+tempuratures, *e.g.* $T_j = \delta j$ for some $\delta$ and $j=0,1,2, ...$ we can use $m_j$ as an initial guess 
+instead of $m_0$. This turns out to be 1.4x faster. Not a lot but that inspired us further improve the initial guess 
+using linear interpolation of $m_j$ from $m_{j-1}$ and $m_{j-2}$ leading to a speedup of 1.94x. Finally, fixing the 
+initial guess by quadratic interpolation from  $m_{j-1}$, $m_{j-2}$ and $m_{j-3}$ the code speed up by a factor 2.4 
+and that without acttually modifying the code. This optimisation comes entirely from understanding what your 
+algorithm actually does. Investigation of the code itself demonstrated that it made suffered from a lot of dynamic 
+memory management and that it did not vectorize. After fixing these issues, the code ran an additional 13.6x faster. 
+In total the code was sped up by an impressive 32.6x.
+
+##### Transforming the problem domain 
+
+At another occasion I had to investigate a code for calculating a complicated sum of integrals in real space. After 
+fixing some bugs and some optimisation to improve the efficiency, it was still rather slow because the formula 
+converged slowly  As the code was running almost at peak performance, so there was little room for improvement. 
+However, at some point we tried to apply the Fourier transform to get an expression in frequency space. This 
+expression turned out to converge much faster and consequently far less terms had to be computed, yielding a speedup 
+of almost 2 orders of magnitude and was much more accurate. This is another example of common sense optimisation 
+originating in a good mathematical background. The natural formulation of a problem is not necessarily the best to 
+use for computation.    
 
 !!! note
     unfinished ...

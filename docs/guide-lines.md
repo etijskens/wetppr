@@ -1,13 +1,15 @@
-# Some guide lines
+# Assignment guide lines
 
 !!! note 
     This is work in progress ...
 
-Here are some important skills that you should develop during this course:
+The [assignment](assignment.md) is there because programming is something you can only learn by doing. It involves 
+ important skills that you should develop while working on the assignment:
 
 - Understand the math of the problem and the algorithm to solve it,
-- Reason about the implementation of the algorithm.
 - Do research on the problem, with respect to solution algorithms and implementation issues.
+- Understand the working of a computer and a supercomputer.
+- Reason about the implementation of the algorithm.
 - Write and debug code in Python. 
 - Learn how slow functions can be sped up by converting them to either C++ or Fortran. 
 - Run your code on one of the UAntwerp HPC clusters.
@@ -22,12 +24,11 @@ Learning is an incremental process. Especially for scientific software developme
 5. Document your itinerary. Especially, keep track of the documents that guided you to a satisfactory solution.
 
 Although this approach may look as if you are supposed to find the solution to the problem in books or on the *World 
-Wide Web*, this does not at all exclude creativity at all. Learning about how other researchers approached a problem,
-can easily spark new ideas that get you going. The *fail fast, fail often* principle also **urges you to start as 
-simple as possible** and **make incremental changes**. Don't write a lot of code before you try and test. Typically, 
-and this is corroborated by research, one bug is introduced with every new 10 lines. 
-Finding 10 bugs in 100 lines is a lot more difficult than finding one bug in 10 lines (although sometimes there is 
-more than one bug :( ). 
+Wide Web*, this does not at all exclude creativity. Learning about how other researchers approached a problem, can 
+easily spark new ideas that get you going. The *fail fast, fail often* principle also **urges you to start as simple 
+as possible** and **make incremental changes**. Don't write a lot of code before you try and test. Typically,  
+and this is corroborated by research, one bug is introduced with every new 10 lines. Finding 10 bugs in 100 lines is 
+a lot more difficult than finding one bug in 10 lines (although sometimes there is more than one bug :( ). 
 
 A PhD student once asked me for support. He had written a 10 000 line Fortran program
 (without tests). When he ran it, the results were not what he expected and he suspected that there was a bug 
