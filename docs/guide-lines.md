@@ -31,7 +31,7 @@ more than one bug :( ).
 
 A PhD student once asked me for support. He had written a 10 000 line Fortran program
 (without tests). When he ran it, the results were not what he expected and he suspected that there was a bug 
-'somewhere'. He asked if I could help him to find the bug and - no kidding - by the end of next week because the 
+'somewhere'. He asked if I could help him find the bug and - no kidding - by the end of next week because the 
 program had to go into production by then. I had to disappoint him and told him that he needed a true magician, 
 which I am not. Obviously, the program was flawed in some sense, but other than a bug it might just as well be:
 
@@ -45,7 +45,7 @@ which I am not. Obviously, the program was flawed in some sense, but other than 
 - It is even possible that the program is correct but that the researchers expectations are wrong. 
 - ...
 
-It could easily take weeks, if not months to write tests for the individual components to learn aboout the behaviour 
+It could easily take weeks, if not months to write tests for the individual components to learn about the behaviour 
 of the program and narrow down to the source of the error. 
 
 For this reason a sound strategy for scientific software development that makes sure that the code you write has a 
