@@ -1,4 +1,6 @@
-[//]: # (code below is for allowing for MathJax rendering of LateX expressions)
+# Chapter 1 - Introduction
+
+[//]: # (script below is for allowing for MathJax rendering of LateX expressions)
 
 <script type="text/javascript"
   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">
@@ -19,12 +21,6 @@
   });
 </script>
 
-# Chapter I
-
-!!! note
-    This is work in progress. It is incomplete, unfinished and flawed, just as life. However, sometimes *good enough is
-    good enough*, and it will improve with time. 
-
 Material:
 
 - this text and
@@ -34,10 +30,6 @@ Material:
 
 - What is a parallel program?
 - Possible reasons to parallelize a program.
-- When to parallalize a program, and what to do first ...
-- Common approaches towards parallelization
-- Case study from Molecular Dynamics
-- Final remarks
 
 ## What is a parallel program?
 
@@ -103,79 +95,3 @@ law. It must be said that the increase of peak performance was not always in lin
 the peak performance of processing units was increased by adding parallelization concept in single processing units 
 like pipelining and SIMD vectorisation. We'll come to that later.
 
-### When to parallelize, and what to do first ...
-
-When your program takes too long, the memory of your machine is too small for your problem or the accuracy you need 
-cannot be met, you're hitting the wall. Parallelization seems necessary, and you feel in need of a supercomputer.
-However, supercomputers are expensive machines and resources are limited. It should come to no surprise that it is 
-expected that programs are allowed to run on supercomputers only if they make efficient use of their resources. 
-Often, serial programs provide possibilities to improve the performance. These come in two categories: **common sense 
-optimisations** (often completely overlooked by researchers) which rely on a good understanding of the mathematical 
-formulation of the problem and the algorithm, and **code optimisations** which rely on understanding processor 
-architecture and compilers. Lets first look at common sense optimisations. 
-
-#### common sense optimisations
-
-Common sense optimizations come from a good understanding of the mathematical formulation of the problem and seeing 
-opportunities to reduce the amount of work. We give three examples. 
-
-##### 1. Magnetization of bulk ferromagnets
-
-I was asked to speed up a program for computing the magnetisation $m(T)$ of bulk ferromagnets as a function of 
-temperature $T$. This is given by a self-consistent solution of the equations:
-
-$$ m = \frac{1}{2 + 4\Phi(m)} $$
-
-$$ \Phi(m) = \frac{1}{N} \sum_{\textbf{k}} \frac{1}{e^{\beta\eta(\textbf{k})m} - 1} $$
-
-with $ \beta = 1/{k_B T} $. At $T=0$ we have $m(0) = m_0 = 0.5$, and at high $T$, $m(T)$ approaches zero.
-
-The solution is a curve like this:
-
-![m(T)](/public/m(T).png)
-
-The program compute this as follows: For any temperature $T$, set $m = m_0$ as an inital guess. Then iterate $ m_
-{i+1} = 1/(2 + 4\Phi(m_i)) $ until $ \Delta m = m_{i+1} - m_i $ is small. Here,
-
-$$ \Phi(m) = \sum_{n=1}^\infty \frac{a}{\pi} \left(\int_0^{\pi/a} dq e^{-nm\beta\eta_1(q)}\right)^3 $$
-
-and the integral is computed using Gauss-Legendre integration on 64 points.  
-
-Experimenting a bit with this formula one easily notices that for every $T$ the iterative procedure starts out more 
-or less the same, as they all have the same initial guess. However, if we compute tempurature points at equidistant 
-tempuratures, *e.g.* $T_j = \delta j$ for some $\delta$ and $j=0,1,2, ...$ we can use $m_j$ as an initial guess 
-instead of $m_0$. This turns out to be 1.4x faster. Not a lot but that inspired us further improve the initial guess 
-using linear interpolation of $m_j$ from $m_{j-1}$ and $m_{j-2}$ leading to a speedup of 1.94x. Finally, fixing the 
-initial guess by quadratic interpolation from  $m_{j-1}$, $m_{j-2}$ and $m_{j-3}$ the code speed up by a factor 2.4 
-and that without acttually modifying the code. This optimisation comes entirely from understanding what your 
-algorithm actually does. Investigation of the code itself demonstrated that it made suffered from a lot of dynamic 
-memory management and that it did not vectorize. After fixing these issues, the code ran an additional 13.6x faster. 
-In total the code was sped up by an impressive 32.6x.
-
-##### 2. Transforming the problem domain 
-
-At another occasion I had to investigate a code for calculating a complicated sum of integrals in real space. After 
-fixing some bugs and some optimisation to improve the efficiency, it was still rather slow because the formula 
-converged slowly  As the code was running almost at peak performance, so there was little room for improvement. 
-However, at some point we tried to apply the Fourier transform to get an expression in frequency space. This 
-expression turned out to converge much faster and consequently far less terms had to be computed, yielding a speedup 
-of almost 2 orders of magnitude and was much more accurate. This is another example of common sense optimisation 
-originating in a good mathematical background. The natural formulation of a problem is not necessarily the best to 
-use for computation.    
-
-##### 3. Transforming data to reduce their memory footprint
-
-I recently reviewed a Python code by the Vlaamse Milieumaatschappij for modelling the migration of invertebrate aquatic 
-species in response to improving (or deteriorating) water quality. The program read a lot data from .csv files. For 
-a project it was necessary to run a parameter optimisation. That is a procedure where model parameters are varied 
-until the outcome is satisfactory. If the number of model parameters is large the number of program runs required can 
-easily reach in the 100 000s. The program was parallellized on a single node. However, the program was using that many 
-data that 18 cores of the 128 cores available on a node already consumed the available memory. By replacing the data 
-types of the columns of the datasets with datatypes with a smaller footprint, such as replacing categorical data 
-with integer ids, replacing 32-bit integers with 16-bit or even 8-bit integers, float64 real numbers with float32 or 
-float16 numbers reduced the amount of data used by a factor 8. All of a sudden much more cores could be engaged in 
-the computation and the simulation sped up considerably.   
-
-
-!!! note
-    unfinished ...

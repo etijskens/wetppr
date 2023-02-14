@@ -1,0 +1,132 @@
+# Chapter 3 - When to parallelize, and what to do first ...
+
+When your program takes too long, the memory of your machine is too small for your problem or the accuracy you need 
+cannot be met, you're hitting the wall. Parallelization seems necessary, and you feel in need of a supercomputer.
+However, supercomputers are expensive machines and resources are limited. It should come to no surprise that it is 
+expected that programs are allowed to run on supercomputers only if they make efficient use of their resources. 
+Often, serial programs provide possibilities to improve the performance. These come in two categories: **common sense 
+optimisations** (often completely overlooked by researchers) which rely on a good understanding of the mathematical 
+formulation of the problem and the algorithm, and **code optimisations** which rely on understanding processor 
+architecture and compilers. Lets first look at common sense optimisations. 
+
+## Common sense optimisations
+
+Common sense optimizations come from a good understanding of the mathematical formulation of the problem and seeing 
+opportunities to reduce the amount of work. We give three examples. 
+
+### 1. Magnetization of bulk ferromagnets
+
+I was asked to speed up a program for computing the magnetisation $m(T)$ of bulk ferromagnets as a function of 
+temperature $T$. This is given by a self-consistent solution of the equations:
+
+$$ m = \frac{1}{2 + 4\Phi(m)} $$
+
+$$ \Phi(m) = \frac{1}{N} \sum_{\textbf{k}} \frac{1}{e^{\beta\eta(\textbf{k})m} - 1} $$
+
+with $ \beta = 1/{k_B T} $. At $T=0$ we have $m(0) = m_0 = 0.5$, and at high $T$, $m(T)$ approaches zero.
+
+The solution is a curve like this:
+
+![m(T)](/public/m(T).png)
+
+The program compute this as follows: For any temperature $T$, set $m = m_0$ as an inital guess. Then iterate $ m_
+{i+1} = 1/(2 + 4\Phi(m_i)) $ until $ \Delta m = m_{i+1} - m_i $ is small. Here,
+
+$$ \Phi(m) = \sum_{n=1}^\infty \frac{a}{\pi} \left(\int_0^{\pi/a} dq e^{-nm\beta\eta_1(q)}\right)^3 $$
+
+and the integral is computed using Gauss-Legendre integration on 64 points.  
+
+The choice of $m=0.5$ as initial guess is obviously a good one close to $T=0$. However, looking at the graph above, 
+it becomes clear that as T increases the solution moves further and further away from $0.5$. Furthermore, if we 
+compute tempurature points at equidistant tempurature points, $T_j = \delta j$ for some $\delta$ and $j=0,1,2, .
+..$, it is also clear that the solution of the previous temperature point, *i.e.* $m_{j-1}, is a far better initial 
+initial guess 
+guess than $m_0$. This turns out to be 1.4x faster. Not a tremendous improvement, as the graph above seems continuous 
+we can take this idea a step further: using interpolation from solutions a lower temperature points to predict the 
+next solution and use that as an initial guess. Linear interpolation of $m_j$ from $m_{j-1}$ and $m_{j-2}$ gives a 
+a speedup of 1.94x and quadratic interpolation from  $m_{j-1}$, $m_{j-2}$ and $m_{j-3}$ a factor of 2.4x. That is a 
+substantial speedup achieved without acttually modifying the code. This optimisation comes entirely from 
+understanding what your algorithm actually does. Investigation of the code itself demonstrated that it made suffered 
+from a lot of dynamic memory management and that it did not vectorize. After fixing these issues, the code ran an 
+additional 13.6x faster. In total the code was sped up by an impressive 32.6x.
+
+### 2. Transforming the problem domain 
+
+At another occasion I had to investigate a code for calculating a complicated sum of integrals in real space. After 
+fixing some bugs and some optimisation to improve the efficiency, it was still rather slow because the formula 
+converged slowly  As the code was running almost at peak performance, so there was little room for improvement. 
+However, at some point we tried to apply the Fourier transform to get an expression in frequency space. This 
+expression turned out to converge much faster and consequently far less terms had to be computed, yielding a speedup 
+of almost 2 orders of magnitude and was much more accurate. This is another example of common sense optimisation 
+originating in a good mathematical background. The natural formulation of a problem is not necessarily the best to 
+use for computation.    
+
+### 3. Transforming data to reduce their memory footprint
+
+I recently reviewed a Python code by the Vlaamse Milieumaatschappij for modelling the migration of invertebrate aquatic 
+species in response to improving (or deteriorating) water quality. The program read a lot data from .csv files. For 
+a project it was necessary to run a parameter optimisation. That is a procedure where model parameters are varied 
+until the outcome is satisfactory. If the number of model parameters is large the number of program runs required can 
+easily reach in the 100 000s. The program was parallellized on a single node. However, the program was using that many 
+data that 18 cores of the 128 cores available on a node already consumed all the available memory. By replacing the 
+data types of the columns of the datasets with datatypes with a smaller footprint, such as replacing categorical data 
+with integer IDs, replacing 32-bit integers with 16-bit or even 8-bit integers, float64 real numbers with float32 or 
+float16 numbers reduced the amount of data used by a factor 8. All of a sudden much more cores could be engaged in 
+the computation and the simulation sped up considerably.   
+
+Some of these "common sense optimisations" may seem obvious. Yet, of all the codes I reviewed during my career, few 
+of them were immune to common sense optimisation. Perhaps, developing (scientific) software takes a special mindset: 
+
+!!! tip 
+    **The scientific software developer mindset**: Constantly ask yourself 'How can I improve this? How can I make 
+    it faster, leaner, more readable, more flexible, more reusable, ... ?'
+
+Common sense optimisations are optimisations that in general don't require complex code analysis, require very little 
+code changes and thus little effort to implement them. Yet they can make a significant contribution.
+
+## Code optimisations
+
+Code optimisations are optimisations aiming at making your solution method run as efficient as possible on the 
+machine(s) that you have at your disposal. This is sometimes referred as **code modernisation**, because code that 
+was optimised for the CPUs of two years a go may well need some revision for the latest CPU technology. These 
+optimisations must, necessarily, take in account the specific processor architecture of your machine(s). Important 
+topics are: 
+
+- Avoid pipeline stalls (due to impredictable branches, *e.g.*) 
+- Ensure SIMD vectorisation. On modern processors vector registers can contain 4 double precision floating point 
+  numbers or 8 single precision numbers and vector instructions operate on these in the same number of cycles as 
+  scalar instructions. Failing to vectorise can reduce the speed of your program by a factor up to 8x!   
+- Smart data access patterns are indispensable for programs with a memory footprint that exceeds the size of the cache. 
+  Transferring data from main memory (DRAM) to the processor's registers is slow: typical latencies are in the order 
+  of 100 cycles (which potentially wastes ~800 single precision vectorised operations). Vector instructions are of 
+  no help if the processing unit must wait for the data. 
+
+This is clearly much more technical and complicated (in the sense that it requires knowledge from outside the 
+scientific domain of the problem you are trying to solve). Especially fixing memory access patterns can be difficult 
+and a lot ofwork, as you may have to change the data structures used by your program, which usually also means 
+rewriting a lot of code accessing the data. Such code optimisations can contribute significantly to the performance 
+of a program, typically around 5-10x, but possibly more. As supercomputers are expensive research infrastructure in 
+high demand, we cannot effort to waste resources. That being said, the lifetime of your program is also of 
+importance. If you are developing a code that will be run a few times during your Master project or PhD, using only 
+a hundred of node days, and to be forgotten afterwards, it is perhaps not worth to spend 3 months optimising it.
+
+Often, however, there is a way around these technicalities. If the scientific problem you are trying to solve, can 
+be expressed in the formalism of common mathematical domains, *e.g.* linear algebra, Fourier analysis, ..., there is 
+a good chance that there are good software libraries, designed with HPC in mind, that solved these problems for you. 
+In most cases there are even bindings available for your favorite progamming language (C/C++, Fortran, Python, ...).  
+All you have to do is translate the mathematical formulation of your problem into library calls. 
+
+!!! tip
+    **Use HPC libraries as much as possible**. There is little chance that you will outperform them. Quite to the 
+    contrary: your own code will probably do significantly worse. By using HPC libraries you gain three times:
+    
+    - you gain performance,
+    - you gain development time as you will need a lot less code to solve your problem, less debugging, simpler 
+      maintenance, ...
+    - your learn how to use the library which will get you at speed readily when you take on your next 
+      scientific problem.
+
+## Common approaches towards parallelization
+
+[//]: # (to be done)
+
