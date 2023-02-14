@@ -1,0 +1,707 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../chapter-1/">
+      
+      
+        <link rel="next" href="../chapter-3/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.10">
+    
+    
+      
+        <title>Chapter 2 - Aspects of modern CPU architecture - Parallel programmeren</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.0d440cfe.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-2-aspects-of-modern-cpu-architecture" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Parallel programmeren" class="md-header__button md-logo" aria-label="Parallel programmeren" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Parallel programmeren
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 2 - Aspects of modern CPU architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Parallel programmeren" class="md-nav__button md-logo" aria-label="Parallel programmeren" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Parallel programmeren
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Welkom bij Parallel programmeren
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../over-de-auteur/" class="md-nav__link">
+        Over de auteur
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        Overview
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-1/" class="md-nav__link">
+        Chapter 1 - Introduction
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Chapter 2 - Aspects of modern CPU architecture
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Chapter 2 - Aspects of modern CPU architecture
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-hierarchical-structure-of-cpu-memory" class="md-nav__link">
+    The hierarchical structure of CPU Memory
+  </a>
+  
+    <nav class="md-nav" aria-label="The hierarchical structure of CPU Memory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loop-fusion" class="md-nav__link">
+    Loop fusion
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tiling" class="md-nav__link">
+    Tiling
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intra-core-parallellisation-features" class="md-nav__link">
+    Intra-core parallellisation features
+  </a>
+  
+    <nav class="md-nav" aria-label="Intra-core parallellisation features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instruction-pipelining" class="md-nav__link">
+    Instruction pipelining
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommendations-for-loops-processing-arrays" class="md-nav__link">
+    Recommendations for loops processing arrays
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommendations-for-data-structures" class="md-nav__link">
+    Recommendations for data structures
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-3/" class="md-nav__link">
+        Chapter 3 - When to parallelize, and what to do first ...
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evaluation/" class="md-nav__link">
+        Evaluation
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assignment/" class="md-nav__link">
+        Assignment 2022-23
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../guide-lines/" class="md-nav__link">
+        Assignment guide lines
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-hierarchical-structure-of-cpu-memory" class="md-nav__link">
+    The hierarchical structure of CPU Memory
+  </a>
+  
+    <nav class="md-nav" aria-label="The hierarchical structure of CPU Memory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loop-fusion" class="md-nav__link">
+    Loop fusion
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tiling" class="md-nav__link">
+    Tiling
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intra-core-parallellisation-features" class="md-nav__link">
+    Intra-core parallellisation features
+  </a>
+  
+    <nav class="md-nav" aria-label="Intra-core parallellisation features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instruction-pipelining" class="md-nav__link">
+    Instruction pipelining
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommendations-for-loops-processing-arrays" class="md-nav__link">
+    Recommendations for loops processing arrays
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommendations-for-data-structures" class="md-nav__link">
+    Recommendations for data structures
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="chapter-2-aspects-of-modern-cpu-architecture">Chapter 2 - Aspects of modern CPU architecture</h1>
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true},
+      jax: ["input/TeX","input/MathML","input/AsciiMath","output/CommonHTML"],
+      extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js","AssistiveMML.js", "[Contrib]/a11y/accessibility-menu.js"],
+      TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"],
+      equationNumbers: {
+      autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
+<p>You do not have to be a CPU architecture specialist in order to be able to write efficient code. However, there are 
+a few aspects of CPU architecture that you should understand.</p>
+<h2 id="the-hierarchical-structure-of-cpu-memory">The hierarchical structure of CPU Memory</h2>
+<p>CPU memory of modern CPUs is hierarchically organised:</p>
+<ul>
+<li>Each processing unit (or core) has a number of <strong>registers</strong> (~1 kB) and vector registers on which instructions can 
+  immediately operate (latency = 0 cycles). The registers are connected to  </li>
+<li>a dedicated <strong>L1 cache</strong> (~32 kB per core), with a latency of ~ 1 cycle. This is in turn 
+  connected to:  </li>
+<li>a dedicated <strong>L2 cache</strong>, (~256 kB per core), with a latency of ~10 cycles. This is in turn connected to: </li>
+<li>a shared <strong>L3 cache</strong>, (~2 MB per core), with a latency of ~50 cycles. This is  connected to:</li>
+<li>the <strong>main memory</strong> (256 GB - 2 TB), with a latency of ~200 cycles.</li>
+</ul>
+<p>The cores and the caches are on the same chip. For this reason they are considerably faster than the main memory. 
+Faster memory is more expensive and therefor smaller. When an instruction needs a data item in a register, the CPU 
+looks first in the L1 cache, if it is there it will it to the register that was requested. Otherwise, the CPU looks 
+in L2. If it is there, it is copied to L1 and the register. Otherwise, the CPU looks in L3. If it is there, it is 
+copied to L2, L1 and the register. Otherwise, the CPU looks copies the <strong>cache line</strong> surrounding the data item to 
+L3, L2, L1 and the data item itself to the register. A cache line is typically 64 bytes long and thus can contain 4 
+double precision floating point numbers or 8 single precision numbers. The main consequence of this strategy is that 
+if the data item is part of an array, the next elements of that array will also be copied to L1 so that when 
+processing the array the latency associated with main memory is amortized over 4 or 8 iterations. In addition, the 
+CPU will notice when it is processing an array and prefetch the next cache line of the array in order to avoid that 
+the processor has to wait for the data again. This strategy for loading data leads to two important best practices for 
+making optimal use of the cache.</p>
+<ol>
+<li><strong>Spatial locality</strong>: Organize your data layout in main memory in a way that data in a cache line are mostly 
+   needed together. </li>
+<li><strong>Temporal locality</strong>: Organize your computations in a way that once a cache line is in L1 cache, as much as 
+   possible computations on that data are carried out. This favors a high computational intensity (see below). 
+   Common techniques for this are <strong>loop fusion</strong> and <strong>tiling</strong>. </li>
+</ol>
+<h3 id="loop-fusion">Loop fusion</h3>
+<p>Here are two loops over an array <code>x</code></p>
+<pre><code class="language-python">for xi in x:
+    do_something_with(xi)
+for xi in x:
+    do_something_else_with(xi)
+</code></pre>
+<p>If the array <code>x</code> is big, too big to fit in the cache, the above code would start loading <code>x</code> elements into the cache,
+cach line by cache line. Since <code>x</code> is to large to fit in the cache, at some point, when the cache is full, the CPU 
+will start to evict the cache lines that were loaded long time a go ane are no more used to replace them with new 
+cache lines. By the time the first loop finishes, the entire beginning of the <code>x</code> array has been evicted and the 
+scond loop can start to transfer <code>x</code> again from the main memory to the registers, cache line by cache lina. this 
+violiate the temporal locality principle. So, it incurs twice the data traffic. Loop fusion fuses the two loops into 
+one and does all computations needed on <code>xi</code> when it is in the cache. </p>
+<pre><code class="language-python">for xi in x:
+    do_something_with(xi)
+    do_something_else_with(xi)
+</code></pre>
+<p>The disadvantage of loop fusion is that the body of the loop may become too large and require more vector registers 
+than are available. At that point some computations may be done sequentially and performance may suffer. </p>
+<h3 id="tiling">Tiling</h3>
+<p>Tiling is does the opposite. Ik keeps the loops separate but restricts them to chunks of <code>x</code> which fit in L1 cache.</p>
+<pre><code class="language-python">for chunk in x: # chunk is a slice of x that fits in L1
+    for xi in chunk:
+        do_something_with(xi)
+    for xi in chunk:
+        do_something_else_with(xi)
+</code></pre>
+<p>Again all computations that need to be done to <code>xi</code> are done when it is in L1 cache. Again the entire <code>x</code> array is 
+transferred only once to the cache. A disadvantage of tiling is that the chunksize need to be tuned to the size of L1, 
+which may differ on different machines. Thus, this approach is not <strong>cache-oblivious</strong>. Loop fusion, on the other hand,
+is cache-oblivious. </p>
+<p>...</p>
+<p>The above strategy for loading data has also important consequences for the layout of data arrays and for<br />
+loops over arrays in terms of performance (see below). </p>
+<p>The hierarchical structure of processor memory requires good understanding to write efficient programs and it may 
+seem an overly complex solution for a simple problem, but it isn't. It is a good compromise to the many faces of a 
+truly complex problem. There is an excellent presentation on this matter by Scott Meyers: <a href="https://www.youtube.com/watch?v=WDIkqP4JbkE"><em>CPU Caches and Why 
+You Care</em></a>, an absolute must see for this course.</p>
+<h2 id="intra-core-parallellisation-features">Intra-core parallellisation features</h2>
+<p>Modern CPUs are designed to (among other things) process loops as efficiently as possible, as loops typically 
+account for a large part of the work load of a program. To make that possible CPUs use two important concepts: 
+<strong>instruction pipelining</strong> (ILP) and <strong>SIMD vectorisation</strong>. </p>
+<h3 id="instruction-pipelining">Instruction pipelining</h3>
+<p>Instruction pipelining is very well explained <a href="https://en.wikipedia.org/wiki/Instruction_pipelining">here</a>.</p>
+<p>Basically, instructions are composed of micro-instructions (typically 5), each of which are executed in separate 
+hardware units of the CPU. By executing the instructions sequentially, only one of those units would be active at a 
+time: namely, the unit responsible for the current micro-instruction. By adding extra instruction registers, all 
+micro-instruction hardware units can work simultaneously, but on micro-instructions pertaining to different but 
+consecutive instructions. In this way, on average 5 (typically) instructions are being executed in parallel. This is 
+very useful for loops. There are a couple of problems that may lead to <strong>pipeline stalls</strong>, situations where the 
+pipeline comes to halt. </p>
+<ol>
+<li>A data element is requested that is not in the L1 cache. It must be fetched from deeper cache levels or even 
+   from main memory. This is called a <em><em>cache miss</em>. A L1 cache miss means that the data is not found in L1, but is 
+   found in L2. In a L2 cache miss it is not found in L2 but it is in L3, and a L3 cache miss, or a cache miss </em>tout 
+   court* de data is not found in L3 and has to be fetched from main memory. The pipeline stops executing for a 
+   number of cycles corresponding to the latency of that cache miss. Data cache misses are the most important cause 
+   of pipeline stalls and as the latency can be really high (~100 cycles).  </li>
+<li>A instruction is needed that is not in the L1 instruction cache. This may sometimes happen when a (large) 
+   function is called that is not inlined. Just as for a data cache miss, the pipeline stalls for a number of cycles 
+   corresponding to the latency of the cache miss, just as for a data cache miss. </li>
+<li>You might wonder how a pipeline proceeds when confronted with a branching instruction, a condition that has to be 
+   tested, and must start executing different streams of instructions depending on the outcome (typically 
+   if-then-else constructs). Here's the thing: it guesses the outcome of the test and starts executing the 
+   corresponding branch. As soon as it notices that it guessed wrong, which is necessarily after the condition has been 
+   tested, it stops, steps back and restarts at the correct branch. Obviously, the performance depends on how well 
+   it guesses. The guesses are generally rather smart. It is able to recognize temporal patterns, and if it doesn't 
+   find one, falls back on statistics. Random outcomes of the condition are thus detrimental to performance as its
+   guess will be wrong at least half the time.</li>
+</ol>
+<h3 id="recommendations-for-loops-processing-arrays">Recommendations for loops processing arrays</h3>
+<ol>
+<li><strong>The longer the loop, the better</strong>. Typically, at the begin and end of the loop thee pipeline is not full. 
+   When the loop is long, these sections can be amortized with respect to the inner section, where the pipeline is 
+   full. </li>
+<li>Loops with branches should be <strong>predictable</strong>. The outcome of unpredictable branches will be guessed wrongly, 
+   causing pipeline stalls. Sometimes it may be worthwile to sort the array according to the probability of the 
+   outcome if this work can be amortized over many loops.</li>
+<li>To profit as much as possible from the operation of the caches, loops should access data <strong>contiguously</strong> and 
+   with <strong>unit stride</strong>. This assures that<ul>
+<li>at the next iteration of the loop the data element needed is already in the L1 Cache and can be accessed 
+  without delay,</li>
+<li>vector registers can be filled efficiently because they need contiguous elements from the input array.</li>
+</ul>
+</li>
+<li>Loops should have <strong>high computatonal intensity</strong>. The computational intensity $I_c$ is defined as $ I_c = \frac
+   {n_{cc}}{n_{rw}} $, with $n_{cc}$ the number of compute cycles and $n_{rw}$ the total number of bytes read and 
+   written. A high computational intensity means many compute cycles and little data traffic to/from memory and thus 
+   implies that there will be no pipeline due to waiting for data to arrive. This is a compute bound loop. Low 
+   computational intensity, on the other hand, will cause many pipeline stalls by waiting for data. This is a 
+   memory bound loop. Here, it is the bandwidth (the speed at which data can be transported from main memory 
+   to the registers) that is the culprit, rather than the latency. </li>
+</ol>
+<h3 id="recommendations-for-data-structures">Recommendations for data structures</h3>
+<p>The unit stride for loops recommendation translates into a recommendation for data structures. Let's take Molecular 
+Dynamics as an example. Object Oriented Programming (OOP) would propose a Atom class with properties for mass $m$, 
+position $\textbf{r}$, velocity $\textbf{v}$, acceleration $\textbf{a}$, and possibly others as well, but let's 
+ignore those for the time being. Next, the object oriented programmer would create an array of Atoms. This approach 
+is called an <strong>array of structures</strong> (AoS). The AoS approach 
+leads to a data layout in memory like | $m_0$, $r_{x0}$, $r_{y0}$, $r_{z0}$, $v_{x0}$, $v_{y0}$, $v_{z0}$, $a_{x0}$, |
+$a_{y0}$, $a_{z0}$, $m_1$, $r_{x1}$, $r_{y1}$, $r_{z1}$, $v_{x1}$, $v_{y1}$, | $v_{z1}$, $a_{x1}$, $a_{y1}$, $a_{z1}
+$, $m_2$, $r_{x2}$, $r_{y2}$, $r_{z2}$, | $v_{x2}$, $v_{y2}$, $v_{z2}$, $a_{x2}$, $a_{y2}$, $a_{z2}$, ... Assume we 
+store the properties as single precision floating point numbers, hence a cache line spans 8 values. We marked the cache 
+line boundaries in the list above with vertical bars. Suppose for some reason we need to find all atoms $j$ for 
+which $r_{xj}$ is between $x_{lwr}$ and $x_{upr}$. A loop over all atoms $j$ would test $r_{xj}$ and remember the 
+$j$ for which the test holds. Note that every cache line contains at most one single data item that we need in this 
+algorithm. some cache lines will even contain no data items that we need. For every data iten we need, a new cache 
+line must be loaded. This is terribly inefficient. There is a lot of data traffic, only 1/8 of which is useful and the 
+bandwidth will saturate quickly. Vectorisation would be completely useless. To fill the vector register we would 
+need 8 cache lines, most of which would correspond to cache misses and cost hundreds of cycles, before we can do 8 
+comparisons at once. The AoS, while intuitively very attractive, is clearly a disaster as it comes to performance. 
+The - much better - alternative data structure is the SoA, <strong>structure of Arrays</strong>. This creates an AtomContainer 
+class (to stay in the terminology of Object Oriented progrmming) containing an array of length $n_{atoms}$ for each 
+property. In this case there would be arrays for $m$, $r_x$, $r_y$, $r_z$, $v_x$, $v_y$, $v_z$, $a_x$, $a_y$, $a_z$. 
+Now all $r_x$ are stored contiguously in memory and every item in a cache would be used. Only one cache line would 
+be needed to fill a vector register. Prefetching would do a perfect job. The SoA data structure is much more 
+efficient, and once you get used to it, almost equally intuitive from an OOP viewpoint. Sometimes there is 
+discussion about storing the coordinates of a vector, e.g. $\textbf{r}$ as per-coordinate arrays, as above, or as an 
+array of vectors. The latter makes is more practical to define vector functions like magnitude, distance, dot and 
+vector products, ... but they make it harder to SIMD vectorise those functions efficiently, because contiguous data 
+items need to be moved into different vector registers.  </p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>There is no silver bullet. All approaches have advantages and disadvantages, some may appear in this situation 
+and others in another situation. The only valid reasoning is: <strong>numbers tell the tale</strong> (<em>meten is weten</em>): </p>
+</div>
+<p>measure the performance of your code. Measure it twice, than measure again. </p>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.6df46069.min.js"></script>
+      
+    
+  </body>
+</html>
