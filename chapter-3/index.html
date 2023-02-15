@@ -19,7 +19,7 @@
     
     
       
-        <title>Chapter 3 - When to parallelize, and what to do first ... - Parallel programmeren</title>
+        <title>Chapter 3 - Optimise first, then parallelize - Parallel programmeren</title>
       
     
     
@@ -41,6 +41,8 @@
         <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
       
     
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
       <link rel="stylesheet" href="../css/extra.css">
     
@@ -69,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#chapter-3-when-to-parallelize-and-what-to-do-first" class="md-skip">
+        <a href="#chapter-3-optimise-first-then-parallelize" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +104,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Chapter 3 - When to parallelize, and what to do first ...
+              Chapter 3 - Optimise first, then parallelize
             
           </span>
         </div>
@@ -110,6 +112,39 @@
     </div>
     
     
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
     
     
   </nav>
@@ -185,6 +220,21 @@
   
   
     <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        Glossary
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../overview/" class="md-nav__link">
         Overview
       </a>
@@ -240,12 +290,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Chapter 3 - When to parallelize, and what to do first ...
+          Chapter 3 - Optimise first, then parallelize
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Chapter 3 - When to parallelize, and what to do first ...
+        Chapter 3 - Optimise first, then parallelize
       </a>
       
         
@@ -262,6 +312,13 @@
       Table of contents
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-parallelize-and-what-to-do-first" class="md-nav__link">
+    When to parallelize, and what to do first...
+  </a>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#common-sense-optimisations" class="md-nav__link">
@@ -308,6 +365,26 @@
   <a href="#common-approaches-towards-parallelization" class="md-nav__link">
     Common approaches towards parallelization
   </a>
+  
+    <nav class="md-nav" aria-label="Common approaches towards parallelization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shared-memory-parallelization" class="md-nav__link">
+    Shared memory parallelization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distributed-memory-parallelization" class="md-nav__link">
+    Distributed memory parallelization
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -391,6 +468,13 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#when-to-parallelize-and-what-to-do-first" class="md-nav__link">
+    When to parallelize, and what to do first...
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#common-sense-optimisations" class="md-nav__link">
     Common sense optimisations
   </a>
@@ -436,6 +520,26 @@
     Common approaches towards parallelization
   </a>
   
+    <nav class="md-nav" aria-label="Common approaches towards parallelization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#shared-memory-parallelization" class="md-nav__link">
+    Shared memory parallelization
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#distributed-memory-parallelization" class="md-nav__link">
+    Distributed memory parallelization
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -454,17 +558,18 @@
 
 
 
-<h1 id="chapter-3-when-to-parallelize-and-what-to-do-first">Chapter 3 - When to parallelize, and what to do first ...</h1>
+<h1 id="chapter-3-optimise-first-then-parallelize">Chapter 3 - Optimise first, then parallelize</h1>
+<h2 id="when-to-parallelize-and-what-to-do-first">When to parallelize, and what to do first...</h2>
 <p>When your program takes too long, the memory of your machine is too small for your problem or the accuracy you need 
 cannot be met, you're hitting the wall. Parallelization seems necessary, and you feel in need of a supercomputer.
 However, supercomputers are expensive machines and resources are limited. It should come to no surprise that it is 
 expected that programs are allowed to run on supercomputers only if they make efficient use of their resources. 
-Often, serial programs provide possibilities to improve the performance. These come in two categories: <strong>common sense 
-optimisations</strong> (often completely overlooked by researchers) which rely on a good understanding of the mathematical 
-formulation of the problem and the algorithm, and <strong>code optimisations</strong> which rely on understanding processor 
+Often, serial programs provide possibilities to improve the performance. These come in two categories: common sense 
+optimisations (often completely overlooked by researchers) which rely on a good understanding of the mathematical 
+formulation of the problem and the algorithm, and code optimisations which rely on understanding processor 
 architecture and compilers. Lets first look at common sense optimisations. </p>
 <h2 id="common-sense-optimisations">Common sense optimisations</h2>
-<p>Common sense optimizations come from a good understanding of the mathematical formulation of the problem and seeing 
+<p><strong>Common sense optimizations</strong> come from a good understanding of the mathematical formulation of the problem and seeing 
 opportunities to reduce the amount of work. We give three examples. </p>
 <h3 id="1-magnetization-of-bulk-ferromagnets">1. Magnetization of bulk ferromagnets</h3>
 <p>I was asked to speed up a program for computing the magnetisation $m(T)$ of bulk ferromagnets as a function of 
@@ -515,13 +620,13 @@ the computation and the simulation sped up considerably.   </p>
 of them were immune to common sense optimisation. Perhaps, developing (scientific) software takes a special mindset: </p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p><strong>The scientific software developer mindset</strong>: Constantly ask yourself 'How can I improve this? How can I make 
+<p><strong><em>The scientific software developer mindset</em></strong>: Constantly ask yourself 'How can I improve this? How can I make 
 it faster, leaner, more readable, more flexible, more reusable, ... ?'</p>
 </div>
 <p>Common sense optimisations are optimisations that in general don't require complex code analysis, require very little 
 code changes and thus little effort to implement them. Yet they can make a significant contribution.</p>
 <h2 id="code-optimisations">Code optimisations</h2>
-<p>Code optimisations are optimisations aiming at making your solution method run as efficient as possible on the 
+<p><strong>Code optimisations</strong> are optimisations aiming at making your solution method run as efficient as possible on the 
 machine(s) that you have at your disposal. This is sometimes referred as <strong>code modernisation</strong>, because code that 
 was optimised for the CPUs of two years a go may well need some revision for the latest CPU technology. These 
 optimisations must, necessarily, take in account the specific processor architecture of your machine(s). Important 
@@ -551,7 +656,7 @@ In most cases there are even bindings available for your favorite progamming lan
 All you have to do is translate the mathematical formulation of your problem into library calls. </p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p><strong>Use HPC libraries as much as possible</strong>. There is little chance that you will outperform them. Quite to the 
+<p><strong><em>Use HPC libraries as much as possible</em></strong>. There is little chance that you will outperform them. Quite to the 
 contrary: your own code will probably do significantly worse. By using HPC libraries you gain three times:</p>
 <ul>
 <li>you gain performance,</li>
@@ -561,7 +666,35 @@ contrary: your own code will probably do significantly worse. By using HPC libra
   scientific problem.</li>
 </ul>
 </div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong><em>Don't reinvent the wheel</em></strong>. The wheel was invented ~8000 years ago. Many very clever people have put effort in 
+it and is pretty perfect by now. Reinventing it will unlikely result in an improvement. By extension: if you 
+need some code, spend some time google-ing around to learn what is already available and how other researchers 
+attack the problem. It can save you weeks of programming and debugging. Adapting someone else's code to your 
+needs will learn you more than coding it from scratch. You'll discover other approaches to coding problems than 
+yours, other language constructs, idioms, dependencies to build on, learn to read someone else's code, learn to 
+integrate pieces.    </p>
+</div>
 <h2 id="common-approaches-towards-parallelization">Common approaches towards parallelization</h2>
+<p>Before we discuss common parallelization approaches, we need to explain some concepts:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Process_(computing)"><strong>process</strong> (wikipedia)</a>: "In computing, a process is the 
+  instance 
+  of a computer program that is being executed by one or many threads." A process has its own <strong>address space</strong>, the 
+  region of main memory that can be addressed by the process. Normally, a process cannot go outside its address 
+  space, nor can any other process go inside the process's own address space.   </li>
+<li><a href="https://en.wikipedia.org/wiki/Thread_(computing)"><strong>thread</strong> (wikipedia)</a>: "In computer science, a thread of 
+  execution is the smallest sequence of programmed instructions that can be managed ...". In the context of 
+  parallel computing, threads are managed by the process to run different tasks in parallel. Obviously, they need to 
+  run on separate cores<br />
+  have access to the </li>
+</ul>
+<p>two different concepts of parallization: 
+<strong>shared memory parallelization</strong> and <strong>distributed memory parallelization</strong>. </p>
+<h3 id="shared-memory-parallelization">Shared memory parallelization</h3>
+<p>In shared memory parallelization there is a single process with its own </p>
+<h3 id="distributed-memory-parallelization">Distributed memory parallelization</h3>
 
 
 
