@@ -6,6 +6,7 @@ theme:
 nav:
   - index.md
   - over-de-auteur.md
+  - glossary.md
   - overview.md
   - chapter-1.md
   - chapter-2.md
@@ -15,10 +16,13 @@ nav:
   - guide-lines.md
 
 extra_css:
-    - css/extra.css
+  - css/extra.css
 
 markdown_extensions:
-     - markdown.extensions.admonition
+    - markdown.extensions.admonition
 
 plugins:
-     - mkdocs-video
+  - search
+  - autorefs
+  - mkdocstrings
+  - mkdocs-video

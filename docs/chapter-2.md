@@ -144,19 +144,17 @@ pipeline comes to halt.
 
 ### Recommendations for loops processing arrays
 
-1. **The longer the loop, the better**. Typically, at the begin and end of the loop thee pipeline is not full. 
-   When the loop is long, these sections can be amortized with respect to the inner section, where the pipeline is 
-   full. 
-2. Loops with branches should be **predictable**. The outcome of unpredictable branches will be guessed wrongly, 
+1. ***Loops should be long***. Typically, at the begin and end of the loop thee pipeline is not full. When the loop 
+   is long, these sections can be amortized with respect to the inner section, where the pipeline is full. 
+2. ***Branches in loops should be predictable***. The outcome of unpredictable branches will be guessed wrongly, 
    causing pipeline stalls. Sometimes it may be worthwile to sort the array according to the probability of the 
    outcome if this work can be amortized over many loops.
-2. To profit as much as possible from the operation of the caches, loops should access data **contiguously** and 
-   with **unit stride**. This assures that
+2. ***Loops should access data contiguously and with unit stride***. This assures that
     - at the next iteration of the loop the data element needed is already in the L1 Cache and can be accessed 
       without delay,
     - vector registers can be filled efficiently because they need contiguous elements from the input array.
-3. Loops should have **high computatonal intensity**. The computational intensity $I_c$ is defined as $ I_c = \frac
-   {n_{cc}}{n_{rw}} $, with $n_{cc}$ the number of compute cycles and $n_{rw}$ the total number of bytes read and 
+3. ***Loops should have high computatonal intensity***. The **computational intensity** $I_c$ is defined as $ I_c = 
+   \frac {n_{cc}}{n_{rw}} $, with $n_{cc}$ the number of compute cycles and $n_{rw}$ the total number of bytes read and 
    written. A high computational intensity means many compute cycles and little data traffic to/from memory and thus 
    implies that there will be no pipeline due to waiting for data to arrive. This is a compute bound loop. Low 
    computational intensity, on the other hand, will cause many pipeline stalls by waiting for data. This is a 
@@ -195,5 +193,5 @@ items need to be moved into different vector registers.
 
 !!! Tip 
     There is no silver bullet. All approaches have advantages and disadvantages, some may appear in this situation 
-    and others in another situation. The only valid reasoning is: **numbers tell the tale** (*meten is weten*): 
-   measure the performance of your code. Measure it twice, than measure again. 
+    and others in another situation. The only valid reasoning is: ***numbers tell the tale*** (*meten is weten*): 
+    measure the performance of your code. Measure it twice, than measure again. 

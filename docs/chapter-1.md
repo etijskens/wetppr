@@ -33,7 +33,7 @@ Material:
 
 ## What is a parallel program?
 
-A parallel program is a program that distributes its work over different processing units such that parts of its 
+A **parallel program** is a program that distributes its work over different processing units such that parts of its 
 work load can be computed simultaneously. At the end the program gathers the partial results from the processing 
 units and combines them in a global result. If the tasks are independent of each other, the program is called 
 **embarrassingly parallel**. In general, the individual tasks are not independent and need to exchange information. 
@@ -82,16 +82,16 @@ competitive advantage.
 
 ### Can't I just by a faster and bigger computer?
 
-Nope, that fairy tale ended approximately at the beginning of this century with the advent of the multi-processor 
-computer. Increasing the peak performance by increasing the clock frequency was no longer possible, because the 
-power consumption of a processor increases as the third power of the clock frequency. At a certain point it became 
-impossible or too expensive to cool the processor. The only way to get a processor execute more instructions per 
-second was to put more processing units on it (cores). At that point serial program became even slower on the new 
-multi-processors because the clock frequency was reduced to remain inside the power envelope. Moore's law predicts 
-that the number of transistors in a processor doubles every 18 months due to increasing miniaturization. With this the  
-combined peak performance of the multi-processors increases as well, but the peak performance of the individual 
-processing units no longer does. This makes it necessary to parallelize programs in order to keep up with Moore's 
-law. It must be said that the increase of peak performance was not always in line with Moore's law. At some point 
-the peak performance of processing units was increased by adding parallelization concept in single processing units 
-like pipelining and SIMD vectorisation. We'll come to that later.
+Nope, that fairy tale ended approximately at the beginning of this century with the advent of the **multi-processor** 
+computer, also called **multi-core** computer. Increasing the peak performance by increasing the clock frequency was no 
+longer possible, because the power consumption of a processor increases as the third power of the clock frequency. 
+At a certain point it became impossible or too expensive to cool the processor. The only way to get a processor 
+execute more instructions per second was to put more processing units on it (cores). At that point serial program 
+became even slower on the new multi-processors because the clock frequency was reduced to remain inside the power 
+envelope. Moore's law predicts that the number of transistors in a processor doubles every 18 months due to 
+increasing miniaturization. With this the combined peak performance of the multi-processors increases as well, but 
+the peak performance of the individual processing units no longer does. This makes it necessary to parallelize 
+programs in order to keep up with Moore's law. It must be said that the increase of peak performance was not always 
+in line with Moore's law. At some point the peak performance of processing units was increased by adding 
+parallelization concept in single processing units like pipelining and SIMD vectorisation. We'll come to that later.
 

@@ -1,17 +1,19 @@
-# Chapter 3 - When to parallelize, and what to do first ...
+# Chapter 3 - Optimise first, then parallelize
+
+## When to parallelize, and what to do first...
 
 When your program takes too long, the memory of your machine is too small for your problem or the accuracy you need 
 cannot be met, you're hitting the wall. Parallelization seems necessary, and you feel in need of a supercomputer.
 However, supercomputers are expensive machines and resources are limited. It should come to no surprise that it is 
 expected that programs are allowed to run on supercomputers only if they make efficient use of their resources. 
-Often, serial programs provide possibilities to improve the performance. These come in two categories: **common sense 
-optimisations** (often completely overlooked by researchers) which rely on a good understanding of the mathematical 
-formulation of the problem and the algorithm, and **code optimisations** which rely on understanding processor 
+Often, serial programs provide possibilities to improve the performance. These come in two categories: common sense 
+optimisations (often completely overlooked by researchers) which rely on a good understanding of the mathematical 
+formulation of the problem and the algorithm, and code optimisations which rely on understanding processor 
 architecture and compilers. Lets first look at common sense optimisations. 
 
 ## Common sense optimisations
 
-Common sense optimizations come from a good understanding of the mathematical formulation of the problem and seeing 
+**Common sense optimizations** come from a good understanding of the mathematical formulation of the problem and seeing 
 opportunities to reduce the amount of work. We give three examples. 
 
 ### 1. Magnetization of bulk ferromagnets
@@ -78,7 +80,7 @@ Some of these "common sense optimisations" may seem obvious. Yet, of all the cod
 of them were immune to common sense optimisation. Perhaps, developing (scientific) software takes a special mindset: 
 
 !!! tip 
-    **The scientific software developer mindset**: Constantly ask yourself 'How can I improve this? How can I make 
+    ***The scientific software developer mindset***: Constantly ask yourself 'How can I improve this? How can I make 
     it faster, leaner, more readable, more flexible, more reusable, ... ?'
 
 Common sense optimisations are optimisations that in general don't require complex code analysis, require very little 
@@ -86,7 +88,7 @@ code changes and thus little effort to implement them. Yet they can make a signi
 
 ## Code optimisations
 
-Code optimisations are optimisations aiming at making your solution method run as efficient as possible on the 
+**Code optimisations** are optimisations aiming at making your solution method run as efficient as possible on the 
 machine(s) that you have at your disposal. This is sometimes referred as **code modernisation**, because code that 
 was optimised for the CPUs of two years a go may well need some revision for the latest CPU technology. These 
 optimisations must, necessarily, take in account the specific processor architecture of your machine(s). Important 
@@ -117,7 +119,7 @@ In most cases there are even bindings available for your favorite progamming lan
 All you have to do is translate the mathematical formulation of your problem into library calls. 
 
 !!! tip
-    **Use HPC libraries as much as possible**. There is little chance that you will outperform them. Quite to the 
+    ***Use HPC libraries as much as possible***. There is little chance that you will outperform them. Quite to the 
     contrary: your own code will probably do significantly worse. By using HPC libraries you gain three times:
     
     - you gain performance,
@@ -126,7 +128,37 @@ All you have to do is translate the mathematical formulation of your problem int
     - your learn how to use the library which will get you at speed readily when you take on your next 
       scientific problem.
 
+!!! tip
+    ***Don't reinvent the wheel***. The wheel was invented ~8000 years ago. Many very clever people have put effort in 
+    it and is pretty perfect by now. Reinventing it will unlikely result in an improvement. By extension: if you 
+    need some code, spend some time google-ing around to learn what is already available and how other researchers 
+    attack the problem. It can save you weeks of programming and debugging. Adapting someone else's code to your 
+    needs will learn you more than coding it from scratch. You'll discover other approaches to coding problems than 
+    yours, other language constructs, idioms, dependencies to build on, learn to read someone else's code, learn to 
+    integrate pieces.    
+
 ## Common approaches towards parallelization
 
+Before we discuss common parallelization approaches, we need to explain some concepts:
+
+- [**process** (wikipedia)](https://en.wikipedia.org/wiki/Process_(computing)): "In computing, a process is the 
+  instance 
+  of a computer program that is being executed by one or many threads." A process has its own **address space**, the 
+  region of main memory that can be addressed by the process. Normally, a process cannot go outside its address 
+  space, nor can any other process go inside the process's own address space.   
+- [**thread** (wikipedia)](https://en.wikipedia.org/wiki/Thread_(computing)): "In computer science, a thread of 
+  execution is the smallest sequence of programmed instructions that can be managed ...". In the context of 
+  parallel computing, threads are managed by the process to run different tasks in parallel. Obviously, they need to 
+  run on separate cores  
+  have access to the 
+
+two different concepts of parallization: 
+**shared memory parallelization** and **distributed memory parallelization**. 
+
+### Shared memory parallelization
+
+In shared memory parallelization there is a single process with its own 
+
+### Distributed memory parallelization 
 [//]: # (to be done)
 

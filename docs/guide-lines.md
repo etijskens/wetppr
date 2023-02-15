@@ -25,8 +25,8 @@ Learning is an incremental process. Especially for scientific software developme
 
 Although this approach may look as if you are supposed to find the solution to the problem in books or on the *World 
 Wide Web*, this does not at all exclude creativity. Learning about how other researchers approached a problem, can 
-easily spark new ideas that get you going. The *fail fast, fail often* principle also **urges you to start as simple 
-as possible** and **make incremental changes**. Don't write a lot of code before you try and test. Typically,  
+easily spark new ideas that get you going. The *fail fast, fail often* principle also ***urges you to start as simple 
+as possible*** and ***make incremental changes***. Don't write a lot of code before you try and test. Typically,  
 and this is corroborated by research, one bug is introduced with every new 10 lines. Finding 10 bugs in 100 lines is 
 a lot more difficult than finding one bug in 10 lines (although sometimes there is more than one bug :( ). 
 
@@ -54,7 +54,7 @@ sense of correctness is indispensable. Had the researcher come to me before he s
 advice he would have been given: 
 
 !!! note "Advice"
-    **Write 5 lines of code and test them before you proceed (with the next 5 lines)**. Just 5, not 10! Your test 
+    ***Write 5 lines of code and test them before you proceed (with the next 5 lines)***. Just 5, not 10! Your test 
     code is also code and will initially contain bugs as well. As you get more experienced you may increase that 
     number  to 6, even 7, ...  
 
