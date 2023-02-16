@@ -44,8 +44,6 @@
     
       <link rel="stylesheet" href="../assets/_mkdocstrings.css">
     
-      <link rel="stylesheet" href="../css/extra.css">
-    
     <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -604,13 +602,6 @@
   });
 </script>
 
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>For a gentle but more detailed introduction about supercomputer architecture check out [this VSC course]
-(https://calcua. uantwerpen.be/courses/supercomputers-for-starters/Hardware-20221013-handouts.pdf). An updated 
-version will appear soon <a href="https://www.uantwerpen.be/en/research-facilities/calcua/support/documentation/">here</a> 
-(look for 'Supercomputers for starters').</p>
-</div>
 <p>You do not have to be a CPU architecture specialist in order to be able to write efficient code. However, there are 
 a few aspects of CPU architecture that you should understand.</p>
 <h2 id="the-hierarchical-structure-of-cpu-memory">The hierarchical structure of CPU Memory</h2>
@@ -814,9 +805,20 @@ and others in another situation. The only valid reasoning is: <strong><em>number
 measure the performance of your code. Measure it twice, then measure again.</p>
 </div>
 <h2 id="supercomputer-architecture">Supercomputer architecture</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For a gentle but more detailed introduction about supercomputer architecture check out [this VSC course]
+(https://calcua. uantwerpen.be/courses/supercomputers-for-starters/Hardware-20221013-handouts.pdf). An updated 
+version will appear soon <a href="https://www.uantwerpen.be/en/research-facilities/calcua/support/documentation/">here</a> 
+(look for 'Supercomputers for starters').</p>
+</div>
 <p>We haven't talked about supercomputer architecture so far. In fact, supercomputers are not so very different from 
 ordinary computers. The basic building block of a supercomputer is a <strong>compute node</strong>, or a <strong>node</strong> <em>tout court</em>. 
-Usually, The node has a com</p>
+It can be seen as an ordinary computer but without peripheral devices (no screen, no keyboard, no mouse, ...). 
+A supercomputer consists of 100s to 1 000s of nodes (totalling up to 100 000s of cores), mutually connected to an 
+ultra-fast network, the interconnect. The interconnect allows the nodes to exchange information so that they can 
+work together on the same computational problem. It is the number of nodes and cores that makes a supercomputer a 
+supercomputer, not (!) the performance of the individual cores.   </p>
 <p><img alt="node" src="/public/node.png" /></p>
 
 
