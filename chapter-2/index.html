@@ -340,9 +340,22 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences-of-computer-architecture-for-performance" class="md-nav__link">
+    Consequences of computer architecture for performance
+  </a>
+  
+    <nav class="md-nav" aria-label="Consequences of computer architecture for performance">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
-  <a href="#recommendations-for-loops-processing-arrays" class="md-nav__link">
-    Recommendations for loops processing arrays
+  <a href="#recommendations-for-array-processing" class="md-nav__link">
+    Recommendations for array processing
   </a>
   
 </li>
@@ -350,6 +363,13 @@
           <li class="md-nav__item">
   <a href="#recommendations-for-data-structures" class="md-nav__link">
     Recommendations for data structures
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selecting-algorithms-based-on-computational-complexity" class="md-nav__link">
+    Selecting algorithms based on computational complexity
   </a>
   
 </li>
@@ -495,9 +515,22 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences-of-computer-architecture-for-performance" class="md-nav__link">
+    Consequences of computer architecture for performance
+  </a>
+  
+    <nav class="md-nav" aria-label="Consequences of computer architecture for performance">
+      <ul class="md-nav__list">
+        
           <li class="md-nav__item">
-  <a href="#recommendations-for-loops-processing-arrays" class="md-nav__link">
-    Recommendations for loops processing arrays
+  <a href="#recommendations-for-array-processing" class="md-nav__link">
+    Recommendations for array processing
   </a>
   
 </li>
@@ -505,6 +538,13 @@
           <li class="md-nav__item">
   <a href="#recommendations-for-data-structures" class="md-nav__link">
     Recommendations for data structures
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selecting-algorithms-based-on-computational-complexity" class="md-nav__link">
+    Selecting algorithms based on computational complexity
   </a>
   
 </li>
@@ -553,18 +593,24 @@
 <p>You do not have to be a CPU architecture specialist in order to be able to write efficient code. However, there are 
 a few aspects of CPU architecture that you should understand.</p>
 <h2 id="the-hierarchical-structure-of-cpu-memory">The hierarchical structure of CPU Memory</h2>
-<p>CPU memory of modern CPUs is hierarchically organised:</p>
+<p>CPU memory of modern CPUs is hierarchically organised. The memory levels close to the processor need to be fast, to 
+serve it with data so that it can continue its work. As fast memory is expensive, the levels close to the processor 
+are also smaller. The farther away from the processor the bigger they are, but also the slower.    </p>
 <ul>
 <li>Each processing unit (or core) has a number of <strong>registers</strong> (~1 kB) and vector registers on which instructions can 
   immediately operate (latency = 0 cycles). The registers are connected to  </li>
 <li>a dedicated <strong>L1 cache</strong> (~32 kB per core), with a latency of ~ 1 cycle. This is in turn 
   connected to:  </li>
 <li>a dedicated <strong>L2 cache</strong>, (~256 kB per core), with a latency of ~10 cycles. This is in turn connected to: </li>
-<li>a shared <strong>L3 cache</strong>, (~2 MB per core), with a latency of ~50 cycles. This is  connected to:</li>
-<li>the <strong>main memory</strong> (256 GB - 2 TB), with a latency of ~200 cycles.</li>
+<li>the <strong>L3 cache</strong>, which is shared among a group of cores, (~2 MB per core), with a latency of ~50 cycles. 
+  This is connected to:</li>
+<li>the <strong>main memory</strong>, which is shared by all cores,(256 GB - 2 TB), with a latency of ~200 cycles.</li>
 </ul>
 <p>The cores and the caches are on the same chip. For this reason they are considerably faster than the main memory. 
-Faster memory is more expensive and therefor smaller. When an instruction needs a data item in a register, the CPU 
+Faster memory is more expensive and therefor smaller. The figure below illustrates the layout.</p>
+<p><img alt="one socket" src="/public/1-socket.png" />
+<img src="/public/1-socket.png" width="50%" height="50%"></p>
+<p>When an instruction needs a data item in a register, the CPU 
 looks first in the L1 cache, if it is there it will it to the register that was requested. Otherwise, the CPU looks 
 in L2. If it is there, it is copied to L1 and the register. Otherwise, the CPU looks in L3. If it is there, it is 
 copied to L2, L1 and the register. Otherwise, the CPU looks copies the <strong>cache line</strong> surrounding the data item to 
@@ -576,14 +622,14 @@ CPU will notice when it is processing an array and prefetch the next cache line 
 the processor has to wait for the data again. This strategy for loading data leads to two important best practices for 
 making optimal use of the cache.</p>
 <ol>
-<li><strong>Spatial locality</strong>: Organize your data layout in main memory in a way that data in a cache line are mostly 
+<li>Exploit <strong>Spatial locality</strong>: Organize your data layout in main memory in a way that data in a cache line are mostly 
    needed together. </li>
-<li><strong>Temporal locality</strong>: Organize your computations in a way that once a cache line is in L1 cache, as much as 
+<li>Exploit <strong>Temporal locality</strong>: Organize your computations in a way that once a cache line is in L1 cache, as much as 
    possible computations on that data are carried out. This favors a high computational intensity (see below). 
    Common techniques for this are <strong>loop fusion</strong> and <strong>tiling</strong>. </li>
 </ol>
 <h3 id="loop-fusion">Loop fusion</h3>
-<p>Here are two loops over an array <code>x</code></p>
+<p>Here are two loops over an array <code>x</code>:</p>
 <pre><code class="language-python">for xi in x:
     do_something_with(xi)
 for xi in x:
@@ -611,16 +657,14 @@ than are available. At that point some computations may be done sequentially and
         do_something_else_with(xi)
 </code></pre>
 <p>Again all computations that need to be done to <code>xi</code> are done when it is in L1 cache. Again the entire <code>x</code> array is 
-transferred only once to the cache. A disadvantage of tiling is that the chunksize need to be tuned to the size of L1, 
-which may differ on different machines. Thus, this approach is not <strong>cache-oblivious</strong>. Loop fusion, on the other hand,
-is cache-oblivious. </p>
-<p>...</p>
-<p>The above strategy for loading data has also important consequences for the layout of data arrays and for<br />
-loops over arrays in terms of performance (see below). </p>
-<p>The hierarchical structure of processor memory requires good understanding to write efficient programs and it may 
-seem an overly complex solution for a simple problem, but it isn't. It is a good compromise to the many faces of a 
-truly complex problem. There is an excellent presentation on this matter by Scott Meyers: <a href="https://www.youtube.com/watch?v=WDIkqP4JbkE"><em>CPU Caches and Why 
-You Care</em></a>, an absolute must see for this course.</p>
+transferred only once to the cache. A disadvantage of tiling is that the chunk size needs to be tuned to the size of 
+L1, which may differ on different machines. Thus, this approach is not <strong>cache-oblivious</strong>. Loop fusion, on the 
+other hand, is cache-oblivious.</p>
+<p>A good understanding of the workings of the hierarchical structure of processor memory is required to write 
+efficient programs. Although, at first sight, it may seem an overly complex solution for a simple problem, but it is 
+a good compromise to the many faces of a truly complex problem. There is an excellent presentation on this matter by 
+Scott Meyers: <a href="https://www.youtube.com/watch?v=WDIkqP4JbkE"><em>CPU Caches and Why You Care</em></a>. It is an absolute must-see 
+for this course.</p>
 <h2 id="intra-core-parallellisation-features">Intra-core parallellisation features</h2>
 <p>Modern CPUs are designed to (among other things) process loops as efficiently as possible, as loops typically 
 account for a large part of the work load of a program. To make that possible CPUs use two important concepts: 
@@ -653,7 +697,10 @@ pipeline comes to halt. </p>
    find one, falls back on statistics. Random outcomes of the condition are thus detrimental to performance as its
    guess will be wrong at least half the time.</li>
 </ol>
-<h3 id="recommendations-for-loops-processing-arrays">Recommendations for loops processing arrays</h3>
+<h2 id="consequences-of-computer-architecture-for-performance">Consequences of computer architecture for performance</h2>
+<h3 id="recommendations-for-array-processing">Recommendations for array processing</h3>
+<p>The hierarchical organisation of computer memory has also important consequences for the layout of data arrays and 
+for loops over arrays in terms of performance (see below). </p>
 <ol>
 <li><strong><em>Loops should be long</em></strong>. Typically, at the begin and end of the loop thee pipeline is not full. When the loop 
    is long, these sections can be amortized with respect to the inner section, where the pipeline is full. </li>
@@ -702,11 +749,48 @@ discussion about storing the coordinates of a vector, e.g. $\textbf{r}$ as per-c
 array of vectors. The latter makes is more practical to define vector functions like magnitude, distance, dot and 
 vector products, ... but they make it harder to SIMD vectorise those functions efficiently, because contiguous data 
 items need to be moved into different vector registers.  </p>
+<h3 id="selecting-algorithms-based-on-computational-complexity">Selecting algorithms based on computational complexity</h3>
+<p>The <strong>computational complexity</strong> of an algorithm is an indication of how the number of instructions in an algorithms 
+scales with the problem size $N$. E.g. the work of an $O(N^2)$ algorithm scales quadratically with its problem size. 
+As an example consider brute force neighbour detection (Verlet list construction) of $N$ interacting atoms in Molecular 
+Dynamics:</p>
+<pre><code class="language-C++">    // C++ 
+    for (int i=0; i&lt;N; ++i)
+        for (int j=i+1; j&lt;N; ++j) {
+            r2ij = squared_distance(i,j);
+            if (r2ij&lt;r2cutoff) 
+               add_to_Verlet_list(i,j); 
+        }
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note that we have avoided the computation of the square root by using the squared distance rather than the 
+distance.</p>
+</div>
+<p>The body of the inner for loop is executed $N*(N-1)/2 = N^2/2 -N/2$ times. Hence, it is $O(N^2)$. Cell-based Verlet 
+list construction restricts the inner loop to the surrounding cells of atom <code>i</code> and is therefor $O(N)$.</p>
+<p>The computational complexity of an algorithm used to be a good criterion for algorithm selection: less work means 
+faster, not? Due to the workings of the hierarchical memory of modern computers the answer is not so clear-cut. 
+Consider two search algorithms for finding an element in a sorted array, linear search and binary search bisecting.
+Linear search simply loops over all elements until the element is found (or a larger element is found), and is thus 
+$O(N)$. <a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">Binary search</a> compares the target value to the 
+middle element of the array. If they are not equal, the half in which the target cannot lie is eliminated and the 
+search continues on the remaining half, again taking the middle element to compare to the target value, and 
+repeating this until the target value is found. If the search ends with the remaining half being empty, the target 
+is not in the array. The complexity of this algorithm is $O(log{N})$. Clearly, binary search finds the answer 
+by visiting far fewer elements in the array as indicated by its lower complexity. However, contrary to linear search it 
+visits the elements in the array non-contiguously, and it is very well possible that there will be a cache miss on 
+every access. Linear search, on the other hand, will have no cache misses: it loads a cache line, visits all the 
+elements in it and in the mean time the prefetching machinery takes care of loading the next cache line. It is only 
+limited by the bandwidth. For small arrays linear search will be faster than binary search. For large arrays the 
+situation is reversed. A clever approach would be to combine both methods: start with binary search and switch to 
+linear search as soon as the part of the array to search is small enough. This needs some tuning to find the $N$ at 
+which both algorithms perform equally well. The combined algorithm is thus not cache-oblivious. </p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>There is no silver bullet. All approaches have advantages and disadvantages, some may appear in this situation 
 and others in another situation. The only valid reasoning is: <strong><em>numbers tell the tale</em></strong> (<em>meten is weten</em>): 
-measure the performance of your code. Measure it twice, than measure again. </p>
+measure the performance of your code. Measure it twice, then measure again. </p>
 </div>
 
 

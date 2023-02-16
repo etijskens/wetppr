@@ -679,16 +679,19 @@ integrate pieces.    </p>
 <h2 id="common-approaches-towards-parallelization">Common approaches towards parallelization</h2>
 <p>Before we discuss common parallelization approaches, we need to explain some concepts:</p>
 <ul>
-<li><a href="https://en.wikipedia.org/wiki/Process_(computing)"><strong>process</strong> (wikipedia)</a>: "In computing, a process is the 
-  instance 
-  of a computer program that is being executed by one or many threads." A process has its own <strong>address space</strong>, the 
-  region of main memory that can be addressed by the process. Normally, a process cannot go outside its address 
-  space, nor can any other process go inside the process's own address space.   </li>
-<li><a href="https://en.wikipedia.org/wiki/Thread_(computing)"><strong>thread</strong> (wikipedia)</a>: "In computer science, a thread of 
+<li>
+<p><a href="https://en.wikipedia.org/wiki/Process_(computing)"><strong>process</strong> (wikipedia)</a>: "In computing, a process is the 
+  instance of a computer program that is being executed by one or more threads." A process has its own <strong>address 
+  space</strong>, the region of main memory that can be addressed by the process. Normally, a process cannot go outside its 
+  address space, nor can any other process go inside the process's own address space. In general, a process is </p>
+</li>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/Thread_(computing)"><strong>thread</strong> (wikipedia)</a>: "In computer science, a thread of 
   execution is the smallest sequence of programmed instructions that can be managed ...". In the context of 
-  parallel computing, threads are managed by the process to run different tasks in parallel. Obviously, they need to 
-  run on separate cores<br />
-  have access to the </li>
+  parallel computing, threads are managed by the process to run different tasks in parallel. Obviously, threads need to 
+  run on distinct cores to be truely concurrent. As threads belong to a process, they can in principle have access 
+  the entire address space of the process. </p>
+</li>
 </ul>
 <p>two different concepts of parallization: 
 <strong>shared memory parallelization</strong> and <strong>distributed memory parallelization</strong>. </p>
