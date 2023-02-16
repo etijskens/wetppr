@@ -42,7 +42,7 @@ are also smaller. The farther away from the processor the bigger they are, but a
 The cores and the caches are on the same chip. For this reason they are considerably faster than the main memory. 
 Faster memory is more expensive and therefor smaller. The figure below illustrates the layout.
 
-![1-socket](/public/1-socket.png)
+![1-socket](public/1-socket.png)
 
 The I/O hub connects the cpu to the outside world, hard disk, network, ...
 
@@ -261,6 +261,12 @@ It can be seen as an ordinary computer but without peripheral devices (no screen
 A supercomputer consists of 100s to 1 000s of nodes (totalling up to 100 000s of cores), mutually connected to an 
 ultra-fast network, the interconnect. The interconnect allows the nodes to exchange information so that they can 
 work together on the same computational problem. It is the number of nodes and cores that makes a supercomputer a 
-supercomputer, not (!) the performance of the individual cores.   
+supercomputer, not (!) the performance of the individual cores. Motherboards for supercomputer nodes typically have 
+2 sockets, each of which holds a CPU. Technically speaking they behave as a single CPU double the size, and double 
+the memory. Performance-wise, however, the latency across the two CPUs is typically a factor 2 larger. This goes by 
+the name **ccNUMA**, or **cache coherent non-uniform memory architecture**. **Cache coherence** means that if caches 
+of different copies hold copies of the same cache line, and one of them is modified, all copies are updated. 
+**NUMA** means that there are different domains in the global address space with different latency and/or bandwidth. 
+CPU0 can access data in DRAM1, but this is significantly slower (typically 2x). 
 
-![node](/public/node.png)
+![node](public/node.png)

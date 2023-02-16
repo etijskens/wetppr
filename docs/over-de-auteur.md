@@ -46,7 +46,7 @@ Hier zijn verscheidene korrelige processen aan de orde:
 
 ### Spherische korrels die op een trampoline vallen
 
-![type:video](/public/spheres2000_sheet4.mp4)
+![type:video](public/spheres2000_sheet4.mp4)
 
 ### Mpacts: ijsbreker
 

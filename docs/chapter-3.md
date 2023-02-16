@@ -1,5 +1,26 @@
 # Chapter 3 - Optimise first, then parallelize
 
+[//]: # (script below is for allowing for MathJax rendering of LateX expressions)
+
+<script type="text/javascript"
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">
+</script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [['$','$'], ['\\(','\\)']],
+      processEscapes: true},
+      jax: ["input/TeX","input/MathML","input/AsciiMath","output/CommonHTML"],
+      extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js","AssistiveMML.js", "[Contrib]/a11y/accessibility-menu.js"],
+      TeX: {
+      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"],
+      equationNumbers: {
+      autoNumber: "AMS"
+      }
+    }
+  });
+</script>
+
 ## When to parallelize, and what to do first...
 
 When your program takes too long, the memory of your machine is too small for your problem or the accuracy you need 
@@ -29,7 +50,7 @@ with $ \beta = 1/{k_B T} $. At $T=0$ we have $m(0) = m_0 = 0.5$, and at high $T$
 
 The solution is a curve like this:
 
-![m(T)](/public/m(T).png)
+![m(T)](public/m(T).png)
 
 The program compute this as follows: For any temperature $T$, set $m = m_0$ as an inital guess. Then iterate $ m_
 {i+1} = 1/(2 + 4\Phi(m_i)) $ until $ \Delta m = m_{i+1} - m_i $ is small. Here,
@@ -41,13 +62,13 @@ and the integral is computed using Gauss-Legendre integration on 64 points.
 The choice of $m=0.5$ as initial guess is obviously a good one close to $T=0$. However, looking at the graph above, 
 it becomes clear that as T increases the solution moves further and further away from $0.5$. Furthermore, if we 
 compute tempurature points at equidistant tempurature points, $T_j = \delta j$ for some $\delta$ and $j=0,1,2, .
-..$, it is also clear that the solution of the previous temperature point, *i.e.* $m_{j-1}, is a far better initial 
+..$, it is also clear that the solution of the previous temperature point, *i.e.* $m_{j-1}$, is a far better initial 
 initial guess 
-guess than $m_0$. This turns out to be 1.4x faster. Not a tremendous improvement, as the graph above seems continuous 
-we can take this idea a step further: using interpolation from solutions a lower temperature points to predict the 
-next solution and use that as an initial guess. Linear interpolation of $m_j$ from $m_{j-1}$ and $m_{j-2}$ gives a 
-a speedup of 1.94x and quadratic interpolation from  $m_{j-1}$, $m_{j-2}$ and $m_{j-3}$ a factor of 2.4x. That is a 
-substantial speedup achieved without acttually modifying the code. This optimisation comes entirely from 
+guess than $m_0$. This turns out to be 1.4x faster. Not a tremendous improvement, but as the graph above seems 
+continuous w e can take this idea a step further: using interpolation from solutions a lower temperature points to 
+predict the next solution and use that as an initial guess. Linear interpolation of $m_j$ from $m_{j-1}$ and 
+$m_{j-2}$ gives a speedup of 1.94x and quadratic interpolation from $m_{j-1}$, $m_{j-2}$ and $m_{j-3}$ a factor of 2.4x.  
+That is a substantial speedup achieved without acttually modifying the code. This optimisation comes entirely from 
 understanding what your algorithm actually does. Investigation of the code itself demonstrated that it made suffered 
 from a lot of dynamic memory management and that it did not vectorize. After fixing these issues, the code ran an 
 additional 13.6x faster. In total the code was sped up by an impressive 32.6x.

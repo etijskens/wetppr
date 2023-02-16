@@ -15,9 +15,6 @@ nav:
   - assignment.md
   - guide-lines.md
 
-extra_css:
-  - css/extra.css
-
 markdown_extensions:
     - markdown.extensions.admonition
 

@@ -13,8 +13,11 @@ Here is an alphabetical list of terms with links to where they are explained in 
 
 ## C
 
+- [Cache coherence][supercomputer-architecture]
+- [cache coherent non-uniform memory architecture][supercomputer-architecture]
 - [cache line][the-hierarchical-structure-of-cpu-memory]
 - [cache-oblivious][tiling]
+- [ccNUMA][supercomputer-architecture]
 - [code modernisation][code-optimisations]
 - [Code optimisations][code-optimisations]
 - [Common sense optimizations][common-sense-optimisations]
@@ -53,6 +56,7 @@ Here is an alphabetical list of terms with links to where they are explained in 
 ## N
 
 - [node][supercomputer-architecture]
+- [NUMA][supercomputer-architecture]
 
 ## P
 
