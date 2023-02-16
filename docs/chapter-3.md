@@ -158,6 +158,54 @@ All you have to do is translate the mathematical formulation of your problem int
     yours, other language constructs, idioms, dependencies to build on, learn to read someone else's code, learn to 
     integrate pieces.    
 
+## When is code optimized enough? 
+
+!!! Tip
+    ***Premature Optimization Is the Root of All Evil*** [Donald Knuth](https://effectiviology.
+    com/premature-optimization/). 
+
+This quote by a famous computer scientist in 1974 is often used to argue that you should only optimize if there is a 
+real need. If code is too slow, measurements (**profiling**) should tell in which part of the code most time is 
+spent. That part needs optimision. Iterate this a few times. Blind optimisation leads to useless and developer time 
+wasting micro-optimisations rendering the code hard to read and maintain. On the other hand, if we are writing code 
+for a supercomputer, it better be super-efficient. But even then, depending on the lifetime of the program we are 
+writing, there is a point at which the efforts spent optimising are outweighed by having to wait for the program 
+going in production.
+
+How can one judge wether a code needs further optimization or not? Obviously, there are no tricks for exposing 
+opportunities for common sense optimisations, nor for knowing wether better algorithms exist. That is domain 
+knowledgs, it comes with experience, and requires a lot of background. But for a given code and given input, can we 
+know wether improvements are possible? In [Chapter 1][1-reduce-the-time-to-solution] we mentioned the existence of 
+machine limits, the peak performance, $P_p$, the maximum number of floating point operstions that can be executed per 
+second, and the bandwidth, $B$, the maximum number of bytes that can be moved between main memory and the CPU's 
+registers per second. It is instructive to study how these machine limits govern the maximum performance $P_{max}$ 
+as a function of the computational intensity $I_c$. If the CPU must not wait for data, $P_{max} = P_p$. In the 
+situation where the bandwidth is limiting the computation $ P_{max} = BI_c$. This leads to the formula: 
+
+$$ P_{max} = min(P_p,BI_c) $$
+
+This is called the roofling model, since its graph looks like a roofliine.
+
+![roofline](public/roofline.png)
+
+We can measure the actual performance and computational intensity of the program and plot it on the graph. The point 
+must necessarily be under the roofline. For a micro-benchmark, such as a loop with a simple body, we can compute 
+$I_c$ by hand, count the Flops and time the benchmark to obtain the computational intensity. For an entire program 
+a performance analysis tool can construct the graph and measure where the program is in the graph. Let's discuss 4 
+different cases, corresponding to the four numbered spots in the graph above.
+
+1. Point 1 lies in the bandwidth limited region, but well below the roofline. Something prevents the program to go 
+   at the maximum performance. There can be many causes: bad memory access causing cache misses, the code may fail 
+   to vectorize, pipeline stalls, ... for a micro-benchmark you can perhaps spot the cause without help. For a 
+   larger program a performance analyzer will highlight the problems. 
+2. Point 2 lies in the peak performance limited region, also well below the roofline. Hence, cache misses are 
+   unlikely the cause. 
+3. Point 3 lies close to the roofline and the boundary between the bandwidth limited region and the peak performance 
+   limited region. This the sweet spot. Both peak performance and bandwith are fully used.
+4. Point 4 lies close to the roofline in the peak performance limited region. This is an energy-efficient 
+   computation at peak performance. It moves little data (high $I_c$). Moving data is by far the most energy 
+   consuming part in a computation.
+
 ## Common approaches towards parallelization
 
 Before we discuss common parallelization approaches, we need to explain some concepts:
@@ -166,21 +214,56 @@ Before we discuss common parallelization approaches, we need to explain some con
   instance of a computer program that is being executed by one or more threads." A process has its own **address 
   space**, the region of main memory that can be addressed by the process. Normally, a process cannot go outside its 
   address space, nor can any other process go inside the process's own address space. In general, a process is 
+  restricted to a node, and the number of parallel threads is at most equal to the nubmer of cores on the node. 
 
 - [**thread** (wikipedia)](https://en.wikipedia.org/wiki/Thread_(computing)): "In computer science, a thread of 
-  execution is the smallest sequence of programmed instructions that can be managed ...". In the context of 
-  parallel computing, threads are managed by the process to run different tasks in parallel. Obviously, threads need to 
-  run on distinct cores to be truely concurrent. As threads belong to a process, they can in principle have access 
-  the entire address space of the process. 
+  execution is the smallest sequence of programmed instructions that can be managed ...". The instructions in a 
+  thread are thus by definition sequential. In the context of parallel computing, parallel threads are managed by the 
+  parent process to run different tasks in parallel. Obviously, parallel threads need to run on distinct cores to be 
+  truely concurrent. As threads belong to a process, they can in principle have access to the entire address space of 
+  the process. 
   
 
-two different concepts of parallization: 
-**shared memory parallelization** and **distributed memory parallelization**. 
+Now that we understand the concepts of processes and threads, we can explain three different types of 
+parallelization:
 
-### Shared memory parallelization
+## Shared memory parallelization
 
-In shared memory parallelization there is a single process with its own 
+In **shared memory parallelization** there is one process with a number of threads to do work in parallel. As all 
+threads have in principle access to the entire memory address space, that is, they share memory, there is no need for 
+explicit communication. All exchange of information is doe by reading and writing to the shared memory. Typically, 
+shared memory parallellization involve only a single node. 
 
-### Distributed memory parallelization 
-[//]: # (to be done)
+The most common framework for shared memory parallelization is [OpenMP](https://www.openmp.org). Shared memory 
+parallel programs are relatively simple to construct, requiring relatively little changes to the sequentiol source 
+code. A limitation of shared memory parallel programsis that, in general, they are limited to a single machine 
+However, there exist software layers that can make a supercomputer behave as a single large machine with a single 
+process running and as many threads as there are cores in the set. Such systems allow to run a shared memory program 
+with much more threads and much more memory. This approach can be useful when distributed memory parallelization is 
+too expensive. 
+
+## Distributed memory parallelization
+
+**Distributed memory parallelization** is the opposite of shared memory parallelization. There are many process, 
+each with only a single-thread. Every process has its own memory address space. These address spaces are not shared, 
+they are distributed. Therefor, explicity communication is necessary to exchange information. For processes on the 
+same machine (=node) this communication is intra-node, but for processes on distinct machines messages are sent 
+over the interconnect.
+
+Distributed memory programs are considerably more complex to write, as the communication must be explicitly handled 
+by the programmer, but may use as many processes as you want. Transformation of a sequential program into a 
+distributed memory program is often a big programming effort. The most common framework is [MPI](https://www.mpi. org). 
+
+## Hybrid memory parallelization
+
+**Hybrid memory parallelization** combines both approaches. It has an unlimited number of processes, and a number of 
+threads per process, which run in parallel in a shared memory approach (OpenMP). The process communicate with each 
+other using MPI. Typically, the computation is organised as one proces per NUMA domain and one thread per core in 
+dat NUMA domain.  
+
+This approach uses shared memory parallelization where it is useful (on a NUMA domain), but removes the limitation 
+to a single machine. It has less processes, and thus less overhead in terms of memory footprint, and 
+communication overhead. It is also a bit more complex that pure distributed memory parallelization, and much more 
+complex that shared memory parallelization.
+
 
