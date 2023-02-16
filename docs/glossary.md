@@ -19,8 +19,10 @@ Here is an alphabetical list of terms with links to where they are explained in 
 - [Code optimisations][code-optimisations]
 - [Common sense optimizations][common-sense-optimisations]
 - [communication][what-is-a-parallel-program]
-- [computational intensity][recommendations-for-loops-processing-arrays]
+- [computational complexity][selecting-algorithms-based-on-computational-complexity]
+- [computational intensity][recommendations-for-array-processing]
 - [compute limited][1-reduce-the-time-to-solution]
+- [compute node][supercomputer-architecture]
 
 ## D
 
@@ -47,6 +49,10 @@ Here is an alphabetical list of terms with links to where they are explained in 
 - [memory bandwidth][1-reduce-the-time-to-solution]
 - [multi-core][cant-i-just-by-a-faster-and-bigger-computer]
 - [multi-processor][cant-i-just-by-a-faster-and-bigger-computer]
+
+## N
+
+- [node][supercomputer-architecture]
 
 ## P
 
