@@ -22,8 +22,9 @@ Learning is an incremental process. Especially for scientific software developme
 3. ***Think and do research*** (*Google* - or any other good search engine, for that matter - is your best friend), and 
    come up with an improvement. This is the hardest part, it requires intelligence and creativity.
 4. ***Iterate***, *i.e.* restart at 1., until you no more fail and are satisfied with the solution.
-5. ***Document your itinerary***. Especially, keep track of the documents that guided you to a satisfactory solution.
-   When you will look at your work three months (only!) after you left is as is, you will wonder what it was all about.
+5. ***Document your itinerary***. Document your classes, functions, variables, and keep track of the documents 
+   that guided you to solving the problems encountered. When you will look at your work three months (only!) after 
+   you left it as is, you will wonder what it was all about if you didn't document it. 
 
 Although this approach may look as if you are supposed to find the solution to the problem in books or on the *World 
 Wide Web*, this does not at all exclude creativity. Learning about how other researchers approached a problem, can 

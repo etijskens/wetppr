@@ -142,15 +142,16 @@ All you have to do is translate the mathematical formulation of your problem int
 Before we discuss common parallelization approaches, we need to explain some concepts:
 
 - [**process** (wikipedia)](https://en.wikipedia.org/wiki/Process_(computing)): "In computing, a process is the 
-  instance 
-  of a computer program that is being executed by one or many threads." A process has its own **address space**, the 
-  region of main memory that can be addressed by the process. Normally, a process cannot go outside its address 
-  space, nor can any other process go inside the process's own address space.   
+  instance of a computer program that is being executed by one or more threads." A process has its own **address 
+  space**, the region of main memory that can be addressed by the process. Normally, a process cannot go outside its 
+  address space, nor can any other process go inside the process's own address space. In general, a process is 
+
 - [**thread** (wikipedia)](https://en.wikipedia.org/wiki/Thread_(computing)): "In computer science, a thread of 
   execution is the smallest sequence of programmed instructions that can be managed ...". In the context of 
-  parallel computing, threads are managed by the process to run different tasks in parallel. Obviously, they need to 
-  run on separate cores  
-  have access to the 
+  parallel computing, threads are managed by the process to run different tasks in parallel. Obviously, threads need to 
+  run on distinct cores to be truely concurrent. As threads belong to a process, they can in principle have access 
+  the entire address space of the process. 
+  
 
 two different concepts of parallization: 
 **shared memory parallelization** and **distributed memory parallelization**. 

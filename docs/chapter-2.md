@@ -26,18 +26,27 @@ a few aspects of CPU architecture that you should understand.
 
 ## The hierarchical structure of CPU Memory
 
-CPU memory of modern CPUs is hierarchically organised:
+CPU memory of modern CPUs is hierarchically organised. The memory levels close to the processor need to be fast, to 
+serve it with data so that it can continue its work. As fast memory is expensive, the levels close to the processor 
+are also smaller. The farther away from the processor the bigger they are, but also the slower.    
 
 - Each processing unit (or core) has a number of **registers** (~1 kB) and vector registers on which instructions can 
   immediately operate (latency = 0 cycles). The registers are connected to  
 - a dedicated **L1 cache** (~32 kB per core), with a latency of ~ 1 cycle. This is in turn 
   connected to:  
 - a dedicated **L2 cache**, (~256 kB per core), with a latency of ~10 cycles. This is in turn connected to: 
-- a shared **L3 cache**, (~2 MB per core), with a latency of ~50 cycles. This is  connected to:
-- the **main memory** (256 GB - 2 TB), with a latency of ~200 cycles.
+- the **L3 cache**, which is shared among a group of cores, (~2 MB per core), with a latency of ~50 cycles. 
+  This is connected to:
+- the **main memory**, which is shared by all cores,(256 GB - 2 TB), with a latency of ~200 cycles.
 
 The cores and the caches are on the same chip. For this reason they are considerably faster than the main memory. 
-Faster memory is more expensive and therefor smaller. When an instruction needs a data item in a register, the CPU 
+Faster memory is more expensive and therefor smaller. The figure below illustrates the layout.
+
+![1-socket](/public/1-socket.png)
+
+The I/O hub connects the cpu to the outside world, hard disk, network, ...
+
+When an instruction needs a data item in a register, the CPU 
 looks first in the L1 cache, if it is there it will it to the register that was requested. Otherwise, the CPU looks 
 in L2. If it is there, it is copied to L1 and the register. Otherwise, the CPU looks in L3. If it is there, it is 
 copied to L2, L1 and the register. Otherwise, the CPU looks copies the **cache line** surrounding the data item to 
@@ -49,15 +58,15 @@ CPU will notice when it is processing an array and prefetch the next cache line 
 the processor has to wait for the data again. This strategy for loading data leads to two important best practices for 
 making optimal use of the cache.
 
-1. **Spatial locality**: Organize your data layout in main memory in a way that data in a cache line are mostly 
+1. Exploit **Spatial locality**: Organize your data layout in main memory in a way that data in a cache line are mostly 
    needed together. 
-2. **Temporal locality**: Organize your computations in a way that once a cache line is in L1 cache, as much as 
+2. Exploit **Temporal locality**: Organize your computations in a way that once a cache line is in L1 cache, as much as 
    possible computations on that data are carried out. This favors a high computational intensity (see below). 
    Common techniques for this are **loop fusion** and **tiling**. 
 
 ### Loop fusion
 
-Here are two loops over an array `x`
+Here are two loops over an array `x`:
 
 ```python
 for xi in x:
@@ -92,19 +101,15 @@ for chunk in x: # chunk is a slice of x that fits in L1
         do_something_else_with(xi)
 ```
 Again all computations that need to be done to `xi` are done when it is in L1 cache. Again the entire `x` array is 
-transferred only once to the cache. A disadvantage of tiling is that the chunksize need to be tuned to the size of L1, 
-which may differ on different machines. Thus, this approach is not **cache-oblivious**. Loop fusion, on the other hand,
-is cache-oblivious. 
+transferred only once to the cache. A disadvantage of tiling is that the chunk size needs to be tuned to the size of 
+L1, which may differ on different machines. Thus, this approach is not **cache-oblivious**. Loop fusion, on the 
+other hand, is cache-oblivious.
 
-...
-
-The above strategy for loading data has also important consequences for the layout of data arrays and for  
-loops over arrays in terms of performance (see below). 
-
-The hierarchical structure of processor memory requires good understanding to write efficient programs and it may 
-seem an overly complex solution for a simple problem, but it isn't. It is a good compromise to the many faces of a 
-truly complex problem. There is an excellent presentation on this matter by Scott Meyers: [*CPU Caches and Why 
-You Care*](https://www.youtube.com/watch?v=WDIkqP4JbkE), an absolute must see for this course.
+A good understanding of the workings of the hierarchical structure of processor memory is required to write 
+efficient programs. Although, at first sight, it may seem an overly complex solution for a simple problem, but it is 
+a good compromise to the many faces of a truly complex problem. There is an excellent presentation on this matter by 
+Scott Meyers: [*CPU Caches and Why You Care*](https://www.youtube.com/watch?v=WDIkqP4JbkE). It is an absolute must-see 
+for this course.
 
 ## Intra-core parallellisation features 
 
@@ -142,7 +147,12 @@ pipeline comes to halt.
    find one, falls back on statistics. Random outcomes of the condition are thus detrimental to performance as its
    guess will be wrong at least half the time.
 
-### Recommendations for loops processing arrays
+## Consequences of computer architecture for performance 
+
+### Recommendations for array processing 
+
+The hierarchical organisation of computer memory has also important consequences for the layout of data arrays and 
+for loops over arrays in terms of performance (see below). 
 
 1. ***Loops should be long***. Typically, at the begin and end of the loop thee pipeline is not full. When the loop 
    is long, these sections can be amortized with respect to the inner section, where the pipeline is full. 
@@ -191,7 +201,66 @@ array of vectors. The latter makes is more practical to define vector functions 
 vector products, ... but they make it harder to SIMD vectorise those functions efficiently, because contiguous data 
 items need to be moved into different vector registers.  
 
+### Selecting algorithms based on computational complexity
+
+The **computational complexity** of an algorithm is an indication of how the number of instructions in an algorithms 
+scales with the problem size $N$. E.g. the work of an $O(N^2)$ algorithm scales quadratically with its problem size. 
+As an example consider brute force neighbour detection (Verlet list construction) of $N$ interacting atoms in Molecular 
+Dynamics:
+
+```C++
+    // C++ 
+    for (int i=0; i<N; ++i)
+        for (int j=i+1; j<N; ++j) {
+            r2ij = squared_distance(i,j);
+            if (r2ij<r2cutoff) 
+               add_to_Verlet_list(i,j); 
+        }
+```
+!!! note
+    Note that we have avoided the computation of the square root by using the squared distance rather than the 
+    distance.
+
+The body of the inner for loop is executed $N*(N-1)/2 = N^2/2 -N/2$ times. Hence, it is $O(N^2)$. Cell-based Verlet 
+list construction restricts the inner loop to the surrounding cells of atom `i` and is therefor $O(N)$.
+
+The computational complexity of an algorithm used to be a good criterion for algorithm selection: less work means 
+faster, not? Due to the workings of the hierarchical memory of modern computers the answer is not so clear-cut. 
+Consider two search algorithms for finding an element in a sorted array, linear search and binary search bisecting.
+Linear search simply loops over all elements until the element is found (or a larger element is found), and is thus 
+$O(N)$. [Binary search](https://en.wikipedia.org/wiki/Binary_search_algorithm) compares the target value to the 
+middle element of the array. If they are not equal, the half in which the target cannot lie is eliminated and the 
+search continues on the remaining half, again taking the middle element to compare to the target value, and 
+repeating this until the target value is found. If the search ends with the remaining half being empty, the target 
+is not in the array. The complexity of this algorithm is $O(log{N})$. Clearly, binary search finds the answer 
+by visiting far fewer elements in the array as indicated by its lower complexity. However, contrary to linear search it 
+visits the elements in the array non-contiguously, and it is very well possible that there will be a cache miss on 
+every access. Linear search, on the other hand, will have no cache misses: it loads a cache line, visits all the 
+elements in it and in the mean time the prefetching machinery takes care of loading the next cache line. It is only 
+limited by the bandwidth. For small arrays linear search will be faster than binary search. For large arrays the 
+situation is reversed. A clever approach would be to combine both methods: start with binary search and switch to 
+linear search as soon as the part of the array to search is small enough. This needs some tuning to find the $N$ at 
+which both algorithms perform equally well. The combined algorithm is thus not cache-oblivious. 
+
 !!! Tip 
     There is no silver bullet. All approaches have advantages and disadvantages, some may appear in this situation 
     and others in another situation. The only valid reasoning is: ***numbers tell the tale*** (*meten is weten*): 
-    measure the performance of your code. Measure it twice, than measure again. 
+    measure the performance of your code. Measure it twice, then measure again.
+
+## Supercomputer architecture
+
+!!! note
+    For a gentle but more detailed introduction about supercomputer architecture check out [this VSC course]
+    (https://calcua. uantwerpen.be/courses/supercomputers-for-starters/Hardware-20221013-handouts.pdf). An updated 
+    version will appear soon [here](https://www.uantwerpen.be/en/research-facilities/calcua/support/documentation/) 
+    (look for 'Supercomputers for starters').
+
+We haven't talked about supercomputer architecture so far. In fact, supercomputers are not so very different from 
+ordinary computers. The basic building block of a supercomputer is a **compute node**, or a **node** *tout court*. 
+It can be seen as an ordinary computer but without peripheral devices (no screen, no keyboard, no mouse, ...). 
+A supercomputer consists of 100s to 1 000s of nodes (totalling up to 100 000s of cores), mutually connected to an 
+ultra-fast network, the interconnect. The interconnect allows the nodes to exchange information so that they can 
+work together on the same computational problem. It is the number of nodes and cores that makes a supercomputer a 
+supercomputer, not (!) the performance of the individual cores.   
+
+![node](/public/node.png)
