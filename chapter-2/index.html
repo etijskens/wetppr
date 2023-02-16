@@ -379,6 +379,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#supercomputer-architecture" class="md-nav__link">
+    Supercomputer architecture
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -554,6 +561,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#supercomputer-architecture" class="md-nav__link">
+    Supercomputer architecture
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -590,6 +604,13 @@
   });
 </script>
 
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For a gentle but more detailed introduction about supercomputer architecture check out [this VSC course]
+(https://calcua. uantwerpen.be/courses/supercomputers-for-starters/Hardware-20221013-handouts.pdf). An updated 
+version will appear soon <a href="https://www.uantwerpen.be/en/research-facilities/calcua/support/documentation/">here</a> 
+(look for 'Supercomputers for starters').</p>
+</div>
 <p>You do not have to be a CPU architecture specialist in order to be able to write efficient code. However, there are 
 a few aspects of CPU architecture that you should understand.</p>
 <h2 id="the-hierarchical-structure-of-cpu-memory">The hierarchical structure of CPU Memory</h2>
@@ -608,9 +629,7 @@ are also smaller. The farther away from the processor the bigger they are, but a
 </ul>
 <p>The cores and the caches are on the same chip. For this reason they are considerably faster than the main memory. 
 Faster memory is more expensive and therefor smaller. The figure below illustrates the layout.</p>
-<p><img alt="one socket" src="/public/1-socket.png | width=100" />
-<img alt="one socket" src="/public/1-socket.png" />
-<img src="/public/1-socket.png" width="60%" height="60%"></p>
+<p><img alt="1-socket" src="/public/1-socket.png" /></p>
 <p>The I/O hub connects the cpu to the outside world, hard disk, network, ...</p>
 <p>When an instruction needs a data item in a register, the CPU 
 looks first in the L1 cache, if it is there it will it to the register that was requested. Otherwise, the CPU looks 
@@ -792,8 +811,13 @@ which both algorithms perform equally well. The combined algorithm is thus not c
 <p class="admonition-title">Tip</p>
 <p>There is no silver bullet. All approaches have advantages and disadvantages, some may appear in this situation 
 and others in another situation. The only valid reasoning is: <strong><em>numbers tell the tale</em></strong> (<em>meten is weten</em>): 
-measure the performance of your code. Measure it twice, then measure again. </p>
+measure the performance of your code. Measure it twice, then measure again.</p>
 </div>
+<h2 id="supercomputer-architecture">Supercomputer architecture</h2>
+<p>We haven't talked about supercomputer architecture so far. In fact, supercomputers are not so very different from 
+ordinary computers. The basic building block of a supercomputer is a <strong>compute node</strong>, or a <strong>node</strong> <em>tout court</em>. 
+Usually, The node has a com</p>
+<p><img alt="node" src="/public/node.png" /></p>
 
 
 
