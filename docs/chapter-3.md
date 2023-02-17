@@ -213,34 +213,57 @@ Before we discuss common parallelization approaches, we need to explain some con
 - [**process** (wikipedia)](https://en.wikipedia.org/wiki/Process_(computing)): "In computing, a process is the 
   instance of a computer program that is being executed by one or more threads." A process has its own **address 
   space**, the region of main memory that can be addressed by the process. Normally, a process cannot go outside its 
-  address space, nor can any other process go inside the process's own address space. In general, a process is 
-  restricted to a node, and the number of parallel threads is at most equal to the nubmer of cores on the node. 
+  address space, nor can any other process go inside the process's own address space. An exception is when both 
+  processes agree to communicate, which is the basis of distributed memory parallelism (see below). In general, a 
+  process is restricted to a single node, and the maximum number of parallel threads is equal to the number of cores 
+  on that node. 
 
 - [**thread** (wikipedia)](https://en.wikipedia.org/wiki/Thread_(computing)): "In computer science, a thread of 
   execution is the smallest sequence of programmed instructions that can be managed ...". The instructions in a 
   thread are thus by definition sequential. In the context of parallel computing, parallel threads are managed by the 
   parent process to run different tasks in parallel. Obviously, parallel threads need to run on distinct cores to be 
   truely concurrent. As threads belong to a process, they can in principle have access to the entire address space of 
-  the process. 
-  
+  the process. Sometimes a distinction is made between hardware threads and software threads. A **software thread** 
+  is a set of sequential instructions for a computational task that is scheduled by the program to execute. When its 
+  execution starts, it is assigned to a core. software threads can be interrupted, in order to let the core do other, 
+  more urgent work, *e.g.*, and restarted. There can be many more software threads in a program than it has cores 
+  available, but, obviously, they cannot all run in parallel. Software threads arre very useful in personal 
+  computers with many interactive applications opened simultaneously, where are many non-urgent tasks. For HPC 
+  applications they are a bit heavy weight. A **hardware thread** is a lightweight software thread that is 
+  exclusively tied to a core. When given work, it can start immediately and runs to completion without interruption. 
+  That is certainly useful in HPC where not loosing compute cycles is more important than flexibility.
 
 Now that we understand the concepts of processes and threads, we can explain three different types of 
 parallelization:
 
 ## Shared memory parallelization
 
-In **shared memory parallelization** there is one process with a number of threads to do work in parallel. As all 
-threads have in principle access to the entire memory address space, that is, they share memory, there is no need for 
-explicit communication. All exchange of information is doe by reading and writing to the shared memory. Typically, 
-shared memory parallellization involve only a single node. 
+In **shared memory parallelization** there is one process managing a number of threads to do work in parallel. As all 
+the threads belong to the same process, they have access to the entire memory address space, that is, they 
+*share* memory. To avoid problems, as well as for performance reasons, the variables inside a thread are *private* by 
+default, *i.e.* they can only be accessed by the thread itself, and must be declare *shared* if other threads should 
+have access too. Cooperating threads must exchange information by reading and writing to shared variables. 
 
-The most common framework for shared memory parallelization is [OpenMP](https://www.openmp.org). Shared memory 
-parallel programs are relatively simple to construct, requiring relatively little changes to the sequentiol source 
-code. A limitation of shared memory parallel programsis that, in general, they are limited to a single machine 
-However, there exist software layers that can make a supercomputer behave as a single large machine with a single 
-process running and as many threads as there are cores in the set. Such systems allow to run a shared memory program 
-with much more threads and much more memory. This approach can be useful when distributed memory parallelization is 
-too expensive. 
+The fact that all the threads belong to the same process, implies that shared memory programs are limited to a single 
+node, because a process cannot span several nodes. However, there exist shared memory machines larger than a typical 
+supercomputer node, *e.g.* [SuperDome](https://docs.vscentrum.be/en/latest/leuven/tier2_hardware/superdome_hardware.
+html) at KU leuven. Such systems allow to run a shared memory program with much more threads and much more memory. 
+This approach can be useful when distributed memory parallelization is not feasible for some reason. 
+
+The most common framework for shared memory parallelization is [OpenMP](https://www.openmp.org). OpenMP 
+parallelization of a sequential program is relatively simple, requiring little changes to the source code in the
+form of directives. A good starting point for OpenMP parallelization is [this video](https://www.youtube.com/watch?
+v=SnD8xlwLlZU). An important limitation of OpenMP is that it is only available in C/C++/Fortran, and not Python. 
+Fortunately, Python has other options, *e.g.* [multiprocessing](https://docs.python.org/3/library/multiprocessing.
+html), [concurrent.futures](https://docs.python.org/3/library/concurrent.futures.html) and [dask](https://www.dask.
+org). In addition it is possible to build your own Python modules from C++ or Fortran code, in which OpenMP is used 
+to parallelize some tasks. The popular [numpy](https://numpy.org) is a good example.
+
+### PGAS
+
+**[Partitioned Global Address Space](https://en.wikipedia.org/wiki/Partitioned_global_address_space)**, or **PGAS**, 
+is a parallel programming paradigm that provide communication operations involving a global memory address space on 
+top of an otherwise distributed memory system.  
 
 ## Distributed memory parallelization
 
@@ -252,7 +275,9 @@ over the interconnect.
 
 Distributed memory programs are considerably more complex to write, as the communication must be explicitly handled 
 by the programmer, but may use as many processes as you want. Transformation of a sequential program into a 
-distributed memory program is often a big programming effort. The most common framework is [MPI](https://www.mpi. org). 
+distributed memory program is often a big programming effort. The most common framework is [MPI](https://www.mpi.org)
+. MPI is available in C/C++/Fortran and also in Python by the [mpi4py](https://mpi4py.readthedocs.io/en/stable/) 
+module. 
 
 ## Hybrid memory parallelization
 
@@ -264,6 +289,8 @@ dat NUMA domain.
 This approach uses shared memory parallelization where it is useful (on a NUMA domain), but removes the limitation 
 to a single machine. It has less processes, and thus less overhead in terms of memory footprint, and 
 communication overhead. It is also a bit more complex that pure distributed memory parallelization, and much more 
-complex that shared memory parallelization.
+complex than shared memory parallelization.
 
+Hybrid memoryy parallelization is usually implemented with OpenMP at the shared memory level and MPI at the 
+distributed level.
 
