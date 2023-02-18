@@ -23,3 +23,8 @@
 - [multiprocessing](https://docs.python.org/3/library/multiprocessing.html): Python
 - [concurrent.futures](https://docs.python.org/3/library/concurrent.futures.html): Python
 - [dask](https://www.dask.org): Python
+
+## HPC
+- [Georg Hager's blog](https://blogs.fau.de/hager/)
+- [SC20 tutorial “Node-Level Performance Engineering”](https://blogs.fau.de/hager/archives/8861): This is all about 
+  "When to parallelize, and ***what to do first***".  

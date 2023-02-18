@@ -1,4 +1,10 @@
-# Welkom bij Parallel programmeren 
+# Wellcome at Parallel programming
+
+# *Welkom bij Parallel programmeren*
+
+Material for the course ***2000wetppr*** of the University of Antwerp
+
+![uantwerpen-logo](public/we-en-rgb.png)
 
 ## Table of Contents
 
@@ -6,11 +12,11 @@
 1. [Overview](overview.md)
 2. [Glossary](glossary.md)
 3. [Links](links.md)
-3. [Chapter 1](chapter-1.md)
-3. [Chapter 2](chapter-2.md)
-3. [Chapter 3](chapter-3.md)
-3. [Chapter 4](chapter-4.md)
+3. [Chapter 1 - Introduction](chapter-1.md)
+3. [Chapter 2 - Aspects of modern CPU architecture](chapter-2.md)
+3. [Chapter 3 - Optimise first, then parallelize](chapter-3.md)
+3. [Chapter 4 - Case studies](chapter-4.md)
 4. [Evaluation](evaluation.md)
-5. [Assignment](assignment.md)
+5. [Assignment](assignment-2022-23.md)
 2. [Guide lines](guide-lines.md)
 

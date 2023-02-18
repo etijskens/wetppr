@@ -147,6 +147,120 @@ pipeline comes to halt.
    find one, falls back on statistics. Random outcomes of the condition are thus detrimental to performance as its
    guess will be wrong at least half the time.
 
+### SIMD vectorisation
+
+work in progress ...
+
+### The cost of floating point instructions
+
+!!! Note
+    All animals are equal, but some animals are more equal than others. Animal farm, George Orwell.
+
+Not all mathematical operations are equally fast. Here's a table listing their relative cost: 
+
+| cost | operations                                        |
+|------|---------------------------------------------------|
+| cheap | addition, subtraction, multipication              |
+|rather expeesive | division                                          |
+| expensive | square root                                       |
+| very expensive | trigonometric, exponential, logarithmic functions |
+
+As an example, let's write a functon for the Lennard-Jones potential:
+
+![LJpot](public/lennard-jones.png)
+
+Here's a first C++ translation of the mathematical expression of the Lennard-jones potential:
+
+```C++
+double VLJ0( double r ) {
+    return 1./pow(r,12) - 1./pow(r,6); 	
+} 
+```
+We measured the cost of `VLJ0` by timing its application to a long array and express it relative to the best 
+implementation we could come up with. The cost of `VLJ0` is 18.0, so it is a really expensive implemenation. In view 
+of the table above, that should come to no surprise: it has two divisions and two `pow` calls which raise a real 
+number to a real power. `pow` is implemented using an exponential and a logarithm. Let's try to improve that.
+
+We can get rid of the divisions using $1/r = r^{-1}$: 
+```C++
+function 
+double VLJ1( double r ) {
+    return std::pow(r,-12) - std::pow(r,-6);
+}
+```
+This scores a bit better: 14.9, but the two `pow` calls remain expensive. The expression for the Lennard-Jones 
+potential can be rewritten as $V(r)=r^{-6}(r^{-6}-1)$. Using a temporary to store $r^{-6}$ we are left with only one 
+`pow` call: 
+```C++
+double VLJ2( double r ) {
+    double tmp = std::pow(r,-6);
+    return tmp*(tmp-1.0);
+}
+```
+This has a performance score of 7.8, still far away from 1. Realizing that we don't need to use `pow` because the 
+expression has in fact integer powers,
+```C++
+double VLJ3( double r ) {
+    double tmp = 1.0/(r*r*r*r*r*r);
+    return tmp*(tmp-1.0);
+}
+```
+This has one division, 6 multiplications and subtraction. We can still reduce the number of multiplications a bit:
+```C++
+double VLJ( Real_t r ) {
+    double rr = 1./r;
+    rr *= rr;
+    double rr6 = rr*rr*rr;
+    return rr6*(rr6-1);
+}
+```
+Both these implementation have a performance score of 1. The optimum has been reached. The effect of two 
+multiplications less in the last implementation doesn't show, because in fact the compiler optimizes them away anyway. 
+
+!!! Note
+    Compilers are smart, but it will not do the math for you. 
+
+There is yet a common sense optimisation that can be applied. The standard formulation of the Lennard-Jones 
+potential is expressed as a function of $r$. Since it has only even powers of we can as well express it as a 
+function of $s=r^2$:
+
+$$ V_2(s) = 1/s^3(1/s^3 - 1) $$ 
+
+At first sight, this may not immediately seem an optimisation, but in Molecular Dynamics the Lennard-Jones potential is 
+embedded in a loop over all interacting pairs for which distance between the interacting atoms is computed:
+
+```C++
+double interaction_energy = 0;
+for(int i=0; i<n_atosm; ++i)
+    std::vector<int>& verlet_list_i = get_verlet_list(i); 
+    for(int j : verlet_list_i) {
+        r_ij = std::sqrt( (x[j] - x[i])^2 + (y[j] - y[i])^2 + (z[j] - z[i])^2 )
+        if( r_ij < r_cutoff)
+            interaction_energy += VLJ(r_ij);
+    }
+```
+Using $V_2$ this loop can be implemented as: 
+```C++
+double interaction_energy = 0;
+double r2_cutoff = r_cutoff^2;
+for(int i=0; i<n_atosm; ++i)
+    std::vector<int>& verlet_list_i = get_verlet_list(i); 
+    for(int j : verlet_list_i) {
+        s_ij = (x[j] - x[i])^2 + (y[j] - y[i])^2 + (z[j] - z[i])^2
+        if( s_ij < r2_cutoff)
+            interaction_energy += V_2(s_ij);
+    }
+```
+This avoid the evaluation of a `sqrt` for every interacting pair of atoms. 
+
+!!! warning "Homework"
+    Write a program in C++ or Fortran to time the above implementations of the Lennard-Jones potential. Since 
+    timers are not accurate enough to measure a single call, apply it to an array and divide the time for 
+    processing the array by the number of array elements.
+
+    - Think about the length of the array in relation to the size of the cache (L1/L2/L3).
+    - Think about vectorisation. 
+
 ## Consequences of computer architecture for performance 
 
 ### Recommendations for array processing 
