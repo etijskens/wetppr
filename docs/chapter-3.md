@@ -261,7 +261,7 @@ to parallelize some tasks. The popular [numpy](https://numpy.org) is a good exam
 
 ### PGAS
 
-**[Partitioned Global Address Space](https://en.wikipedia.org/wiki/Partitioned_global_address_space)**, or **PGAS**, 
+[PGAS](https://en.wikipedia.org/wiki/Partitioned_global_address_space), or **Partitioned Global Address Space**, 
 is a parallel programming paradigm that provide communication operations involving a global memory address space on 
 top of an otherwise distributed memory system.  
 

@@ -29,11 +29,16 @@ Here is an alphabetical list of terms with links to where they are explained in 
 
 ## D
 
-- [distributed memory parallelization][common-approaches-towards-parallelization]
+- [Distributed memory parallelization][distributed-memory-parallelization]
 
 ## E
 
 - [embarrassingly parallel][what-is-a-parallel-program]
+
+## H
+
+- [hardware thread][common-approaches-towards-parallelization]
+- [Hybrid memory parallelization][hybrid-memory-parallelization]
 
 ## I
 
@@ -61,9 +66,11 @@ Here is an alphabetical list of terms with links to where they are explained in 
 ## P
 
 - [parallel program][what-is-a-parallel-program]
+- [Partitioned Global Address Space][pgas]
 - [peak performance][1-reduce-the-time-to-solution]
 - [pipeline stalls][instruction-pipelining]
 - [process][common-approaches-towards-parallelization]
+- [profiling][when-is-code-optimized-enough]
 
 ## R
 
@@ -73,8 +80,9 @@ Here is an alphabetical list of terms with links to where they are explained in 
 
 - [sequential][what-is-a-parallel-program]
 - [serial][what-is-a-parallel-program]
-- [shared memory parallelization][common-approaches-towards-parallelization]
+- [shared memory parallelization][shared-memory-parallelization]
 - [SIMD vectorisation][intra-core-parallellisation-features]
+- [software thread][common-approaches-towards-parallelization]
 - [Spatial locality][the-hierarchical-structure-of-cpu-memory]
 - [structure of Arrays][recommendations-for-data-structures]
 
