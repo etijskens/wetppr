@@ -59,7 +59,7 @@ for(int ic=0; ic<1000; ++ic)
      // double loop over all interactions
         for(int i=0; i<n_atoms; ++i)
             for(int j=0; j<i; ++j) {
-                double rij = std::sqrt((x[j] - x[j])^2 + (y[j] - y[j])^2 + (z[j] - z[j])^2);
+                double rij = std::sqrt((x[j]-x[j])^2 + (y[j]-y[j])^2 + (z[j]-z[j])^2);
                 E += V(rij);
             }
         }
@@ -93,10 +93,10 @@ Consequently, the code is certainly compute bound.
 
 ### Optimisation
 
-Most of the work is carried out in the inner double loop over the interactions. Let's see if we can optmise this. 
+Most of the work is carried out in the inner double loop over the interactions. Let's see if we can optimise this. 
 
 Initially, both expressions for the interatomic distance $r_{ij}(r_i,r_j)$ and the interaction potential $V(r)$
-were implemented as functions called in the double loop. The first timing for the doubleloop with 50 atoms is 144 
+were implemented as functions called in the double loop. The first timing for the double loop with 50 atoms is 144 
 $\mu$s. By checking the vectorisation report of the compiler, we learned that the two function calls prohibited 
 vectorisation. After inlining the functions,  the timing was reduced to 93 $\mu$s.  
 The inner loop contains a lot of short loops. This is bad for pipelining and vectorisation (many loops end with 
@@ -162,6 +162,8 @@ and in row 5 and 6 the elements corresponding to column 4 change as well. The ne
 result can be computed from the previous result by first subtracting the previous result and then adding the new 
 result. 
 
+![Eij](public/Eij-perturb-4-bis.png)
+
 Here is a comparison of the timings:
 
 | $N$        | $O(N^2)$           | $O(N)$            | speedup |
@@ -171,7 +173,7 @@ Here is a comparison of the timings:
 | 500 (x10)  | 8616 $\mu$s (x100) | 57.0 $\mu$s (x10) | 115.2   |
 
 Clearly, the timings for the $O(N^2)$ algorithm increase quadratically, while those for the $O(N)$ algorithm increase 
-only linearly and the speedups are substantial. The $O(N) algorithm for 500 atoms - a number that our researcher 
+only linearly and the speedups are substantial. The $O(N)$ algorithm for 500 atoms - a number that our researcher 
 considered unattainable because it would take too long to compute - is still faster than the $O(N)$ algorithm.
 
 !!! Tip 
@@ -201,6 +203,8 @@ The `wetppr/mcgse` folder repeats this case study for the [Morse potential](http
 org/wiki/Morse_potential).
 
 $$ V(r) = D_e(1 - e^{-\alpha(r-r_e)})^2 $$
+
+Here is its graph:
 
 ![morse](public/morse.png)
 
