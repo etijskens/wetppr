@@ -19,6 +19,9 @@ def morse_potential(r: float, D_e: float = 1, alpha: float = 1, r_e: float = 1
 	"""
 	return D_e * (1 - np.exp(-alpha*(r - r_e)))**2
 
+def interatomic_distance(x: np.ndarray, y: np.ndarray, z: np.ndarray, i: int, j: int) -> float:
+	""""""
+	return np.sqrt((x[j] - x[i]) ** 2 + (y[j] - y[i]) ** 2 + (z[j] - z[i]) ** 2)
 
 def interatomic_distances(x: np.ndarray, y: np.ndarray, z: np.ndarray) -> np.ndarray:
 	"""Compute the array of interatomic distances."""
@@ -85,8 +88,28 @@ def update( x: np.ndarray
 		  , rij: np.ndarray
 		  , Eij: np.ndarray
 		  , E
-		  , i: int
+		  , i: int # index perturbed atom.
 		  ):
 	"""update the interatomic distances and the potential .
 	"""
-	
+	# Update rij and Eij
+	# update the orange row
+	ij = i*(i-1)/2 + 1
+	xj = x[0:i]
+	yj = y[0:i]
+	zj = z[0:i]
+	rij[ij:ij + i] = np.sqrt((xj - x[i]) ** 2 + (yj - y[i]) ** 2 + (zj - z[i]) ** 2)
+	E -= np.sum(Eij[ij:ij + i]) 						# subtract the old values
+	Eij[ij:ij + i] = morse_potential(rij[ij:ij + i]) 	# update
+	E += np.sum(Eij[ij:ij + i]) 						# add the new values
+	ij += i
+
+	# update the orange column
+	for j in range(i+1, x.shape[0]):
+		ij += i + 1
+		rij[ij] = interatomic_distance(x,y,z,i,j)
+		E -= Eij[ij]  									# subtract the old values
+		Eij[ij] = morse_potential(rij[ij]) 				# update
+		E += Eij[ij]  									# add the new values
+
+	return E
