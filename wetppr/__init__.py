@@ -1,22 +1,11 @@
 # -*- coding: utf-8 -*-
 
 """
-Package wetppr
-=======================================
+# Package wetppr
 
-Top-level package for wetppr.
+This contains a series of unrelated python projects, e.g. with case studies and examples
+
 """
 
 __version__ = "0.0.0"
 
-
-def hello(who='world'):
-    """'Hello world' method.
-
-    :param str who: whom to say hello to
-    :returns: a string
-    """
-    result = "Hello " + who
-    return result
-
-# Your code here...

@@ -1,8 +1,27 @@
-# Evaluation
+# Evaluation of this course
 
-In this course you will be learning by doing. You will be given an [assignment](assignment.md), a (parallel) 
-programming task on which you will work for several weeks, under my supervision and with my support. The code that 
-you write must be regularly committed to a [GitHub](https://github) repository. This has many advantages:
+In this course you will be learning by doing. You will be given an assignment, a (parallel) 
+programming task on which you will work for several weeks, under my supervision and with my support. 
+
+The exam consists of a presentation of your project work (usually in the last week of the course) in which you must
+
+- explain the problems you encountered,
+- explain your approach,
+- provide performance measurements for the different versions your code, and for different node counts,
+- explain the performance measurements,
+- tell me what you found difficult during this course.
+
+During the presentation I will ask some questions, mainly because I am curious and eager to learn something, but also 
+to ensure that you understand what you present.
+
+## Assignment
+
+Here is this year's [assignment](assignment-2022-23.md).
+
+## Guide lines
+
+### Create a Github repo for your project work 
+The code that you write must be regularly committed to a [GitHub](https://github) repository. This has many advantages:
 
 - First, it serves as a backup. Every single commit can be retrieved at all times. So, you can't loose your code, 
   even not the older versions.
@@ -13,17 +32,73 @@ you write must be regularly committed to a [GitHub](https://github) repository. 
 - If you cooperate with another student on the project you can exchange updates easily. You can make use of git 
   branches to avoid bother other people with your code changes before they are correct.  
 
-At our final session you will give a presentation about your work
+The presentation must have been added to your GitHub repository before you give your presentation. I will keep a 
+copy of your project repo as a proof of your work.
 
-- explaining the problems you encountered,
-- explaining your approach,
-- providing performance measurements for the different versions your code, and for different node counts,
-- explaining the performance measurements,
-- explaining what you found difficult during this course.
+### Learning by doing
 
-After the presentation I will ask some questions, mainly because I am curious and eager to learn something, but also 
-to ensure that you understand what you present. 
+The assignment is there because imho ***programming is something you can only learn by doing***. It involves 
+important skills that you should develop while working on the assignment:
 
-The presentation must be added to your GitHub repository before you give your presentation. I will clone it and keep 
-it as a proof of your results.
+- Using the background information presented in chapters 1-4
+- Reason abuot the mathematical formulation of the problem and the algorithm to solve it,
+- Do research on the problem, with respect to solution algorithms and implementation issues.
+- Write and debug code in Python. 
+- Learn how slow Python functions can be sped up by converting them to either C++ or Fortran. 
+- Run your code on one of the UAntwerp HPC clusters.
 
+Learning is an incremental process. Especially for scientific software development the following is a good approach:
+
+1. ***Try, and test*** (We'll see what testing exactly means). 
+2. ***Fail*** (often, [the faster you fail, the faster you learn](https://testsigma.
+   com/blog/test-automation-achieve-fail-fast-fail-often/)! ).   
+3. ***Think and do research*** (*Google* - or any other good search engine, for that matter - is your best friend), and 
+   come up with an improvement. This is the hardest part, it requires intelligence and creativity.
+4. ***Iterate***, *i.e.* restart at 1., until you no more fail and are satisfied with the solution.
+5. ***Document your itinerary***. Document your classes, functions, variables, and keep track of the documents 
+   that guided you to solving the problems encountered. When you will look at your work three months (only!) after 
+   you left it as is, you will wonder what it was all about if you didn't document it. 
+
+Although this approach may look as if you are supposed to find the solution to the problem in books or on the *World 
+Wide Web*, this does not at all exclude creativity. Learning about how other researchers approached a problem, can 
+easily spark new ideas that get you going. The *fail fast, fail often* principle also 
+ 
+- ***urges you to start as simple as possible*** and 
+- ***make incremental changes***. 
+
+Don't write a lot of code before you try and test. Typically,  
+and this is corroborated by research, one bug is introduced with every new 10 lines. Finding 10 bugs in 100 lines is 
+a lot more difficult than finding one bug in 10 lines (although sometimes there is more than one bug :( ). 
+
+A PhD student once asked me for support. He had written a 10 000 line Fortran program
+(without tests). When he ran it, the results were not what he expected and he suspected that there was a bug 
+'somewhere'. He asked if I could help him find the bug and - no kidding - by the end of next week because the 
+program had to go into production by then. I had to disappoint him and told him that he needed a true magician, 
+which I am not. Obviously, the program was flawed in some sense, but other than a bug it might just as well be:
+
+- The program contains many bugs, which is very well possible in view of its size.
+- The algorithm for solving the problem is inappropriate.
+- There is an accuracy problem, related e.g. discretisation of time, space, or a insufficient basis function for 
+  expanding the solution, or related to the finite precision of floating point numbers. (Floating point numbers are a 
+  processor's approximation of the real numbers, but they do have different mathematical properties. *E.g.* floating 
+  point addition is ***not*** commutative.)
+- The mathematical formulation itself could be flawed or misunderstood.
+- It is even possible that the program is correct but that the researchers expectations are wrong. 
+- ...
+
+It could easily take weeks, if not months to write tests for the individual components to learn about the behaviour 
+of the program and narrow down to the source of the error. 
+
+For this reason a sound strategy for scientific software development that makes sure that the code you write has a 
+sense of correctness is indispensable. Had the researcher come to me before he started programming this is the 
+advice he would have been given: 
+
+!!! note "Advice"
+    ***Write 5 lines of code and test them before you proceed (with the next 5 lines)***. Just 5, not 10! Your test 
+    code is also code and will initially contain bugs as well. As you get more experienced you may increase that 
+    number  to 6, even 7, ...  
+
+Admittedly, this advice is slightly biased to the conservative side, but I hope you get the point. You will be 
+surprised how many mistakes you make, being a novice. But as you will discover the source of error soon, your 
+progress will not come to halt. Instead you will learn fast and your progress will even speed up. I will give you 
+practical tools to accomplish this. 

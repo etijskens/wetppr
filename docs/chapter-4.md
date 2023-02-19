@@ -195,6 +195,12 @@ achieve with OpenMP. In the end every thread would have its own minimum energy c
 minimum energy configuration is simply found as the minimum of per thread minima. Since every core has its own L1 
 cache, the problem for each thread also fits in L1. 
 
+### Project
 
+The `wetppr/mcgse` folder repeats this case study for the [Morse potential](https://en.wikipedia.
+org/wiki/Morse_potential).
 
+$$ V(r) = D_e(1 - e^{-\alpha(r-r_e)})^2 $$
+
+![morse](public/morse.png)
 
