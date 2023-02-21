@@ -86,9 +86,12 @@ other hand, is cache-oblivious.
 
 A good understanding of the workings of the hierarchical structure of processor memory is required to write 
 efficient programs. Although, at first sight, it may seem an overly complex solution for a simple problem, but it is 
-a good compromise to the many faces of a truly complex problem. There is an excellent presentation on this matter by 
-Scott Meyers: [*CPU Caches and Why You Care*](https://www.youtube.com/watch?v=WDIkqP4JbkE). It is an absolute must-see 
-for this course.
+a good compromise to the many faces of a truly complex problem.\
+
+!!! Tip
+    ***An absolute must-see*** for this course is the excellent presentation on this matter by Scott Meyers: 
+    [*CPU Caches and Why You Care*](https://www.youtube.com/watch?v=WDIkqP4JbkE).  (We can also recommend all his 
+    books on C++).
 
 ## Intra-core parallellisation features 
 
@@ -100,12 +103,25 @@ account for a large part of the work load of a program. To make that possible CP
 
 Instruction pipelining is very well explained [here](https://en.wikipedia.org/wiki/Instruction_pipelining).
 
-Basically, instructions are composed of micro-instructions (typically 5), each of which are executed in separate 
+Basically, instructions are composed of micro-instructions (typically 5: instruction Fetch (IF), instruction decode 
+(ID), execute (EX), memory access (MEM), write back (WB), [details here](https://courses.cs.washington.
+edu/courses/cse410/05sp/lectures/cse410-10-pipelining-a.pdf)), each of which are executed in separate 
 hardware units of the CPU. By executing the instructions sequentially, only one of those units would be active at a 
 time: namely, the unit responsible for the current micro-instruction. By adding extra instruction registers, all 
 micro-instruction hardware units can work simultaneously, but on micro-instructions pertaining to different but 
 consecutive instructions. In this way, on average 5 (typically) instructions are being executed in parallel. This is 
-very useful for loops. There are a couple of problems that may lead to **pipeline stalls**, situations where the 
+very useful for loops.
+
+Executing micro-instructions serially, without pipelining:
+
+![no pipelining](public/no-pipelining.png)
+
+Pipelined execution of micro-instructions, in the middle part 5 micro-instructions are executed simultaneously, 
+which means that on average 5 instructions are executed simultaneously:
+
+![pipelining](public/pipelining.png)
+
+There are a couple of problems that may lead to **pipeline stalls**, situations where the 
 pipeline comes to halt. 
 
 1. A data element is requested that is not in the L1 cache. It must be fetched from deeper cache levels or even 
@@ -128,7 +144,22 @@ pipeline comes to halt.
 
 ### SIMD vectorisation
 
-work in progress ...
+Scalar arithemetic, _e.g._ the addition, in CPUs operates as follows: the two operands are loaded in two (scalar) 
+registers, the add instruction will add them and put the result in a third register. 
+
+![sisd](public/sisd.png)
+
+In modern CPUs the registers have been widened to contain more than one operand and the corresponding vector 
+addition can compute and store the result in the same number of cycles. Typically, a vector register is now 512 bits
+wide, or 64 bytes, the same as the lenght of a cache line.
+
+![simd](public/simd.png)
+
+SIMD vectorisation can in principle speed up loops by a factor of 2, 4, 8, 16, depending on the number of bytes the 
+data elements use. Howecer, when the data being processed is not in the cache it does not help. 
+
+!!! Tip
+    If your code does not vectorize, first find out if the data is in the cache, If not is does not help. 
 
 ### The cost of floating point instructions
 
