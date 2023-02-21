@@ -378,22 +378,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#project" class="md-nav__link">
-    Project
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#parallelization_1" class="md-nav__link">
-    Parallelization
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#project_1" class="md-nav__link">
-    Project
+  <a href="#project-wetpprmcgse" class="md-nav__link">
+    Project wetppr/mcgse
   </a>
   
 </li>
@@ -504,22 +490,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#project" class="md-nav__link">
-    Project
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#parallelization_1" class="md-nav__link">
-    Parallelization
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#project_1" class="md-nav__link">
-    Project
+  <a href="#project-wetpprmcgse" class="md-nav__link">
+    Project wetppr/mcgse
   </a>
   
 </li>
@@ -546,25 +518,6 @@
 
 
 <h1 id="chapter-4-case-studies">chapter 4 - Case studies</h1>
-<script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">
-</script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      processEscapes: true},
-      jax: ["input/TeX","input/MathML","input/AsciiMath","output/CommonHTML"],
-      extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js","AssistiveMML.js", "[Contrib]/a11y/accessibility-menu.js"],
-      TeX: {
-      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"],
-      equationNumbers: {
-      autoNumber: "AMS"
-      }
-    }
-  });
-</script>
-
 <h2 id="monte-carlo-ground-state-energy-calculation-of-a-small-atomistic-system">Monte Carlo Ground state energy calculation of a small atomistic system</h2>
 <h3 id="introduction">Introduction</h3>
 <p>The code for this benchmark was Kindly provided by Jesus Eduardo Galvan Moya, former PhD student of the Physics 
@@ -616,18 +569,22 @@ for(int ic=0; ic&lt;1000; ++ic)
 3600 bytes, which is far less than the size of L1 cache (32KB). Hence, the problem fits easily in the L1 cache. As 
 soonas the entire problem is loaded in the cache, the code will run without needing to wait for data. Furthermore, the 
 interaction potential </p>
-<p>$$ V(r) = A \frac{exp{({\alpha}r)}}{r^n} - B \frac{exp{(-\beta(r-c_{att}))}} {(r-c_{att})^{n_{att}} + d_{att}} 
-- \frac{C}{r}$$</p>
+<p>
+<script type="math/tex; mode=display"> V(r) = A \frac{exp{({\alpha}r)}}{r^n} - B \frac{exp{(-\beta(r-c_{att}))}} {(r-c_{att})^{n_{att}} + d_{att}} 
+- \frac{C}{r}</script>
+</p>
 <p>is rather compute intensive, as it uses several expensive operations: two exponentials and two divisions, plus the 
 square root for the distance which here cannot be avoided:</p>
-<p>$$ r = r_{ij}(r_i,r_j) = \sqrt{(x_j-x_i)^2 + (y_j-y_i)^2 + (z_j-z_i)^2 } $$</p>
+<p>
+<script type="math/tex; mode=display"> r = r_{ij}(r_i,r_j) = \sqrt{(x_j-x_i)^2 + (y_j-y_i)^2 + (z_j-z_i)^2 } </script>
+</p>
 <p>Consequently, the code is certainly compute bound.</p>
 <h3 id="optimisation">Optimisation</h3>
 <p>Most of the work is carried out in the inner double loop over the interactions. Let's see if we can optimise this. </p>
-<p>Initially, both expressions for the interatomic distance $r_{ij}(r_i,r_j)$ and the interaction potential $V(r)$
+<p>Initially, both expressions for the interatomic distance <script type="math/tex">r_{ij}(r_i,r_j)</script> and the interaction potential <script type="math/tex">V(r)</script>
 were implemented as functions called in the double loop. The first timing for the double loop with 50 atoms is 144 
-$\mu$s. By checking the vectorisation report of the compiler, we learned that the two function calls prohibited 
-vectorisation. After inlining the functions,  the timing was reduced to 93 $\mu$s.<br />
+<script type="math/tex">\mu</script>s. By checking the vectorisation report of the compiler, we learned that the two function calls prohibited 
+vectorisation. After inlining the functions,  the timing was reduced to 93 <script type="math/tex">\mu</script>s.<br />
 The inner loop contains a lot of short loops. This is bad for pipelining and vectorisation (many loops end with 
 incompletely filled vector registers.) If we split the loop in a double loop for calculating the interatomic 
 distances and storing them in a long array, and a long loop over that array to compute the interactions, the 
@@ -644,7 +601,7 @@ situation might improve. </p>
         for(int ij=0; ij&lt;n_interactions; ++ij)
             E += V(rij[ij]);
 </code></pre>
-<p>This reduces the time from 93 to 86 $\mu$s. Not much, but since we must runs this loop 1 000 x 200 000 times it 
+<p>This reduces the time from 93 to 86 <script type="math/tex">\mu</script>s. Not much, but since we must runs this loop 1 000 x 200 000 times it 
 nevertheless represents a substantial gain. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -655,13 +612,13 @@ subject <a href="???">later</a>. </p>
 </div>
 <p>At this point, we seem to be done optimising the inner loops. Maybe there is something we can do to the 
 surrounding loops? The perturbation loop adds a small perturbation to every coordinate of every atom in the list to 
-see if the perturbation results in a lower energy. The perturbation involves $3n_{atoms}$ random numbers and 
+see if the perturbation results in a lower energy. The perturbation involves <script type="math/tex">3n_{atoms}</script> random numbers and 
 generation random numbers is also rather expensive. We might wonder if it is really necessary to perturb all atoms. 
-What if we perturbed only one atom? That reduces the number of random number generations by a factor $n_{atoms}$. In 
-addition, most of the interactions remain the same, only the $n_{atoms}-1$ interactions with the perturbed atom 
-change. Hence our program now has a complexity $O(N)$. In the original formulation the number of interaction to be 
-computed was $n_{atoms}(n_{atoms}-1)/2 = O(N^2)$. As the program is compute bound changing the computational 
-complexity  from $O(N^2)$ to $O(N)$ will have a big impact. This optimisation falls under the 
+What if we perturbed only one atom? That reduces the number of random number generations by a factor <script type="math/tex">n_{atoms}</script>. In 
+addition, most of the interactions remain the same, only the <script type="math/tex">n_{atoms}-1</script> interactions with the perturbed atom 
+change. Hence our program now has a complexity <script type="math/tex">O(N)</script>. In the original formulation the number of interaction to be 
+computed was <script type="math/tex">n_{atoms}(n_{atoms}-1)/2 = O(N^2)</script>. As the program is compute bound changing the computational 
+complexity  from <script type="math/tex">O(N^2)</script> to <script type="math/tex">O(N)</script> will have a big impact. This optimisation falls under the 
 <a class="autorefs autorefs-internal" href="../chapter-3/#common-sense-optimisations">common sense optimisations</a>. </p>
 <p>It is important to realize that this optimisation changes the nature of the algorithm. It remains to be seen whether 
 200 000 configurations is still sufficient to find the minimum. We might need more, or maybe less. This up to 
@@ -669,14 +626,14 @@ the researcher to investigate. </p>
 <p>Let's see how we can implement this modification and how that effects the performance. We start with depicting the 
 relation between $r_{ij}) as a (lower triangular) matrix and as the linear <code>rij</code> array in the split loop above. </p>
 <p><img alt="rij" src="../public/rij.png" /></p>
-<p>The linear array stores the rows of the lower triangular matrix: $[r_{10}$, $r_{20}$, $r_{21}$, $r_{30}$, $r_{31}$, 
-$r_{32}, r_{40}$, $r_{41}$, $r_{42}$, $r_{43}$, ... $]$. The matrix elements show the value or the 
+<p>The linear array stores the rows of the lower triangular matrix: <script type="math/tex">[r_{10}</script>, <script type="math/tex">r_{20}</script>, <script type="math/tex">r_{21}</script>, <script type="math/tex">r_{30}</script>, <script type="math/tex">r_{31}</script>, 
+<script type="math/tex">r_{32}, r_{40}</script>, <script type="math/tex">r_{41}</script>, <script type="math/tex">r_{42}</script>, <script type="math/tex">r_{43}</script>, ... <script type="math/tex">]</script>. The matrix elements show the value or the 
 index into the linear array. Let's do something similar for the interaction energy:</p>
 <p><img alt="Eij" src="../public/Eij.png" /></p>
-<p>We have added a column to compute the row sums and the total sum of the interaction energies $E_{ij}$. Let's now 
+<p>We have added a column to compute the row sums and the total sum of the interaction energies <script type="math/tex">E_{ij}</script>. Let's now 
 visualize the changes when an atom, say atom 4, is perturbed.</p>
 <p><img alt="Eij" src="../public/Eij-perturb-4.png" /></p>
-<p>The items changing due to perturbing $r_4$ are marked in orange. The row sum for row 4 has to be computed from scratch
+<p>The items changing due to perturbing <script type="math/tex">r_4</script> are marked in orange. The row sum for row 4 has to be computed from scratch
 and in row 5 and 6 the elements corresponding to column 4 change as well. The next figure shows how the perturbed 
 result can be computed from the previous result by first subtracting the previous result and then adding the new 
 result. </p>
@@ -685,42 +642,48 @@ result. </p>
 <table>
 <thead>
 <tr>
-<th>$N$</th>
-<th>$O(N^2)$</th>
-<th>$O(N)$</th>
+<th>
+<script type="math/tex">N</script>
+</th>
+<th>
+<script type="math/tex">O(N^2)</script>
+</th>
+<th>
+<script type="math/tex">O(N)</script>
+</th>
 <th>speedup</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>50</td>
-<td>86 $\mu$s</td>
+<td>86 <script type="math/tex">\mu</script>s</td>
 <td>5.7</td>
 <td>15.1</td>
 </tr>
 <tr>
 <td>150 (x3)</td>
-<td>747 $\mu$s (x9)</td>
-<td>17.3 $\mu$s (x3)</td>
+<td>747 <script type="math/tex">\mu</script>s (x9)</td>
+<td>17.3 <script type="math/tex">\mu</script>s (x3)</td>
 <td>43.3</td>
 </tr>
 <tr>
 <td>500 (x10)</td>
-<td>8616 $\mu$s (x100)</td>
-<td>57.0 $\mu$s (x10)</td>
+<td>8616 <script type="math/tex">\mu</script>s (x100)</td>
+<td>57.0 <script type="math/tex">\mu</script>s (x10)</td>
 <td>115.2</td>
 </tr>
 </tbody>
 </table>
-<p>Clearly, the timings for the $O(N^2)$ algorithm increase quadratically, while those for the $O(N)$ algorithm increase 
-only linearly and the speedups are substantial. The $O(N)$ algorithm for 500 atoms - a number that our researcher 
-considered unattainable because it would take too long to compute - is still faster than the $O(N)$ algorithm.</p>
+<p>Clearly, the timings for the <script type="math/tex">O(N^2)</script> algorithm increase quadratically, while those for the <script type="math/tex">O(N)</script> algorithm increase 
+only linearly and the speedups are substantial. The <script type="math/tex">O(N)</script> algorithm for 500 atoms - a number that our researcher 
+considered unattainable because it would take too long to compute - is still faster than the <script type="math/tex">O(N)</script> algorithm.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p><strong><em>Look for algorithms of low computational complexity.</em></strong> However, The best algorithme may also depend on the 
 problem as we saw in <a class="autorefs autorefs-internal" href="../chapter-2/#selecting-algorithms-based-on-computational-complexity">Selecting algorithms based on computational complexity</a>.  </p>
 </div>
-<p>Despite the considerable performance improvement, there are a few disadvantages to it too. The $O(N)$ algorithm has 
+<p>Despite the considerable performance improvement, there are a few disadvantages to it too. The <script type="math/tex">O(N)</script> algorithm has 
 more code, is more difficult to understand and thus harder to maintain. Morover, its loops are more complex, making 
 it harder for the compiler to optimize. Autovectorisation doesn't work. If it needs further optimization, it is 
 certainly no low-hanging fruit.   </p>
@@ -733,40 +696,23 @@ random numbers they can run their share of the perturbation iterations completel
 achieve with OpenMP. In the end every thread would have its own minimum energy configuration, and the overall 
 minimum energy configuration is simply found as the minimum of per thread minima. Since every core has its own L1 
 cache, the problem for each thread also fits in L1. </p>
-<h3 id="project">Project</h3>
+<h3 id="project-wetpprmcgse">Project <code>wetppr/mcgse</code></h3>
 <p>The <code>wetppr/mcgse</code> folder repeats this case study for the <a href="https://en.wikipedia.
 org/wiki/Morse_potential">Morse potential</a> (I lost the original code :-( )</p>
-<p>$$ V(r) = D_e(1 - e^{-\alpha(r-r_e)})^2 $$</p>
+<p>
+<script type="math/tex; mode=display"> V(r) = D_e(1 - e^{-\alpha(r-r_e)})^2 </script>
+</p>
 <p>We will assume that all parameters are unity. </p>
-<p>$$ V(r) = (1 - e^{1-r)})^2 $$</p>
-<p>Here is its graph:</p>
-<p><img alt="morse" src="../public/morse.png" /></p>
-<p>Despite the considerable performance improvement, there are a few disadvantages to it too. The $O(N)$ algorithm has 
-more code, is more difficult to understand and thus harder to maintain. Morover, its loops are more complex, making 
-it harder for the compiler to optimize. Autovectorisation doesn't work. If it needs further optimization, it is 
-certainly no low-hanging fruit.   </p>
-<h3 id="parallelization_1">Parallelization</h3>
-<p>If the time of solution for this sofar sequential program is still too large, we might opt for parallelization. The 
-interaction loop is now doing relatively little work, and hard to parallelize. On the other hand the perturbation 
-loop can be easily distributed over more threads as this loop is 
-<a class="autorefs autorefs-internal" href="../chapter-1/#what-is-a-parallel-program">embarrassingly parallel</a>. As long as every thread generates a different series of 
-random numbers they can run their share of the perturbation iterations completely independent. This is very easy to 
-achieve with OpenMP. In the end every thread would have its own minimum energy configuration, and the overall 
-minimum energy configuration is simply found as the minimum of per thread minima. Since every core has its own L1 
-cache, the problem for each thread also fits in L1. </p>
-<h3 id="project_1">Project</h3>
-<p>The <code>wetppr/mcgse</code> folder repeats this case study for the <a href="https://en.wikipedia.
-org/wiki/Morse_potential">Morse potential</a> (I lost the original code :-( )</p>
-<p>$$ V(r) = D_e(1 - e^{-\alpha(r-r_e)})^2 $$</p>
-<p>We will assume that all parameters are unity. </p>
-<p>$$ V(r) = (1 - e^{1-r)})^2 $$</p>
+<p>
+<script type="math/tex; mode=display"> V(r) = (1 - e^{1-r)})^2 </script>
+</p>
 <p>Here is its graph:</p>
 <p><img alt="morse" src="../public/morse.png" /></p>
 <p>Using our <a href="../chapter-5/">research software devolopment strategy</a>, we start in Python, implement both algorithms and 
 test. A good test is the case of a cluster of 4 atoms. Energy minimum then consists of a tetrahedron with unit sides.
-Every pair is then at equilibrium distance and $E_{min}=0$. The vertices of the tetrahedron are on a sphere of 
-radius $\sqrt{3/8}$. Let us randomly distribute 4 points on a sphere of radius $\sqrt{3/8}$ and see how well close 
-we get to $E_{min}=0$. </p>
+Every pair is then at equilibrium distance and <script type="math/tex">E_{min}=0</script>. The vertices of the tetrahedron are on a sphere of 
+radius <script type="math/tex">\sqrt{3/8}</script>. Let us randomly distribute 4 points on a sphere of radius <script type="math/tex">\sqrt{3/8}</script> and see how well close 
+we get to <script type="math/tex">E_{min}=0</script>. </p>
 <pre><code class="language-python">    import numpy as np
     import mcgse # our module for this project: wetppr/mcgse
     sample = mcgse.sample_unit_sphere(4) * np.sqrt(3/8)
@@ -807,34 +753,53 @@ ON iteration 200000: Emin=0.07936811573814093, last improvement: iteration = 258
 <ul>
 <li>Neither of the algorithms seem to get close to the minimum,</li>
 <li>In terms of closeness to the minimum there no clear winner, although <code>ON</code> got rather close twice,</li>
-<li>The higher the initial energy, the worse the solution,</li>
+<li>The higher the initial energy, the worse the solution, which is acceptable, as the average displacement magnitude 
+  is fixed.</li>
 <li>None of the algorithms seems to converge. In the first and the last run <code>ON2</code> found its best guess at 2044 and 
   2621 iterations. None of the approximately 198_000 later attempts could reduce the energy. This seems to be the 
-  case for <code>ON</code> as well, although the numbers are a bit higher.</li>
+  case for <code>ON</code> as well, although the numbers are a bit higher. Despite being far from the minimum, improvements 
+  seem to involve progressively more work. </li>
 </ul>
 <p>Especially the last conclusion is rather worrying. Our algorithms don't seem to sample the configuration space very 
 efficiently. </p>
 <p>Perhaps, rather than displacing the atoms randomly, it might be more efficient to move them in the direction of the 
-steepest descent of the energy surface. Since we have an analytical expression, we can compute it. The interaction $V
-(r_{ij})$ exerts a force </p>
-<p>$$ {\vec{F}} <em>k = r</em>{kj} $$</p>
-<p>$$ F_{x_k} = -\frac{\partial}{\partial_{x_k}}E = -\frac{\partial}{\partial_{x_k}} \sum_{i&lt;j}V(r_{ij}) = -\sum_{i&lt;j}
-\frac{\partial}{\partial_{x_k}}V(r_{ij}) = -\sum_{i&lt;j}
-\frac{d}{d_{x_k}}V(r_{ij})\frac{\partial r_{ij}}{\partial_{x_k}} $$</p>
-<p>$$ \frac{\partial r_{ij}}{\partial_{x_k}} = 0 \text{  if  } k \ne i,j $$</p>
-<p>$$ \frac{\partial r_{kj}}{\partial_{x_k}} = \frac{\partial}{\partial_{x_k}}((x_j-x_k)^2+(y_j-y_k)^2+(z_j-z_k)^2)^\frac
-{1}{2}
-$$</p>
-<p>$$ = \frac{1}{2}((x_j-x_k)^2+(y_j-y_k)^2+(z_j-z_k)^2)^{-\frac{1}{2}} \frac{\partial}{\partial_{x_k}}(x_j-x_k)^2$$ </p>
-<p>$$ = \frac{1}{2}((x_j-x_k)^2+(y_j-y_k)^2+(z_j-z_k)^2)^{-\frac{1}{2}} 2(x_j-x_k)\frac{\partial}{\partial_{x_k}}(x_j-x_k)$$ </p>
-<p>$$ = -((x_j-x_k)^2+(y_j-y_k)^2+(z_j-z_k)^2)^{-\frac{1}{2}} (x_j-x_k)$$</p>
-<p>$$ \frac{\partial r_{kj}}{\partial_{x_k}} = -\frac{x_{kj}}{r_{kj}} $$</p>
-<p>Similarly,</p>
-<pre><code class="language-math">\frac{\partial r_{jk}}{\partial_{x_k}} = \frac{x_{jk}}{r_{jk}}
-</code></pre>
-<pre><code class="language-math">\frac{\partial r_{jk}}{\partial_{{\textbf{r}}_k}} = \frac{x_{jk}}{r_{jk}}
-</code></pre>
-<p>$$ {\textbf{r}}_k  $$</p>
+steepest descent of the energy surface. Since we have an analytical expression, we can compute it. The interaction 
+<script type="math/tex">V(r_{ij})</script> exerts a force </p>
+<p>
+<script type="math/tex; mode=display"> {\mathbf{F}}_k = -\nabla_{\mathbf{r}_k}E </script>
+</p>
+<p>
+<script type="math/tex; mode=display"> = -\nabla_{\mathbf{r}_k} \sum_{i<j}V(r_{ij}) = -\sum_{i<j}
+\nabla_{\mathbf{r}_k}V(r_{ij})</script>
+</p>
+<p>
+<script type="math/tex; mode=display">= -\sum_{i<j}
+\frac{d}{d_{r_{ij}}}V(r_{ij})\nabla_{\mathbf{r}_k}r_{ij} = -\sum_{i<j} V'(r_{ij})\nabla_{\mathbf{r}_k}r_{ij}</script>
+</p>
+<p>Here, </p>
+<p>
+<script type="math/tex; mode=display">\nabla_{\mathbf{r}_k}r_{ij} = 0 \text{  if  } k \ne i,j </script>
+</p>
+<p>and</p>
+<p>
+<script type="math/tex; mode=display">\nabla_{\mathbf{r}_k}r_{kj} = -\frac{\mathbf{r}_{kj}}{r_{kj}} = -{\hat{\mathbf{r}}}_{kj}</script>
+</p>
+<p>
+<script type="math/tex; mode=display">\nabla_{\mathbf{r}_k}r_{jk} = \frac{\mathbf{r}_{jk}}{r_{jk}} = {\hat{\mathbf{r}}}_{jk}</script>
+</p>
+<p>Thus, </p>
+<p>Hence:</p>
+<p>
+<script type="math/tex; mode=display"> \mathbf{F}_k = \sum_{j\ne{k}} V'(r_{kj}){\hat{\mathbf{r}}}_{kj} = -\sum_{j<k} V'(r_{jk}){\hat{\mathbf{r}}}_{jk} 
++ \sum_{k<j} V'(r_{kj}){\hat{\mathbf{r}}}_{kj}</script>
+</p>
+<p>Finally (setting all parameters to unity),  </p>
+<p>
+<script type="math/tex; mode=display"> V'(r) = -2(1-e^{1-r})e^{1-r}</script>
+</p>
+<p>Now that we have the forces on the atoms in the current configuration, we should be able to move the atoms in the 
+directon of the force, rather than in a random direction, as before. In fact we have a true minimisation problem now.</p>
+<p>to be continued...</p>
 
 
 
@@ -876,6 +841,10 @@ $$</p>
     
     
       <script src="../assets/javascripts/bundle.6df46069.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML"></script>
+      
+        <script src=".."></script>
       
     
   </body>

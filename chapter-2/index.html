@@ -626,25 +626,6 @@
 
 
 <h1 id="chapter-2-aspects-of-modern-cpu-architecture">Chapter 2 - Aspects of modern CPU architecture</h1>
-<script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">
-</script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      processEscapes: true},
-      jax: ["input/TeX","input/MathML","input/AsciiMath","output/CommonHTML"],
-      extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js","AssistiveMML.js", "[Contrib]/a11y/accessibility-menu.js"],
-      TeX: {
-      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"],
-      equationNumbers: {
-      autoNumber: "AMS"
-      }
-    }
-  });
-</script>
-
 <p>You do not have to be a CPU architecture specialist in order to be able to write efficient code. However, there are 
 a few aspects of CPU architecture that you should understand.</p>
 <h2 id="the-hierarchical-structure-of-cpu-memory">The hierarchical structure of CPU Memory</h2>
@@ -717,21 +698,33 @@ L1, which may differ on different machines. Thus, this approach is not <strong>c
 other hand, is cache-oblivious.</p>
 <p>A good understanding of the workings of the hierarchical structure of processor memory is required to write 
 efficient programs. Although, at first sight, it may seem an overly complex solution for a simple problem, but it is 
-a good compromise to the many faces of a truly complex problem. There is an excellent presentation on this matter by 
-Scott Meyers: <a href="https://www.youtube.com/watch?v=WDIkqP4JbkE"><em>CPU Caches and Why You Care</em></a>. It is an absolute must-see 
-for this course.</p>
+a good compromise to the many faces of a truly complex problem.\</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p><strong><em>An absolute must-see</em></strong> for this course is the excellent presentation on this matter by Scott Meyers: 
+<a href="https://www.youtube.com/watch?v=WDIkqP4JbkE"><em>CPU Caches and Why You Care</em></a>.  (We can also recommend all his 
+books on C++).</p>
+</div>
 <h2 id="intra-core-parallellisation-features">Intra-core parallellisation features</h2>
 <p>Modern CPUs are designed to (among other things) process loops as efficiently as possible, as loops typically 
 account for a large part of the work load of a program. To make that possible CPUs use two important concepts: 
 <strong>instruction pipelining</strong> (ILP) and <strong>SIMD vectorisation</strong>. </p>
 <h3 id="instruction-pipelining">Instruction pipelining</h3>
 <p>Instruction pipelining is very well explained <a href="https://en.wikipedia.org/wiki/Instruction_pipelining">here</a>.</p>
-<p>Basically, instructions are composed of micro-instructions (typically 5), each of which are executed in separate 
+<p>Basically, instructions are composed of micro-instructions (typically 5: instruction Fetch (IF), instruction decode 
+(ID), execute (EX), memory access (MEM), write back (WB), <a href="https://courses.cs.washington.
+edu/courses/cse410/05sp/lectures/cse410-10-pipelining-a.pdf">details here</a>), each of which are executed in separate 
 hardware units of the CPU. By executing the instructions sequentially, only one of those units would be active at a 
 time: namely, the unit responsible for the current micro-instruction. By adding extra instruction registers, all 
 micro-instruction hardware units can work simultaneously, but on micro-instructions pertaining to different but 
 consecutive instructions. In this way, on average 5 (typically) instructions are being executed in parallel. This is 
-very useful for loops. There are a couple of problems that may lead to <strong>pipeline stalls</strong>, situations where the 
+very useful for loops.</p>
+<p>Executing micro-instructions serially, without pipelining:</p>
+<p><img alt="no pipelining" src="../public/no-pipelining.png" /></p>
+<p>Pipelined execution of micro-instructions, in the middle part 5 micro-instructions are executed simultaneously, 
+which means that on average 5 instructions are executed simultaneously:</p>
+<p><img alt="pipelining" src="../public/pipelining.png" /></p>
+<p>There are a couple of problems that may lead to <strong>pipeline stalls</strong>, situations where the 
 pipeline comes to halt. </p>
 <ol>
 <li>A data element is requested that is not in the L1 cache. It must be fetched from deeper cache levels or even 
@@ -753,7 +746,19 @@ pipeline comes to halt. </p>
    guess will be wrong at least half the time.</li>
 </ol>
 <h3 id="simd-vectorisation">SIMD vectorisation</h3>
-<p>work in progress ...</p>
+<p>Scalar arithemetic, <em>e.g.</em> the addition, in CPUs operates as follows: the two operands are loaded in two (scalar) 
+registers, the add instruction will add them and put the result in a third register. </p>
+<p><img alt="sisd" src="../public/sisd.png" /></p>
+<p>In modern CPUs the registers have been widened to contain more than one operand and the corresponding vector 
+addition can compute and store the result in the same number of cycles. Typically, a vector register is now 512 bits
+wide, or 64 bytes, the same as the lenght of a cache line.</p>
+<p><img alt="simd" src="../public/simd.png" /></p>
+<p>SIMD vectorisation can in principle speed up loops by a factor of 2, 4, 8, 16, depending on the number of bytes the 
+data elements use. Howecer, when the data being processed is not in the cache it does not help. </p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If your code does not vectorize, first find out if the data is in the cache, If not is does not help. </p>
+</div>
 <h3 id="the-cost-of-floating-point-instructions">The cost of floating point instructions</h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -797,14 +802,14 @@ pipeline comes to halt. </p>
 implementation we could come up with. The cost of <code>VLJ0</code> is 18.0, so it is a really expensive implemenation. In view 
 of the table above, that should come to no surprise: it has two divisions and two <code>pow</code> calls which raise a real 
 number to a real power. <code>pow</code> is implemented using an exponential and a logarithm. Let's try to improve that.</p>
-<p>We can get rid of the divisions using $1/r = r^{-1}$: </p>
+<p>We can get rid of the divisions using <script type="math/tex">1/r = r^{-1}</script>: </p>
 <pre><code class="language-C++">function 
 double VLJ1( double r ) {
     return std::pow(r,-12) - std::pow(r,-6);
 }
 </code></pre>
 <p>This scores a bit better: 14.9, but the two <code>pow</code> calls remain expensive. The expression for the Lennard-Jones 
-potential can be rewritten as $V(r)=r^{-6}(r^{-6}-1)$. Using a temporary to store $r^{-6}$ we are left with only one 
+potential can be rewritten as <script type="math/tex">V(r)=r^{-6}(r^{-6}-1)</script>. Using a temporary to store <script type="math/tex">r^{-6}</script> we are left with only one 
 <code>pow</code> call: </p>
 <pre><code class="language-C++">double VLJ2( double r ) {
     double tmp = std::pow(r,-6);
@@ -833,9 +838,11 @@ multiplications less in the last implementation doesn't show, because in fact th
 <p>Compilers are smart, but it will not do the math for you. </p>
 </div>
 <p>There is yet a common sense optimisation that can be applied. The standard formulation of the Lennard-Jones 
-potential is expressed as a function of $r$. Since it has only even powers of we can as well express it as a 
-function of $s=r^2$:</p>
-<p>$$ V_2(s) = 1/s^3(1/s^3 - 1) $$ </p>
+potential is expressed as a function of <script type="math/tex">r</script>. Since it has only even powers of we can as well express it as a 
+function of <script type="math/tex">s=r^2</script>:</p>
+<p>
+<script type="math/tex; mode=display"> V_2(s) = 1/s^3(1/s^3 - 1) </script>
+</p>
 <p>At first sight, this may not immediately seem an optimisation, but in Molecular Dynamics the Lennard-Jones potential is 
 embedded in a loop over all interacting pairs for which distance between the interacting atoms is computed:</p>
 <pre><code class="language-C++">double interaction_energy = 0;
@@ -847,7 +854,7 @@ for(int i=0; i&lt;n_atosm; ++i)
             interaction_energy += VLJ(r_ij);
     }
 </code></pre>
-<p>Using $V_2$ this loop can be implemented as: </p>
+<p>Using <script type="math/tex">V_2</script> this loop can be implemented as: </p>
 <pre><code class="language-C++">double interaction_energy = 0;
 double r2_cutoff = r_cutoff^2;
 for(int i=0; i&lt;n_atosm; ++i)
@@ -885,8 +892,8 @@ for loops over arrays in terms of performance (see below). </p>
 <li>vector registers can be filled efficiently because they need contiguous elements from the input array.</li>
 </ul>
 </li>
-<li><strong><em>Loops should have high computatonal intensity</em></strong>. The <strong>computational intensity</strong> $I_c$ is defined as $ I_c = 
-   \frac {n_{cc}}{n_{rw}} $, with $n_{cc}$ the number of compute cycles and $n_{rw}$ the total number of bytes read and 
+<li><strong><em>Loops should have high computatonal intensity</em></strong>. The <strong>computational intensity</strong> <script type="math/tex">I_c</script> is defined as <script type="math/tex"> I_c = 
+   \frac {n_{cc}}{n_{rw}} </script>, with <script type="math/tex">n_{cc}</script> the number of compute cycles and <script type="math/tex">n_{rw}</script> the total number of bytes read and 
    written. A high computational intensity means many compute cycles and little data traffic to/from memory and thus 
    implies that there will be no pipeline due to waiting for data to arrive. This is a compute bound loop. Low 
    computational intensity, on the other hand, will cause many pipeline stalls by waiting for data. This is a 
@@ -895,36 +902,36 @@ for loops over arrays in terms of performance (see below). </p>
 </ol>
 <h3 id="recommendations-for-data-structures">Recommendations for data structures</h3>
 <p>The unit stride for loops recommendation translates into a recommendation for data structures. Let's take Molecular 
-Dynamics as an example. Object Oriented Programming (OOP) would propose a Atom class with properties for mass $m$, 
-position $\textbf{r}$, velocity $\textbf{v}$, acceleration $\textbf{a}$, and possibly others as well, but let's 
+Dynamics as an example. Object Oriented Programming (OOP) would propose a Atom class with properties for mass <script type="math/tex">m</script>, 
+position <script type="math/tex">\textbf{r}</script>, velocity <script type="math/tex">\textbf{v}</script>, acceleration <script type="math/tex">\textbf{a}</script>, and possibly others as well, but let's 
 ignore those for the time being. Next, the object oriented programmer would create an array of Atoms. This approach 
 is called an <strong>array of structures</strong> (AoS). The AoS approach 
-leads to a data layout in memory like | $m_0$, $r_{x0}$, $r_{y0}$, $r_{z0}$, $v_{x0}$, $v_{y0}$, $v_{z0}$, $a_{x0}$, |
-$a_{y0}$, $a_{z0}$, $m_1$, $r_{x1}$, $r_{y1}$, $r_{z1}$, $v_{x1}$, $v_{y1}$, | $v_{z1}$, $a_{x1}$, $a_{y1}$, $a_{z1}
-$, $m_2$, $r_{x2}$, $r_{y2}$, $r_{z2}$, | $v_{x2}$, $v_{y2}$, $v_{z2}$, $a_{x2}$, $a_{y2}$, $a_{z2}$, ... Assume we 
+leads to a data layout in memory like | <script type="math/tex">m_0</script>, <script type="math/tex">r_{x0}</script>, <script type="math/tex">r_{y0}</script>, <script type="math/tex">r_{z0}</script>, <script type="math/tex">v_{x0}</script>, <script type="math/tex">v_{y0}</script>, <script type="math/tex">v_{z0}</script>, <script type="math/tex">a_{x0}</script>, |
+<script type="math/tex">a_{y0}</script>, <script type="math/tex">a_{z0}</script>, <script type="math/tex">m_1</script>, <script type="math/tex">r_{x1}</script>, <script type="math/tex">r_{y1}</script>, <script type="math/tex">r_{z1}</script>, <script type="math/tex">v_{x1}</script>, <script type="math/tex">v_{y1}</script>, | <script type="math/tex">v_{z1}</script>, <script type="math/tex">a_{x1}</script>, <script type="math/tex">a_{y1}</script>, <script type="math/tex">a_{z1}
+</script>, <script type="math/tex">m_2</script>, <script type="math/tex">r_{x2}</script>, <script type="math/tex">r_{y2}</script>, <script type="math/tex">r_{z2}</script>, | <script type="math/tex">v_{x2}</script>, <script type="math/tex">v_{y2}</script>, <script type="math/tex">v_{z2}</script>, <script type="math/tex">a_{x2}</script>, <script type="math/tex">a_{y2}</script>, <script type="math/tex">a_{z2}</script>, ... Assume we 
 store the properties as single precision floating point numbers, hence a cache line spans 8 values. We marked the cache 
-line boundaries in the list above with vertical bars. Suppose for some reason we need to find all atoms $j$ for 
-which $r_{xj}$ is between $x_{lwr}$ and $x_{upr}$. A loop over all atoms $j$ would test $r_{xj}$ and remember the 
-$j$ for which the test holds. Note that every cache line contains at most one single data item that we need in this 
+line boundaries in the list above with vertical bars. Suppose for some reason we need to find all atoms <script type="math/tex">j</script> for 
+which <script type="math/tex">r_{xj}</script> is between <script type="math/tex">x_{lwr}</script> and <script type="math/tex">x_{upr}</script>. A loop over all atoms <script type="math/tex">j</script> would test <script type="math/tex">r_{xj}</script> and remember the 
+<script type="math/tex">j</script> for which the test holds. Note that every cache line contains at most one single data item that we need in this 
 algorithm. some cache lines will even contain no data items that we need. For every data iten we need, a new cache 
 line must be loaded. This is terribly inefficient. There is a lot of data traffic, only 1/8 of which is useful and the 
 bandwidth will saturate quickly. Vectorisation would be completely useless. To fill the vector register we would 
 need 8 cache lines, most of which would correspond to cache misses and cost hundreds of cycles, before we can do 8 
 comparisons at once. The AoS, while intuitively very attractive, is clearly a disaster as it comes to performance. 
 The - much better - alternative data structure is the SoA, <strong>structure of Arrays</strong>. This creates an AtomContainer 
-class (to stay in the terminology of Object Oriented progrmming) containing an array of length $n_{atoms}$ for each 
-property. In this case there would be arrays for $m$, $r_x$, $r_y$, $r_z$, $v_x$, $v_y$, $v_z$, $a_x$, $a_y$, $a_z$. 
-Now all $r_x$ are stored contiguously in memory and every item in a cache would be used. Only one cache line would 
+class (to stay in the terminology of Object Oriented progrmming) containing an array of length <script type="math/tex">n_{atoms}</script> for each 
+property. In this case there would be arrays for <script type="math/tex">m</script>, <script type="math/tex">r_x</script>, <script type="math/tex">r_y</script>, <script type="math/tex">r_z</script>, <script type="math/tex">v_x</script>, <script type="math/tex">v_y</script>, <script type="math/tex">v_z</script>, <script type="math/tex">a_x</script>, <script type="math/tex">a_y</script>, <script type="math/tex">a_z</script>. 
+Now all <script type="math/tex">r_x</script> are stored contiguously in memory and every item in a cache would be used. Only one cache line would 
 be needed to fill a vector register. Prefetching would do a perfect job. The SoA data structure is much more 
 efficient, and once you get used to it, almost equally intuitive from an OOP viewpoint. Sometimes there is 
-discussion about storing the coordinates of a vector, e.g. $\textbf{r}$ as per-coordinate arrays, as above, or as an 
+discussion about storing the coordinates of a vector, e.g. <script type="math/tex">\textbf{r}</script> as per-coordinate arrays, as above, or as an 
 array of vectors. The latter makes is more practical to define vector functions like magnitude, distance, dot and 
 vector products, ... but they make it harder to SIMD vectorise those functions efficiently, because contiguous data 
 items need to be moved into different vector registers.  </p>
 <h3 id="selecting-algorithms-based-on-computational-complexity">Selecting algorithms based on computational complexity</h3>
 <p>The <strong>computational complexity</strong> of an algorithm is an indication of how the number of instructions in an algorithms 
-scales with the problem size $N$. E.g. the work of an $O(N^2)$ algorithm scales quadratically with its problem size. 
-As an example consider brute force neighbour detection (Verlet list construction) of $N$ interacting atoms in Molecular 
+scales with the problem size <script type="math/tex">N</script>. E.g. the work of an <script type="math/tex">O(N^2)</script> algorithm scales quadratically with its problem size. 
+As an example consider brute force neighbour detection (Verlet list construction) of <script type="math/tex">N</script> interacting atoms in Molecular 
 Dynamics:</p>
 <pre><code class="language-C++">    // C++ 
     for (int i=0; i&lt;N; ++i)
@@ -939,24 +946,24 @@ Dynamics:</p>
 <p>Note that we have avoided the computation of the square root by using the squared distance rather than the 
 distance.</p>
 </div>
-<p>The body of the inner for loop is executed $N*(N-1)/2 = N^2/2 -N/2$ times. Hence, it is $O(N^2)$. Cell-based Verlet 
-list construction restricts the inner loop to the surrounding cells of atom <code>i</code> and is therefor $O(N)$.</p>
+<p>The body of the inner for loop is executed <script type="math/tex">N*(N-1)/2 = N^2/2 -N/2</script> times. Hence, it is <script type="math/tex">O(N^2)</script>. Cell-based Verlet 
+list construction restricts the inner loop to the surrounding cells of atom <code>i</code> and is therefor <script type="math/tex">O(N)</script>.</p>
 <p>The computational complexity of an algorithm used to be a good criterion for algorithm selection: less work means 
 faster, not? Due to the workings of the hierarchical memory of modern computers the answer is not so clear-cut. 
 Consider two search algorithms for finding an element in a sorted array, linear search and binary search bisecting.
 Linear search simply loops over all elements until the element is found (or a larger element is found), and is thus 
-$O(N)$. <a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">Binary search</a> compares the target value to the 
+<script type="math/tex">O(N)</script>. <a href="https://en.wikipedia.org/wiki/Binary_search_algorithm">Binary search</a> compares the target value to the 
 middle element of the array. If they are not equal, the half in which the target cannot lie is eliminated and the 
 search continues on the remaining half, again taking the middle element to compare to the target value, and 
 repeating this until the target value is found. If the search ends with the remaining half being empty, the target 
-is not in the array. The complexity of this algorithm is $O(log{N})$. Clearly, binary search finds the answer 
+is not in the array. The complexity of this algorithm is <script type="math/tex">O(log{N})</script>. Clearly, binary search finds the answer 
 by visiting far fewer elements in the array as indicated by its lower complexity. However, contrary to linear search it 
 visits the elements in the array non-contiguously, and it is very well possible that there will be a cache miss on 
 every access. Linear search, on the other hand, will have no cache misses: it loads a cache line, visits all the 
 elements in it and in the mean time the prefetching machinery takes care of loading the next cache line. It is only 
 limited by the bandwidth. For small arrays linear search will be faster than binary search. For large arrays the 
 situation is reversed. A clever approach would be to combine both methods: start with binary search and switch to 
-linear search as soon as the part of the array to search is small enough. This needs some tuning to find the $N$ at 
+linear search as soon as the part of the array to search is small enough. This needs some tuning to find the <script type="math/tex">N</script> at 
 which both algorithms perform equally well. The combined algorithm is thus not cache-oblivious. </p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
@@ -1027,6 +1034,10 @@ CPU0 can access data in DRAM1, but this is significantly slower (typically 2x). 
     
     
       <script src="../assets/javascripts/bundle.6df46069.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML"></script>
+      
+        <script src=".."></script>
       
     
   </body>

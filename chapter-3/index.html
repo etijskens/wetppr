@@ -614,25 +614,7 @@
 
 
 <h1 id="chapter-3-optimise-first-then-parallelize">Chapter 3 - Optimise first, then parallelize</h1>
-<script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">
 </script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      processEscapes: true},
-      jax: ["input/TeX","input/MathML","input/AsciiMath","output/CommonHTML"],
-      extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js","AssistiveMML.js", "[Contrib]/a11y/accessibility-menu.js"],
-      TeX: {
-      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"],
-      equationNumbers: {
-      autoNumber: "AMS"
-      }
-    }
-  });
-</script>
-
 <h2 id="when-to-parallelize-and-what-to-do-first">When to parallelize, and what to do first...</h2>
 <p>When your program takes too long, the memory of your machine is too small for your problem or the accuracy you need 
 cannot be met, you're hitting the wall. Parallelization seems necessary, and you feel in need of a supercomputer.
@@ -646,26 +628,32 @@ architecture and compilers. Lets first look at common sense optimisations. </p>
 <p><strong>Common sense optimizations</strong> come from a good understanding of the mathematical formulation of the problem and seeing 
 opportunities to reduce the amount of work. We give three examples. </p>
 <h3 id="1-magnetization-of-bulk-ferromagnets">1. Magnetization of bulk ferromagnets</h3>
-<p>I was asked to speed up a program for computing the magnetisation $m(T)$ of bulk ferromagnets as a function of 
-temperature $T$. This is given by a self-consistent solution of the equations:</p>
-<p>$$ m = \frac{1}{2 + 4\Phi(m)} $$</p>
-<p>$$ \Phi(m) = \frac{1}{N} \sum_{\textbf{k}} \frac{1}{e^{\beta\eta(\textbf{k})m} - 1} $$</p>
-<p>with $ \beta = 1/{k_B T} $. At $T=0$ we have $m(0) = m_0 = 0.5$, and at high $T$, $m(T)$ approaches zero.</p>
+<p>I was asked to speed up a program for computing the magnetisation <script type="math/tex">m(T)</script> of bulk ferromagnets as a function of 
+temperature <script type="math/tex">T</script>. This is given by a self-consistent solution of the equations:</p>
+<p>
+<script type="math/tex; mode=display"> m = \frac{1}{2 + 4\Phi(m)} </script>
+</p>
+<p>
+<script type="math/tex; mode=display"> \Phi(m) = \frac{1}{N} \sum_{\textbf{k}} \frac{1}{e^{\beta\eta(\textbf{k})m} - 1} </script>
+</p>
+<p>with <script type="math/tex"> \beta = 1/{k_B T} </script>. At <script type="math/tex">T=0</script> we have <script type="math/tex">m(0) = m_0 = 0.5</script>, and at high <script type="math/tex">T</script>, <script type="math/tex">m(T)</script> approaches zero.</p>
 <p>The solution is a curve like this:</p>
 <p><img alt="m(T)" src="../public/m%28T%29.png" /></p>
-<p>The program compute this as follows: For any temperature $T$, set $m = m_0$ as an inital guess. Then iterate $ m_
-{i+1} = 1/(2 + 4\Phi(m_i)) $ until $ \Delta m = m_{i+1} - m_i $ is small. Here,</p>
-<p>$$ \Phi(m) = \sum_{n=1}^\infty \frac{a}{\pi} \left(\int_0^{\pi/a} dq e^{-nm\beta\eta_1(q)}\right)^3 $$</p>
+<p>The program compute this as follows: For any temperature <script type="math/tex">T</script>, set <script type="math/tex">m = m_0</script> as an inital guess. Then iterate <script type="math/tex"> m_
+{i+1} = 1/(2 + 4\Phi(m_i)) </script> until <script type="math/tex"> \Delta m = m_{i+1} - m_i </script> is small. Here,</p>
+<p>
+<script type="math/tex; mode=display"> \Phi(m) = \sum_{n=1}^\infty \frac{a}{\pi} \left(\int_0^{\pi/a} dq e^{-nm\beta\eta_1(q)}\right)^3 </script>
+</p>
 <p>and the integral is computed using Gauss-Legendre integration on 64 points.  </p>
-<p>The choice of $m=0.5$ as initial guess is obviously a good one close to $T=0$. However, looking at the graph above, 
-it becomes clear that as T increases the solution moves further and further away from $0.5$. Furthermore, if we 
-compute tempurature points at equidistant tempurature points, $T_j = \delta j$ for some $\delta$ and $j=0,1,2, .
-..$, it is also clear that the solution of the previous temperature point, <em>i.e.</em> $m_{j-1}$, is a far better initial 
+<p>The choice of <script type="math/tex">m=0.5</script> as initial guess is obviously a good one close to <script type="math/tex">T=0</script>. However, looking at the graph above, 
+it becomes clear that as T increases the solution moves further and further away from <script type="math/tex">0.5</script>. Furthermore, if we 
+compute tempurature points at equidistant tempurature points, <script type="math/tex">T_j = \delta j</script> for some <script type="math/tex">\delta</script> and <script type="math/tex">j=0,1,2, .
+..</script>, it is also clear that the solution of the previous temperature point, <em>i.e.</em> <script type="math/tex">m_{j-1}</script>, is a far better initial 
 initial guess 
-guess than $m_0$. This turns out to be 1.4x faster. Not a tremendous improvement, but as the graph above seems 
+guess than <script type="math/tex">m_0</script>. This turns out to be 1.4x faster. Not a tremendous improvement, but as the graph above seems 
 continuous w e can take this idea a step further: using interpolation from solutions a lower temperature points to 
-predict the next solution and use that as an initial guess. Linear interpolation of $m_j$ from $m_{j-1}$ and 
-$m_{j-2}$ gives a speedup of 1.94x and quadratic interpolation from $m_{j-1}$, $m_{j-2}$ and $m_{j-3}$ a factor of 2.4x.<br />
+predict the next solution and use that as an initial guess. Linear interpolation of <script type="math/tex">m_j</script> from <script type="math/tex">m_{j-1}</script> and 
+<script type="math/tex">m_{j-2}</script> gives a speedup of 1.94x and quadratic interpolation from <script type="math/tex">m_{j-1}</script>, <script type="math/tex">m_{j-2}</script> and <script type="math/tex">m_{j-3}</script> a factor of 2.4x.<br />
 That is a substantial speedup achieved without acttually modifying the code. This optimisation comes entirely from 
 understanding what your algorithm actually does. Investigation of the code itself demonstrated that it made suffered 
 from a lot of dynamic memory management and that it did not vectorize. After fixing these issues, the code ran an 
@@ -767,17 +755,19 @@ going in production.</p>
 opportunities for common sense optimisations, nor for knowing wether better algorithms exist. That is domain 
 knowledgs, it comes with experience, and requires a lot of background. But for a given code and given input, can we 
 know wether improvements are possible? In <a class="autorefs autorefs-internal" href="../chapter-1/#1-reduce-the-time-to-solution">Chapter 1</a> we mentioned the existence of 
-machine limits, the peak performance, $P_p$, the maximum number of floating point operstions that can be executed per 
-second, and the bandwidth, $B$, the maximum number of bytes that can be moved between main memory and the CPU's 
-registers per second. It is instructive to study how these machine limits govern the maximum performance $P_{max}$ 
-as a function of the computational intensity $I_c$. If the CPU must not wait for data, $P_{max} = P_p$. In the 
-situation where the bandwidth is limiting the computation $ P_{max} = BI_c$. This leads to the formula: </p>
-<p>$$ P_{max} = min(P_p,BI_c) $$</p>
+machine limits, the peak performance, <script type="math/tex">P_p</script>, the maximum number of floating point operstions that can be executed per 
+second, and the bandwidth, <script type="math/tex">B</script>, the maximum number of bytes that can be moved between main memory and the CPU's 
+registers per second. It is instructive to study how these machine limits govern the maximum performance <script type="math/tex">P_{max}</script> 
+as a function of the computational intensity <script type="math/tex">I_c</script>. If the CPU must not wait for data, <script type="math/tex">P_{max} = P_p</script>. In the 
+situation where the bandwidth is limiting the computation <script type="math/tex"> P_{max} = BI_c</script>. This leads to the formula: </p>
+<p>
+<script type="math/tex; mode=display"> P_{max} = min(P_p,BI_c) </script>
+</p>
 <p>This is called the roofling model, since its graph looks like a roofliine.</p>
 <p><img alt="roofline" src="../public/roofline.png" /></p>
 <p>We can measure the actual performance and computational intensity of the program and plot it on the graph. The point 
 must necessarily be under the roofline. For a micro-benchmark, such as a loop with a simple body, we can compute 
-$I_c$ by hand, count the Flops and time the benchmark to obtain the computational intensity. For an entire program 
+<script type="math/tex">I_c</script> by hand, count the Flops and time the benchmark to obtain the computational intensity. For an entire program 
 a performance analysis tool can construct the graph and measure where the program is in the graph. Let's discuss 4 
 different cases, corresponding to the four numbered spots in the graph above.</p>
 <ol>
@@ -790,7 +780,7 @@ different cases, corresponding to the four numbered spots in the graph above.</p
 <li>Point 3 lies close to the roofline and the boundary between the bandwidth limited region and the peak performance 
    limited region. This the sweet spot. Both peak performance and bandwith are fully used.</li>
 <li>Point 4 lies close to the roofline in the peak performance limited region. This is an energy-efficient 
-   computation at peak performance. It moves little data (high $I_c$). Moving data is by far the most energy 
+   computation at peak performance. It moves little data (high <script type="math/tex">I_c</script>). Moving data is by far the most energy 
    consuming part in a computation.</li>
 </ol>
 <h2 id="common-approaches-towards-parallelization">Common approaches towards parallelization</h2>
@@ -910,6 +900,10 @@ distributed level.</p>
     
     
       <script src="../assets/javascripts/bundle.6df46069.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML"></script>
+      
+        <script src=".."></script>
       
     
   </body>
