@@ -1,25 +1,5 @@
 # chapter 4 - Case studies
 
-[//]: # (script below is for allowing for MathJax rendering of LateX expressions)
-
-<script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML">
-</script>
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [['$','$'], ['\\(','\\)']],
-      processEscapes: true},
-      jax: ["input/TeX","input/MathML","input/AsciiMath","output/CommonHTML"],
-      extensions: ["tex2jax.js","mml2jax.js","asciimath2jax.js","MathMenu.js","MathZoom.js","AssistiveMML.js", "[Contrib]/a11y/accessibility-menu.js"],
-      TeX: {
-      extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"],
-      equationNumbers: {
-      autoNumber: "AMS"
-      }
-    }
-  });
-</script>
 
 ## Monte Carlo Ground state energy calculation of a small atomistic system 
 
@@ -197,39 +177,7 @@ achieve with OpenMP. In the end every thread would have its own minimum energy c
 minimum energy configuration is simply found as the minimum of per thread minima. Since every core has its own L1 
 cache, the problem for each thread also fits in L1. 
 
-### Project
-
-The `wetppr/mcgse` folder repeats this case study for the [Morse potential](https://en.wikipedia.
-org/wiki/Morse_potential) (I lost the original code :-( )
-
-$$ V(r) = D_e(1 - e^{-\alpha(r-r_e)})^2 $$
-
-We will assume that all parameters are unity. 
-
-$$ V(r) = (1 - e^{1-r)})^2 $$
-
-
-Here is its graph:
-
-![morse](public/morse.png)
-
-Despite the considerable performance improvement, there are a few disadvantages to it too. The $O(N)$ algorithm has 
-more code, is more difficult to understand and thus harder to maintain. Morover, its loops are more complex, making 
-it harder for the compiler to optimize. Autovectorisation doesn't work. If it needs further optimization, it is 
-certainly no low-hanging fruit.   
-
-### Parallelization
-
-If the time of solution for this sofar sequential program is still too large, we might opt for parallelization. The 
-interaction loop is now doing relatively little work, and hard to parallelize. On the other hand the perturbation 
-loop can be easily distributed over more threads as this loop is 
-[embarrassingly parallel][what-is-a-parallel-program]. As long as every thread generates a different series of 
-random numbers they can run their share of the perturbation iterations completely independent. This is very easy to 
-achieve with OpenMP. In the end every thread would have its own minimum energy configuration, and the overall 
-minimum energy configuration is simply found as the minimum of per thread minima. Since every core has its own L1 
-cache, the problem for each thread also fits in L1. 
-
-### Project
+### Project `wetppr/mcgse`
 
 The `wetppr/mcgse` folder repeats this case study for the [Morse potential](https://en.wikipedia.
 org/wiki/Morse_potential) (I lost the original code :-( )
@@ -305,37 +253,34 @@ Especially the last conclusion is rather worrying. Our algorithms don't seem to 
 efficiently. 
 
 Perhaps, rather than displacing the atoms randomly, it might be more efficient to move them in the direction of the 
-steepest descent of the energy surface. Since we have an analytical expression, we can compute it. The interaction $V
-(r_{ij})$ exerts a force 
+steepest descent of the energy surface. Since we have an analytical expression, we can compute it. The interaction 
+$V(r_{ij})$ exerts a force 
 
-$$ {\vec{F}} _k = r_{kj} $$
+$$ {\mathbf{F}}_k = -\nabla_{\mathbf{r}_k}E $$
 
-$$ F_{x_k} = -\frac{\partial}{\partial_{x_k}}E = -\frac{\partial}{\partial_{x_k}} \sum_{i<j}V(r_{ij}) = -\sum_{i<j}
-\frac{\partial}{\partial_{x_k}}V(r_{ij}) = -\sum_{i<j}
-\frac{d}{d_{x_k}}V(r_{ij})\frac{\partial r_{ij}}{\partial_{x_k}} $$
+$$ = -\nabla_{\mathbf{r}_k} \sum_{i<j}V(r_{ij}) = -\sum_{i<j}
+\nabla_{\mathbf{r}_k}V(r_{ij})$$
 
-$$ \frac{\partial r_{ij}}{\partial_{x_k}} = 0 \text{  if  } k \ne i,j $$
+$$= -\sum_{i<j}
+\frac{d}{d_{r_{ij}}}V(r_{ij})\nabla_{\mathbf{r}_k}r_{ij} = -\sum_{i<j} V'(r_{ij})\nabla_{\mathbf{r}_k}r_{ij}$$
 
-$$ \frac{\partial r_{kj}}{\partial_{x_k}} = \frac{\partial}{\partial_{x_k}}((x_j-x_k)^2+(y_j-y_k)^2+(z_j-z_k)^2\)^\frac
-{1}{2}
-$$
+Here, 
 
-$$ = \frac{1}{2}((x_j-x_k)^2+(y_j-y_k)^2+(z_j-z_k)^2\)^{-\frac{1}{2}} \frac{\partial}{\partial_{x_k}}(x_j-x_k)^2$$ 
+$$\nabla_{\mathbf{r}_k}r_{ij} = 0 \text{  if  } k \ne i,j $$
 
-$$ = \frac{1}{2}((x_j-x_k)^2+(y_j-y_k)^2+(z_j-z_k)^2\)^{-\frac{1}{2}} 2(x_j-x_k)\frac{\partial}{\partial_{x_k}}(x_j-x_k)$$ 
+and
 
-$$ = -((x_j-x_k)^2+(y_j-y_k)^2+(z_j-z_k)^2\)^{-\frac{1}{2}} (x_j-x_k)$$
+$$\nabla_{\mathbf{r}_k}r_{kj} = -\frac{\mathbf{r}_{kj}}{r_{kj}} = -{\hat{\mathbf{r}}}_{kj}$$
 
-$$ \frac{\partial r_{kj}}{\partial_{x_k}} = -\frac{x_{kj}}{r_{kj}} $$
+$$\nabla_{\mathbf{r}_k}r_{jk} = \frac{\mathbf{r}_{jk}}{r_{jk}} = {\hat{\mathbf{r}}}_{jk}$$
 
-Similarly,
+Thus, 
 
-```math
-\frac{\partial r_{jk}}{\partial_{x_k}} = \frac{x_{jk}}{r_{jk}}
-```
+Hence:
 
-```math
-\frac{\partial r_{jk}}{\partial_{{\textbf{r}}_k}} = \frac{x_{jk}}{r_{jk}}
-```
+$$ \mathbf{F}_k = \sum_{j\ne{k}} V'(r_{kj}){\hat{\mathbf{r}}}_{kj} = -\sum_{j<k} V'(r_{jk}){\hat{\mathbf{r}}}_{jk} 
++ \sum_{k<j} V'(r_{kj}){\hat{\mathbf{r}}}_{kj}$$
 
-$$ {\textbf{r}}_k  $$
+Finally (setting all parameters to unity),  
+
+$$ V'(r) = -2(1-e^{1-r})e^{1-r}$$

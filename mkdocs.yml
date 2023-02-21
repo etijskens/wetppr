@@ -18,7 +18,11 @@ nav:
 
 markdown_extensions:
     - markdown.extensions.admonition
+    - mdx_math
 
+extra_javascript:
+    - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML
+    -
 plugins:
   - search
   - autorefs
