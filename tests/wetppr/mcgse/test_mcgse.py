@@ -16,7 +16,7 @@ print(f"matplotlib.pyplot: backend = {plt.get_backend()}")
 
 from pathlib import Path
 import sys, os
-p = Path(os.getcwd()).parent.parent.parent
+p = Path(__file__).parent.parent.parent
 # print(p)
 if not str(p) in sys.path:
     sys.path.insert(0, str(p))
@@ -34,8 +34,9 @@ def test_graph():
     fig, ax = plt.subplots()
     ax.plot(x, y)
     # plt.show()
-    p = Path(os.getcwd()).parent.parent.parent / 'docs' / 'public'
-    plt.savefig(p / 'morse.png')
+    p = Path(__file__).parent.parent.parent.parent / 'docs' / 'public' / 'morse.png'
+    print(f"savefig to {p=}")
+    plt.savefig(p)
 
 
 def test_morse_potential_mathematical_properties():
@@ -128,12 +129,69 @@ def test_interatomic_distances():
         z = t
 
 
+def test_perturb():
+    n_atoms = 10
+    x = np.zeros(n_atoms, dtype=float)
+    y = np.zeros(n_atoms, dtype=float)
+    z = np.zeros(n_atoms, dtype=float)
+
+    i = mcgse.perturb(x, y, z, w=1., i=2)
+    for j in range(n_atoms):
+        rj = np.sqrt(x[j]**2 + y[j]**2 + z[j]**2)
+        expected = 1. if (j == i) else 0.
+        assert isclose(rj, expected, rel_tol=1e-15)
+
+    i = mcgse.perturb(x, y, z, w=1., i=i)
+    for j in range(n_atoms):
+        rj = np.sqrt(x[j]**2 + y[j]**2 + z[j]**2)
+        expected = 2. if (j == i) else 0.
+        assert rj <= expected
+
+    x[i] = y[i] = z[i] = 0.
+    i = mcgse.perturb(x, y, z, w=1.)
+    for j in range(n_atoms):
+        rj = np.sqrt(x[j]**2 + y[j]**2 + z[j]**2)
+        expected = 1. if (j == i) else 0.
+        assert isclose(rj, expected, rel_tol=1e-15)
+
+
+def test_energy():
+    import copy
+    n_atoms = 10
+    x = np.array([i for i in range(n_atoms)], dtype=float)
+    y = np.zeros(n_atoms, dtype=float)
+    z = np.zeros(n_atoms, dtype=float)
+    # the distance between i and j is i - j
+    E, Eij, rij = mcgse.energy_loop(x,y,z)  # the first time energy_loop is necessary
+    i = mcgse.perturb(x, y, z, w=0.1, i=4)
+    E_loop,_,_ = mcgse.energy_loop(x, y, z) # enery_loop using the perturbed coordinates
+    E_updt = copy.copy(E)
+    E_updt = mcgse.energy_update(x, y, z, i, rij, Eij, E_updt) # compute interaction energy with energy_update
+    print(E_updt, E_loop, E_updt-E_loop)
+    assert isclose(E_updt, E_loop, rel_tol=1e-15) # rel_tol=1e-15 might be a little small
+
+
+
+def plot_lognormal_distribution():
+    # x = np.random.lognormal(size=1000, sigma=.3, mean=-5.)
+    from functools import partial
+    dist = mcgse.LogNormal(mean=-5, sigma=.4)
+    x = dist(1000)
+    num_bins = 100
+    n, bins, patches = plt.hist(x, num_bins, facecolor='blue', alpha=0.5)
+    plt.show()
+
+
+# def try_partial(size):
+#     dist = partial(np.random.lognormal, mean=-5, sigma=.3)
+#     return dist(size)
+
 # ==============================================================================
 # The code below is for debugging a particular test in eclipse/pydev.
 # (normally all tests are run with pytest)
 # ==============================================================================
 if __name__ == "__main__":
-    the_test_you_want_to_debug = test_interatomic_distances
+    the_test_you_want_to_debug = plot_lognormal_distribution
 
     print("__main__ running", the_test_you_want_to_debug)
     the_test_you_want_to_debug()

@@ -7,17 +7,8 @@ sys.path.insert(0,'.')
 
 import wetppr
 
-
-def test_hello_noargs():
-    """Test for wetppr.hello()."""
-    s = wetppr.hello()
-    assert s == "Hello world"
-
-
-def test_hello_me():
-    """Test for wetppr.hello('me')."""
-    s = wetppr.hello('me')
-    assert s == "Hello me"
+def test_():
+    """"""
 
 
 # ==============================================================================
@@ -27,7 +18,7 @@ def test_hello_me():
 # that the source directory is on the path
 # ==============================================================================
 if __name__ == "__main__":
-    the_test_you_want_to_debug = test_hello_noargs
+    the_test_you_want_to_debug = test_
 
     print("__main__ running", the_test_you_want_to_debug)
     the_test_you_want_to_debug()

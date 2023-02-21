@@ -38,7 +38,7 @@ A Monte Carlo approach is used to find the configuration with the lowest energy,
 initial configuration are run. Each run comprises 200 000 random atom moves. Finally, the run with the lowest energy is kept and subjected to Quasi-Newton iteration in order to find a 
 local energy minimum. 
 
-### Mathematical formulation
+### Implementation
 
 Here is how this algorithm goes (C++ pseudo code):   
 ```C++
@@ -200,11 +200,142 @@ cache, the problem for each thread also fits in L1.
 ### Project
 
 The `wetppr/mcgse` folder repeats this case study for the [Morse potential](https://en.wikipedia.
-org/wiki/Morse_potential).
+org/wiki/Morse_potential) (I lost the original code :-( )
 
 $$ V(r) = D_e(1 - e^{-\alpha(r-r_e)})^2 $$
+
+We will assume that all parameters are unity. 
+
+$$ V(r) = (1 - e^{1-r)})^2 $$
+
 
 Here is its graph:
 
 ![morse](public/morse.png)
 
+Despite the considerable performance improvement, there are a few disadvantages to it too. The $O(N)$ algorithm has 
+more code, is more difficult to understand and thus harder to maintain. Morover, its loops are more complex, making 
+it harder for the compiler to optimize. Autovectorisation doesn't work. If it needs further optimization, it is 
+certainly no low-hanging fruit.   
+
+### Parallelization
+
+If the time of solution for this sofar sequential program is still too large, we might opt for parallelization. The 
+interaction loop is now doing relatively little work, and hard to parallelize. On the other hand the perturbation 
+loop can be easily distributed over more threads as this loop is 
+[embarrassingly parallel][what-is-a-parallel-program]. As long as every thread generates a different series of 
+random numbers they can run their share of the perturbation iterations completely independent. This is very easy to 
+achieve with OpenMP. In the end every thread would have its own minimum energy configuration, and the overall 
+minimum energy configuration is simply found as the minimum of per thread minima. Since every core has its own L1 
+cache, the problem for each thread also fits in L1. 
+
+### Project
+
+The `wetppr/mcgse` folder repeats this case study for the [Morse potential](https://en.wikipedia.
+org/wiki/Morse_potential) (I lost the original code :-( )
+
+$$ V(r) = D_e(1 - e^{-\alpha(r-r_e)})^2 $$
+
+We will assume that all parameters are unity. 
+
+$$ V(r) = (1 - e^{1-r)})^2 $$
+
+
+Here is its graph:
+
+![morse](public/morse.png)
+
+Using our [research software devolopment strategy](chapter-5.md), we start in Python, implement both algorithms and 
+test. A good test is the case of a cluster of 4 atoms. Energy minimum then consists of a tetrahedron with unit sides.
+Every pair is then at equilibrium distance and $E_{min}=0$. The vertices of the tetrahedron are on a sphere of 
+radius $\sqrt{3/8}$. Let us randomly distribute 4 points on a sphere of radius $\sqrt{3/8}$ and see how well close 
+we get to $E_{min}=0$. 
+
+```python
+    import numpy as np
+    import mcgse # our module for this project: wetppr/mcgse
+	sample = mcgse.sample_unit_sphere(4) * np.sqrt(3/8)
+	config = (sample[0], sample[1], sample[2]) # initial coordinates of the atoms (x,y,z)
+	dist = mcgse.LogNormal(mean=-5, sigma=.4) # distribution to draw the length of the displacements from
+    #   the distribution and its parameters were selected using quite some trial and error to obtain 
+    #   useful results...
+	Emin_ON2, *config_min_ON2 = mcgse.execute_perturbation_loop(config=config, n_iterations=20000, dist=dist, algo='ON2', verbosity=1)
+	Emin_ON , *config_min_ON  = mcgse.execute_perturbation_loop(config=config, n_iterations=20000, dist=dist, algo='ON' , verbosity=1)
+```
+
+Here are the results for 5 runs:
+
+```python
+ON2 iteration 0: Emin=1.8642580817361518
+ON2 iteration 200000: Emin=0.343375960680797, last improvement: iteration = 2044
+ON iteration 0: Emin=1.8642580817361518
+ON iteration 200000: Emin=0.1318184548419835, last improvement: iteration = 30162
+
+ON2 iteration 0: Emin=1.0114013021541974
+ON2 iteration 200000: Emin=0.368488427516059, last improvement: iteration = 32701
+ON iteration 0: Emin=1.0114013021541974
+ON iteration 200000: Emin=0.058861153165589014, last improvement: iteration = 5168
+
+ON2 iteration 0: Emin=3.69912617914294
+ON2 iteration 200000: Emin=0.3819530373342961, last improvement: iteration = 4580
+ON iteration 0: Emin=3.69912617914294
+ON iteration 200000: Emin=0.3297933435887894, last improvement: iteration = 65216
+
+ON2 iteration 0: Emin=3.299140128625619
+ON2 iteration 200000: Emin=0.5323556068840862, last improvement: iteration = 12505
+ON iteration 0: Emin=3.299140128625619
+ON iteration 200000: Emin=0.5270227273967558, last improvement: iteration = 16929
+
+ON2 iteration 0: Emin=1.2894488159651718
+ON2 iteration 200000: Emin=0.40188231571036437, last improvement: iteration = 2621
+ON iteration 0: Emin=1.2894488159651718
+ON iteration 200000: Emin=0.07936811573814093, last improvement: iteration = 25806
+```
+
+We can draw some interesting observations from these runs:
+
+- Neither of the algorithms seem to get close to the minimum,
+- In terms of closeness to the minimum there no clear winner, although `ON` got rather close twice,
+- The higher the initial energy, the worse the solution,
+- None of the algorithms seems to converge. In the first and the last run `ON2` found its best guess at 2044 and 
+  2621 iterations. None of the approximately 198_000 later attempts could reduce the energy. This seems to be the 
+  case for `ON` as well, although the numbers are a bit higher.
+
+Especially the last conclusion is rather worrying. Our algorithms don't seem to sample the configuration space very 
+efficiently. 
+
+Perhaps, rather than displacing the atoms randomly, it might be more efficient to move them in the direction of the 
+steepest descent of the energy surface. Since we have an analytical expression, we can compute it. The interaction $V
+(r_{ij})$ exerts a force 
+
+$$ {\vec{F}} _k = r_{kj} $$
+
+$$ F_{x_k} = -\frac{\partial}{\partial_{x_k}}E = -\frac{\partial}{\partial_{x_k}} \sum_{i<j}V(r_{ij}) = -\sum_{i<j}
+\frac{\partial}{\partial_{x_k}}V(r_{ij}) = -\sum_{i<j}
+\frac{d}{d_{x_k}}V(r_{ij})\frac{\partial r_{ij}}{\partial_{x_k}} $$
+
+$$ \frac{\partial r_{ij}}{\partial_{x_k}} = 0 \text{  if  } k \ne i,j $$
+
+$$ \frac{\partial r_{kj}}{\partial_{x_k}} = \frac{\partial}{\partial_{x_k}}((x_j-x_k)^2+(y_j-y_k)^2+(z_j-z_k)^2\)^\frac
+{1}{2}
+$$
+
+$$ = \frac{1}{2}((x_j-x_k)^2+(y_j-y_k)^2+(z_j-z_k)^2\)^{-\frac{1}{2}} \frac{\partial}{\partial_{x_k}}(x_j-x_k)^2$$ 
+
+$$ = \frac{1}{2}((x_j-x_k)^2+(y_j-y_k)^2+(z_j-z_k)^2\)^{-\frac{1}{2}} 2(x_j-x_k)\frac{\partial}{\partial_{x_k}}(x_j-x_k)$$ 
+
+$$ = -((x_j-x_k)^2+(y_j-y_k)^2+(z_j-z_k)^2\)^{-\frac{1}{2}} (x_j-x_k)$$
+
+$$ \frac{\partial r_{kj}}{\partial_{x_k}} = -\frac{x_{kj}}{r_{kj}} $$
+
+Similarly,
+
+```math
+\frac{\partial r_{jk}}{\partial_{x_k}} = \frac{x_{jk}}{r_{jk}}
+```
+
+```math
+\frac{\partial r_{jk}}{\partial_{{\textbf{r}}_k}} = \frac{x_{jk}}{r_{jk}}
+```
+
+$$ {\textbf{r}}_k  $$
