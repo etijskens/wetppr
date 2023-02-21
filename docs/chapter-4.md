@@ -188,7 +188,6 @@ We will assume that all parameters are unity.
 
 $$ V(r) = (1 - e^{1-r)})^2 $$
 
-
 Here is its graph:
 
 ![morse](public/morse.png)
