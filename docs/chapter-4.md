@@ -243,10 +243,12 @@ We can draw some interesting observations from these runs:
 
 - Neither of the algorithms seem to get close to the minimum,
 - In terms of closeness to the minimum there no clear winner, although `ON` got rather close twice,
-- The higher the initial energy, the worse the solution,
+- The higher the initial energy, the worse the solution, which is acceptable, as the average displacement magnitude 
+  is fixed.
 - None of the algorithms seems to converge. In the first and the last run `ON2` found its best guess at 2044 and 
   2621 iterations. None of the approximately 198_000 later attempts could reduce the energy. This seems to be the 
-  case for `ON` as well, although the numbers are a bit higher.
+  case for `ON` as well, although the numbers are a bit higher. Despite being far from the minimum, improvements 
+  seem to involve progressively more work. 
 
 Especially the last conclusion is rather worrying. Our algorithms don't seem to sample the configuration space very 
 efficiently. 
@@ -283,3 +285,8 @@ $$ \mathbf{F}_k = \sum_{j\ne{k}} V'(r_{kj}){\hat{\mathbf{r}}}_{kj} = -\sum_{j<k}
 Finally (setting all parameters to unity),  
 
 $$ V'(r) = -2(1-e^{1-r})e^{1-r}$$
+
+Now that we have the forces on the atoms in the current configuration, we should be able to move the atoms in the 
+directon of the force, rather than in a random direction, as before. In fact we have a true minimisation problem now.
+
+to be continued...
