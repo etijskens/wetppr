@@ -390,7 +390,7 @@ supercomputer, not (!) the performance of the individual cores. Motherboards for
 the memory. Performance-wise, however, the latency across the two CPUs is typically a factor 2 larger. This goes by 
 the name **ccNUMA**, or **cache coherent non-uniform memory architecture**. **Cache coherence** means that if caches 
 of different copies hold copies of the same cache line, and one of them is modified, all copies are updated. 
-**NUMA** means that there are different domains in the global address space with different latency and/or bandwidth. 
-CPU0 can access data in DRAM1, but this is significantly slower (typically 2x). 
+**NUMA** means that there are different domains in the global address space of the node with different latency and/or 
+bandwidth. CPU0 can access data in DRAM1, but this is significantly slower (typically 2x). 
 
 ![node](public/node.png)
