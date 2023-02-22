@@ -141,7 +141,7 @@ All you have to do is translate the mathematical formulation of your problem int
 ## When is code optimized enough? 
 
 !!! Tip
-    ***Premature Optimization Is the Root of All Evil*** [Donald Knuth](https://effectiviology.
+    ***Premature optimization is the root of all evil*** [Donald Knuth](https://effectiviology.
     com/premature-optimization/). 
 
 This quote by a famous computer scientist in 1974 is often used to argue that you should only optimize if there is a 

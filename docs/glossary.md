@@ -5,6 +5,7 @@ Here is an alphabetical list of terms with links to where they are explained in 
 ## A
 
 - [address space][common-approaches-towards-parallelization]
+- [anti-pattern][chapter-5---a-strategy-for-the-development-research-software]
 - [array of structures][recommendations-for-data-structures]
 
 ## B
@@ -67,6 +68,7 @@ Here is an alphabetical list of terms with links to where they are explained in 
 
 - [parallel program][what-is-a-parallel-program]
 - [Partitioned Global Address Space][pgas]
+- [pattern][chapter-5---a-strategy-for-the-development-research-software]
 - [peak performance][1-reduce-the-time-to-solution]
 - [pipeline stalls][instruction-pipelining]
 - [process][common-approaches-towards-parallelization]
