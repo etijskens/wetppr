@@ -1,7 +1,7 @@
 # chapter 4 - Case studies
 
 
-## Monte Carlo Ground state energy calculation of a small atomistic system 
+## Monte Carlo ground state energy calculation of a small atom cluster 
 
 ### Introduction
 
@@ -177,7 +177,7 @@ achieve with OpenMP. In the end every thread would have its own minimum energy c
 minimum energy configuration is simply found as the minimum of per thread minima. Since every core has its own L1 
 cache, the problem for each thread also fits in L1. 
 
-### Project `wetppr/mcgse`
+### Project mcgse
 
 The `wetppr/mcgse` folder repeats this case study for the [Morse potential](https://en.wikipedia.
 org/wiki/Morse_potential) (I lost the original code :-( )

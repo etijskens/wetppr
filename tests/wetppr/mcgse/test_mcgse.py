@@ -135,20 +135,24 @@ def test_perturb():
     y = np.zeros(n_atoms, dtype=float)
     z = np.zeros(n_atoms, dtype=float)
 
-    i = mcgse.perturb(x, y, z, w=1., i=2)
+    class Dist:
+        def __call__(self, n=1):
+            return 1
+
+    i = mcgse.perturb(x, y, z, i=2, dist=Dist())
     for j in range(n_atoms):
         rj = np.sqrt(x[j]**2 + y[j]**2 + z[j]**2)
         expected = 1. if (j == i) else 0.
         assert isclose(rj, expected, rel_tol=1e-15)
 
-    i = mcgse.perturb(x, y, z, w=1., i=i)
+    i = mcgse.perturb(x, y, z, i=i, dist=Dist())
     for j in range(n_atoms):
         rj = np.sqrt(x[j]**2 + y[j]**2 + z[j]**2)
         expected = 2. if (j == i) else 0.
         assert rj <= expected
 
     x[i] = y[i] = z[i] = 0.
-    i = mcgse.perturb(x, y, z, w=1.)
+    i = mcgse.perturb(x, y, z, dist=Dist())
     for j in range(n_atoms):
         rj = np.sqrt(x[j]**2 + y[j]**2 + z[j]**2)
         expected = 1. if (j == i) else 0.
@@ -156,6 +160,9 @@ def test_perturb():
 
 
 def test_energy():
+    class Dist:
+        def __call__(self, n=1):
+            return .1
     import copy
     n_atoms = 10
     x = np.array([i for i in range(n_atoms)], dtype=float)
@@ -163,7 +170,7 @@ def test_energy():
     z = np.zeros(n_atoms, dtype=float)
     # the distance between i and j is i - j
     E, Eij, rij = mcgse.energy_loop(x,y,z)  # the first time energy_loop is necessary
-    i = mcgse.perturb(x, y, z, w=0.1, i=4)
+    i = mcgse.perturb(x, y, z, i=4, dist=Dist())
     E_loop,_,_ = mcgse.energy_loop(x, y, z) # enery_loop using the perturbed coordinates
     E_updt = copy.copy(E)
     E_updt = mcgse.energy_update(x, y, z, i, rij, Eij, E_updt) # compute interaction energy with energy_update
@@ -191,7 +198,7 @@ def plot_lognormal_distribution():
 # (normally all tests are run with pytest)
 # ==============================================================================
 if __name__ == "__main__":
-    the_test_you_want_to_debug = plot_lognormal_distribution
+    the_test_you_want_to_debug = test_energy
 
     print("__main__ running", the_test_you_want_to_debug)
     the_test_you_want_to_debug()

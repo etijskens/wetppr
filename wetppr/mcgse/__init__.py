@@ -13,12 +13,17 @@ from math import pi, sin, cos
 
 import numpy as np
 
-def morse_potential(r: float, D_e: float = 1, alpha: float = 1, r_e: float = 1
-					) -> float:
+def morse_potential(r: float, D_e: float = 1, alpha: float = 1, r_e: float = 1) -> float:
 	"""Compute the Morse potential for interatomic distance r.
 
 	This is better than it looks, we can pass a numpy array for r, and it will
 	use numpy array arithmetic to evaluate the expression for the array.
+
+	Args:
+		r: interatomic distance
+		D_e: depth of the potential well, default = 1
+		alpha: width of the potential well, default = 1
+		r_e: location of the potential well, default = 1
 	"""
 	return D_e * (1 - np.exp(-alpha*(r - r_e)))**2
 

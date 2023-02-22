@@ -162,8 +162,93 @@ case for validating improvements.
 
 ## Principle 3. Test and validate
 
-In view of [these amazing facts](https://www.openrefactory.com/intelligent-code-repair-icr/)  
+In view of [these amazing facts](https://www.openrefactory.com/intelligent-code-repair-icr/) There seems to be 
+little chance that a programmer writes 100 lines of code without bugs. On average there should be 7 bugs in every 
+100 lines. Probably not all these bugs affect the outcome of the program, but in research code the outcome is of 
+course crucial. How can we ensure that our code is correct, and remains so as we continue to work on it? The anwer 
+is unit-tests. [Unit-testing](https://en.wikipedia.org/wiki/Unit_testing) are pieces of test-code together with 
+verified outcomes. In view of the abundancy of bus it is best to test small pieces of code, in the order of 10 lines.
+Test code is also code and thus can contain bugs as well. The amount of test code for a system can be large. An 
+example is probaly the best way to demonstrate the concept. In chapter 4 we discussed the case study 
+[Monte Carlo ground state energy calculation of a small atom cluster][monte-carlo-ground-state-energy-calculation-of-a-small-atom-cluster]
+and a small project [wetppr/mcgse][project-mcgse] where the original study is repeated with a Morse potential, 
+described by the formula:
 
+$$ V(r) = D_e(1 - e^{-\alpha(r-r_e)})^2 $$
+
+The code for this function is found in [wetppr/mcgse/__init__.py](public/symlinks/__init__.py). Note that we 
+provided default unit values for all the parameters: 
+
+```python
+import numpy as np
+
+def morse_potential(r: float, D_e: float = 1, alpha: float = 1, r_e: float = 1) -> float:
+	"""Compute the Morse potential for interatomic distance r.
+
+	This is better than it looks, we can pass a numpy array for r, and it will
+	use numpy array arithmetic to evaluate the expression for the array.
+	
+	Args:
+		r: interatomic distance
+		D_e: depth of the potential well, default = 1
+		alpha: width of the potential well, default = 1
+		r_e: location of the potential well, default = 1
+	"""
+	return D_e * (1 - np.exp(-alpha*(r - r_e)))**2
+```
+The implementation of the function comprises only one line. How can we test its correctness? One approach would be 
+to list a few r-values for which we know the outcome. _E.g._ $V(r_e) = 0$. Here is a test funtion for it. Note that 
+
+```python
+from math import isclose
+
+def test_morse_potential_at_r_e():
+    # the value at r_e=1 is 0
+    r = 1
+    Vr = mcgse.morse_potential(x)
+    Vr_expected = 0
+    assert isclose(Vr, Vr_expected, rel_tol=1e-15)
+```
+
+Because the function is using floating point arithmetic, the outcome could be subject to roundoff error. We account 
+for a relative error of `1e-15`. When running the test, an AssertionError will be raised whenever the relative 
+error is larger than `1e-15`. Note that the test function's name starts with `test`. That allows an automated test 
+runner as, _e.g._ [pytest](https://docs.pytest.org/en/7.2.x/) can discover the test function automatically. 
+
+When it comes to testing functions it is practical to focus on mathematical properties of the function (fixing 
+parameters to unity). _E.g._
+
+- $0 \le V(r) $ for $r \in ]0,1]$,
+- $0 \le V(r) < 1 $ for $r \in [1,+\infty[$,
+- $V(r)$ is monotonously decreasing on $]0,1]$, 
+- $V(r)$ is monotonously increasing on $[1,+\infty[$, 
+- $V''(r)$ is positive on $]0,1]$,
+- $V''(r)$ is positive on $]1,r_i]$, $r_i=1 - \log(1/2)$ being the inflection point,
+- $V''(r)$ is negative on $]r_i, +\infty[$,
+- ...
+
+See `tests/wetppr/mcgse/test_mcgse.py` for details. The file contains many more tests for other functions in the file 
+`wetppr/mcgse/__init__.py`. All tests are automatically run from the project directory `wetppr` with the command:
+
+```bash
+> pytest tests
+==================================== test session starts =====================================
+platform darwin -- Python 3.9.5, pytest-6.2.5, py-1.10.0, pluggy-1.0.0
+rootdir: /Users/etijskens/software/dev/workspace/wetppr
+plugins: typeguard-2.13.3, mpi-0.5, anyio-3.6.2
+collected 6 items
+
+tests/wetppr/test_wetppr.py .                                                          [ 16%]
+tests/wetppr/mcgse/test_mcgse.py .....                                                 [100%]
+
+===================================== 6 passed in 1.65s ======================================
+```
+The command instructs pytest to check all `.py` files in or below the `tests` directory and look for methods with a 
+name starting with `test` and execute them. As is clear from the output above it found 5 tests in 
+`tests/wetppr/mcgse/test_mcgse.py`, all executed successfully. 
+
+For every new method added to your code, add some tests and run `pytest`. For every code change run all tests again. 
+Make sure they pass. 
 
 ## Principle 4. Improve 
 
