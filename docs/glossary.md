@@ -6,6 +6,11 @@ Here is an alphabetical list of terms with links to where they are explained in 
 
 - [*premature optimisation is the root of all evil][optimise-if-necessary]
 
+## 2
+
+- [2              !               ! +(p(m+im)-y0)][monte-carlo-setting]
+- [2              ! +(p(m+im)-y0)][monte-carlo-setting]
+
 ## A
 
 - [address space][common-approaches-towards-parallelization]
@@ -15,6 +20,7 @@ Here is an alphabetical list of terms with links to where they are explained in 
 ## B
 
 - [bandwidth limited][1-reduce-the-time-to-solution]
+- [bandwith saturated][monte-carlo-setting]
 
 ## C
 

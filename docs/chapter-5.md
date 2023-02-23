@@ -405,7 +405,7 @@ To debug the test using pdb execute:
 > python -m pdb tests/wetppr/mcgse/test_mcgse.py
 ```
 
-### Quick and dirty testing
+### _Quick and dirty_ testing
 
 The `if __name__ == "__main__":` idiom has another interesting application. When working on small projects, with only a 
 few functions, sometimes we don't want to set up a `tests` directory with a `test_small_module.py` file. Instead we 
