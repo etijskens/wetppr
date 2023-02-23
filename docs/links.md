@@ -25,6 +25,20 @@
 - [dask](https://www.dask.org): Python
 
 ## HPC
+
 - [Georg Hager's blog](https://blogs.fau.de/hager/)
 - [SC20 tutorial “Node-Level Performance Engineering”](https://blogs.fau.de/hager/archives/8861): This is all about 
-  "When to parallelize, and ***what to do first***".  
+  "When to parallelize, and ***what to do first***".
+
+## Project management
+
+- [micc2](https://et-micc2.readthedocs.io/en/latest/index.html): managing your Python/C++/Fortran project, helps with
+
+  - creating new projects
+  - adding Python sub-modules, Python applications (CLIs), binary extension modules written in C++ and Fortran. 
+  - automatically extracting documentation from the doc-strings of your files (html or pdf)
+  - (unit) testing ([pytest](https://docs.pytest.org/en/7.2.x/))
+  - publishing the documentation on [readthedocs](https://readthedocs.org)
+  - publishing your code on the [Python package index](https://pypi.org) 
+  - version management and control (on [GitHub](https://github.com))
+

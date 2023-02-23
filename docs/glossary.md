@@ -2,6 +2,10 @@
 
 Here is an alphabetical list of terms with links to where they are explained in the text.
 
+## *
+
+- [*premature optimisation is the root of all evil][optimise-if-necessary]
+
 ## A
 
 - [address space][common-approaches-towards-parallelization]
@@ -30,6 +34,7 @@ Here is an alphabetical list of terms with links to where they are explained in 
 
 ## D
 
+- [Debugging][debugging-a-failing-test]
 - [Distributed memory parallelization][distributed-memory-parallelization]
 
 ## E

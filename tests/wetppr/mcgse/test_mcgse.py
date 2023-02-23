@@ -16,7 +16,7 @@ print(f"matplotlib.pyplot: backend = {plt.get_backend()}")
 
 from pathlib import Path
 import sys, os
-p = Path(__file__).parent.parent.parent
+p = Path(__file__).parent.parent.parent.parent
 # print(p)
 if not str(p) in sys.path:
     sys.path.insert(0, str(p))
@@ -48,7 +48,7 @@ def test_morse_potential_mathematical_properties():
     for i in range(0,n):
         for j in range(i-1):
             assert (x[j] - x[i]) / (y[j] - y[i]) < 0
-
+    assert False
     # between 0 and 1 the second derivative is positive
     def ddy(x0,x2):
         """Finite difference approximation of second derivative"""
@@ -198,7 +198,7 @@ def plot_lognormal_distribution():
 # (normally all tests are run with pytest)
 # ==============================================================================
 if __name__ == "__main__":
-    the_test_you_want_to_debug = test_energy
+    the_test_you_want_to_debug = test_morse_potential_mathematical_properties
 
     print("__main__ running", the_test_you_want_to_debug)
     the_test_you_want_to_debug()

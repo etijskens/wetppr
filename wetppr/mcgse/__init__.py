@@ -3,10 +3,9 @@
 """
 # Module wetppr.mcgse
 
-Case study [Monte Carlo Ground state energy calculation of a small atomistic system][Monte-carlo-ground-state-energy-calculation-of-a-small-atomistic-system].
-
-
-
+Implementation of case study
+[Monte Carlo Ground state energy calculation of a small atomistic system][Monte-carlo-ground-state-energy-calculation-of-a-small-atomistic-system]
+using a Morse potential.
 """
 import typing
 from math import pi, sin, cos

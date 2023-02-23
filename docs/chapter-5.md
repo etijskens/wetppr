@@ -91,9 +91,14 @@ The proposed strategy builds on five principles:
     wellcome to contact me for support when developing research software. The best time to do that would be before 
     having written any line of code at all for the problem, in order to follow all principles.    
 
+The ordering of the list is important and reflects the successive steps in working on a project.  
 Below, we explain these principles in depth.
 
-## Principle 1. Start out in a high level language
+Much of the wisdom of this strategy is integrated into a Python application [micc2][project-management].
+
+## Principle 1
+
+### Start out in a high level language
 
 [Python](https://www.python.org) is an excellent choice:
 
@@ -123,6 +128,35 @@ Below, we explain these principles in depth.
 - Although Python in itself is a rather slow language, as we will see, there are many ways to cope with performance 
   bottlenecks in Python. 
   
+The quality of Python is embodied it its design principles "The Zen of Python" which are printed when you `import 
+this`. Many of these also apply to our strategy for developing research software.
+
+```python
+> python
+>>> import this
+The Zen of Python, by Tim Peters
+
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+Flat is better than nested.
+Sparse is better than dense.
+Readability counts.
+Special cases aren't special enough to break the rules.
+Although practicality beats purity.
+Errors should never pass silently.
+Unless explicitly silenced.
+In the face of ambiguity, refuse the temptation to guess.
+There should be one-- and preferably only one --obvious way to do it.
+Although that way may not be obvious at first unless you're Dutch.
+Now is better than never.
+Although never is often better than *right* now.
+If the implementation is hard to explain, it's a bad idea.
+If the implementation is easy to explain, it may be a good idea.
+Namespaces are one honking great idea -- let's do more of those!
+```
+
 In many ways, Python gently pushes you in the right direction, providing a pleasant programming experience.
 
 ![excellent-just-ahead](public/excellence-just-ahead.png)
@@ -149,27 +183,40 @@ C/C++/Fortran because:
 
 Hence, this course sticks to Python. 
 
-## Principle 2. Start out as simple as possible
+## Principle 2
+
+### Start out as simple as possible
 
 Take a small toy problem, the smallest you can think of that still represents the problem that you want to 
 solve. There is a famous quote, attributed to Einstein 
 ([although it seems he formulated it differently](https://skeptics.stackexchange.com/questions/34599/did-albert-einstein-say-make-everything-as-simple-as-possible-but-not-simpler))
-"Make everything as simple as possible, but not simpler". That applies very well here. Ideally, take a problem with 
-a known analytical solution. Look for something you can easily visualise. Four atoms are easier to visualise than a 
-hundred. Visualisation is an perfect way for obtaining insight (pun intended!) in your problem. Choose the simplest 
-algorithm that will do the trick, don't bother about performance. Once it works correctly, use it as a reference 
-case for validating improvements.  
+"***Make everything as simple as possible, but not simpler***". That applies very well here. The simpler the problem 
+you start with, the faster you will build experience and understanding of the problem. Ideally, take a problem 
+with a known analytical solution. Look for something you can easily visualise. Four atoms are easier to visualise 
+than a hundred. Visualisation is a perfect way for obtaining insight (pun intended!) in your problem. Choose the 
+simplest algorithm that will do the trick, don't bother about performance. Once it works correctly, use it as a 
+reference case for validating improvements.  
 
-## Principle 3. Test and validate
+Here are some interesting Python modules for visualisation:
 
-In view of [these amazing facts](https://www.openrefactory.com/intelligent-code-repair-icr/) There seems to be 
-little chance that a programmer writes 100 lines of code without bugs. On average there should be 7 bugs in every 
-100 lines. Probably not all these bugs affect the outcome of the program, but in research code the outcome is of 
-course crucial. How can we ensure that our code is correct, and remains so as we continue to work on it? The anwer 
-is unit-tests. [Unit-testing](https://en.wikipedia.org/wiki/Unit_testing) are pieces of test-code together with 
-verified outcomes. In view of the abundancy of bus it is best to test small pieces of code, in the order of 10 lines.
-Test code is also code and thus can contain bugs as well. The amount of test code for a system can be large. An 
-example is probaly the best way to demonstrate the concept. In chapter 4 we discussed the case study 
+- [matplotlib](https://matplotlib.org)
+- [bokeh](https://docs.bokeh.org/en/latest/)
+- [plotly](https://plotly.com/python/)
+- [seaborn](https://seaborn.pydata.org/)
+
+## Principle 3
+
+### Test and validate your code (changes)
+
+In view of these amazing facts on the abundance of [bugs in code](https://www.openrefactory.com/intelligent-code-repair-icr/) 
+there seems to be little chance that a programmer writes 100 lines of code without bugs. On average 7 bugs are to be 
+expected in every 100 lines of code. Probably not all these bugs affect the outcome of the program, but in research 
+code the outcome  is of course crucial. How can we ensure that our code is correct, and remains so as we continue to 
+work on it? The answer is unit-tests. [Unit-testing](https://en.wikipedia.org/wiki/Unit_testing) are pieces of 
+test-code together with verified outcomes. In view of the abundancy of bus it is best to test small pieces of code, 
+in the order of 10 lines. Test code is also code and thus can contain bugs as well. The amount of test code for a 
+system can be large. An example is probaly the best way to demonstrate the concept. In chapter 4 we discussed the 
+case study 
 [Monte Carlo ground state energy calculation of a small atom cluster][monte-carlo-ground-state-energy-calculation-of-a-small-atom-cluster]
 and a small project [wetppr/mcgse][project-mcgse] where the original study is repeated with a Morse potential, 
 described by the formula:
@@ -212,9 +259,7 @@ def test_morse_potential_at_r_e():
 
 Because the function is using floating point arithmetic, the outcome could be subject to roundoff error. We account 
 for a relative error of `1e-15`. When running the test, an AssertionError will be raised whenever the relative 
-error is larger than `1e-15`. Note that the test function's name starts with `test`. That allows an automated test 
-runner as, _e.g._ [pytest](https://docs.pytest.org/en/7.2.x/) can discover the test function automatically. 
-
+error is larger than `1e-15`. 
 When it comes to testing functions it is practical to focus on mathematical properties of the function (fixing 
 parameters to unity). _E.g._
 
@@ -228,7 +273,75 @@ parameters to unity). _E.g._
 - ...
 
 See `tests/wetppr/mcgse/test_mcgse.py` for details. The file contains many more tests for other functions in the file 
-`wetppr/mcgse/__init__.py`. All tests are automatically run from the project directory `wetppr` with the command:
+`wetppr/mcgse/__init__.py`. 
+
+### Automating tests
+
+As soon as you have a few tests, running them manually after every code change, becomes impractical. We need to
+automate running the tests. Several automated test runners are available. [Pytest](https://docs.pytest.org/en/7.2.x/) 
+is a good choice. When given a directory as a parameter, it will import all `test_*.py` files under it, look for 
+methods starting with `test`, execute them and produce a concise report about which tests pass and which tests fail.
+Details about test discovery are found [here](https://docs.pytest.org/en/7.2.x/explanation/goodpractices.html).
+
+```bash
+> cd path/to/wetppr
+> pytest tests
+==================================== test session starts =====================================
+platform darwin -- Python 3.9.5, pytest-6.2.5, py-1.10.0, pluggy-1.0.0
+rootdir: /Users/etijskens/software/dev/workspace/wetppr
+plugins: typeguard-2.13.3, mpi-0.5, anyio-3.6.2
+collected 6 items
+
+tests/wetppr/mcgse/test_mcgse.py .....                                                 [100%]
+
+===================================== 5 passed in 1.65s ======================================
+```
+As is clear from the output above it 
+found 5 tests in `tests/wetppr/mcgse/test_mcgse.py`, all executed successfully. In the presence of errors it is 
+instructive to run `pytest` with `-v -s` options.
+
+For every new method added to your code, add some tests and run `pytest`. For every code change run all the tests 
+again. Make sure they pass before you continue to improve or extend the code.
+
+### Debugging a failing test
+
+**Debugging** is the process of stepping through a program, executing it line by line, and examining the results in 
+order to find the source of the error. IDEs like [PyCharm](https://www.jetbrains.com/pycharm/) and 
+[VS Code](https://code.visualstudio.com) provide a most friendly debugging experience, but you can also use the 
+Python debugging module [pdb](https://docs.python.org/3/library/pdb.html):
+
+Debugging a failing test is often the best way to investigate the source of the error. 
+
+Python has an interesting idiom that allows a module to be run as a script, _i.e._  
+[execute a module](https://realpython.com/lessons/executing-module/). To that end you put this code snippet at the 
+end of a module:
+
+```python
+#
+# module code here
+#
+if __name__ == "__main__":
+    #
+    # script code here.
+    #
+    print("-*# finished #*-") # if this line doesn't show up, something went wrong. 
+```
+
+The idiom has no common name :-(, we will refer to it as the `if __name__ == "__main__":` idiom. 
+
+If a module file is imported as in `import module_name`, only the module code is executed, and the body of the `if` 
+statement `if __name__ == "__main__":` is ignored, because the `import` statement sets the value of the `__name__` 
+variable to the module name. Thus, the condition evaluates to `False`. Most of the module code will consist of `def` 
+and `class` statements, defining methods (the Python term for a function) and classes. When Python executes a `def` 
+or a `class` statement, it interprets the code of the method or class and registers them under their respective 
+names, so that they can be called by the module or script that imported the module.
+
+If the module file is executed on the command line, as in the command `python module_name.py` or in an IDE, the 
+`python` executable sets the `__name__` variable to `"__main__"`. Thus, the condition evaluates to `True` and its 
+body is executed. 
+
+This Python idiom provides us with a practical approach for executing a failing test. Assume that by running `pytest 
+tests` we find out that there is an error in the test function `test_morse_potential_mathematical_properties`:
 
 ```bash
 > pytest tests
@@ -239,19 +352,176 @@ plugins: typeguard-2.13.3, mpi-0.5, anyio-3.6.2
 collected 6 items
 
 tests/wetppr/test_wetppr.py .                                                          [ 16%]
-tests/wetppr/mcgse/test_mcgse.py .....                                                 [100%]
+tests/wetppr/mcgse/test_mcgse.py .F...                                                 [100%]
 
-===================================== 6 passed in 1.65s ======================================
+========================================== FAILURES ==========================================
+________________________ test_morse_potential_mathematical_properties ________________________
+...
+================================== short test summary info ===================================
+FAILED tests/wetppr/mcgse/test_mcgse.py::test_morse_potential_mathematical_properties - ass...
+================================ 1 failed, 5 passed in 4.27s =================================
+
 ```
-The command instructs pytest to check all `.py` files in or below the `tests` directory and look for methods with a 
-name starting with `test` and execute them. As is clear from the output above it found 5 tests in 
-`tests/wetppr/mcgse/test_mcgse.py`, all executed successfully. 
+At the end of the test module `tests/wetppr/mcgse/test_mcgse.py`, which contains the failing test 
+`test_morse_potential_mathematical_properties` you will see this code snippet:
 
-For every new method added to your code, add some tests and run `pytest`. For every code change run all tests again. 
-Make sure they pass. 
+```python
+#
+# test functions here
+#
+if __name__ == "__main__":
+    the_test_you_want_to_debug = test_energy
 
-## Principle 4. Improve 
+    print("__main__ running", the_test_you_want_to_debug)
+    the_test_you_want_to_debug()
+    print("-*# finished #*-")
+```
 
-## Principle 5. Optimise, if necessary 
+When we run `pytest tests`, pytest _imports_ the test module, setting `__name__` to `"test_mcgse"`. Hence the 
+condition `__name__ == "__main__"` evaluates to `False` and its body is not executed. Only when the module is 
+_executed_ the body will be executed too. Since we want to run the `test_morse_potential_mathematical_properties` 
+function, change the first line in the body to:
 
-## Principle 5. Parallelise, if necessary 
+```python
+    the_test_you_want_to_debug = test_morse_potential_mathematical_properties
+```
+
+The variable `the_test_you_want_to_debug` now is an alias for the test function that we want to debug, 
+`test_morse_potential_mathematical_properties`. The next statement is a print statement producing something like:
+
+```bash
+__main__ running <function test_morse_potential_mathematical_properties at 0x11098c310>
+```
+which ensures us that we called the right test function. The test function is then called in the next statement 
+through its alias `the_test_you_want_to_debug`:
+
+```python
+    the_test_you_want_to_debug()
+```
+
+To debug the test using pdb execute:
+
+```bash
+> python -m pdb tests/wetppr/mcgse/test_mcgse.py
+```
+
+### Quick and dirty testing
+
+The `if __name__ == "__main__":` idiom has another interesting application. When working on small projects, with only a 
+few functions, sometimes we don't want to set up a `tests` directory with a `test_small_module.py` file. Instead we 
+can use the `if __name__ == "__main__":` idiom to write a _quick and dirty_ test inside the module, or just call the 
+function to check by running or debugging the module that it does the right thing. In this way your work is 
+restricted to a single file, and there is no need to switch between the test file and the module file.
+
+## Principle 4
+
+### Improve and extend the code
+
+Once the code for the simple problem you started with (see [Principle 2][start-out-as-simple-as-possible]) is 
+tested, validated, and understood, you can gradually add complexity, approaching the true problem you need to solve. 
+This may require improvements to the code because the time to solution will probably increase. Possible improvements 
+are: 
+
+- better algorithms with lower computational complexity,
+- better data structures, facilitating good data access patterns,
+- [common sense optimisations][common-sense-optimisations], 
+- increasing the flexibility of the code,
+- restructuring the code,
+- gradually increase the complexity of the problem.
+
+Obviously, continue to test and validate all code changes and extensions.
+
+## Principle 5
+
+### Optimise if necessary 
+
+If neccessary, optimise your code. Necessary is when the time to solution is too long. At this point you will 
+probably already have a considerable Python code base. Bearing in mind that ***premature optimisation is the root of 
+all evil***, the important question is what needs optimisation and what not. The answer is provided by using a 
+profiler. Profiler are tools that tell you how much time your program spends in the different parts of it and how 
+many times tha part is executed.
+
+Some profilers provide information on a _per function_ basis, and tell how many times that function was called and 
+the average or cumulative time spent in it. Other profilers provide information on a _per line_ basis, an tell how 
+many times that line was executed and the average or cumulative time spent on it.
+[This article](https://www.admin-magazine.com/HPC/Articles/Profiling-Python-Code) provides the necessary details.
+
+You should start profiling on a per function basis and then profile the function(s) consuming most time with a 
+line-by-line profiler. If it turns out that only a few lines of the function are responsible for the runtime 
+consumption, split them off in a new function and try optimising the new function using one of the techniques discussed 
+below. If not, try optimising the whole function with the very same techniques.
+
+!!! tip
+    After optimising a (split-off) function, run the profiler again to check the performance.  
+
+### Techniques for optimising performance
+
+Below a series of optimisation techniques is presented, ordered by development effort needed.
+
+#### Use Python modules built for HPC
+
+There exist excellent Python modules that provide very performant high level data structures and operations. Using 
+them can make a dramatic difference. E.g. the difference in performance between Python lists and [Numpy](https://numpy.
+org) arrays can easily be a factor 100. By using them you do not only gain performance. Once you have learned how to 
+use a Python module, such as Numpy, development time is also reduced as you no longer have to code the low-level 
+logic yourself. Here are a few interesting scientific Python modules:
+
+- [Numpy](https://numpy.org): n-dimensional arrays, mathematical functions, linear algebra, ...
+- [SciPy](https://scipy.org): fundamental algorithms for scientific computing...
+- [sympy](http://www.sympy.org/): symbolic computation
+- [pandas](https://pandas.pydata.org): data analysis
+
+#### Numba 
+
+[Numba](https://numba.readthedocs.io/en/stable/) is a compiler for Python array and numerical functions that gives 
+you the power to speed up your applications with high performance functions written directly in Python. It takes 
+your Python code, transforms it into C code, compiles it (on the fly) and calls the compiled C code version. Here is 
+how a Numba-optimized function, taking a Numpy array as argument, might look like: 
+
+```python
+import numba 
+
+@numba.jit 
+def sum2d(arr):
+    M, N = arr.shape
+    result = 0.0
+    for i in range(M):
+        for j in range(N):
+            result += arr[i,j]
+    return result
+```
+the `@numba.jit` decorator instructs the Python interpreter to use the numba just-in-time compiler (jit) to 
+translate the Python code int C. compile it, and use the compiled verson on every call. As pure Python loops are 
+quite expensive and the function has a double Python loop over 'i' and 'j' the performance gain is considerable.
+As in principle it only involves adding a decorator (and possibly some hinting at data types) using numba can be a 
+really quick win. 
+
+!!! note
+    The above function can also defined as `np.sum(np.sum(arr))`, using numpy function calls exclusively. That might 
+    be even faster.
+
+!!! Tip
+    Numba is sensitive to data types. Changing the data type of the arguments can improve the situation a lot.  
+
+#### Developing your own modules in C++/Fortran
+
+If none of the above techniques helps, you might consider to develop your own Python modules compiled from C++ or 
+Fortran code, also known as binary Python extensions. This can be a real game changer, but requires, obviously, good 
+knowledge of C++ or Fortran. The application [micc2](https://et-micc2.readthedocs.io/en/latest/index.html) 
+facilitates building your C++ and Fortran modules. 
+Checkout its [tutorials](https://et-micc2.readthedocs.io/en/latest/tutorials.html).
+
+## Principle 6
+
+### Parallelise if necessary
+
+If necessary, parallelise your code. Parallelisation is necessary is when the time to solution is still too long after 
+paying attention to [principle 4](improve-and-extend-the-code) and [principle 5](optimise-if-necessary), or if the 
+research problem does not fit in the memory of a single machine. In that case it is advisable to optimise 
+([principle 5](optimise-if-necessary)) anyway to not waste cycles on an expensive supercomputer. 
+
+To parallelise Python projects these tools come in handy: 
+
+- [dask](http://dask.pydata.org/en/latest/): multi-core and multi-node parallellisation
+- [mpi4py](https://mpi4py.readthedocs.io/en/stable/): MPI parallellisation with python
+
