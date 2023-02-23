@@ -389,6 +389,33 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#study-of-data-access-patterns-in-a-large-lennard-jones-systems" class="md-nav__link">
+    Study of data access patterns in a large Lennard-Jones systems
+  </a>
+  
+    <nav class="md-nav" aria-label="Study of data access patterns in a large Lennard-Jones systems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction_1" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monte-carlo-setting" class="md-nav__link">
+    Monte Carlo setting
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -492,6 +519,33 @@
           <li class="md-nav__item">
   <a href="#project-mcgse" class="md-nav__link">
     Project mcgse
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#study-of-data-access-patterns-in-a-large-lennard-jones-systems" class="md-nav__link">
+    Study of data access patterns in a large Lennard-Jones systems
+  </a>
+  
+    <nav class="md-nav" aria-label="Study of data access patterns in a large Lennard-Jones systems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction_1" class="md-nav__link">
+    Introduction
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monte-carlo-setting" class="md-nav__link">
+    Monte Carlo setting
   </a>
   
 </li>
@@ -800,6 +854,114 @@ steepest descent of the energy surface. Since we have an analytical expression, 
 <p>Now that we have the forces on the atoms in the current configuration, we should be able to move the atoms in the 
 directon of the force, rather than in a random direction, as before. In fact we have a true minimisation problem now.</p>
 <p>to be continued...</p>
+<h2 id="study-of-data-access-patterns-in-a-large-lennard-jones-systems">Study of data access patterns in a large Lennard-Jones systems</h2>
+<h3 id="introduction_1">Introduction</h3>
+<p>In this case study we consider a large system of atoms whose interaction is described by a Lennard-Jones potential. 
+By large we mean a system that does not fit in the cache. Consequently, the effect of caches will be noticabel in 
+the results. We will consider two different settings. A Monte Carlo setting, as above, in which the interaction 
+energy is computed as a sum of pairwise interactions. It is of little physical significance, but is useful to 
+demonstrate the effect of the caches on the computations. </p>
+<p>The second setting is a true molecular dynamics setting in which the time evolution of a collection of atoms is 
+computed by time integration of the interaction forces which are computed as the gradient of the interaction potential.
+This gives rise to time dependent accelerations, velocities and positions of the atoms. </p>
+<h3 id="monte-carlo-setting">Monte Carlo setting</h3>
+<p>The interaction energy is given by:</p>
+<p>
+<script type="math/tex; mode=display"> E=\sum_{i<j}V(r_{ij}) </script>
+</p>
+<p>Since our sytem is large, say billions of atoms, computing this sum considering all pairs, is computationally 
+unfeasible because it has <script type="math/tex">O(N^2)</script> computational complexity. We will discuss approaches to reduce the computational 
+complexity to <script type="math/tex">O(N)</script>. To study the effect of the cache we will compute the partial sum  </p>
+<p>
+<script type="math/tex; mode=display"> E_i=\sum_{j\ne{i}}V(r_{ij}) </script>
+</p>
+<p>for <script type="math/tex">i=0</script>, that is </p>
+<p>
+<script type="math/tex; mode=display"> E_0=\sum_{j=1}^{N}V(r_{0j}) </script>
+</p>
+<p>Because our system is translationally invariant, we can put atom <script type="math/tex">0</script> at the origin, in which case <script type="math/tex">r_{0j}=r_j</script>. 
+Thus, we end up with:</p>
+<p>
+<script type="math/tex; mode=display"> E_0=\sum_{j=1}^{N}V(r_{j}) </script>
+</p>
+<p>We will use the best implementation for the Lennard-Jones potential that we discussed in 
+<a class="autorefs autorefs-internal" href="../chapter-2/#the-cost-of-floating-point-instructions">The cost of floating point instructions</a>, expressed as a function of <script type="math/tex">r^2</script>,
+as to avoid the square root needed to compute <script type="math/tex">r</script>. We consider three different cases:</p>
+<ol>
+<li>A contiguous loop over arrays <code>x[1:N]</code>, <code>y[1:N]</code>, <code>z[1:N]</code>. This is a structure of arrays (SoA) approach.</li>
+<li>A contiguous loop over a single array <code>xyz[1:3N</code>, in which the <script type="math/tex">x</script>, <script type="math/tex">y</script> and <script type="math/tex">z</script> coordinates of the <script type="math/tex">i</script>-th 
+   atom come after each other followed by the  <script type="math/tex">x</script>, <script type="math/tex">y</script> and <script type="math/tex">z</script> coordinates of the <script type="math/tex">i+1</script>-th atom. This is a array of 
+   structures approach (AoS).</li>
+<li>A contiguous loop over arrays <code>x[1:N]</code>, <code>y[1:N]</code>, <code>z[1:N]</code> in which the atoms are picked by random permutation of 
+   <script type="math/tex">1..N</script>. So, all atoms are visited, but in a random order. </li>
+</ol>
+<p>For each case <script type="math/tex"> E_0=\sum_{j=1}^{N}V(r_{j}) </script> is computed for <script type="math/tex">N \in \{2^9,2^10,2^11,...,2^{29}\}</script> repeating the loop 
+over <script type="math/tex">j</script>
+<script type="math/tex">2^{29}/N</script> times. In this way the amount of interaction potential evaluations is exactly <script type="math/tex">2^{29}</script> 
+irrespective of the length of the array, and the timings can be compared. The smallest arrays fit in L1, while the 
+longest arrays (<script type="math/tex">2^29\approx0.5\times10^9</script>) do not even fit in L3. Here are the timings:</p>
+<p><img alt="0" src="../public/LJ-system-MC-setting-0.png" /></p>
+<p>It is clearly visible that the behaviour of the random case above is very different from the two contiguous cases. 
+For the longest arrays, the performance is a whopping 15x worse on the random loop, yet every case performs exactly 
+the same work. There burning question is of course: "what is causing the performance breakdown of the randomized 
+loop"? The second question, certainly less burning, but nevertheless important, is: "is the lowest curve (the AoS 
+case) the best we can get?". If you are really curious, you might wonder about the small difference between the AoS 
+case and the SoA case at larger <script type="math/tex">N</script>. To help your understanding of the problem, here is a different representation 
+of the same graph, this time the number of bytes used by the arrays on the x-axis instead of the array size <script type="math/tex">N</script>. 
+With this x-axis it is easy to draw the boundaries of the L1, L2 and L3 caches. </p>
+<p><img alt="1" src="../public/LJ-system-MC-setting-cache-boundaries.png" /></p>
+<p>Surprisingly enough, the changes in 
+the curves coincide with the cache boundaries. As soon as the problem is too large for a cache, cache misses cause 
+pipeline stalls, and the CPU has to wait for the data needed. The latency increases at every cache boundary and the 
+slowdown becomes more pronounced each time. This also explains the slight advantage for the AoS case over the SoA 
+case for problems not fitting in L3. As x, y, and z follow contiguously in memory in the AoS case, when it needs new 
+data from memory, it has to wait for only a single cache line, while the SoA needs three. If you have difficulties 
+to grasp, revisit the talk by Scott Meyers <a href="https://www.youtube.com/watch?v=WDIkqP4JbkE"><em>CPU Caches and Why You Care</em></a>.</p>
+<p>The second question is a bit harder to answer. Let us analyze the performance of the (Fortran) loop:</p>
+<pre><code class="language-fortran">! Contiguous access, SoA: p=[xxx…yyy…zzz…]
+do ik=1,k
+    do im=1,m                           !  FLOPS
+        r2 = (p(im)-x0)**2              !
+            +(p(m+im)-y0)**2            !
+            +(p(2*m+im)-z0)**2          ! 3-, 2+, 3*
+!       r = lj_pot2(r)                  !
+        r2i = 1.0d0/r2                  ! 1/
+        rr6i = r2i*r2i*r2i;             ! 2*
+        V0j = 4.0d0*rr6*(rr6-1.0d0);    ! 2*, 1-
+    enddo                               !------------
+enddo                                   ! 14 flops
+</code></pre>
+<p>The loop has 14 floating point operations. It is executed <script type="math/tex">2^29</script> times in 1.2s. That makes <script type="math/tex">6.26\times 10^9</script> flops/s.
+The peak performance of the machine is 1 core x 1 instruction per cycle x 4 SIMD registers per instruction x 2.8 GHz = 
+11.2 Gcycles/s = 11.2 Gflops/s. Consequently, we are running at 56% of the peak performance. So it looks as if we 
+could still do better.  </p>
+<p><img alt="2" src="../public/LJ-system-MC-setting-peak-performance.png" /></p>
+<p>Let us analyze the data traffic of the same loop:</p>
+<pre><code class="language-fortran">! Contiguous access, SoA: p=[xxx…yyy…zzz…]
+do ik=1,k
+    do im=1,m                           ! FLOPS         ! DATA
+        r2 = (p(im)-x0)**2              !               !
+            +(p(m+im)-y0)**2            !               !
+            +(p(2*m+im)-z0)**2          ! 3-, 2+, 3*    ! 3DP
+!       r = lj_pot2(r)                  !               !
+        r2i = 1.0d0/r2                  ! 1/            !
+        rr6i = r2i*r2i*r2i;             ! 2*            !
+        V0j = 4.0d0*rr6*(rr6-1.0d0);    ! 2*, 1-        !
+    enddo                               !---------------!-----
+enddo                                   ! 14 flops      ! 24B
+</code></pre>
+<p>The loop reads 24 bytes x <script type="math/tex">2^29^</script> iterations in 1.2 s. That makes 10.7 GB/s. The bandwidth of the machine is 109 
+GB/s for 10 cores, that is 10.9 GB for 1 core. Our loop runs at the maximum bandwidth. It is <strong>bandwith saturated</strong>. 
+This is a machine limit. It can simply not feed the CPU with data faster than this. It is instructive to draw a 
+roofline model for this. </p>
+<p><img alt="3" src="../public/LJ-system-MC-setting-roofline.png" /></p>
+<p>The above loop, that is the contiguous cases, plot on the bandwidth part of the roofline indicating that the machine 
+limit (bandwidth) is reached, the random case sits close to the bottom far away from all machine limits. The 
+conclusion is that the loop as it is runs at its maximum speed, being bandwidth limited. However, 44% of the time 
+the CPU is not doing useful work, because it is waiting for data. That means that if we replaced the Lennard-Jones 
+potential with another one that is about twice as compute intensive, and for that reason more accurate, we would still 
+finish the computation in 1.2s and have a more accurate solution, because we are using the cycles that the CPU was 
+waiting for data to do the extra computations. </p>
 
 
 

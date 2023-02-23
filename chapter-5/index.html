@@ -1138,7 +1138,7 @@ through its alias <code>the_test_you_want_to_debug</code>:</p>
 <p>To debug the test using pdb execute:</p>
 <pre><code class="language-bash">&gt; python -m pdb tests/wetppr/mcgse/test_mcgse.py
 </code></pre>
-<h3 id="quick-and-dirty-testing">Quick and dirty testing</h3>
+<h3 id="quick-and-dirty-testing"><em>Quick and dirty</em> testing</h3>
 <p>The <code>if __name__ == "__main__":</code> idiom has another interesting application. When working on small projects, with only a 
 few functions, sometimes we don't want to set up a <code>tests</code> directory with a <code>test_small_module.py</code> file. Instead we 
 can use the <code>if __name__ == "__main__":</code> idiom to write a <em>quick and dirty</em> test inside the module, or just call the 
