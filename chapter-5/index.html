@@ -19,7 +19,7 @@
     
     
       
-        <title>Chapter 5 - A strategy for the development research software - Parallel programmeren</title>
+        <title>Chapter 5 - Parallel programmeren</title>
       
     
     
@@ -69,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#chapter-5-a-strategy-for-the-development-research-software" class="md-skip">
+        <a href="#chapter-5" class="md-skip">
           Skip to content
         </a>
       
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Chapter 5 - A strategy for the development research software
+              Chapter 5
             
           </span>
         </div>
@@ -333,12 +333,12 @@
       
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Chapter 5 - A strategy for the development research software
+          Chapter 5
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Chapter 5 - A strategy for the development research software
+        Chapter 5
       </a>
       
         
@@ -357,8 +357,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-need-of-a-strategy-for-the-development-research-software" class="md-nav__link">
-    The need of a strategy for the development research software
+  <a href="#a-strategy-for-the-development-research-software" class="md-nav__link">
+    A strategy for the development research software
   </a>
   
 </li>
@@ -588,8 +588,8 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-need-of-a-strategy-for-the-development-research-software" class="md-nav__link">
-    The need of a strategy for the development research software
+  <a href="#a-strategy-for-the-development-research-software" class="md-nav__link">
+    A strategy for the development research software
   </a>
   
 </li>
@@ -785,8 +785,8 @@
 
 
 
-<h1 id="chapter-5-a-strategy-for-the-development-research-software">Chapter 5 - A strategy for the development research software</h1>
-<h2 id="the-need-of-a-strategy-for-the-development-research-software">The need of a strategy for the development research software</h2>
+<h1 id="chapter-5">Chapter 5</h1>
+<h2 id="a-strategy-for-the-development-research-software">A strategy for the development research software</h2>
 <p>You are facing a new research question, to be solved computationally and on your shelf of computational tools nothing 
 useful is found. You start with an empty sheet of paper on you desk. or rather with an empty screen on your laptop. 
 How you take on such a challenge? This chapter is about a strategy for (research) code development that</p>
@@ -1224,10 +1224,13 @@ be even faster.</p>
 </div>
 <h4 id="developing-your-own-modules-in-cfortran">Developing your own modules in C++/Fortran</h4>
 <p>If none of the above techniques helps, you might consider to develop your own Python modules compiled from C++ or 
-Fortran code, also known as binary Python extensions. This can be a real game changer, but requires, obviously, good 
-knowledge of C++ or Fortran. The application <a href="https://et-micc2.readthedocs.io/en/latest/index.html">micc2</a> 
-facilitates building your C++ and Fortran modules. 
-Checkout its <a href="https://et-micc2.readthedocs.io/en/latest/tutorials.html">tutorials</a>.</p>
+Fortran code, also known as binary Python extensions. This can be a real game changer. In fact, this is exactly what 
+the HPC Python modules like Numpy and SciPy do, and they do it because that is the way to harness the power of 
+modern CPUs and expose it to Python. Obviously, this requires good knowledge of C++ or Fortran, and good 
+understanding of performance critical characteristics fo modern CPU architecture. </p>
+<p>The application <a href="https://et-micc2.readthedocs.io/en/latest/index.html">micc2</a> 
+facilitates building your C++ and Fortran modules. Checkout its 
+<a href="https://et-micc2.readthedocs.io/en/latest/tutorials.html">tutorials</a>.</p>
 <h2 id="principle-6">Principle 6</h2>
 <h3 id="parallelise-if-necessary">Parallelise if necessary</h3>
 <p>If necessary, parallelise your code. Parallelisation is necessary is when the time to solution is still too long after 

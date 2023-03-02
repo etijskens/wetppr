@@ -411,6 +411,33 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#molecular-dynamics-setting" class="md-nav__link">
+    Molecular Dynamics setting
+  </a>
+  
+    <nav class="md-nav" aria-label="Molecular Dynamics setting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementing-cutoff" class="md-nav__link">
+    Implementing cutoff
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moving-atoms" class="md-nav__link">
+    Moving atoms
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -433,7 +460,7 @@
   
     <li class="md-nav__item">
       <a href="../chapter-5/" class="md-nav__link">
-        Chapter 5 - A strategy for the development research software
+        Chapter 5
       </a>
     </li>
   
@@ -547,6 +574,33 @@
   <a href="#monte-carlo-setting" class="md-nav__link">
     Monte Carlo setting
   </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#molecular-dynamics-setting" class="md-nav__link">
+    Molecular Dynamics setting
+  </a>
+  
+    <nav class="md-nav" aria-label="Molecular Dynamics setting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementing-cutoff" class="md-nav__link">
+    Implementing cutoff
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moving-atoms" class="md-nav__link">
+    Moving atoms
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -950,7 +1004,7 @@ do ik=1,k
     enddo                               !---------------!-----
 enddo                                   ! 14 flops      ! 24B
 </code></pre>
-<p>The loop reads 24 bytes x <script type="math/tex">2^29^</script> iterations in 1.2 s. That makes 10.7 GB/s. The bandwidth of the machine is 109 
+<p>The loop reads 24 bytes x <script type="math/tex">2^29</script> iterations in 1.2 s. That makes 10.7 GB/s. The bandwidth of the machine is 109 
 GB/s for 10 cores, that is 10.9 GB for 1 core. Our loop runs at the maximum bandwidth. It is <strong>bandwith saturated</strong>. 
 This is a machine limit. It can simply not feed the CPU with data faster than this. It is instructive to draw a 
 roofline model for this. </p>
@@ -962,6 +1016,150 @@ the CPU is not doing useful work, because it is waiting for data. That means tha
 potential with another one that is about twice as compute intensive, and for that reason more accurate, we would still 
 finish the computation in 1.2s and have a more accurate solution, because we are using the cycles that the CPU was 
 waiting for data to do the extra computations. </p>
+<h3 id="molecular-dynamics-setting">Molecular Dynamics setting</h3>
+<p>We consider the same system, a large collection of atoms interacting through a Lennard-Jones potential. In a 
+Molecular Dynamics setting the time evolution of th system is computed by time integration of the classical equation 
+of motion:</p>
+<p>
+<script type="math/tex; mode=display"> \dot{\mathbf{r}} = \mathbf{v} </script>
+</p>
+<p>
+<script type="math/tex; mode=display"> \dot{\mathbf{v}} = \mathbf{a} </script>
+</p>
+<p>
+<script type="math/tex; mode=display"> \mathbf{a} = \mathbf{F} </script>
+</p>
+<p>The forces are computed as the gradient of the interaction energy:</p>
+<p>
+<script type="math/tex; mode=display"> \mathbf{F}_i = \nabla_{\mathbf{r}_i}{E} = \nabla_{\mathbf{r}_i} \sum_{j\ne{i}}^{N}V(r_{ij}) </script>
+</p>
+<p>We assume a system size of <script type="math/tex">N=10^9</script> atoms. The number of terms in the sum above is then <script type="math/tex">10^9(10^9-1)/2\approx{10^
+{18}}</script>. That will keep us busy, won't it... However, when you start evaluating all these contributions, you very 
+soon realize that most of them are really small, so small that they don't actually contribute to the result. They 
+are <strong>short-ranged</strong>. Mathematically, a force is short-ranged if it decays faster than <script type="math/tex">r^{-2}</script>. This is because the 
+area of a sphere with radius <script type="math/tex">r</script> is <script type="math/tex">4\pi r^2</script> and hence the number of particles at distance grows as <script type="math/tex">r^2</script>. 
+Consequently, in order for the force exerted by those particle to be negligible it has to decay faster than <script type="math/tex">r^{-2}</script>.</p>
+<p>The derivative of the Lennard-Jones potential is:</p>
+<p>
+<script type="math/tex; mode=display"> V'(r) = ({-6}/{r}) r^{-6}(2r^{-6}-1) </script>
+</p>
+<p>Hence,</p>
+<p>
+<script type="math/tex; mode=display"> \mathbf{F}_i = \sum_{j\ne{i}}^{N}\nabla_{\mathbf{r}_i}V(r_{ij}) = \sum_{j\ne{i}}^{N}V'(r_{ij})\nabla_{\mathbf{r}
+_i}r_{ij} = \sum_{j\ne{i}}^{N}V'(r_{ij}) \hat{\mathbf{r}}_{ij} </script>
+</p>
+<p>
+<script type="math/tex; mode=display"> = \sum_{j\ne{i}}^{N} ({-6}/{r_{ij}}) r_{ij}^{-6}(2r_{ij}^{-6}-1) \frac{\mathbf{r}_{ij}}{r_{ij}} = \sum_{j\ne{i}}^
+{N} -6 r_{ij}^{-8}(2r_{ij}^{-6}-1) \mathbf{r}_{ij} </script>
+</p>
+<p>Note that the force factor <script type="math/tex">f</script>, that is the factor in front of <script type="math/tex">\mathbf{r}_ij</script>, can also be expressed in terms of 
+<script type="math/tex">s=r^2=\delta{x}^2+\delta{y}^2+\delta{x}^2</script>:</p>
+<p>
+<script type="math/tex; mode=display"> f(s) = -6 s^{-4}(2s^{-3}-1) </script>
+</p>
+<p>
+<script type="math/tex; mode=display"> \mathbf{F}_i = \sum_{j\ne{i}}^{N} f(s_{ij}) \mathbf{r}_{ij} </script>
+</p>
+<p>So, we can avoid the square root in computing <script type="math/tex">r_ij</script>. Clearly, we can compute the interaction energy and the 
+interaction force in one go with little extra effort:</p>
+<p>
+<script type="math/tex; mode=display"> V(s) = s^{-3}(s^{-3}-1) </script>
+</p>
+<p>
+<script type="math/tex; mode=display"> E = \sum_{i<j} V(s_{ij}) </script>
+</p>
+<p>The fact that the interaction force is short-ranged, allows us to neglect the interaction forces beyond a cutoff 
+distance <script type="math/tex">r_c</script>, thus offering a possibility to avoid the cost of an <script type="math/tex">O(N^2)</script> algorithm. </p>
+<h4 id="implementing-cutoff">Implementing cutoff</h4>
+<p>As a first step we we can avoid the computation of the interaction energy and the interaction force if <script type="math/tex">r_{ij}>r_c</script>, 
+or <script type="math/tex">s_{ij}>s_c</script>:</p>
+<pre><code class="language-python"># (python psseudo-code)
+for i in range(N):
+    for j in range(i):
+        x_ij = x[j]-x[i]
+        y_ij = y[j]-y[i]
+        z_ij = z[j]-z[i]
+        s_ij = x_ij*x_ij + y_ij*y_ij + z_ij*z_ij
+        if s_ij &lt;= s_c:
+            t = 1/s_ij
+            t3 = t*t*t
+            E += t3*(t3-1)
+            f = -6*t*t3*(2*t3-1)
+            Fx[i] += f*x_ij
+            Fy[i] += f*y_ij
+            Fz[i] += f*z_ij
+            Fx[j] -= f*x_ij
+            Fy[j] -= f*y_ij
+            Fz[j] -= f*z_ij
+</code></pre>
+<p>Although this loop only computes the interactions wheen <script type="math/tex">s_{ij}\le{s_c}</script>, it still visits every pair to compute 
+<script type="math/tex">s_{ij}</script>. The corresponding amount of work is still <script type="math/tex">O(N^2)</script>. Some improvement is possible by using Verlet lists.
+The <strong>Verlet list</strong> of an atom <script type="math/tex">i</script> is the set of atoms <script type="math/tex">j</script> for which <script type="math/tex">r_{ij}<r_v</script>, where <script type="math/tex">r_v</script> is typically a bit 
+larger than <script type="math/tex">r_c</script>. The loop is now witten as:</p>
+<pre><code class="language-python"># (python psseudo-code)
+for i in range(N):
+    for j in verlet_list(i):
+        # as above
+</code></pre>
+<p>The loop over <script type="math/tex">j</script> is now much shorter, its length is bounded, typically in the range <script type="math/tex">10..100</script>. Hence, the double 
+loop is effectively <script type="math/tex">O(N)</script>. The construction of the Verlet list, however, is still <script type="math/tex">O(N^2)</script>, but the cost of it is 
+amortised over a number of timesteps. Because atoms move only a little bit over a time step and <script type="math/tex">r_v>r_c</script>, the 
+Verlet list can indeed be reused a number of timesteps, before it needs to be updated. </p>
+<p>Algorithms for constructing the Verlet list with <script type="math/tex">O(N)</script> complexity do exist. Here's a 2-D version of <strong>cell-based 
+Verlet list construction</strong>. It can be easily extended to 3-D, but that is harder to visualise. In the left figure 
+below, atom <script type="math/tex">i</script> (the orange dot) is surrounded by a blue circle of radius <script type="math/tex">r_v</script>. Atoms inside the blue circle are in 
+the Verlet list of atom <script type="math/tex">i</script>. We now overlay the domain with a square grid, of grid size <script type="math/tex">r_v</script> (middle figure). Atom 
+pairs in  the same cell or in nearest neighbour cells are Verlet list candidates, but not pairs in second nearest 
+neighbours or further. To construct the Verlet list of atom <script type="math/tex">i</script>, we only have to test atoms in the same cell, or in 
+its 8 nearest neighbours, all coloured light-blue. By iterating over all cells and over the atoms it contains, the 
+Verlet lists of all atoms can be constructed with <script type="math/tex">O(N)</script> complexity. In fact, by looking for pairs in all 
+rearest neighbours, all candidate pairs are visited twice (<script type="math/tex">ij</script> and <script type="math/tex">ji</script>). Hence, only half of the nearest 
+neighbours needs to be visited (right figure). </p>
+<p><img alt="cell-based-verlet-list" src="../public/cell-based-verlet-list-construction-0-2.png" /></p>
+<p>The algorithm requires that the grid implements: </p>
+<ul>
+<li>a cell list: a list of all the atoms that are in the cell, in order to iterate over all atoms in a cell. The cell 
+  lists can be constructed with <script type="math/tex">O(N)</script> complexity, and </li>
+<li>a method to find the neighbour cells of a cell. </li>
+</ul>
+<p>This is a good example for demonstrating the effectiveness of our 
+<a class="autorefs autorefs-internal" href="../chapter-5/#a-strategy-for-the-development-research-software">strategy for research software development</a>. Here are the steps 
+you should take</p>
+<ol>
+<li>Start out in Python.</li>
+<li>Take a small system, <em>e.g.</em> <script type="math/tex">N=5</script>, use Numpy arrays for the positions, velocities, ...</li>
+<li>Implement brute force computation of interactions and interaction forces (<script type="math/tex">O(N^2)</script>).</li>
+<li>Implement brute force computation of interactions and interaction forces with cutoff (<script type="math/tex">O(N^2)</script>). </li>
+<li>Implement brute force construction of Verlet lists (<script type="math/tex">O(N^2)</script>). (You might need a larger system for testing this). </li>
+<li>Implement Verlet list computation of interactions and interaction forces (<script type="math/tex">O(N)</script>).</li>
+<li>Implement cell-based Verlet list construction (<script type="math/tex">O(N)</script>). (You might need a larger system for testing this).</li>
+<li>
+<p>Optimise, try using Numba, or by taking the compute intensive parts to C++. </p>
+</li>
+<li>
+<p>Of course test and validate every step, <em>e.g.</em> by comparing to previous steps. </p>
+</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Remember that, <strong><em>for performance</em></strong>, you should <strong><em>avoid using loops in Python</em></strong>. When I implemented the 
+cell-based Verlet list construction in Python, it turned out to be terribly slow, mainly because of 5 levels of 
+nesting Python loops. The C++ version turned out to be 1200x faster (twelve hundred indeed, no typo!). </p>
+</div>
+<h4 id="moving-atoms">Moving atoms</h4>
+<p>The initalization of a physically consistent system of atoms is a non-trivial task in itself. Because molecular motion 
+conserves energy, random positions and velocities at time <script type="math/tex">t=0</script> may pos a lot of trouble for time integration. When 
+two atoms happen to be very close they experience very high repulsive force and thus are accelerated vigorously. 
+This can easily make the simulation explode. A practical way is to put atoms on a lattice with interatomic distances 
+close to the equilibrium distance of the Lennard-Jones potential, <em>e.g.</em> primitive cubic, body-centred cubic (BCC), 
+face-centred cubic (FCC), hexagonal closest packing (HCP). then slowly increase random velocities to increase the 
+kinetice energy and hence the temperature.</p>
+<p>When initializing the system on a lattice, often the performance is rather good because the regular arrangement 
+allows for a good data access pattern. However, as (simulation) time proceeds the atoms move and diffusion kicks in. 
+Every timestep, some atoms will move in and out of some other atom's Verlet sphere. Gradually, the atoms will move 
+further and further from their original positions, but their location in memory does not change, and, consequentially, 
+the data access pattern appproaches the random array access we discussed above, leading to considerable performance 
+degradation.</p>
 
 
 

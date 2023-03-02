@@ -320,7 +320,7 @@
   
     <li class="md-nav__item">
       <a href="../chapter-5/" class="md-nav__link">
-        Chapter 5 - A strategy for the development research software
+        Chapter 5
       </a>
     </li>
   
@@ -361,6 +361,28 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-mandelbrot-set" class="md-nav__link">
+    The Mandelbrot set
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assignment-the-mandelbrot-competition" class="md-nav__link">
+    Assignment - the Mandelbrot competition
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -376,10 +398,88 @@
 
 
 <h1 id="assignment-2022-23">Assignment 2022-23</h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>to be done ...</p>
-</div>
+<h2 id="the-mandelbrot-set">The Mandelbrot set</h2>
+<p>The <strong>Mandelbrot set</strong> <script type="math/tex">\mathcal{M}</script> is defined as the set of all complex numbers <script type="math/tex"> c \in \mathbb{C} </script>, for which the 
+iterative scheme </p>
+<p>
+<script type="math/tex; mode=display"> z_0 = 0 </script>
+<script type="math/tex; mode=display"> z_{i+1} = z_{i}^2 + c </script>
+</p>
+<p>is bounded, <em>i.e.</em> </p>
+<p>
+<script type="math/tex; mode=display"> \forall i \in \mathbb{N}, \left|z_{i}\right| \le b \in \mathbb{R}^+ </script>
+</p>
+<p>It can be demonstrated that, if for some <script type="math/tex">i</script>, <script type="math/tex"> \left|z_{i}\right| > 2 </script>, the iteration is 
+guaranteed to be unbounded, and thus <script type="math/tex">c \notin \mathcal{M}</script>. This yields a practical criterion to compute an<br />
+<strong>approximate Mandelbrot set</strong> <script type="math/tex"> \mathcal{M}_N</script>, containing as all complex numbers for which the first <script type="math/tex">N</script> iterations
+remain inside the circle with radius 2 (centered at the origin), <em>i.e.</em> for which <script type="math/tex"> \left|z_{i}\right| \le 2 </script> for all 
+<script type="math/tex">i\le{N}</script>.</p>
+<p>The Mandelbrot set <script type="math/tex">\mathcal{M}</script>, or its approximation <script type="math/tex">\mathcal{M}_N</script>, is traditionally coloured black, while the 
+other points, the points escaping outside the circle with radius 2 towards infinity, get a colour that indicates how 
+fast they escape. Here is an example (from <a href="https://en.wikipedia.org/wiki/Mandelbrot_set">wikipedia</a>):</p>
+<p><img alt="mandelbrot" src="../public/644px-Mandel_zoom_00_mandelbrot_set.jpg" /></p>
+<h2 id="assignment-the-mandelbrot-competition">Assignment - the Mandelbrot competition</h2>
+<p>Take the complex numbers <script type="math/tex">c \in \mathbb{C}</script> for which <script type="math/tex">\Re(c) \in \left[-2,1\right]</script> and <script type="math/tex">\Im(c) \in \left[0,
+4/3\right]</script>, <em>i.e.</em> about the upper half of the figure above (the lower half is symmetric). Compute the approximate 
+mandelbrot sets <script type="math/tex">\mathcal{M}_{100}</script>, <script type="math/tex">\mathcal{M}_{1000}</script> and <script type="math/tex">\mathcal{M}_{10000}</script> and pixel densities <script type="math/tex">d</script> of 50, 500, 
+and 5000 pixels per unit length. You may use the center of the pixels for the points <script type="math/tex">c</script>. Time each of these 9 cases. </p>
+<table>
+<thead>
+<tr>
+<th>walltime[s]</th>
+<th><em>d</em>=50</th>
+<th><em>d</em>=500</th>
+<th><em>d</em>=5000</th>
+<th>sum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>N</em>=100</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><em>N</em>=1000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><em>N</em>=10000</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>sum</td>
+<td></td>
+<td></td>
+<td></td>
+<td><em>Total</em></td>
+</tr>
+</tbody>
+</table>
+<p><strong><em>This a competition!</em></strong> 5/20 points are will be given to the winner, <em>i.e.</em> the one with the smallest total compute 
+time <em>Total</em> over the 9 cases, 4 to the second, and so on. The remaining 15 points are to be earned on the presentation.</p>
+<p>As in every competition, there are a few <strong><em>rules</em></strong>:</p>
+<ul>
+<li>Your code must be a <strong><em>Python program</em></strong>, but you may use C++ or Fortran to build your own Python modules for speed.</li>
+<li>The timings must be run on <strong><em>a single compute node of <a href="https://docs.vscentrum.
+  be/en/latest/antwerp/tier2_hardware/vaughan_hardware.html?highlight=vaughan">Vaughan</a></em></strong>, 
+  the Tier-2 VSC-cluster of the University of Antwerp. Every compute nodes has 64 cores, all of which you can use to 
+  parallellise the work and increase the througput. </li>
+<li><strong><em>Every case must be computed in at most one job</em></strong>. If you like, you may run all cases together in one job, but 
+  splitting a case over more jobs is not allowed.</li>
+<li>Obviously, the github repo that you will use to store the different versions of your code, the presentation and 
+  the results, must contain all necessary files to rerun your program, as to verify the correctness of the results and 
+  the timings. </li>
+</ul>
+<p>Success! </p>
 
 
 
