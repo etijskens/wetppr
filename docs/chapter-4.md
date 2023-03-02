@@ -403,7 +403,7 @@ do ik=1,k
     enddo                               !---------------!-----
 enddo                                   ! 14 flops      ! 24B
 ```
-The loop reads 24 bytes x $2^29^$ iterations in 1.2 s. That makes 10.7 GB/s. The bandwidth of the machine is 109 
+The loop reads 24 bytes x $2^29$ iterations in 1.2 s. That makes 10.7 GB/s. The bandwidth of the machine is 109 
 GB/s for 10 cores, that is 10.9 GB for 1 core. Our loop runs at the maximum bandwidth. It is **bandwith saturated**. 
 This is a machine limit. It can simply not feed the CPU with data faster than this. It is instructive to draw a 
 roofline model for this. 
@@ -417,5 +417,156 @@ the CPU is not doing useful work, because it is waiting for data. That means tha
 potential with another one that is about twice as compute intensive, and for that reason more accurate, we would still 
 finish the computation in 1.2s and have a more accurate solution, because we are using the cycles that the CPU was 
 waiting for data to do the extra computations. 
+
+### Molecular Dynamics setting
+
+We consider the same system, a large collection of atoms interacting through a Lennard-Jones potential. In a 
+Molecular Dynamics setting the time evolution of th system is computed by time integration of the classical equation 
+of motion:
+
+$$ \dot{\mathbf{r}} = \mathbf{v} $$
+
+$$ \dot{\mathbf{v}} = \mathbf{a} $$
+
+$$ \mathbf{a} = \mathbf{F} $$
+
+The forces are computed as the gradient of the interaction energy:
+
+$$ \mathbf{F}_i = \nabla_{\mathbf{r}_i}{E} = \nabla_{\mathbf{r}_i} \sum_{j\ne{i}}^{N}V(r_{ij}) $$
+
+We assume a system size of $N=10^9$ atoms. The number of terms in the sum above is then $10^9(10^9-1)/2\approx{10^
+{18}}$. That will keep us busy, won't it... However, when you start evaluating all these contributions, you very 
+soon realize that most of them are really small, so small that they don't actually contribute to the result. They 
+are **short-ranged**. Mathematically, a force is short-ranged if it decays faster than $r^{-2}$. This is because the 
+area of a sphere with radius $r$ is $4\pi r^2$ and hence the number of particles at distance grows as $r^2$. 
+Consequently, in order for the force exerted by those particle to be negligible it has to decay faster than $r^{-2}$.
+
+The derivative of the Lennard-Jones potential is:
+
+$$ V'(r) = ({-6}/{r}) r^{-6}(2r^{-6}-1) $$
+
+Hence,
+
+$$ \mathbf{F}_i = \sum_{j\ne{i}}^{N}\nabla_{\mathbf{r}_i}V(r_{ij}) = \sum_{j\ne{i}}^{N}V'(r_{ij})\nabla_{\mathbf{r}
+_i}r_{ij} = \sum_{j\ne{i}}^{N}V'(r_{ij}) \hat{\mathbf{r}}_{ij} $$
+
+$$ = \sum_{j\ne{i}}^{N} ({-6}/{r_{ij}}) r_{ij}^{-6}(2r_{ij}^{-6}-1) \frac{\mathbf{r}_{ij}}{r_{ij}} = \sum_{j\ne{i}}^
+{N} -6 r_{ij}^{-8}(2r_{ij}^{-6}-1) \mathbf{r}_{ij} $$
+
+Note that the force factor $f$, that is the factor in front of $\mathbf{r}_ij$, can also be expressed in terms of 
+$s=r^2=\delta{x}^2+\delta{y}^2+\delta{x}^2$:
+
+$$ f(s) = -6 s^{-4}(2s^{-3}-1) $$
+
+$$ \mathbf{F}_i = \sum_{j\ne{i}}^{N} f(s_{ij}) \mathbf{r}_{ij} $$
+
+So, we can avoid the square root in computing $r_ij$. Clearly, we can compute the interaction energy and the 
+interaction force in one go with little extra effort:
+
+$$ V(s) = s^{-3}(s^{-3}-1) $$
+
+$$ E = \sum_{i<j} V(s_{ij}) $$
+
+The fact that the interaction force is short-ranged, allows us to neglect the interaction forces beyond a cutoff 
+distance $r_c$, thus offering a possibility to avoid the cost of an $O(N^2)$ algorithm. 
+
+#### Implementing cutoff
+
+As a first step we we can avoid the computation of the interaction energy and the interaction force if $r_{ij}>r_c$, 
+or $s_{ij}>s_c$:
+
+```python
+# (python psseudo-code)
+for i in range(N):
+    for j in range(i):
+        x_ij = x[j]-x[i]
+        y_ij = y[j]-y[i]
+        z_ij = z[j]-z[i]
+        s_ij = x_ij*x_ij + y_ij*y_ij + z_ij*z_ij
+        if s_ij <= s_c:
+            t = 1/s_ij
+            t3 = t*t*t
+            E += t3*(t3-1)
+            f = -6*t*t3*(2*t3-1)
+            Fx[i] += f*x_ij
+            Fy[i] += f*y_ij
+            Fz[i] += f*z_ij
+            Fx[j] -= f*x_ij
+            Fy[j] -= f*y_ij
+            Fz[j] -= f*z_ij
+```
+
+Although this loop only computes the interactions wheen $s_{ij}\le{s_c}$, it still visits every pair to compute 
+$s_{ij}$. The corresponding amount of work is still $O(N^2)$. Some improvement is possible by using Verlet lists.
+The **Verlet list** of an atom $i$ is the set of atoms $j$ for which $r_{ij}<r_v$, where $r_v$ is typically a bit 
+larger than $r_c$. The loop is now witten as:
+
+```python
+# (python psseudo-code)
+for i in range(N):
+    for j in verlet_list(i):
+        # as above
+```
+
+The loop over $j$ is now much shorter, its length is bounded, typically in the range $10..100$. Hence, the double 
+loop is effectively $O(N)$. The construction of the Verlet list, however, is still $O(N^2)$, but the cost of it is 
+amortised over a number of timesteps. Because atoms move only a little bit over a time step and $r_v>r_c$, the 
+Verlet list can indeed be reused a number of timesteps, before it needs to be updated. 
+
+Algorithms for constructing the Verlet list with $O(N)$ complexity do exist. Here's a 2-D version of **cell-based 
+Verlet list construction**. It can be easily extended to 3-D, but that is harder to visualise. In the left figure 
+below, atom $i$ (the orange dot) is surrounded by a blue circle of radius $r_v$. Atoms inside the blue circle are in 
+the Verlet list of atom $i$. We now overlay the domain with a square grid, of grid size $r_v$ (middle figure). Atom 
+pairs in  the same cell or in nearest neighbour cells are Verlet list candidates, but not pairs in second nearest 
+neighbours or further. To construct the Verlet list of atom $i$, we only have to test atoms in the same cell, or in 
+its 8 nearest neighbours, all coloured light-blue. By iterating over all cells and over the atoms it contains, the 
+Verlet lists of all atoms can be constructed with $O(N)$ complexity. In fact, by looking for pairs in all 
+rearest neighbours, all candidate pairs are visited twice ($ij$ and $ji$). Hence, only half of the nearest 
+neighbours needs to be visited (right figure). 
+
+![cell-based-verlet-list](public/cell-based-verlet-list-construction-0-2.png)
+
+The algorithm requires that the grid implements: 
+
+- a cell list: a list of all the atoms that are in the cell, in order to iterate over all atoms in a cell. The cell 
+  lists can be constructed with $O(N)$ complexity, and 
+- a method to find the neighbour cells of a cell. 
+
+This is a good example for demonstrating the effectiveness of our 
+[strategy for research software development][a-strategy-for-the-development-research-software]. Here are the steps 
+you should take
+
+0. Start out in Python.
+1. Take a small system, _e.g._ $N=5$, use Numpy arrays for the positions, velocities, ...
+2. Implement brute force computation of interactions and interaction forces ($O(N^2)$).
+3. Implement brute force computation of interactions and interaction forces with cutoff ($O(N^2)$). 
+4. Implement brute force construction of Verlet lists ($O(N^2)$). (You might need a larger system for testing this). 
+5. Implement Verlet list computation of interactions and interaction forces ($O(N)$).
+6. Implement cell-based Verlet list construction ($O(N)$). (You might need a larger system for testing this).
+7. Optimise, try using Numba, or by taking the compute intensive parts to C++. 
+
+8. Of course test and validate every step, _e.g._ by comparing to previous steps. 
+
+!!! Tip
+    Remember that, ***for performance***, you should ***avoid using loops in Python***. When I implemented the 
+    cell-based Verlet list construction in Python, it turned out to be terribly slow, mainly because of 5 levels of 
+    nesting Python loops. The C++ version turned out to be 1200x faster (twelve hundred indeed, no typo!). 
+
+#### Moving atoms
+
+The initalization of a physically consistent system of atoms is a non-trivial task in itself. Because molecular motion 
+conserves energy, random positions and velocities at time $t=0$ may pos a lot of trouble for time integration. When 
+two atoms happen to be very close they experience very high repulsive force and thus are accelerated vigorously. 
+This can easily make the simulation explode. A practical way is to put atoms on a lattice with interatomic distances 
+close to the equilibrium distance of the Lennard-Jones potential, _e.g._ primitive cubic, body-centred cubic (BCC), 
+face-centred cubic (FCC), hexagonal closest packing (HCP). then slowly increase random velocities to increase the 
+kinetice energy and hence the temperature.
+
+When initializing the system on a lattice, often the performance is rather good because the regular arrangement 
+allows for a good data access pattern. However, as (simulation) time proceeds the atoms move and diffusion kicks in. 
+Every timestep, some atoms will move in and out of some other atom's Verlet sphere. Gradually, the atoms will move 
+further and further from their original positions, but their location in memory does not change, and, consequentially, 
+the data access pattern appproaches the random array access we discussed above, leading to considerable performance 
+degradation.
 
 

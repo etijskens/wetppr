@@ -1,6 +1,6 @@
-# Chapter 5 - A strategy for the development research software
+# Chapter 5
 
-## The need of a strategy for the development research software
+## A strategy for the development research software
 
 You are facing a new research question, to be solved computationally and on your shelf of computational tools nothing 
 useful is found. You start with an empty sheet of paper on you desk. or rather with an empty screen on your laptop. 
@@ -506,10 +506,14 @@ really quick win.
 #### Developing your own modules in C++/Fortran
 
 If none of the above techniques helps, you might consider to develop your own Python modules compiled from C++ or 
-Fortran code, also known as binary Python extensions. This can be a real game changer, but requires, obviously, good 
-knowledge of C++ or Fortran. The application [micc2](https://et-micc2.readthedocs.io/en/latest/index.html) 
-facilitates building your C++ and Fortran modules. 
-Checkout its [tutorials](https://et-micc2.readthedocs.io/en/latest/tutorials.html).
+Fortran code, also known as binary Python extensions. This can be a real game changer. In fact, this is exactly what 
+the HPC Python modules like Numpy and SciPy do, and they do it because that is the way to harness the power of 
+modern CPUs and expose it to Python. Obviously, this requires good knowledge of C++ or Fortran, and good 
+understanding of performance critical characteristics fo modern CPU architecture. 
+
+The application [micc2](https://et-micc2.readthedocs.io/en/latest/index.html) 
+facilitates building your C++ and Fortran modules. Checkout its 
+[tutorials](https://et-micc2.readthedocs.io/en/latest/tutorials.html).
 
 ## Principle 6
 

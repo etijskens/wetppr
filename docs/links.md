@@ -42,3 +42,7 @@
   - publishing your code on the [Python package index](https://pypi.org) 
   - version management and control (on [GitHub](https://github.com))
 
+## Other courses
+
+- [This](https://hands-on.coderefinery.org)
+- [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/)
