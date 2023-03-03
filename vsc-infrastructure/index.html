@@ -396,10 +396,9 @@
     Applying for a VSC account (researchers from Flanders)
   </a>
   
-    <nav class="md-nav" aria-label="Applying for a VSC account (researchers from Flanders)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#create-an-ssh-publicprivate-key-pair" class="md-nav__link">
     Create an ssh public/private key pair
   </a>
@@ -418,11 +417,6 @@
   <a href="#on-linux-and-macos" class="md-nav__link">
     On Linux and MacOS
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -477,10 +471,9 @@
     Applying for a VSC account (researchers from Flanders)
   </a>
   
-    <nav class="md-nav" aria-label="Applying for a VSC account (researchers from Flanders)">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#create-an-ssh-publicprivate-key-pair" class="md-nav__link">
     Create an ssh public/private key pair
   </a>
@@ -499,11 +492,6 @@
   <a href="#on-linux-and-macos" class="md-nav__link">
     On Linux and MacOS
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -532,34 +520,34 @@
 <h2 id="applying-for-a-guest-account-students">Applying for a guest account (students)</h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The project work (see <a href="evaluation">Evaluation</a>) requires access to one of the university's HPC clusters. If you 
-do not already have a VSC account, you must create a SSH public/private key pair (see below how to do that) and 
-send it by e-mail to franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in cc. A 
+<p>The project work (see <a href="evaluation">Evaluation</a>) requires access to one of the university's HPC clusters. If you
+do not already have a VSC account, you must create a SSH public/private key pair (see below how to do that) and
+send it by e-mail to franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in cc. A
 <strong><em>guest account</em></strong> will subsequently be created for you .</p>
 </div>
 <h2 id="applying-for-a-vsc-account-researchers-from-flanders">Applying for a VSC account (researchers from Flanders)</h2>
 <p>See <a href="https://docs.vscentrum.be/en/latest/access/getting_access.html">Getting acces to VSC clusters</a>.</p>
-<h3 id="create-an-ssh-publicprivate-key-pair">Create an ssh public/private key pair</h3>
-<p>A ssh public/private key pair is a way for secure access to a system through the Secure Shell protocol. They are 
-basically two small files with matching numbers. You may think of the public key as a lock. Everyone may see the 
-lock but no one can open the lock without the key, which is the private part of the key pair. The public key 
-(the lock) will be placed on a system you need access to, in this case the Tier-2 supercomputer of our university 
+<h2 id="create-an-ssh-publicprivate-key-pair">Create an ssh public/private key pair</h2>
+<p>A ssh public/private key pair is a way for secure access to a system through the Secure Shell protocol. They are
+basically two small files with matching numbers. You may think of the public key as a lock. Everyone may see the
+lock but no one can open the lock without the key, which is the private part of the key pair. The public key
+(the lock) will be placed on a system you need access to, in this case the Tier-2 supercomputer of our university
 (currently, that is <a href="https://docs.vscentrum.be/en/latest/antwerp/tier2_hardware/vaughan_hardware.html?
-highlight=vaughan">Vaughan</a>). To access to the supercomputer (that is, open the lock) from, say, your laptop, your need the 
-private key to be stored on your laptop (or a USB memory stick) and pass it to the SSH protocol which will verify 
+highlight=vaughan">Vaughan</a>). To access to the supercomputer (that is, open the lock) from, say, your laptop, your need the
+private key to be stored on your laptop (or a USB memory stick) and pass it to the SSH protocol which will verify
 the private key and the public key match and, in case they do, open the lock and grant you access.</p>
-<p>To create a ssh public/private key pair proceed as follows. </p>
-<h4 id="on-windows">On Windows</h4>
+<p>To create a ssh public/private key pair proceed as follows.</p>
+<h3 id="on-windows">On Windows</h3>
 <p>Open<code>powershell</code> or <code>cmd</code>, and type the following command:</p>
 <pre><code class="language-bash">&gt; ssh-keygen -t rsa -b 4096
 </code></pre>
-<p>You will then be prompted for a file location. You may accept the default location by entering. If the files already 
+<p>You will then be prompted for a file location. You may accept the default location by entering. If the files already
 exist you can choose to overwrite them or to cancel the operation.</p>
 <pre><code>Enter file in which to save the key (C: \Users \your_username/ .ssh/id rsa) :
 C:\Users\your_username/.ssh/id rsa already exists.
 Overwrite (y/n)? y
 </code></pre>
-<p>You will then be prompted for a passphrase to provide an extra level of protection for in case somebody would steal the 
+<p>You will then be prompted for a passphrase to provide an extra level of protection for in case somebody would steal the
 private key. Press enter for an empty passphrase.</p>
 <pre><code>Enter passphrase (empty for no passphrase):
 Enter same passphrase again:
@@ -570,17 +558,16 @@ Your public key has been saved in C: \Users\your_username/.ssh/id rsa.pub.
 </code></pre>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Students must send their <strong><em>public</em></strong> key to franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.
-be in cc. If you apply for a regular VSC account, follow the procedure <a href="https://docs.vscentrum.
-be/en/latest/access/getting_access.html">here</a>. </p>
+<p>To obtain a guest account students must send their <strong><em>public</em></strong> key (and only their public key, the private key
+is, well, um, private) to franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in <em>cc</em>.</p>
 </div>
-<h4 id="on-linux-and-macos">On Linux and MacOS</h4>
+<h3 id="on-linux-and-macos">On Linux and MacOS</h3>
 <p>Open a terminal, and type the following command:</p>
 <pre><code class="language-bash">&gt; ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa_vsc
 </code></pre>
-<p>The name <code>id_rsa_vsc</code> is arbitrary, but is best chosen to be meaningfull. You will be prompted for a passphrase to 
-provide an extra level of protection for in case somebody would steal the private key. Press enter for an empty 
-passphrase. </p>
+<p>The name <code>id_rsa_vsc</code> is arbitrary, but is best chosen to be meaningfull. You will be prompted for a passphrase to
+provide an extra level of protection for in case somebody would steal the private key. Press enter for an empty
+passphrase.</p>
 <pre><code class="language-bash">Generating public/private rsa key pair.
 Enter passphrase (empty for no passphrase):
 Enter same passphrase again:
@@ -591,11 +578,9 @@ Your public key has been saved in /home/user/.ssh/id_rsa_vsc.pub
 </code></pre>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>To obtain a guest account students must send their <strong><em>public</em></strong> key (and only their public keyto franky.
-backeljauw@uantwerpen.be </p>
+<p>To obtain a guest account students must send their <strong><em>public</em></strong> key (and only their public key, the private key
+is, well, um, private) to franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in <em>cc</em>.</p>
 </div>
-<p>with 
-    engelbert.tijskens@uantwerpen.be in <em>cc</em>. </p>
 
 
 
