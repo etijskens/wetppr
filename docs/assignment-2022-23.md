@@ -33,7 +33,14 @@ Take the complex numbers $c \in \mathbb{C}$ for which $\Re(c) \in \left[-2,1\rig
 mandelbrot sets $\mathcal{M}_{100}$, $\mathcal{M}_{1000}$ and $\mathcal{M}_{10000}$ with pixel densities $d$ of 100, 
 500, and 2500 pixels per unit length. You may use the center of the pixels for the points $c$. Time each of these 9 
 cases. The rectangle measures $3$ by $4/3$, so you get images of $300 \times 133 \approx 40000$ pixels, $1500 \times 
-667 \approx 10^6$ pixels, and $7500 \times 3333 \approx 25\times10^6$ pixels, resp.  
+667 \approx 10^6$ pixels, and $7500 \times 3333 \approx 25\times10^6$ pixels, resp. 
+
+It is best to choose the array of pixels such that the coordinate axes pass through the center of pixels. Thus, the 
+complex number corresponding to a pixel, that is the pixel's center, is always given by 
+
+$$c_{mn} = \frac{m}{d} + i\mkern1mu\frac{n}{d}$$
+
+with $m$ and $n$ integer constants.   
 
 | walltime[s] | _d_=50 | _d_=500 | _d_=5000 | sum     |
 |-------------|--------|---------|----------|---------|
@@ -42,23 +49,27 @@ cases. The rectangle measures $3$ by $4/3$, so you get images of $300 \times 133
 | _N_=10000   |        |         |          |         |
 | sum         |        |         |          | _Total_ |
 
-***This a competition!*** 5/20 points are will be given to the winner, _i.e._ the one with the smallest total compute 
-time _Total_ over the 9 cases, 4 to the second, and so on. The remaining 15 points are to be earned on the presentation.
+***This a competition!*** The winner, that is the one with the smallest total compute time _Total_ over the 9 cases, 
+will get 5 points, the second one 4 points, and so on. The remaining 15 points are to be earned on the presentation.
 
 As in every competition, there are a few ***rules***:
 
 - Your code must be a ***Python program***, but you may use C++ or Fortran to build your own Python modules for speed.
 - The timings must be run on ***a single compute node of [Vaughan](https://docs.vscentrum.
   be/en/latest/antwerp/tier2_hardware/vaughan_hardware.html?highlight=vaughan)***, 
-  the Tier-2 VSC-cluster of the University of Antwerp. Every compute nodes has 64 cores, all of which you can use to 
+  the Tier-2 VSC-cluster of the University of Antwerp. Every compute node on Vaughan has 64 cores, all of which you can 
+  use to 
   parallellise the work and increase the througput. 
 - ***Every case must be computed in at most one job***. If you like, you may run all cases together in one job, but 
   splitting a case over more jobs is not allowed.
 - Obviously, the github repo that you will use to store the different versions of your code, the presentation and 
   the results, must contain all necessary files to rerun your program, as to verify the correctness of the results and 
   the timings. 
+- You must save the image to disk. However, the timing must only include computing the image, not saving it to disk.  
 
 Success! 
+
+
 
 ## Plotting the images 
 

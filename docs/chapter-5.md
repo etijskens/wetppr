@@ -436,10 +436,10 @@ Obviously, continue to test and validate all code changes and extensions.
 ### Optimise if necessary 
 
 If neccessary, optimise your code. Necessary is when the time to solution is too long. At this point you will 
-probably already have a considerable Python code base. Bearing in mind that ***premature optimisation is the root of 
-all evil***, the important question is what needs optimisation and what not. The answer is provided by using a 
-profiler. Profiler are tools that tell you how much time your program spends in the different parts of it and how 
-many times tha part is executed.
+probably already have a considerable Python code base. Bearing in mind that 
+***premature optimisation is the root of all evil***, the important question is what needs optimisation and what not. 
+The answer is provided by using a profiler. Profiler are tools that tell you how much time your program spends in 
+the different parts of it and how many times tha part is executed.
 
 Some profilers provide information on a _per function_ basis, and tell how many times that function was called and 
 the average or cumulative time spent in it. Other profilers provide information on a _per line_ basis, an tell how 

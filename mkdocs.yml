@@ -15,6 +15,7 @@ nav:
   - chapter-4.md
   - chapter-5.md
   - evaluation.md
+  - vsc-infrastructure.md
 
 markdown_extensions:
     - markdown.extensions.admonition

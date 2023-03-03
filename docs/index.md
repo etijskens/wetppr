@@ -18,4 +18,5 @@ Material for the course ***2000wetppr*** of the University of Antwerp
 3. [Chapter 4 - Case studies](chapter-4.md)
 3. [Chapter 5 - A strategy for the development research software](chapter-5.md)
 4. [Evaluation](evaluation.md)
+5. [VSC infrastructure](vsc-infrastructure.md)
 

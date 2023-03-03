@@ -2,19 +2,10 @@
 
 Here is an alphabetical list of terms with links to where they are explained in the text.
 
-## *
-
-- [*premature optimisation is the root of all evil][optimise-if-necessary]
-
-## 2
-
-- [2              !               ! +(p(m+im)-y0)][monte-carlo-setting]
-- [2              ! +(p(m+im)-y0)][monte-carlo-setting]
-
 ## A
 
 - [address space][common-approaches-towards-parallelization]
-- [anti-pattern][the-need-of-a-strategy-for-the-development-research-software]
+- [anti-pattern][a-strategy-for-the-development-research-software]
 - [array of structures][recommendations-for-data-structures]
 
 ## B
@@ -29,6 +20,7 @@ Here is an alphabetical list of terms with links to where they are explained in 
 - [cache line][the-hierarchical-structure-of-cpu-memory]
 - [cache-oblivious][tiling]
 - [ccNUMA][supercomputer-architecture]
+- [cell-based Verlet list construction][implementing-cutoff]
 - [code modernisation][code-optimisations]
 - [Code optimisations][code-optimisations]
 - [Common sense optimizations][common-sense-optimisations]
@@ -79,7 +71,7 @@ Here is an alphabetical list of terms with links to where they are explained in 
 
 - [parallel program][what-is-a-parallel-program]
 - [Partitioned Global Address Space][pgas]
-- [pattern][the-need-of-a-strategy-for-the-development-research-software]
+- [pattern][a-strategy-for-the-development-research-software]
 - [peak performance][1-reduce-the-time-to-solution]
 - [pipeline stalls][instruction-pipelining]
 - [process][common-approaches-towards-parallelization]
@@ -94,6 +86,7 @@ Here is an alphabetical list of terms with links to where they are explained in 
 - [sequential][what-is-a-parallel-program]
 - [serial][what-is-a-parallel-program]
 - [shared memory parallelization][shared-memory-parallelization]
+- [short-ranged][molecular-dynamics-setting]
 - [SIMD vectorisation][intra-core-parallellisation-features]
 - [software thread][common-approaches-towards-parallelization]
 - [Spatial locality][the-hierarchical-structure-of-cpu-memory]
@@ -105,3 +98,7 @@ Here is an alphabetical list of terms with links to where they are explained in 
 - [thread][common-approaches-towards-parallelization]
 - [tiling][the-hierarchical-structure-of-cpu-memory]
 - [time to solution][1-reduce-the-time-to-solution]
+
+## V
+
+- [Verlet list][implementing-cutoff]
