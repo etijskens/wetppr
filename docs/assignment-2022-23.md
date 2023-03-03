@@ -24,12 +24,16 @@ fast they escape. Here is an example (from [wikipedia](https://en.wikipedia.org/
 
 ![mandelbrot](public/644px-Mandel_zoom_00_mandelbrot_set.jpg)
 
-## Assignment - the Mandelbrot competition
+Here is the challenge for you.
+
+## The Mandelbrot challenge
 
 Take the complex numbers $c \in \mathbb{C}$ for which $\Re(c) \in \left[-2,1\right]$ and $\Im(c) \in \left[0,
 4/3\right]$, _i.e._ about the upper half of the figure above (the lower half is symmetric). Compute the approximate 
-mandelbrot sets $\mathcal{M}_{100}$, $\mathcal{M}_{1000}$ and $\mathcal{M}_{10000}$ and pixel densities $d$ of 50, 500, 
-and 5000 pixels per unit length. You may use the center of the pixels for the points $c$. Time each of these 9 cases. 
+mandelbrot sets $\mathcal{M}_{100}$, $\mathcal{M}_{1000}$ and $\mathcal{M}_{10000}$ with pixel densities $d$ of 100, 
+500, and 2500 pixels per unit length. You may use the center of the pixels for the points $c$. Time each of these 9 
+cases. The rectangle measures $3$ by $4/3$, so you get images of $300 \times 133 \approx 40000$ pixels, $1500 \times 
+667 \approx 10^6$ pixels, and $7500 \times 3333 \approx 25\times10^6$ pixels, resp.  
 
 | walltime[s] | _d_=50 | _d_=500 | _d_=5000 | sum     |
 |-------------|--------|---------|----------|---------|
@@ -55,3 +59,15 @@ As in every competition, there are a few ***rules***:
   the timings. 
 
 Success! 
+
+## Plotting the images 
+
+Getting the nice images of the Mandelbrot set you may encounter on the web isn't as easy as it seems. Although this is 
+not part of the challenge, I can understand your dissappointment if after spending all the effort to optimise and 
+parallelise your codes, the images do not match your expectations. However, your get a long way by applying a 
+transformation to the escape count (the pixel value), and mapping that to a color map. Here are some pointers:
+
+- [Plotting algorithms for the Mandelbrot set](https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set)
+- [A related question on stackoverflow](https://stackoverflow.
+  com/questions/16500656/which-color-gradient-is-used-to-color-mandelbrot-in-wikipedia)
+- [How to plot the mandelbrot set - adding some colors](https://www.codingame.com/playgrounds/2358/how-to-plot-the-mandelbrot-set/adding-some-colors)
