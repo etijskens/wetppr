@@ -375,8 +375,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#assignment-the-mandelbrot-competition" class="md-nav__link">
-    Assignment - the Mandelbrot competition
+  <a href="#the-mandelbrot-challenge" class="md-nav__link">
+    The Mandelbrot challenge
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#plotting-the-images" class="md-nav__link">
+    Plotting the images
   </a>
   
 </li>
@@ -418,11 +425,14 @@ remain inside the circle with radius 2 (centered at the origin), <em>i.e.</em> f
 other points, the points escaping outside the circle with radius 2 towards infinity, get a colour that indicates how 
 fast they escape. Here is an example (from <a href="https://en.wikipedia.org/wiki/Mandelbrot_set">wikipedia</a>):</p>
 <p><img alt="mandelbrot" src="../public/644px-Mandel_zoom_00_mandelbrot_set.jpg" /></p>
-<h2 id="assignment-the-mandelbrot-competition">Assignment - the Mandelbrot competition</h2>
+<p>Here is the challenge for you.</p>
+<h2 id="the-mandelbrot-challenge">The Mandelbrot challenge</h2>
 <p>Take the complex numbers <script type="math/tex">c \in \mathbb{C}</script> for which <script type="math/tex">\Re(c) \in \left[-2,1\right]</script> and <script type="math/tex">\Im(c) \in \left[0,
 4/3\right]</script>, <em>i.e.</em> about the upper half of the figure above (the lower half is symmetric). Compute the approximate 
-mandelbrot sets <script type="math/tex">\mathcal{M}_{100}</script>, <script type="math/tex">\mathcal{M}_{1000}</script> and <script type="math/tex">\mathcal{M}_{10000}</script> and pixel densities <script type="math/tex">d</script> of 50, 500, 
-and 5000 pixels per unit length. You may use the center of the pixels for the points <script type="math/tex">c</script>. Time each of these 9 cases. </p>
+mandelbrot sets <script type="math/tex">\mathcal{M}_{100}</script>, <script type="math/tex">\mathcal{M}_{1000}</script> and <script type="math/tex">\mathcal{M}_{10000}</script> with pixel densities <script type="math/tex">d</script> of 100, 
+500, and 2500 pixels per unit length. You may use the center of the pixels for the points <script type="math/tex">c</script>. Time each of these 9 
+cases. The rectangle measures <script type="math/tex">3</script> by <script type="math/tex">4/3</script>, so you get images of <script type="math/tex">300 \times 133 \approx 40000</script> pixels, <script type="math/tex">1500 \times 
+667 \approx 10^6</script> pixels, and <script type="math/tex">7500 \times 3333 \approx 25\times10^6</script> pixels, resp.  </p>
 <table>
 <thead>
 <tr>
@@ -480,6 +490,17 @@ time <em>Total</em> over the 9 cases, 4 to the second, and so on. The remaining 
   the timings. </li>
 </ul>
 <p>Success! </p>
+<h2 id="plotting-the-images">Plotting the images</h2>
+<p>Getting the nice images of the Mandelbrot set you may encounter on the web isn't as easy as it seems. Although this is 
+not part of the challenge, I can understand your dissappointment if after spending all the effort to optimise and 
+parallelise your codes, the images do not match your expectations. However, your get a long way by applying a 
+transformation to the escape count (the pixel value), and mapping that to a color map. Here are some pointers:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set">Plotting algorithms for the Mandelbrot set</a></li>
+<li><a href="https://stackoverflow.
+  com/questions/16500656/which-color-gradient-is-used-to-color-mandelbrot-in-wikipedia">A related question on stackoverflow</a></li>
+<li><a href="https://www.codingame.com/playgrounds/2358/how-to-plot-the-mandelbrot-set/adding-some-colors">How to plot the mandelbrot set - adding some colors</a></li>
+</ul>
 
 
 
