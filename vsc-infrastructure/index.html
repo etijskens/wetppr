@@ -9,13 +9,15 @@
       
       
       
+        <link rel="prev" href="../evaluation/">
+      
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.10">
     
     
       
-        <title>Assignment 2022-23 - Parallel programmeren</title>
+        <title>VSC infrastructure - Parallel programmeren</title>
       
     
     
@@ -65,7 +67,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#assignment-2022-23" class="md-skip">
+        <a href="#vsc-infrastructure" class="md-skip">
           Skip to content
         </a>
       
@@ -98,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Assignment 2022-23
+              VSC infrastructure
             
           </span>
         </div>
@@ -347,11 +349,92 @@
 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../vsc-infrastructure/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          VSC infrastructure
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         VSC infrastructure
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#applying-for-a-guest-account-students" class="md-nav__link">
+    Applying for a guest account (students)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#applying-for-a-vsc-account-researchers-from-flanders" class="md-nav__link">
+    Applying for a VSC account (researchers from Flanders)
+  </a>
+  
+    <nav class="md-nav" aria-label="Applying for a VSC account (researchers from Flanders)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-an-ssh-publicprivate-key-pair" class="md-nav__link">
+    Create an ssh public/private key pair
+  </a>
+  
+    <nav class="md-nav" aria-label="Create an ssh public/private key pair">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on-windows" class="md-nav__link">
+    On Windows
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#on-linux-and-macos" class="md-nav__link">
+    On Linux and MacOS
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -383,23 +466,49 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-mandelbrot-set" class="md-nav__link">
-    The Mandelbrot set
+  <a href="#applying-for-a-guest-account-students" class="md-nav__link">
+    Applying for a guest account (students)
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-mandelbrot-challenge" class="md-nav__link">
-    The Mandelbrot challenge
+  <a href="#applying-for-a-vsc-account-researchers-from-flanders" class="md-nav__link">
+    Applying for a VSC account (researchers from Flanders)
+  </a>
+  
+    <nav class="md-nav" aria-label="Applying for a VSC account (researchers from Flanders)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#create-an-ssh-publicprivate-key-pair" class="md-nav__link">
+    Create an ssh public/private key pair
+  </a>
+  
+    <nav class="md-nav" aria-label="Create an ssh public/private key pair">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#on-windows" class="md-nav__link">
+    On Windows
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
-  <a href="#plotting-the-images" class="md-nav__link">
-    Plotting the images
+        
+          <li class="md-nav__item">
+  <a href="#on-linux-and-macos" class="md-nav__link">
+    On Linux and MacOS
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -419,111 +528,74 @@
 
 
 
-<h1 id="assignment-2022-23">Assignment 2022-23</h1>
-<h2 id="the-mandelbrot-set">The Mandelbrot set</h2>
-<p>The <strong>Mandelbrot set</strong> <script type="math/tex">\mathcal{M}</script> is defined as the set of all complex numbers <script type="math/tex"> c \in \mathbb{C} </script>, for which the 
-iterative scheme </p>
-<p>
-<script type="math/tex; mode=display"> z_0 = 0 </script>
-<script type="math/tex; mode=display"> z_{i+1} = z_{i}^2 + c </script>
-</p>
-<p>is bounded, <em>i.e.</em> </p>
-<p>
-<script type="math/tex; mode=display"> \forall i \in \mathbb{N}, \left|z_{i}\right| \le b \in \mathbb{R}^+ </script>
-</p>
-<p>It can be demonstrated that, if for some <script type="math/tex">i</script>, <script type="math/tex"> \left|z_{i}\right| > 2 </script>, the iteration is 
-guaranteed to be unbounded, and thus <script type="math/tex">c \notin \mathcal{M}</script>. This yields a practical criterion to compute an<br />
-<strong>approximate Mandelbrot set</strong> <script type="math/tex"> \mathcal{M}_N</script>, containing as all complex numbers for which the first <script type="math/tex">N</script> iterations
-remain inside the circle with radius 2 (centered at the origin), <em>i.e.</em> for which <script type="math/tex"> \left|z_{i}\right| \le 2 </script> for all 
-<script type="math/tex">i\le{N}</script>.</p>
-<p>The Mandelbrot set <script type="math/tex">\mathcal{M}</script>, or its approximation <script type="math/tex">\mathcal{M}_N</script>, is traditionally coloured black, while the 
-other points, the points escaping outside the circle with radius 2 towards infinity, get a colour that indicates how 
-fast they escape. Here is an example (from <a href="https://en.wikipedia.org/wiki/Mandelbrot_set">wikipedia</a>):</p>
-<p><img alt="mandelbrot" src="../public/644px-Mandel_zoom_00_mandelbrot_set.jpg" /></p>
-<p>Here is the challenge for you.</p>
-<h2 id="the-mandelbrot-challenge">The Mandelbrot challenge</h2>
-<p>Take the complex numbers <script type="math/tex">c \in \mathbb{C}</script> for which <script type="math/tex">\Re(c) \in \left[-2,1\right]</script> and <script type="math/tex">\Im(c) \in \left[0,
-4/3\right]</script>, <em>i.e.</em> about the upper half of the figure above (the lower half is symmetric). Compute the approximate 
-mandelbrot sets <script type="math/tex">\mathcal{M}_{100}</script>, <script type="math/tex">\mathcal{M}_{1000}</script> and <script type="math/tex">\mathcal{M}_{10000}</script> with pixel densities <script type="math/tex">d</script> of 100, 
-500, and 2500 pixels per unit length. You may use the center of the pixels for the points <script type="math/tex">c</script>. Time each of these 9 
-cases. The rectangle measures <script type="math/tex">3</script> by <script type="math/tex">4/3</script>, so you get images of <script type="math/tex">300 \times 133 \approx 40000</script> pixels, <script type="math/tex">1500 \times 
-667 \approx 10^6</script> pixels, and <script type="math/tex">7500 \times 3333 \approx 25\times10^6</script> pixels, resp. </p>
-<p>It is best to choose the array of pixels such that the coordinate axes pass through the center of pixels. Thus, the 
-complex number corresponding to a pixel, that is the pixel's center, is always given by </p>
-<p>
-<script type="math/tex; mode=display">c_{mn} = \frac{m}{d} + i\mkern1mu\frac{n}{d}</script>
-</p>
-<p>with <script type="math/tex">m</script> and <script type="math/tex">n</script> integer constants.   </p>
-<table>
-<thead>
-<tr>
-<th>walltime[s]</th>
-<th><em>d</em>=50</th>
-<th><em>d</em>=500</th>
-<th><em>d</em>=5000</th>
-<th>sum</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><em>N</em>=100</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><em>N</em>=1000</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><em>N</em>=10000</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>sum</td>
-<td></td>
-<td></td>
-<td></td>
-<td><em>Total</em></td>
-</tr>
-</tbody>
-</table>
-<p><strong><em>This a competition!</em></strong> The winner, that is the one with the smallest total compute time <em>Total</em> over the 9 cases, 
-will get 5 points, the second one 4 points, and so on. The remaining 15 points are to be earned on the presentation.</p>
-<p>As in every competition, there are a few <strong><em>rules</em></strong>:</p>
-<ul>
-<li>Your code must be a <strong><em>Python program</em></strong>, but you may use C++ or Fortran to build your own Python modules for speed.</li>
-<li>The timings must be run on <strong><em>a single compute node of <a href="https://docs.vscentrum.
-  be/en/latest/antwerp/tier2_hardware/vaughan_hardware.html?highlight=vaughan">Vaughan</a></em></strong>, 
-  the Tier-2 VSC-cluster of the University of Antwerp. Every compute node on Vaughan has 64 cores, all of which you can 
-  use to 
-  parallellise the work and increase the througput. </li>
-<li><strong><em>Every case must be computed in at most one job</em></strong>. If you like, you may run all cases together in one job, but 
-  splitting a case over more jobs is not allowed.</li>
-<li>Obviously, the github repo that you will use to store the different versions of your code, the presentation and 
-  the results, must contain all necessary files to rerun your program, as to verify the correctness of the results and 
-  the timings. </li>
-<li>You must save the image to disk. However, the timing must only include computing the image, not saving it to disk.  </li>
-</ul>
-<p>Success! </p>
-<h2 id="plotting-the-images">Plotting the images</h2>
-<p>Getting the nice images of the Mandelbrot set you may encounter on the web isn't as easy as it seems. Although this is 
-not part of the challenge, I can understand your dissappointment if after spending all the effort to optimise and 
-parallelise your codes, the images do not match your expectations. However, your get a long way by applying a 
-transformation to the escape count (the pixel value), and mapping that to a color map. Here are some pointers:</p>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set">Plotting algorithms for the Mandelbrot set</a></li>
-<li><a href="https://stackoverflow.
-  com/questions/16500656/which-color-gradient-is-used-to-color-mandelbrot-in-wikipedia">A related question on stackoverflow</a></li>
-<li><a href="https://www.codingame.com/playgrounds/2358/how-to-plot-the-mandelbrot-set/adding-some-colors">How to plot the mandelbrot set - adding some colors</a></li>
-</ul>
+<h1 id="vsc-infrastructure">VSC infrastructure</h1>
+<h2 id="applying-for-a-guest-account-students">Applying for a guest account (students)</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The project work (see <a href="evaluation">Evaluation</a>) requires access to one of the university's HPC clusters. If you 
+do not already have a VSC account, you must create a SSH public/private key pair (see below how to do that) and 
+send it by e-mail to franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in cc. A 
+<strong><em>guest account</em></strong> will subsequently be created for you .</p>
+</div>
+<h2 id="applying-for-a-vsc-account-researchers-from-flanders">Applying for a VSC account (researchers from Flanders)</h2>
+<p>See <a href="https://docs.vscentrum.be/en/latest/access/getting_access.html">Getting acces to VSC clusters</a>.</p>
+<h3 id="create-an-ssh-publicprivate-key-pair">Create an ssh public/private key pair</h3>
+<p>A ssh public/private key pair is a way for secure access to a system through the Secure Shell protocol. They are 
+basically two small files with matching numbers. You may think of the public key as a lock. Everyone may see the 
+lock but no one can open the lock without the key, which is the private part of the key pair. The public key 
+(the lock) will be placed on a system you need access to, in this case the Tier-2 supercomputer of our university 
+(currently, that is <a href="https://docs.vscentrum.be/en/latest/antwerp/tier2_hardware/vaughan_hardware.html?
+highlight=vaughan">Vaughan</a>). To access to the supercomputer (that is, open the lock) from, say, your laptop, your need the 
+private key to be stored on your laptop (or a USB memory stick) and pass it to the SSH protocol which will verify 
+the private key and the public key match and, in case they do, open the lock and grant you access.</p>
+<p>To create a ssh public/private key pair proceed as follows. </p>
+<h4 id="on-windows">On Windows</h4>
+<p>Open<code>powershell</code> or <code>cmd</code>, and type the following command:</p>
+<pre><code class="language-bash">&gt; ssh-keygen -t rsa -b 4096
+</code></pre>
+<p>You will then be prompted for a file location. You may accept the default location by entering. If the files already 
+exist you can choose to overwrite them or to cancel the operation.</p>
+<pre><code>Enter file in which to save the key (C: \Users \your_username/ .ssh/id rsa) :
+C:\Users\your_username/.ssh/id rsa already exists.
+Overwrite (y/n)? y
+</code></pre>
+<p>You will then be prompted for a passphrase to provide an extra level of protection for in case somebody would steal the 
+private key. Press enter for an empty passphrase.</p>
+<pre><code>Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+</code></pre>
+<p>Finally you will be notified of where the keys are stored:  </p>
+<pre><code>Your identification has been saved in C: \Users\your_username/.ssh/id rsa.
+Your public key has been saved in C: \Users\your_username/.ssh/id rsa.pub.
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Students must send their <strong><em>public</em></strong> key to franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.
+be in cc. If you apply for a regular VSC account, follow the procedure <a href="https://docs.vscentrum.
+be/en/latest/access/getting_access.html">here</a>. </p>
+</div>
+<h4 id="on-linux-and-macos">On Linux and MacOS</h4>
+<p>Open a terminal, and type the following command:</p>
+<pre><code class="language-bash">&gt; ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa_vsc
+</code></pre>
+<p>The name <code>id_rsa_vsc</code> is arbitrary, but is best chosen to be meaningfull. You will be prompted for a passphrase to 
+provide an extra level of protection for in case somebody would steal the private key. Press enter for an empty 
+passphrase. </p>
+<pre><code class="language-bash">Generating public/private rsa key pair.
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+</code></pre>
+<p>Finally, you will be notified of the files (=keys) created:</p>
+<pre><code class="language-bash">Your identification has been saved in /home/user/.ssh/id_rsa_vsc
+Your public key has been saved in /home/user/.ssh/id_rsa_vsc.pub
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To obtain a guest account students must send their <strong><em>public</em></strong> key (and only their public keyto franky.
+backeljauw@uantwerpen.be </p>
+</div>
+<p>with 
+    engelbert.tijskens@uantwerpen.be in <em>cc</em>. </p>
 
 
 
