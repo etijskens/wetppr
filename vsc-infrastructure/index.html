@@ -425,6 +425,47 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#accessing-vaughan" class="md-nav__link">
+    Accessing Vaughan
+  </a>
+  
+    <nav class="md-nav" aria-label="Accessing Vaughan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terminal-based-access" class="md-nav__link">
+    Terminal based access
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ide-based-access" class="md-nav__link">
+    IDE based access
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-a-git-account-required-for-micc2-projects" class="md-nav__link">
+    Setting up a git account (required for micc2 projects)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-your-remote-environment" class="md-nav__link">
+    Setting up your remote environment
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -500,6 +541,47 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#accessing-vaughan" class="md-nav__link">
+    Accessing Vaughan
+  </a>
+  
+    <nav class="md-nav" aria-label="Accessing Vaughan">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#terminal-based-access" class="md-nav__link">
+    Terminal based access
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ide-based-access" class="md-nav__link">
+    IDE based access
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-a-git-account-required-for-micc2-projects" class="md-nav__link">
+    Setting up a git account (required for micc2 projects)
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-your-remote-environment" class="md-nav__link">
+    Setting up your remote environment
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -520,10 +602,8 @@
 <h2 id="applying-for-a-guest-account-students">Applying for a guest account (students)</h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The project work (see <a href="evaluation">Evaluation</a>) requires access to one of the university's HPC clusters. If you
-do not already have a VSC account, you must create a SSH public/private key pair (see below how to do that) and
-send it by e-mail to franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in cc. A
-<strong><em>guest account</em></strong> will subsequently be created for you .</p>
+<p>Students of the course 2000wetppr must apply for a guest account to access the university's HPC clusters unless they already have a VSC account. The project work (see <a href="evaluation">Evaluation</a>) requires access to one of the university's HPC clusters. To apply for a guest account, create a SSH public/private key pair (see below how to do that) and send it by e-mail to franky.backeljauw@uantwerpen.be with 
+engelbert.tijskens@uantwerpen.be in cc. A <strong><em>guest account</em></strong> will subsequently be created for you .</p>
 </div>
 <h2 id="applying-for-a-vsc-account-researchers-from-flanders">Applying for a VSC account (researchers from Flanders)</h2>
 <p>See <a href="https://docs.vscentrum.be/en/latest/access/getting_access.html">Getting acces to VSC clusters</a>.</p>
@@ -539,7 +619,7 @@ the private key and the public key match and, in case they do, open the lock and
 <p>To create a ssh public/private key pair proceed as follows.</p>
 <h3 id="on-windows">On Windows</h3>
 <p>Open<code>powershell</code> or <code>cmd</code>, and type the following command:</p>
-<pre><code class="language-bash">&gt; ssh-keygen -t rsa -b 4096
+<pre><code class="language-shell">&gt; ssh-keygen -t rsa -b 4096
 </code></pre>
 <p>You will then be prompted for a file location. You may accept the default location by entering. If the files already
 exist you can choose to overwrite them or to cancel the operation.</p>
@@ -564,17 +644,17 @@ public key is the one with the <code>.pub</code> extension.</p>
 </div>
 <h3 id="on-linux-and-macos">On Linux and MacOS</h3>
 <p>Open a terminal, and type the following command:</p>
-<pre><code class="language-bash">&gt; ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa_vsc
+<pre><code class="language-shell">&gt; ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa_vsc
 </code></pre>
 <p>The name <code>id_rsa_vsc</code> is arbitrary, but is best chosen to be meaningfull. You will be prompted for a passphrase to
 provide an extra level of protection for in case somebody would steal the private key. Press enter for an empty
 passphrase.</p>
-<pre><code class="language-bash">Generating public/private rsa key pair.
+<pre><code class="language-shell">Generating public/private rsa key pair.
 Enter passphrase (empty for no passphrase):
 Enter same passphrase again:
 </code></pre>
 <p>Finally, you will be notified of the files (=keys) created:</p>
-<pre><code class="language-bash">Your identification has been saved in /home/user/.ssh/id_rsa_vsc
+<pre><code class="language-shell">Your identification has been saved in /home/user/.ssh/id_rsa_vsc
 Your public key has been saved in /home/user/.ssh/id_rsa_vsc.pub
 </code></pre>
 <div class="admonition note">
@@ -583,6 +663,142 @@ Your public key has been saved in /home/user/.ssh/id_rsa_vsc.pub
 is, well, um, private) to franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in <em>cc</em>. The
 public key is the one with the <code>.pub</code> extension.</p>
 </div>
+<h2 id="accessing-vaughan">Accessing Vaughan</h2>
+<h3 id="terminal-based-access">Terminal based access</h3>
+<p>Vaughan is (at the time of writing) the University of Antwerp's Tier-2 HPC cluster. Terminal based access is can be 
+arranged by executing  the command</p>
+<pre><code>&gt; ssh -i path/to/my/private-ssh-key login1-vaughan.hpc.uantwerpen.be
+Last login: Mon Feb 27 12:40:32 2023 from 143.129.75.140
+--------------------------------------------------------------------
+Welcome to VAUGHAN !
+...
+</code></pre>
+<p>in a terminal. After the command is finished, you can use the terminal as if you were working on the login node. 
+Vaughan has two login nodes. <code>login1-vaughan.hpc.uantwerpen.be</code> and <code>login2-vaughan.hpc.uantwerpen.be</code>. You can also 
+use <code>login-vaughan.hpc.uantwerpen.be</code>, then the system will choose the login node with the highest availability.</p>
+<div class="admonition note">
+<p class="admonition-title">Windows</p>
+<p>The latest builds of Windows 10 and Windows 11 include a built-in SSH server and client that are based on 
+OpenSSH. You can use the <code>cmd</code> prompt, powershell, or WSL (Windows subsystem for Linux). For older Windows 
+versions, we recommend installing <a href="https://docs.vscentrum.be/en/latest/access/access_using_mobaxterm.html#access-using-mobaxterm">mobaxterm</a>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Linux</p>
+<p>Most Linux distributions have a <code>terminal</code> applicaton. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">MacOSX</p>
+<p>MacOSX comes with a build in <code>Terminal.app</code>. <code>iTerm2</code> is a replacement for <code>Terminal.app</code> with many interesting 
+extra features. </p>
+</div>
+<p>Editing files in terminal based access is performed using terminal editors, e.g. <code>vim</code> or <code>nano</code>. Although <code>vim</code> is 
+very powerfull, not everyone gets used to it.  </p>
+<h3 id="ide-based-access">IDE based access</h3>
+<p>Most developers find code development using terminal based access rather cumbersome. IDEs (Integrated Development 
+environment) provide a more user friendly GUI based experience. <a href="https://visualstudio.com">Visual Studio Code</a> 
+provides a very reasonable user experience for both local aand remote developement, providing a project directory 
+tree, an editor pane, a debugging pane, a terminal, ... It is very well suited for our project work. So, install 
+<a href="https://visualstudio.com">Visual Studio Code</a> on your local machine. (It is available for Windows, Linux, and 
+MacOSX). Here are some useful VSCode extensions that you should install. Click the <code>Extensions</code> icon in the activity 
+bar on the left. You can search the Marketplace for interesting extensions. </p>
+<p><img alt="vscode-extensions" src="../public/vscode-extensions.png" /></p>
+<div class="admonition tip">
+<p class="admonition-title">Necessary extensions</p>
+<ul>
+<li>Remote Development</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Highly recommended extensions</p>
+<ul>
+<li>Python extension for Visual Studio Code</li>
+<li>Python extension pack</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Recommended extensions for C++</p>
+<ul>
+<li>C/C++</li>
+<li>Better C++ syntax</li>
+<li>CMake</li>
+<li>CMake tools</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Recommended extensions for Fortran</p>
+<ul>
+<li>Modern Fortran</li>
+</ul>
+</div>
+<p>Now, after completing the steps below you are good to go to try this tutorial on [Using VSCode for Remote Development]
+(presentations/TNT-VSCode.pptx). </p>
+<h2 id="setting-up-a-git-account-required-for-micc2-projects">Setting up a git account (required for micc2 projects)</h2>
+<p>See <a href="https://docs.github.
+com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account">signing up for a new GitHub account</a></p>
+<h2 id="setting-up-your-remote-environment">Setting up your remote environment</h2>
+<p>A HPC cluster provides you with many installed software packages. However, none of them are immediately available. 
+To make a package available, you must <code>load</code> the corresponding software module (this is a different <em>module</em> than 
+the Python modules). Here is a list of modules you might need for your project work:</p>
+<ul>
+<li><code>Python</code> (= Intel Python 3.8.3), also provides <code>numpy</code>, <code>f2py</code>, <code>scipy</code>, <code>sympy</code>, <code>pandas</code>, mpi4py, ..., as well as<br />
+  the corresponding C/C++/Fortran compilers from Intel</li>
+<li><code>numba</code></li>
+<li><code>buildtools</code>, provides CMake</li>
+<li><code>git</code></li>
+<li><code>gh</code> </li>
+</ul>
+<p>Every time you start a remote terminal session, you must load these modules. That is conveniently done by writing 
+down all the <code>load</code> commands in a file:</p>
+<pre><code class="language-shell"># File wetppr-env.sh
+# Prepare environment for Python/C++/Fortran development
+# You must 'source' this file
+module load Python
+module load numba
+module load buildtools
+module load git
+module load gh
+# list all loaded modules
+module list 
+
+# allow to install python packages locally
+export PYTHONUSERBASE=/data/antwerpen/guest/your_guest_id/.local
+mkdir -p ${PYTHONUSERBASE}
+export PATH=&quot;$PATH:${PYTHONUSERBASE}/bin&quot;
+</code></pre>
+<p>Every time you start a new remote terminal session, you must execute the command:</p>
+<pre><code class="language-shell">&gt; source path/to/wetppr-sh
+</code></pre>
+<p>Here is a Python package that will facilitate your project management considerably <a href="https://et-micc2.
+readthedocs.io/en/latest/index.html">micc2</a>. Install it in a (<em>remote</em>) terminal. </p>
+<pre><code class="language-shell">&gt; pip install --user et-micc2
+</code></pre>
+<p>The <code>--user</code> flag instructs <code>pip</code> to install the package in the directory defined by the environment variable 
+<code>${PYTHONUSERBASE}</code>. The default install path of <code>pip</code> is a system location where you do not have permissions to 
+install. <code>${PYTHONUSERBASE}</code> is a nice workaround. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Don't forget to <code>source wetppr-env</code> first!</p>
+</div>
+<p><a href="https://et-micc2. readthedocs.io/en/latest/index.html">Micc2</a> requires 
+<a href="https://et-micc2.readthedocs.io/en/latest/installation.html#first-time-micc2-setup">a little setup</a> before it is 
+fully functional. To do so, enter </p>
+<pre><code class="language-shell">&gt; micc2 setup
+</code></pre>
+<p>and supply <a href="https://et-micc2.readthedocs.io/en/latest/installation.
+html#first-time-micc2-setup">the data the application asks for</a>. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need a GitHub account before you can setup <code>micc2</code>.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Make sure that you get a personal access token (pat) to allow creating remote repositories at 
+<a href="https://github.com">GitHub</a>! Check <a href="https://et-micc2.readthedocs.io/en/latest/installation.
+html#first-time-micc2-setup">this</a>.</p>
+</div>
+<p>You will also need <code>pybind11</code> if you want to use <code>micc2</code> for building binary extension modules for Python from C++.</p>
+<pre><code class="language-shell">&gt; pip install --user pybind11
+</code></pre>
 
 
 
