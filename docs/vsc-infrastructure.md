@@ -59,7 +59,8 @@ Your public key has been saved in C: \Users\your_username/.ssh/id rsa.pub.
 
 !!! Note
     To obtain a guest account students must send their ***public*** key (and only their public key, the private key
-    is, well, um, private) to franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in _cc_.
+    is, well, um, private) to franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in _cc_. The
+    public key is the one with the `.pub` extension.
 
 ### On Linux and MacOS
 
@@ -88,4 +89,5 @@ Your public key has been saved in /home/user/.ssh/id_rsa_vsc.pub
 
 !!! Note
     To obtain a guest account students must send their ***public*** key (and only their public key, the private key
-    is, well, um, private) to franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in _cc_.
+    is, well, um, private) to franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in _cc_. The
+    public key is the one with the `.pub` extension.
