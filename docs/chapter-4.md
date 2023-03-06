@@ -1,6 +1,5 @@
 # chapter 4 - Case studies
 
-
 ## Monte Carlo ground state energy calculation of a small atom cluster 
 
 ### Introduction

@@ -2,8 +2,11 @@
 
 Material:
 
-- this text and
-- [this presentation](presentations/lecture-1.pptx).
+- this website,
+- which is built with `mkdocs` from [this GitHub repo](https://github.com/etijskens/wetppr/). The repo contains also 
+  some example code and code for some of the case studies of chapter 4 in directories `wetppr` and `tests/wetppr`. 
+- some presentations found [here](https://github.com/etijskens/wetppr/tree/main/docs/presentations). (Most of these 
+  need some reworking, especially those not in VSC format).   
 
 ## Overview
 
