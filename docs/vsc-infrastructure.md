@@ -1,5 +1,10 @@
 # VSC infrastructure
 
+In this course we often use the terms _local_ and _remote_. ***Local*** refers to the physical machine you are 
+working on, _i.e._ your desktop or laptop. ***Remote***, on the other hand refers to a machine which is, typically, 
+at some other place, and which you are accessing through your local machine and a network connection with the remote 
+machine.   
+
 ## Applying for a guest account (students)
 
 !!! Note
@@ -91,7 +96,9 @@ Welcome to VAUGHAN !
 ...
 ```
 
-in a terminal. After the command is finished, you can use the terminal as if you were working on the login node. 
+in a terminal. After the command is finished, you can use the terminal as if you were working on the login node. The 
+current working directory will be a location in your file system on the cluster, rather than on your local machine. 
+
 Vaughan has two login nodes. `login1-vaughan.hpc.uantwerpen.be` and `login2-vaughan.hpc.uantwerpen.be`. You can also 
 use `login-vaughan.hpc.uantwerpen.be`, then the system will choose the login node with the highest availability.
 
