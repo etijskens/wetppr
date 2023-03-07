@@ -559,6 +559,10 @@
 
 
 <h1 id="vsc-infrastructure">VSC infrastructure</h1>
+<p>In this course we often use the terms <em>local</em> and <em>remote</em>. <strong><em>Local</em></strong> refers to the physical machine you are 
+working on, <em>i.e.</em> your desktop or laptop. <strong><em>Remote</em></strong>, on the other hand refers to a machine which is, typically, 
+at some other place, and which you are accessing through your local machine and a network connection with the remote 
+machine.   </p>
 <h2 id="applying-for-a-guest-account-students">Applying for a guest account (students)</h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -632,8 +636,9 @@ Last login: Mon Feb 27 12:40:32 2023 from 143.129.75.140
 Welcome to VAUGHAN !
 ...
 </code></pre>
-<p>in a terminal. After the command is finished, you can use the terminal as if you were working on the login node. 
-Vaughan has two login nodes. <code>login1-vaughan.hpc.uantwerpen.be</code> and <code>login2-vaughan.hpc.uantwerpen.be</code>. You can also 
+<p>in a terminal. After the command is finished, you can use the terminal as if you were working on the login node. The 
+current working directory will be a location in your file system on the cluster, rather than on your local machine. </p>
+<p>Vaughan has two login nodes. <code>login1-vaughan.hpc.uantwerpen.be</code> and <code>login2-vaughan.hpc.uantwerpen.be</code>. You can also 
 use <code>login-vaughan.hpc.uantwerpen.be</code>, then the system will choose the login node with the highest availability.</p>
 <p><code>Ssh</code> comes with a <code>.ssh/config</code> file that allows you to store the arguments of frequently used ssh commands. E.g. </p>
 <pre><code class="language-shell"># file ~/.ssh/config
