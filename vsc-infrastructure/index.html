@@ -403,26 +403,6 @@
     Create an ssh public/private key pair
   </a>
   
-    <nav class="md-nav" aria-label="Create an ssh public/private key pair">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#on-windows" class="md-nav__link">
-    On Windows
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#on-linux-and-macos" class="md-nav__link">
-    On Linux and MacOS
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -519,26 +499,6 @@
     Create an ssh public/private key pair
   </a>
   
-    <nav class="md-nav" aria-label="Create an ssh public/private key pair">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#on-windows" class="md-nav__link">
-    On Windows
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#on-linux-and-macos" class="md-nav__link">
-    On Linux and MacOS
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
 </li>
       
         <li class="md-nav__item">
@@ -616,58 +576,57 @@ lock but no one can open the lock without the key, which is the private part of 
 highlight=vaughan">Vaughan</a>). To access to the supercomputer (that is, open the lock) from, say, your laptop, your need the
 private key to be stored on your laptop (or a USB memory stick) and pass it to the SSH protocol which will verify
 the private key and the public key match and, in case they do, open the lock and grant you access.</p>
-<p>To create a ssh public/private key pair proceed as follows.</p>
-<h3 id="on-windows">On Windows</h3>
-<p>Open<code>powershell</code> or <code>cmd</code>, and type the following command:</p>
+<p>To create a ssh public/private key pair proceed as follows. Open a 'terminal':</p>
+<div class="admonition note">
+<p class="admonition-title">On Windows</p>
+<p>The latest builds of Windows 10 and Windows 11 include a built-in SSH server and client that are based on 
+OpenSSH. You can use the <code>cmd</code> prompt, powershell, or WSL (Windows subsystem for Linux) as a terminal. For older 
+Windows versions, we recommend installing 
+<a href="https://docs.vscentrum.be/en/latest/access/access_using_mobaxterm.html#access-using-mobaxterm">mobaxterm</a>.
+to generate a ssh public/private key pair.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">On Linux</p>
+<p>Most Linux distributions have a <code>terminal</code> applicaton. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">MacOSX</p>
+<p>MacOSX comes with a build in <code>Terminal.app</code>. <code>iTerm2</code> is a replacement for <code>Terminal.app</code> with many interesting 
+extra features.</p>
+</div>
+<p>Type the following command at the prompt:</p>
 <pre><code class="language-shell">&gt; ssh-keygen -t rsa -b 4096
 </code></pre>
-<p>You will then be prompted for a file location. You may accept the default location by entering. If the files already
-exist you can choose to overwrite them or to cancel the operation.</p>
-<pre><code>Enter file in which to save the key (C: \Users \your_username/ .ssh/id rsa) :
+<p>You will then be prompted for a file location of the public and private key. You may accept the default location by 
+entering. The default file location will look a bit different, depending on your OS. If the files already exist you 
+canchoose to overwrite them or to cancel the operation. You might want to change the filename of the key to a more 
+meaningfull name, <em>e.g.</em> <code>access_vaughan_rsa</code>. Don't use blanks in the filename. Use hyphens (<code>-</code>) or underscores 
+(<code>_</code>) instead.</p>
+<pre><code>Enter file in which to save the key (C:\Users\your_username/.ssh/id rsa) :
 C:\Users\your_username/.ssh/id rsa already exists.
 Overwrite (y/n)? y
 </code></pre>
-<p>You will then be prompted for a passphrase to provide an extra level of protection for in case somebody would steal the
-private key. Press enter for an empty passphrase.</p>
+<p>You will then be prompted for a passphrase (twice). A passphrase provides an extra level of protection in case 
+somebody would steal your private key. Press <code>enter</code> for an empty passphrase. (Passphrases are a little annoying 
+when using VSCode(see below) for remote development.)</p>
 <pre><code>Enter passphrase (empty for no passphrase):
 Enter same passphrase again:
 </code></pre>
 <p>Finally you will be notified of where the keys are stored:  </p>
-<pre><code>Your identification has been saved in C: \Users\your_username/.ssh/id rsa.
-Your public key has been saved in C: \Users\your_username/.ssh/id rsa.pub.
+<pre><code>Your identification has been saved in C:\Users\your_username/.ssh/id rsa.
+Your public key has been saved in C:\Users\your_username/.ssh/id rsa.pub.
 </code></pre>
 <div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>To obtain a guest account students must send their <strong><em>public</em></strong> key (and only their public key, the private key
-is, well, um, private) to franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in <em>cc</em>. The
-public key is the one with the <code>.pub</code> extension.</p>
-</div>
-<h3 id="on-linux-and-macos">On Linux and MacOS</h3>
-<p>Open a terminal, and type the following command:</p>
-<pre><code class="language-shell">&gt; ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa_vsc
-</code></pre>
-<p>The name <code>id_rsa_vsc</code> is arbitrary, but is best chosen to be meaningfull. You will be prompted for a passphrase to
-provide an extra level of protection for in case somebody would steal the private key. Press enter for an empty
-passphrase.</p>
-<pre><code class="language-shell">Generating public/private rsa key pair.
-Enter passphrase (empty for no passphrase):
-Enter same passphrase again:
-</code></pre>
-<p>Finally, you will be notified of the files (=keys) created:</p>
-<pre><code class="language-shell">Your identification has been saved in /home/user/.ssh/id_rsa_vsc
-Your public key has been saved in /home/user/.ssh/id_rsa_vsc.pub
-</code></pre>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>To obtain a guest account students must send their <strong><em>public</em></strong> key (and only their public key, the private key
-is, well, um, private) to franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in <em>cc</em>. The
-public key is the one with the <code>.pub</code> extension.</p>
+<p class="admonition-title">For students of 2000wetppr</p>
+<p>To obtain a guest account, students must send their <strong><em>public</em></strong> key (and <strong><em>only</em></strong> the public key, the private 
+key is, well, um, <em>private</em>) to <code>franky.backeljauw@uantwerpen.be</code> with <code>engelbert.tijskens@uantwerpen.be</code> in 
+<em>cc</em>. The public key is the one with the <code>.pub</code> extension.</p>
 </div>
 <h2 id="accessing-vaughan">Accessing Vaughan</h2>
 <h3 id="terminal-based-access">Terminal based access</h3>
-<p>Vaughan is (at the time of writing) the University of Antwerp's Tier-2 HPC cluster. Terminal based access is can be 
-arranged by executing  the command</p>
-<pre><code>&gt; ssh -i path/to/my/private-ssh-key login1-vaughan.hpc.uantwerpen.be
+<p>Vaughan is (at the time of writing) the University of Antwerp's Tier-2 HPC cluster. For terminal based access you 
+open a <code>terminal</code> (see above) and execute the command:</p>
+<pre><code>&gt; ssh -i path/to/my/private-ssh-key your-user-id@login1-vaughan.hpc.uantwerpen.be
 Last login: Mon Feb 27 12:40:32 2023 from 143.129.75.140
 --------------------------------------------------------------------
 Welcome to VAUGHAN !
@@ -676,31 +635,28 @@ Welcome to VAUGHAN !
 <p>in a terminal. After the command is finished, you can use the terminal as if you were working on the login node. 
 Vaughan has two login nodes. <code>login1-vaughan.hpc.uantwerpen.be</code> and <code>login2-vaughan.hpc.uantwerpen.be</code>. You can also 
 use <code>login-vaughan.hpc.uantwerpen.be</code>, then the system will choose the login node with the highest availability.</p>
-<div class="admonition note">
-<p class="admonition-title">Windows</p>
-<p>The latest builds of Windows 10 and Windows 11 include a built-in SSH server and client that are based on 
-OpenSSH. You can use the <code>cmd</code> prompt, powershell, or WSL (Windows subsystem for Linux). For older Windows 
-versions, we recommend installing <a href="https://docs.vscentrum.be/en/latest/access/access_using_mobaxterm.html#access-using-mobaxterm">mobaxterm</a>.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Linux</p>
-<p>Most Linux distributions have a <code>terminal</code> applicaton. </p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">MacOSX</p>
-<p>MacOSX comes with a build in <code>Terminal.app</code>. <code>iTerm2</code> is a replacement for <code>Terminal.app</code> with many interesting 
-extra features. </p>
-</div>
+<p><code>Ssh</code> comes with a <code>.ssh/config</code> file that allows you to store the arguments of frequently used ssh commands. E.g. </p>
+<pre><code class="language-shell"># file ~/.ssh/config
+Host vn1
+  HostName login1-vaughan.hpc.uantwerpen.be
+  User vsc20170
+  IdentityFile /full/path/to/my/private-ssh-key
+  IdentitiesOnly yes
+  ForwardX11 yes
+  ForwardX11Trusted yes
+  ServerAliveInterval 60
+</code></pre>
+<p>which allows to abbreviate the above <code>ssh</code> command as <code>ssh vn1</code>.</p>
 <p>Editing files in terminal based access is performed using terminal editors, e.g. <code>vim</code> or <code>nano</code>. Although <code>vim</code> is 
-very powerfull, not everyone gets used to it.  </p>
+very powerfull, not everyone is comfortable with using it.  </p>
 <h3 id="ide-based-access">IDE based access</h3>
-<p>Most developers find code development using terminal based access rather cumbersome. IDEs (Integrated Development 
-environment) provide a more user friendly GUI based experience. <a href="https://visualstudio.com">Visual Studio Code</a> 
-provides a very reasonable user experience for both local aand remote developement, providing a project directory 
-tree, an editor pane, a debugging pane, a terminal, ... It is very well suited for our project work. So, install 
-<a href="https://visualstudio.com">Visual Studio Code</a> on your local machine. (It is available for Windows, Linux, and 
-MacOSX). Here are some useful VSCode extensions that you should install. Click the <code>Extensions</code> icon in the activity 
-bar on the left. You can search the Marketplace for interesting extensions. </p>
+<p>Many developers (including me) find code development using terminal based access rather cumbersome. IDEs (Integrated 
+Development environment) provide a more user friendly GUI based experience. 
+<a href="https://visualstudio.com">Visual Studio Code</a> provides a very reasonable user experience for both local aand remote 
+developement, providing a project directory tree, an editor pane, a debugging pane, a terminal, ... It is very well 
+suited for our project work. So, install <a href="https://visualstudio.com">Visual Studio Code</a> on your local machine. (It 
+is available for Windows, Linux, and MacOSX). Here are some useful VSCode extensions that you should install. Click 
+the <code>Extensions</code> icon in the activity bar on the left. You can search the Marketplace for interesting extensions. </p>
 <p><img alt="vscode-extensions" src="../public/vscode-extensions.png" /></p>
 <div class="admonition tip">
 <p class="admonition-title">Necessary extensions</p>
