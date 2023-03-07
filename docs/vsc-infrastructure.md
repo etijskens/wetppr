@@ -21,27 +21,43 @@ highlight=vaughan)). To access to the supercomputer (that is, open the lock) fro
 private key to be stored on your laptop (or a USB memory stick) and pass it to the SSH protocol which will verify
 the private key and the public key match and, in case they do, open the lock and grant you access.
 
-To create a ssh public/private key pair proceed as follows.
+To create a ssh public/private key pair proceed as follows. Open a 'terminal':
 
-### On Windows
+!!! Note "On Windows"
+    The latest builds of Windows 10 and Windows 11 include a built-in SSH server and client that are based on 
+    OpenSSH. You can use the `cmd` prompt, powershell, or WSL (Windows subsystem for Linux) as a terminal. For older 
+    Windows versions, we recommend installing 
+    [mobaxterm](https://docs.vscentrum.be/en/latest/access/access_using_mobaxterm.html#access-using-mobaxterm).
+    to generate a ssh public/private key pair.
 
-Open`powershell` or `cmd`, and type the following command:
+!!! note "On Linux"
+    Most Linux distributions have a `terminal` applicaton. 
+
+!!! note "MacOSX"
+    MacOSX comes with a build in `Terminal.app`. `iTerm2` is a replacement for `Terminal.app` with many interesting 
+    extra features.
+
+Type the following command at the prompt:
 
 ```shell
 > ssh-keygen -t rsa -b 4096
 ```
 
-You will then be prompted for a file location. You may accept the default location by entering. If the files already
-exist you can choose to overwrite them or to cancel the operation.
+You will then be prompted for a file location of the public and private key. You may accept the default location by 
+entering. The default file location will look a bit different, depending on your OS. If the files already exist you 
+canchoose to overwrite them or to cancel the operation. You might want to change the filename of the key to a more 
+meaningfull name, _e.g._ `access_vaughan_rsa`. Don't use blanks in the filename. Use hyphens (`-`) or underscores 
+(`_`) instead.
 
 ```
-Enter file in which to save the key (C: \Users \your_username/ .ssh/id rsa) :
+Enter file in which to save the key (C:\Users\your_username/.ssh/id rsa) :
 C:\Users\your_username/.ssh/id rsa already exists.
 Overwrite (y/n)? y
 ```
 
-You will then be prompted for a passphrase to provide an extra level of protection for in case somebody would steal the
-private key. Press enter for an empty passphrase.
+You will then be prompted for a passphrase (twice). A passphrase provides an extra level of protection in case 
+somebody would steal your private key. Press `enter` for an empty passphrase. (Passphrases are a little annoying 
+when using VSCode(see below) for remote development.)
 
 ```
 Enter passphrase (empty for no passphrase):
@@ -51,54 +67,24 @@ Enter same passphrase again:
 Finally you will be notified of where the keys are stored:  
 
 ```
-Your identification has been saved in C: \Users\your_username/.ssh/id rsa.
-Your public key has been saved in C: \Users\your_username/.ssh/id rsa.pub.
+Your identification has been saved in C:\Users\your_username/.ssh/id rsa.
+Your public key has been saved in C:\Users\your_username/.ssh/id rsa.pub.
 ```
 
-!!! Note
-    To obtain a guest account students must send their ***public*** key (and only their public key, the private key
-    is, well, um, private) to franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in _cc_. The
-    public key is the one with the `.pub` extension.
-
-### On Linux and MacOS
-
-Open a terminal, and type the following command:
-
-```shell
-> ssh-keygen -t rsa -b 4096 -f ~/.ssh/id_rsa_vsc
-```
-
-The name `id_rsa_vsc` is arbitrary, but is best chosen to be meaningfull. You will be prompted for a passphrase to
-provide an extra level of protection for in case somebody would steal the private key. Press enter for an empty
-passphrase.
-
-```shell
-Generating public/private rsa key pair.
-Enter passphrase (empty for no passphrase):
-Enter same passphrase again:
-```
-
-Finally, you will be notified of the files (=keys) created:
-
-```shell
-Your identification has been saved in /home/user/.ssh/id_rsa_vsc
-Your public key has been saved in /home/user/.ssh/id_rsa_vsc.pub
-```
-
-!!! Note
-    To obtain a guest account students must send their ***public*** key (and only their public key, the private key
-    is, well, um, private) to franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in _cc_. The
-    public key is the one with the `.pub` extension.
+!!! Note "For students of 2000wetppr"
+    To obtain a guest account, students must send their ***public*** key (and ***only*** the public key, the private 
+    key is, well, um, _private_) to `franky.backeljauw@uantwerpen.be` with `engelbert.tijskens@uantwerpen.be` in 
+    _cc_. The public key is the one with the `.pub` extension.
 
 ## Accessing Vaughan
 
 ### Terminal based access
 
-Vaughan is (at the time of writing) the University of Antwerp's Tier-2 HPC cluster. Terminal based access is can be 
-arranged by executing  the command
+Vaughan is (at the time of writing) the University of Antwerp's Tier-2 HPC cluster. For terminal based access you 
+open a `terminal` (see above) and execute the command:
 
 ```
-> ssh -i path/to/my/private-ssh-key login1-vaughan.hpc.uantwerpen.be
+> ssh -i path/to/my/private-ssh-key your-user-id@login1-vaughan.hpc.uantwerpen.be
 Last login: Mon Feb 27 12:40:32 2023 from 143.129.75.140
 --------------------------------------------------------------------
 Welcome to VAUGHAN !
@@ -109,30 +95,34 @@ in a terminal. After the command is finished, you can use the terminal as if you
 Vaughan has two login nodes. `login1-vaughan.hpc.uantwerpen.be` and `login2-vaughan.hpc.uantwerpen.be`. You can also 
 use `login-vaughan.hpc.uantwerpen.be`, then the system will choose the login node with the highest availability.
 
-!!! note "Windows"
-    The latest builds of Windows 10 and Windows 11 include a built-in SSH server and client that are based on 
-    OpenSSH. You can use the `cmd` prompt, powershell, or WSL (Windows subsystem for Linux). For older Windows 
-    versions, we recommend installing [mobaxterm](https://docs.vscentrum.be/en/latest/access/access_using_mobaxterm.html#access-using-mobaxterm).
+`Ssh` comes with a `.ssh/config` file that allows you to store the arguments of frequently used ssh commands. E.g. 
 
-!!! note "Linux"
-    Most Linux distributions have a `terminal` applicaton. 
+```shell
+# file ~/.ssh/config
+Host vn1
+  HostName login1-vaughan.hpc.uantwerpen.be
+  User vsc20170
+  IdentityFile /full/path/to/my/private-ssh-key
+  IdentitiesOnly yes
+  ForwardX11 yes
+  ForwardX11Trusted yes
+  ServerAliveInterval 60
+```
 
-!!! note "MacOSX"
-    MacOSX comes with a build in `Terminal.app`. `iTerm2` is a replacement for `Terminal.app` with many interesting 
-    extra features. 
+which allows to abbreviate the above `ssh` command as `ssh vn1`.
 
 Editing files in terminal based access is performed using terminal editors, e.g. `vim` or `nano`. Although `vim` is 
-very powerfull, not everyone gets used to it.  
+very powerfull, not everyone is comfortable with using it.  
 
 ### IDE based access
 
-Most developers find code development using terminal based access rather cumbersome. IDEs (Integrated Development 
-environment) provide a more user friendly GUI based experience. [Visual Studio Code](https://visualstudio.com) 
-provides a very reasonable user experience for both local aand remote developement, providing a project directory 
-tree, an editor pane, a debugging pane, a terminal, ... It is very well suited for our project work. So, install 
-[Visual Studio Code](https://visualstudio.com) on your local machine. (It is available for Windows, Linux, and 
-MacOSX). Here are some useful VSCode extensions that you should install. Click the `Extensions` icon in the activity 
-bar on the left. You can search the Marketplace for interesting extensions. 
+Many developers (including me) find code development using terminal based access rather cumbersome. IDEs (Integrated 
+Development environment) provide a more user friendly GUI based experience. 
+[Visual Studio Code](https://visualstudio.com) provides a very reasonable user experience for both local aand remote 
+developement, providing a project directory tree, an editor pane, a debugging pane, a terminal, ... It is very well 
+suited for our project work. So, install [Visual Studio Code](https://visualstudio.com) on your local machine. (It 
+is available for Windows, Linux, and MacOSX). Here are some useful VSCode extensions that you should install. Click 
+the `Extensions` icon in the activity bar on the left. You can search the Marketplace for interesting extensions. 
 
 ![vscode-extensions](public/vscode-extensions.png)
 
