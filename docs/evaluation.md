@@ -25,22 +25,6 @@ infrastructure and set up of your environment](vsc-infrastructure.md).
 
 ## Guide lines
 
-### Using a GitHub repo  
-The code that you write must be regularly committed to a remote [GitHub](https://github) repository. This has many 
-advantages:
-
-- First, it serves as a backup. Every single commit can be retrieved at all times. So, you can't loose your code, 
-  even not the older versions.
-- Everyone with access to the repository can access the code. If you keep the repository public, that means everyone 
-  with access to the internet. If you make it private, only the people you invite can access. 
-- It is important that you give me access. If you have problems, I can clone your repository and debug it to see 
-  what is going wrong,
-- If you cooperate with another student on the project you can exchange updates easily. You can make use of git 
-  branches to avoid bothering other people with your code changes before they are correct.  
-
-The presentation of the project must be added to your GitHub repository before you present it. I will keep a copy of 
-your project repo as a proof of your work.
-
 ### Learning by doing
 
 The assignment is there because imho ***programming is something you can only learn by doing***. It involves 
@@ -102,11 +86,22 @@ sense of correctness is indispensable. Had the researcher come to me before he s
 advice he would have been given: 
 
 !!! Tip
-    ***Write 5 lines of code and write a test for them (the other way around is ok too). Do not proceed (with the 
+    ***Write 5 lines of code and write a test for them. Do not proceed (with the 
     next 5 lines) before the test passes***. Just 5, not 10! Your test code is also code and will initially contain 
     bugs as well. ***As you get more experienced you may increase that number to 6, even 7, ...***
 
 Admittedly, this advice is slightly biased to the conservative side, but I hope you get the point. You will be 
 surprised how many mistakes you make, being a novice. But as you will discover the source of error soon, your 
-progress will not come to a halt. Instead, you will learn fast and your progress will even speed up. I will give you 
+progress will not come to a halt. Instead, you will learn fast and your progress will even speed up. You will be given
 practical tools to accomplish this. 
+
+!!! note "Caveat"
+    There is a small disadvantage to the approach we are following. It is biased towards **bottom-up design**. In 
+    bottom-up design your start from the details, gradually aggregating them into larger parts, and, eventually, into 
+    the final application. Its opponent is **top-down** design, in which you start with the a high-level formulation 
+    of the problem. This is then broken down in smaller components and gradually refined until all details are 
+    covered. With a bit of imagination it is, however, possible to write tests for a top-down approach by focussing 
+    on how the components work together, rather than on what they are doing. Top-down design is important because it 
+    forces you to think on the high-level structure of your application. This is paramount to how fast users will 
+    adopt your application, because it relates to user-friendly-ness, intuitive understanding, flexibility, ... 
+    In general, however, research scientists seem to better at ease with bottom-up thinking.  

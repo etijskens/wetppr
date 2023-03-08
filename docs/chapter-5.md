@@ -1,4 +1,4 @@
-# Chapter 5
+# Chapter 5 - Developing Research Software
 
 ## A strategy for the development research software
 
@@ -12,7 +12,7 @@ How you take on such a challenge? This chapter is about a strategy for (research
 
 _Coding efforts_ is more than just the time to type your program in an editor or IDE. It is also the time you spend 
 making sure that your code is correct, and stays correct while you are working on it, restructuring its components, 
-ensuring that it solves the problem you need to solve.
+improving performance, parallelising it, and ensuring that it solves the problem you need to solve.
 
 High performance is essential when we run our problem on a supercomputer, but perhaps that is not necessary. We want 
 to postpone performance optimisation until it is really needed. This principle was set in stone in a quote by Donald 

@@ -1,18 +1,23 @@
 # VSC infrastructure
 
-This document describes how to set up your environment for the [project work of the 2000wetppr course](evaluation.md).
+This document describes how to set up your environment for the [project work of the 2000wetppr course](evaluation.md)
+on the Tier-2 cluster of the University of Antwerp, which is also a VSC cluster. With minor modifications this can 
+be applied to all VSC clusters. In general, the text is also applicable to other HPC clusters, but the modifictions 
+needed may be a bit more substantial.
 
 !!! Note "Note for students"
-    These topics are (chrono)logically ordered. Make sure that you carry out all the tasks described.
+    These topics are logically ordered. Make sure that you carry out ***all*** the tasks in the order described.
 
 In this course we often use the terms _local_ and _remote_. ***Local*** refers to the physical machine you are 
 working on, _i.e._ your desktop or laptop. ***Remote***, on the other hand refers to a machine which is, typically, 
 at some other place, and which you are accessing through your local machine and a network connection with the remote 
 machine.
 
-## Applying for a guest account (students)
+## Applying for a guest account
 
 !!! Note
+    This section is ***only for students of the course 200wetppr***.
+    
     Students of the course 2000wetppr must apply for a guest account to access the university's HPC clusters unless 
     they already have a VSC account. The project work (see [Evaluation](evaluation)) requires access to one of the 
     university's HPC clusters. 
@@ -21,11 +26,18 @@ To apply for a guest account, create a SSH public/private key pair (see below) a
 franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in cc. A ***guest account*** will subsequently 
 be created for you. 
 
-## Applying for a VSC account (researchers from Flanders)
+## Applying for a VSC account 
 
-See [Getting acces to VSC clusters](https://docs.vscentrum.be/en/latest/access/getting_access.html).
+!!! Note
+    This section is ***only for researchers of Flemish institutes***.
+
+Researchers of Flemish research institutes can apply for a VSC account to get access to the VSC Tier-2 and Tier-1 
+supercomputers. See [Getting access to VSC clusters](https://docs. vscentrum.be/en/latest/access/getting_access.html).
+An ssh public/private key pair is also required.
 
 ## Creating an ssh public/private key pair
+
+An ssh public/private key pair in necessary for both a guest account (students) and a VSC account (researchers).
 
 A ssh public/private key pair is a way for secure access to a system through the Secure Shell protocol. They are
 basically two small files with matching numbers. You may think of the public key as a lock. Everyone may see the
@@ -107,11 +119,13 @@ Welcome to VAUGHAN !
 ...
 ```
 
-in a terminal. After the command is finished, you can use the terminal as if you were working on the login node. The 
+If the key is in sub-directory `.ssh` of you home directory, the `-i path/to/my/private-ssh-key` can be omitted. 
+
+After the command is finished, you can use the terminal as if you were working on the login node. The 
 current working directory will be a location in your file system on the cluster, rather than on your local machine. 
 
 Vaughan has two login nodes. `login1-vaughan.hpc.uantwerpen.be` and `login2-vaughan.hpc.uantwerpen.be`. You can also 
-use `login-vaughan.hpc.uantwerpen.be`, then the system will choose the login node with the highest availability.
+use `login-vaughan.hpc.uantwerpen.be`. Then the system will choose the login node with the highest availability.
 
 `Ssh` comes with a `.ssh/config` file that allows you to store the arguments of frequently used ssh commands. E.g. 
 
@@ -127,22 +141,24 @@ Host vn1
   ServerAliveInterval 60
 ```
 
-which allows to abbreviate the above `ssh` command as `ssh vn1`.
+which allows to abbreviate the above `ssh` command as `ssh vn1`. The `config` file can contain several `Host` entries.
 
 Editing files in terminal based access is performed using terminal editors, e.g. `vim` or `nano`. Although `vim` is 
-very powerfull, not everyone is comfortable with using it.  
+very powerfull, not everyone is comfortable using it.  
 
 ### IDE based access
 
 Many developers (including me) find code development using terminal based access rather cumbersome. IDEs (Integrated 
-Development environment) provide a more user friendly GUI based experience. 
+Development environment) provide a more user-friendly GUI based experience. 
 [Visual Studio Code](https://visualstudio.com) provides a very reasonable user experience for both local aand remote 
-developement, providing a project directory tree, an editor pane, a debugging pane, a terminal, ... It is very well 
-suited for our project work. So, install [Visual Studio Code](https://visualstudio.com) on your local machine. (It 
-is available for Windows, Linux, and MacOSX). Here are some useful VSCode extensions that you should install. Click 
-the `Extensions` icon in the activity bar on the left. You can search the Marketplace for interesting extensions. 
+development, providing a project directory tree, an editor pane, syntax highlighting, a debugging pane, a terminal, 
+... It is very well suited for our project work. So, install [Visual Studio Code](https://visualstudio.com) on your 
+local machine. (It is available for Windows, Linux, and MacOSX). Here are some useful VSCode extensions that you 
+should install. Click the `Extensions` icon in the activity bar on the left. You can search the Marketplace for 
+interesting extensions. 
 
 ![vscode-extensions](public/vscode-extensions.png)
+
 
 !!! Tip "Necessary extensions"
 
@@ -171,6 +187,21 @@ Now, after completing the steps below you are good to go to try this tutorial on
 
 See [signing up for a new GitHub account](https://docs.github.
 com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account)
+
+The code that you write must be regularly committed to a remote [GitHub](https://github) repository. This has many 
+advantages:
+
+- First, it serves as a backup. Every single commit can be retrieved at all times. So, you can't lose your code, 
+  even not the older versions.
+- Everyone with access to the repository can access the code. If you keep the repository public, that means everyone 
+  with access to the internet. If you make it private, only the people you invite can access. 
+- It is important that you give me access. If you have problems, I can clone your repository and debug it to see 
+  what is going wrong,
+- If you cooperate with another student on the project you can exchange updates easily. You can make use of git 
+  branches to avoid bothering other people with your code changes before they are correct.  
+
+The presentation of the project must be added to your GitHub repository before you present it. I will keep a copy of 
+your project repo as a proof of your work.
 
 ## Setting up your remote environment
 
@@ -228,7 +259,7 @@ export PATH="$PATH:${PYTHONUSERBASE}/bin"
 Every time you start a new remote terminal session, you must execute the command:
 
 ```shell
-> source path/to/wetppr-sh
+> source path/to/wetppr-env.sh
 ```
 
 to load all modules and to modify the environment variables `PYTHONUSERBASE` and `PATH`.
@@ -240,27 +271,31 @@ to load all modules and to modify the environment variables `PYTHONUSERBASE` and
 
 ### Micc2
 
-[Micc2](https://et-micc2.readthedocs.io/en/latest/index.html) is a Python package that will facilitate your project 
-management considerably. Install it in a (_remote_) terminal as:
+[Micc2](https://et-micc2.readthedocs.io/en/latest/index.html) is a Python package that simplifies your project 
+management considerably. If you haven't already done so, source the environment script:
+
+```shell
+> source path/to/wetppr-env.sh
+```
+
+and install it in a (_remote_) terminal as:
 
 ```shell
 > pip install --user et-micc2
 ...
 ```
 
-The `--user` flag instructs `pip` to install the package in the directory defined by the environment variable 
-`${PYTHONUSERBASE}`. The default install path of `pip` is a system location where you do not have permissions to 
-install. `${PYTHONUSERBASE}` is a nice workaround. 
-
 !!! note
-    Don't forget to `source wetppr-env` first!
+    The `--user` flag instructs `pip` to install the package in the directory defined by the environment variable 
+    `${PYTHONUSERBASE}`. The default install path of `pip` is a system location for which you do not have write 
+    permissions. Omitting `--user` would raise a `PermissionError`. 
 
 [Micc2](https://et-micc2. readthedocs.io/en/latest/index.html) requires 
 [a little setup](https://et-micc2.readthedocs.io/en/latest/installation.html#first-time-micc2-setup) before it is 
 fully functional. 
 
 !!! note 
-    You need a GitHub account before you can setup `micc2`.
+    You need a GitHub account before you can set up `micc2`.
 
 To setup `micc2` , enter 
 
