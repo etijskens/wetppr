@@ -1,30 +1,41 @@
 # VSC infrastructure
 
+This document describes how to set up your environment for the [project work of the 2000wetppr course](evaluation.md).
+
+!!! Note "Note for students"
+    These topics are (chrono)logically ordered. Make sure that you carry out all the tasks described.
+
 In this course we often use the terms _local_ and _remote_. ***Local*** refers to the physical machine you are 
 working on, _i.e._ your desktop or laptop. ***Remote***, on the other hand refers to a machine which is, typically, 
 at some other place, and which you are accessing through your local machine and a network connection with the remote 
-machine.   
+machine.
 
 ## Applying for a guest account (students)
 
 !!! Note
-    Students of the course 2000wetppr must apply for a guest account to access the university's HPC clusters unless they already have a VSC account. The project work (see [Evaluation](evaluation)) requires access to one of the university's HPC clusters. To apply for a guest account, create a SSH public/private key pair (see below how to do that) and send it by e-mail to franky.backeljauw@uantwerpen.be with 
-    engelbert.tijskens@uantwerpen.be in cc. A ***guest account*** will subsequently be created for you .
+    Students of the course 2000wetppr must apply for a guest account to access the university's HPC clusters unless 
+    they already have a VSC account. The project work (see [Evaluation](evaluation)) requires access to one of the 
+    university's HPC clusters. 
+
+To apply for a guest account, create a SSH public/private key pair (see below) and send it by e-mail to
+franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in cc. A ***guest account*** will subsequently 
+be created for you. 
 
 ## Applying for a VSC account (researchers from Flanders)
 
 See [Getting acces to VSC clusters](https://docs.vscentrum.be/en/latest/access/getting_access.html).
 
-## Create an ssh public/private key pair
+## Creating an ssh public/private key pair
 
 A ssh public/private key pair is a way for secure access to a system through the Secure Shell protocol. They are
 basically two small files with matching numbers. You may think of the public key as a lock. Everyone may see the
-lock but no one can open the lock without the key, which is the private part of the key pair. The public key
+lock but no one can open the lock without its key, which is the private part of the key pair. The public key
 (the lock) will be placed on a system you need access to, in this case the Tier-2 supercomputer of our university
 (currently, that is [Vaughan](https://docs.vscentrum.be/en/latest/antwerp/tier2_hardware/vaughan_hardware.html?
-highlight=vaughan)). To access to the supercomputer (that is, open the lock) from, say, your laptop, your need the
-private key to be stored on your laptop (or a USB memory stick) and pass it to the SSH protocol which will verify
-the private key and the public key match and, in case they do, open the lock and grant you access.
+highlight=vaughan)). To access to the supercomputer (_i.e._, to open the lock) from, say, your laptop, you need the
+private key to be stored on your laptop (or a USB memory stick) and pass it to the SSH protocol, which will verify
+that the private key and the public key match. If case they do, the SSH protocol will open the lock and grant you 
+access to the machine.
 
 To create a ssh public/private key pair proceed as follows. Open a 'terminal':
 
@@ -163,19 +174,38 @@ com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account)
 
 ## Setting up your remote environment
 
+### LMOD modules
+
 A HPC cluster provides you with many installed software packages. However, none of them are immediately available. 
 To make a package available, you must `load` the corresponding software module (this is a different _module_ than 
-the Python modules). Here is a list of modules you might need for your project work:
+the Python modules, also known as **`LMOD` modules**). Here is a list of `LMOD` modules you may need for the project 
+work:
 
-- `Python` (= Intel Python 3.8.3), also provides `numpy`, `f2py`, `scipy`, `sympy`, `pandas`, mpi4py, ..., as well as  
-  the corresponding C/C++/Fortran compilers from Intel
-- `numba`
-- `buildtools`, provides CMake
-- `git`
-- `gh` 
+- `Python`,the default python distribution (= Intel Python 3.8.3, at the time of writing), also provides [`numpy`]
+  (https://numpy.org), [`f2py`](https://numpy.org/doc/stable/f2py/), [`scipy`](https://scipy.org), 
+  [`sympy`](https://www.sympy. org/en/index.html), [`pandas`](https://pandas.pydata.org), 
+  [`mpi4py`](https://mpi4py.readthedocs.io/en/stable/), [`h5py`](https://www.h5py.org), 
+  [`pytest`](https://docs.pytest.org/en/7.2.x/) as well as the C/C++/Fortran 
+  compilers with which the Python distribution was build. 
+- [`numba`](https://numba.readthedocs.io/en/stable/) 
 
-Every time you start a remote terminal session, you must load these modules. That is conveniently done by writing 
-down all the `load` commands in a file:
+!!! tip
+    To see the list of installed Python packages, load the LMOD module for the Python distribution of your choice, 
+    and execute `pip list -v`. This will show you also the location where the package is installed. Pre-installed 
+    packages, the ones that are made available by loading LMOD modules, will show up under `/apps/antwerpen`, while the 
+    packages you installed yourself with `pip install --user` will show up under `${PYTHONUSERBASE}`, _c.q._ 
+    `/scratch/antwerpen/201/vsc20170/.local`.  
+
+The following LMOD modules are needed by [micc2](https://et-micc2. readthedocs.io/en/latest/index.html) (see below):
+
+- `buildtools`, 
+- `git`, 
+- `gh`.
+
+!!! note
+    Every time you start a remote terminal session, you must load these modules. 
+
+This is conveniently done by writing down all the `load` commands in a file (and add the file to your `git` repository:
 
 ```shell
 # File wetppr-env.sh
@@ -201,11 +231,21 @@ Every time you start a new remote terminal session, you must execute the command
 > source path/to/wetppr-sh
 ```
 
-Here is a Python package that will facilitate your project management considerably [micc2](https://et-micc2.
-readthedocs.io/en/latest/index.html). Install it in a (_remote_) terminal. 
+to load all modules and to modify the environment variables `PYTHONUSERBASE` and `PATH`.
+
+!!! Warning
+    Initially, it will appear useful to source the script automatically when you login. However, soon you will 
+    discover that such scripts depend on the project you work on, and that it is better to have it somewhere in your 
+    project directory.
+
+### Micc2
+
+[Micc2](https://et-micc2.readthedocs.io/en/latest/index.html) is a Python package that will facilitate your project 
+management considerably. Install it in a (_remote_) terminal as:
 
 ```shell
 > pip install --user et-micc2
+...
 ```
 
 The `--user` flag instructs `pip` to install the package in the directory defined by the environment variable 
@@ -217,7 +257,12 @@ install. `${PYTHONUSERBASE}` is a nice workaround.
 
 [Micc2](https://et-micc2. readthedocs.io/en/latest/index.html) requires 
 [a little setup](https://et-micc2.readthedocs.io/en/latest/installation.html#first-time-micc2-setup) before it is 
-fully functional. To do so, enter 
+fully functional. 
+
+!!! note 
+    You need a GitHub account before you can setup `micc2`.
+
+To setup `micc2` , enter 
 
 ```shell
 > micc2 setup
@@ -226,13 +271,13 @@ fully functional. To do so, enter
 and supply [the data the application asks for](https://et-micc2.readthedocs.io/en/latest/installation.
 html#first-time-micc2-setup). 
 
-!!! note 
-    You need a GitHub account before you can setup `micc2`.
 
 !!! note
     Make sure that you get a personal access token (pat) to allow creating remote repositories at 
     [GitHub](https://github.com)! Check [this](https://et-micc2.readthedocs.io/en/latest/installation.
     html#first-time-micc2-setup).
+
+### Pybind11
 
 You will also need `pybind11` if you want to use `micc2` for building binary extension modules for Python from C++.
 
