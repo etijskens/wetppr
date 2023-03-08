@@ -379,6 +379,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#use-of-vsc-clusters-for-the-assignment" class="md-nav__link">
+    Use of VSC clusters for the assignment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#guide-lines" class="md-nav__link">
     Guide lines
   </a>
@@ -387,8 +394,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#create-a-github-repo-for-your-project-work" class="md-nav__link">
-    Create a Github repo for your project work
+  <a href="#using-a-github-repo" class="md-nav__link">
+    Using a GitHub repo
   </a>
   
 </li>
@@ -462,6 +469,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#use-of-vsc-clusters-for-the-assignment" class="md-nav__link">
+    Use of VSC clusters for the assignment
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#guide-lines" class="md-nav__link">
     Guide lines
   </a>
@@ -470,8 +484,8 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#create-a-github-repo-for-your-project-work" class="md-nav__link">
-    Create a Github repo for your project work
+  <a href="#using-a-github-repo" class="md-nav__link">
+    Using a GitHub repo
   </a>
   
 </li>
@@ -519,9 +533,13 @@ programming task on which you will work for several weeks, under my supervision 
 to ensure that you understand what you present.</p>
 <h2 id="assignment">Assignment</h2>
 <p>Here is this year's <a href="../assignment-2022-23/">assignment</a>.</p>
+<h2 id="use-of-vsc-clusters-for-the-assignment">Use of VSC clusters for the assignment</h2>
+<p>Students of the course 2000wetppr must use one of the VSC-clusters for the project work. Check out <a href="../vsc-infrastructure/">Access to VSC 
+infrastructure and set up of your environment</a>. </p>
 <h2 id="guide-lines">Guide lines</h2>
-<h3 id="create-a-github-repo-for-your-project-work">Create a Github repo for your project work</h3>
-<p>The code that you write must be regularly committed to a <a href="https://github">GitHub</a> repository. This has many advantages:</p>
+<h3 id="using-a-github-repo">Using a GitHub repo</h3>
+<p>The code that you write must be regularly committed to a remote <a href="https://github">GitHub</a> repository. This has many 
+advantages:</p>
 <ul>
 <li>First, it serves as a backup. Every single commit can be retrieved at all times. So, you can't loose your code, 
   even not the older versions.</li>
@@ -530,16 +548,16 @@ to ensure that you understand what you present.</p>
 <li>It is important that you give me access. If you have problems, I can clone your repository and debug it to see 
   what is going wrong,</li>
 <li>If you cooperate with another student on the project you can exchange updates easily. You can make use of git 
-  branches to avoid bother other people with your code changes before they are correct.  </li>
+  branches to avoid bothering other people with your code changes before they are correct.  </li>
 </ul>
-<p>The presentation must have been added to your GitHub repository before you give your presentation. I will keep a 
-copy of your project repo as a proof of your work.</p>
+<p>The presentation of the project must be added to your GitHub repository before you present it. I will keep a copy of 
+your project repo as a proof of your work.</p>
 <h3 id="learning-by-doing">Learning by doing</h3>
 <p>The assignment is there because imho <strong><em>programming is something you can only learn by doing</em></strong>. It involves 
 important skills that you should develop while working on the assignment:</p>
 <ul>
 <li>Using the background information presented in chapters 1-4</li>
-<li>Reason abuot the mathematical formulation of the problem and the algorithm to solve it,</li>
+<li>Reason about the mathematical formulation of the problem and the algorithm to solve it,</li>
 <li>Do research on the problem, with respect to solution algorithms and implementation issues.</li>
 <li>Write and debug code in Python. </li>
 <li>Learn how slow Python functions can be sped up by converting them to either C++ or Fortran. </li>
@@ -561,42 +579,46 @@ important skills that you should develop while working on the assignment:</p>
 Wide Web</em>, this does not at all exclude creativity. Learning about how other researchers approached a problem, can 
 easily spark new ideas that get you going. The <em>fail fast, fail often</em> principle also </p>
 <ul>
-<li><strong><em>urges you to start as simple as possible</em></strong> and </li>
+<li><strong><em>urges you to start as simple and small as possible</em></strong> and </li>
 <li><strong><em>make incremental changes</em></strong>. </li>
 </ul>
-<p>Don't write a lot of code before you try and test. Typically,<br />
-and this is corroborated by research, one bug is introduced with every new 10 lines. Finding 10 bugs in 100 lines is 
-a lot more difficult than finding one bug in 10 lines (although sometimes there is more than one bug :( ). </p>
-<p>A PhD student once asked me for support. He had written a 10 000 line Fortran program
+<p>Don't write a lot of code before you try and test. Typically, and this is corroborated by research, one bug is
+introduced with every new 10 lines. Finding 10 bugs in 100 lines is a lot more difficult than finding one bug in 10 
+lines (although sometimes there is more than one bug :( ). </p>
+<div class="admonition warning">
+<p class="admonition-title">Anecdotical evidence</p>
+<p>A PhD student once asked me for support. He had written a ~10 000 line Fortran program
 (without tests). When he ran it, the results were not what he expected and he suspected that there was a bug 
 'somewhere'. He asked if I could help him find the bug and - no kidding - by the end of next week because the 
 program had to go into production by then. I had to disappoint him and told him that he needed a true magician, 
-which I am not. Obviously, the program was flawed in some sense, but other than a bug it might just as well be:</p>
+which I am not. Obviously, the program was flawed in some sense, but other than <em>a</em> bug it might just as well be 
+one or more of the issues below:</p>
 <ul>
-<li>The program contains many bugs, which is very well possible in view of its size.</li>
+<li>The program may contain many bugs, which is very well possible in view of its size.</li>
 <li>The algorithm for solving the problem is inappropriate.</li>
-<li>There is an accuracy problem, related e.g. discretisation of time, space, or a insufficient basis function for 
-  expanding the solution, or related to the finite precision of floating point numbers. (Floating point numbers are a 
-  processor's approximation of the real numbers, but they do have different mathematical properties. <em>E.g.</em> floating 
-  point addition is <strong><em>not</em></strong> commutative.)</li>
+<li>There is an accuracy problem, related to the discretisation of time, space, or an insufficient set of basis 
+  functions for expanding the solution, or related to the finite precision of floating point numbers. (Floating 
+  point numbers are a processor's approximation of the real numbers, but they do have different mathematical 
+  properties. <em>E.g.</em> floating point addition is <strong><em>not</em></strong> commutative.)</li>
 <li>The mathematical formulation itself could be flawed or misunderstood.</li>
-<li>It is even possible that the program is correct but that the researchers expectations are wrong. </li>
+<li>It is even possible that the program is correct but that the researcher's expectations are wrong. </li>
 <li>...</li>
 </ul>
 <p>It could easily take weeks, if not months to write tests for the individual components to learn about the behaviour 
 of the program and narrow down to the source of the error. </p>
+</div>
 <p>For this reason a sound strategy for scientific software development that makes sure that the code you write has a 
 sense of correctness is indispensable. Had the researcher come to me before he started programming this is the 
 advice he would have been given: </p>
-<div class="admonition note">
-<p class="admonition-title">Advice</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
 <p><strong><em>Write 5 lines of code and test them before you proceed (with the next 5 lines)</em></strong>. Just 5, not 10! Your test 
-code is also code and will initially contain bugs as well. As you get more experienced you may increase that 
-number  to 6, even 7, ...  </p>
+code is also code and will initially contain bugs as well. <strong><em>As you get more experienced you may increase that 
+number  to 6, even 7, ... </em></strong></p>
 </div>
 <p>Admittedly, this advice is slightly biased to the conservative side, but I hope you get the point. You will be 
 surprised how many mistakes you make, being a novice. But as you will discover the source of error soon, your 
-progress will not come to halt. Instead you will learn fast and your progress will even speed up. I will give you 
+progress will not come to a halt. Instead, you will learn fast and your progress will even speed up. I will give you 
 practical tools to accomplish this. </p>
 
 

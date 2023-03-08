@@ -399,8 +399,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#create-an-ssh-publicprivate-key-pair" class="md-nav__link">
-    Create an ssh public/private key pair
+  <a href="#creating-an-ssh-publicprivate-key-pair" class="md-nav__link">
+    Creating an ssh public/private key pair
   </a>
   
 </li>
@@ -443,6 +443,33 @@
   <a href="#setting-up-your-remote-environment" class="md-nav__link">
     Setting up your remote environment
   </a>
+  
+    <nav class="md-nav" aria-label="Setting up your remote environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lmod-modules" class="md-nav__link">
+    LMOD modules
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#micc2" class="md-nav__link">
+    Micc2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pybind11" class="md-nav__link">
+    Pybind11
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -495,8 +522,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#create-an-ssh-publicprivate-key-pair" class="md-nav__link">
-    Create an ssh public/private key pair
+  <a href="#creating-an-ssh-publicprivate-key-pair" class="md-nav__link">
+    Creating an ssh public/private key pair
   </a>
   
 </li>
@@ -540,6 +567,33 @@
     Setting up your remote environment
   </a>
   
+    <nav class="md-nav" aria-label="Setting up your remote environment">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lmod-modules" class="md-nav__link">
+    LMOD modules
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#micc2" class="md-nav__link">
+    Micc2
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#pybind11" class="md-nav__link">
+    Pybind11
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -559,27 +613,37 @@
 
 
 <h1 id="vsc-infrastructure">VSC infrastructure</h1>
+<p>This document describes how to set up your environment for the <a href="../evaluation/">project work of the 2000wetppr course</a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note for students</p>
+<p>These topics are (chrono)logically ordered. Make sure that you carry out all the tasks described.</p>
+</div>
 <p>In this course we often use the terms <em>local</em> and <em>remote</em>. <strong><em>Local</em></strong> refers to the physical machine you are 
 working on, <em>i.e.</em> your desktop or laptop. <strong><em>Remote</em></strong>, on the other hand refers to a machine which is, typically, 
 at some other place, and which you are accessing through your local machine and a network connection with the remote 
-machine.   </p>
+machine.</p>
 <h2 id="applying-for-a-guest-account-students">Applying for a guest account (students)</h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Students of the course 2000wetppr must apply for a guest account to access the university's HPC clusters unless they already have a VSC account. The project work (see <a href="evaluation">Evaluation</a>) requires access to one of the university's HPC clusters. To apply for a guest account, create a SSH public/private key pair (see below how to do that) and send it by e-mail to franky.backeljauw@uantwerpen.be with 
-engelbert.tijskens@uantwerpen.be in cc. A <strong><em>guest account</em></strong> will subsequently be created for you .</p>
+<p>Students of the course 2000wetppr must apply for a guest account to access the university's HPC clusters unless 
+they already have a VSC account. The project work (see <a href="evaluation">Evaluation</a>) requires access to one of the 
+university's HPC clusters. </p>
 </div>
+<p>To apply for a guest account, create a SSH public/private key pair (see below) and send it by e-mail to
+franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in cc. A <strong><em>guest account</em></strong> will subsequently 
+be created for you. </p>
 <h2 id="applying-for-a-vsc-account-researchers-from-flanders">Applying for a VSC account (researchers from Flanders)</h2>
 <p>See <a href="https://docs.vscentrum.be/en/latest/access/getting_access.html">Getting acces to VSC clusters</a>.</p>
-<h2 id="create-an-ssh-publicprivate-key-pair">Create an ssh public/private key pair</h2>
+<h2 id="creating-an-ssh-publicprivate-key-pair">Creating an ssh public/private key pair</h2>
 <p>A ssh public/private key pair is a way for secure access to a system through the Secure Shell protocol. They are
 basically two small files with matching numbers. You may think of the public key as a lock. Everyone may see the
-lock but no one can open the lock without the key, which is the private part of the key pair. The public key
+lock but no one can open the lock without its key, which is the private part of the key pair. The public key
 (the lock) will be placed on a system you need access to, in this case the Tier-2 supercomputer of our university
 (currently, that is <a href="https://docs.vscentrum.be/en/latest/antwerp/tier2_hardware/vaughan_hardware.html?
-highlight=vaughan">Vaughan</a>). To access to the supercomputer (that is, open the lock) from, say, your laptop, your need the
-private key to be stored on your laptop (or a USB memory stick) and pass it to the SSH protocol which will verify
-the private key and the public key match and, in case they do, open the lock and grant you access.</p>
+highlight=vaughan">Vaughan</a>). To access to the supercomputer (<em>i.e.</em>, to open the lock) from, say, your laptop, you need the
+private key to be stored on your laptop (or a USB memory stick) and pass it to the SSH protocol, which will verify
+that the private key and the public key match. If case they do, the SSH protocol will open the lock and grant you 
+access to the machine.</p>
 <p>To create a ssh public/private key pair proceed as follows. Open a 'terminal':</p>
 <div class="admonition note">
 <p class="admonition-title">On Windows</p>
@@ -697,19 +761,39 @@ the <code>Extensions</code> icon in the activity bar on the left. You can search
 <p>See <a href="https://docs.github.
 com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account">signing up for a new GitHub account</a></p>
 <h2 id="setting-up-your-remote-environment">Setting up your remote environment</h2>
+<h3 id="lmod-modules">LMOD modules</h3>
 <p>A HPC cluster provides you with many installed software packages. However, none of them are immediately available. 
 To make a package available, you must <code>load</code> the corresponding software module (this is a different <em>module</em> than 
-the Python modules). Here is a list of modules you might need for your project work:</p>
+the Python modules, also known as <strong><code>LMOD</code> modules</strong>). Here is a list of <code>LMOD</code> modules you may need for the project 
+work:</p>
 <ul>
-<li><code>Python</code> (= Intel Python 3.8.3), also provides <code>numpy</code>, <code>f2py</code>, <code>scipy</code>, <code>sympy</code>, <code>pandas</code>, mpi4py, ..., as well as<br />
-  the corresponding C/C++/Fortran compilers from Intel</li>
-<li><code>numba</code></li>
-<li><code>buildtools</code>, provides CMake</li>
-<li><code>git</code></li>
-<li><code>gh</code> </li>
+<li><code>Python</code>,the default python distribution (= Intel Python 3.8.3, at the time of writing), also provides [<code>numpy</code>]
+  (https://numpy.org), <a href="https://numpy.org/doc/stable/f2py/"><code>f2py</code></a>, <a href="https://scipy.org"><code>scipy</code></a>, 
+  <a href="https://www.sympy. org/en/index.html"><code>sympy</code></a>, <a href="https://pandas.pydata.org"><code>pandas</code></a>, 
+  <a href="https://mpi4py.readthedocs.io/en/stable/"><code>mpi4py</code></a>, <a href="https://www.h5py.org"><code>h5py</code></a>, 
+  <a href="https://docs.pytest.org/en/7.2.x/"><code>pytest</code></a> as well as the C/C++/Fortran 
+  compilers with which the Python distribution was build. </li>
+<li><a href="https://numba.readthedocs.io/en/stable/"><code>numba</code></a> </li>
 </ul>
-<p>Every time you start a remote terminal session, you must load these modules. That is conveniently done by writing 
-down all the <code>load</code> commands in a file:</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To see the list of installed Python packages, load the LMOD module for the Python distribution of your choice, 
+and execute <code>pip list -v</code>. This will show you also the location where the package is installed. Pre-installed 
+packages, the ones that are made available by loading LMOD modules, will show up under <code>/apps/antwerpen</code>, while the 
+packages you installed yourself with <code>pip install --user</code> will show up under <code>${PYTHONUSERBASE}</code>, <em>c.q.</em> 
+<code>/scratch/antwerpen/201/vsc20170/.local</code>.  </p>
+</div>
+<p>The following LMOD modules are needed by <a href="https://et-micc2. readthedocs.io/en/latest/index.html">micc2</a> (see below):</p>
+<ul>
+<li><code>buildtools</code>, </li>
+<li><code>git</code>, </li>
+<li><code>gh</code>.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Every time you start a remote terminal session, you must load these modules. </p>
+</div>
+<p>This is conveniently done by writing down all the <code>load</code> commands in a file (and add the file to your <code>git</code> repository:</p>
 <pre><code class="language-shell"># File wetppr-env.sh
 # Prepare environment for Python/C++/Fortran development
 # You must 'source' this file
@@ -729,9 +813,18 @@ export PATH=&quot;$PATH:${PYTHONUSERBASE}/bin&quot;
 <p>Every time you start a new remote terminal session, you must execute the command:</p>
 <pre><code class="language-shell">&gt; source path/to/wetppr-sh
 </code></pre>
-<p>Here is a Python package that will facilitate your project management considerably <a href="https://et-micc2.
-readthedocs.io/en/latest/index.html">micc2</a>. Install it in a (<em>remote</em>) terminal. </p>
+<p>to load all modules and to modify the environment variables <code>PYTHONUSERBASE</code> and <code>PATH</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Initially, it will appear useful to source the script automatically when you login. However, soon you will 
+discover that such scripts depend on the project you work on, and that it is better to have it somewhere in your 
+project directory.</p>
+</div>
+<h3 id="micc2">Micc2</h3>
+<p><a href="https://et-micc2.readthedocs.io/en/latest/index.html">Micc2</a> is a Python package that will facilitate your project 
+management considerably. Install it in a (<em>remote</em>) terminal as:</p>
 <pre><code class="language-shell">&gt; pip install --user et-micc2
+...
 </code></pre>
 <p>The <code>--user</code> flag instructs <code>pip</code> to install the package in the directory defined by the environment variable 
 <code>${PYTHONUSERBASE}</code>. The default install path of <code>pip</code> is a system location where you do not have permissions to 
@@ -742,21 +835,23 @@ install. <code>${PYTHONUSERBASE}</code> is a nice workaround. </p>
 </div>
 <p><a href="https://et-micc2. readthedocs.io/en/latest/index.html">Micc2</a> requires 
 <a href="https://et-micc2.readthedocs.io/en/latest/installation.html#first-time-micc2-setup">a little setup</a> before it is 
-fully functional. To do so, enter </p>
+fully functional. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need a GitHub account before you can setup <code>micc2</code>.</p>
+</div>
+<p>To setup <code>micc2</code> , enter </p>
 <pre><code class="language-shell">&gt; micc2 setup
 </code></pre>
 <p>and supply <a href="https://et-micc2.readthedocs.io/en/latest/installation.
 html#first-time-micc2-setup">the data the application asks for</a>. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You need a GitHub account before you can setup <code>micc2</code>.</p>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
 <p>Make sure that you get a personal access token (pat) to allow creating remote repositories at 
 <a href="https://github.com">GitHub</a>! Check <a href="https://et-micc2.readthedocs.io/en/latest/installation.
 html#first-time-micc2-setup">this</a>.</p>
 </div>
+<h3 id="pybind11">Pybind11</h3>
 <p>You will also need <code>pybind11</code> if you want to use <code>micc2</code> for building binary extension modules for Python from C++.</p>
 <pre><code class="language-shell">&gt; pip install --user pybind11
 </code></pre>
