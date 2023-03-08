@@ -2,6 +2,14 @@
 
 Here is an alphabetical list of terms with links to where they are explained in the text.
 
+## *
+
+- [*Local*** refers to the physical machine you are working on, _i.e._ your desktop or laptop. ][vsc-infrastructure]
+
+## `
+
+- [`LMOD` modules][lmod-modules]
+
 ## A
 
 - [address space][common-approaches-towards-parallelization]
