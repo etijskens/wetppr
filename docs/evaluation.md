@@ -102,9 +102,9 @@ sense of correctness is indispensable. Had the researcher come to me before he s
 advice he would have been given: 
 
 !!! Tip
-    ***Write 5 lines of code and test them before you proceed (with the next 5 lines)***. Just 5, not 10! Your test 
-    code is also code and will initially contain bugs as well. ***As you get more experienced you may increase that 
-    number  to 6, even 7, ... ***
+    ***Write 5 lines of code and write a test for them (the other way around is ok too). Do not proceed (with the 
+    next 5 lines) before the test passes***. Just 5, not 10! Your test code is also code and will initially contain 
+    bugs as well. ***As you get more experienced you may increase that number to 6, even 7, ...***
 
 Admittedly, this advice is slightly biased to the conservative side, but I hope you get the point. You will be 
 surprised how many mistakes you make, being a novice. But as you will discover the source of error soon, your 
