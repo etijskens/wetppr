@@ -322,7 +322,7 @@
   
     <li class="md-nav__item">
       <a href="../chapter-5/" class="md-nav__link">
-        Chapter 5
+        Chapter 5 - Developing Research Software
       </a>
     </li>
   
@@ -385,15 +385,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#applying-for-a-guest-account-students" class="md-nav__link">
-    Applying for a guest account (students)
+  <a href="#applying-for-a-guest-account" class="md-nav__link">
+    Applying for a guest account
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#applying-for-a-vsc-account-researchers-from-flanders" class="md-nav__link">
-    Applying for a VSC account (researchers from Flanders)
+  <a href="#applying-for-a-vsc-account" class="md-nav__link">
+    Applying for a VSC account
   </a>
   
 </li>
@@ -508,15 +508,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#applying-for-a-guest-account-students" class="md-nav__link">
-    Applying for a guest account (students)
+  <a href="#applying-for-a-guest-account" class="md-nav__link">
+    Applying for a guest account
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#applying-for-a-vsc-account-researchers-from-flanders" class="md-nav__link">
-    Applying for a VSC account (researchers from Flanders)
+  <a href="#applying-for-a-vsc-account" class="md-nav__link">
+    Applying for a VSC account
   </a>
   
 </li>
@@ -613,18 +613,22 @@
 
 
 <h1 id="vsc-infrastructure">VSC infrastructure</h1>
-<p>This document describes how to set up your environment for the <a href="../evaluation/">project work of the 2000wetppr course</a>.</p>
+<p>This document describes how to set up your environment for the <a href="../evaluation/">project work of the 2000wetppr course</a>
+on the Tier-2 cluster of the University of Antwerp, which is also a VSC cluster. With minor modifications this can 
+be applied to all VSC clusters. In general, the text is also applicable to other HPC clusters, but the modifictions 
+needed may be a bit more substantial.</p>
 <div class="admonition note">
 <p class="admonition-title">Note for students</p>
-<p>These topics are (chrono)logically ordered. Make sure that you carry out all the tasks described.</p>
+<p>These topics are logically ordered. Make sure that you carry out <strong><em>all</em></strong> the tasks in the order described.</p>
 </div>
 <p>In this course we often use the terms <em>local</em> and <em>remote</em>. <strong><em>Local</em></strong> refers to the physical machine you are 
 working on, <em>i.e.</em> your desktop or laptop. <strong><em>Remote</em></strong>, on the other hand refers to a machine which is, typically, 
 at some other place, and which you are accessing through your local machine and a network connection with the remote 
 machine.</p>
-<h2 id="applying-for-a-guest-account-students">Applying for a guest account (students)</h2>
+<h2 id="applying-for-a-guest-account">Applying for a guest account</h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
+<p>This section is <strong><em>only for students of the course 200wetppr</em></strong>.</p>
 <p>Students of the course 2000wetppr must apply for a guest account to access the university's HPC clusters unless 
 they already have a VSC account. The project work (see <a href="evaluation">Evaluation</a>) requires access to one of the 
 university's HPC clusters. </p>
@@ -632,9 +636,16 @@ university's HPC clusters. </p>
 <p>To apply for a guest account, create a SSH public/private key pair (see below) and send it by e-mail to
 franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in cc. A <strong><em>guest account</em></strong> will subsequently 
 be created for you. </p>
-<h2 id="applying-for-a-vsc-account-researchers-from-flanders">Applying for a VSC account (researchers from Flanders)</h2>
-<p>See <a href="https://docs.vscentrum.be/en/latest/access/getting_access.html">Getting acces to VSC clusters</a>.</p>
+<h2 id="applying-for-a-vsc-account">Applying for a VSC account</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This section is <strong><em>only for researchers of Flemish institutes</em></strong>.</p>
+</div>
+<p>Researchers of Flemish research institutes can apply for a VSC account to get access to the VSC Tier-2 and Tier-1 
+supercomputers. See <a href="https://docs. vscentrum.be/en/latest/access/getting_access.html">Getting access to VSC clusters</a>.
+An ssh public/private key pair is also required.</p>
 <h2 id="creating-an-ssh-publicprivate-key-pair">Creating an ssh public/private key pair</h2>
+<p>An ssh public/private key pair in necessary for both a guest account (students) and a VSC account (researchers).</p>
 <p>A ssh public/private key pair is a way for secure access to a system through the Secure Shell protocol. They are
 basically two small files with matching numbers. You may think of the public key as a lock. Everyone may see the
 lock but no one can open the lock without its key, which is the private part of the key pair. The public key
@@ -700,10 +711,11 @@ Last login: Mon Feb 27 12:40:32 2023 from 143.129.75.140
 Welcome to VAUGHAN !
 ...
 </code></pre>
-<p>in a terminal. After the command is finished, you can use the terminal as if you were working on the login node. The 
+<p>If the key is in sub-directory <code>.ssh</code> of you home directory, the <code>-i path/to/my/private-ssh-key</code> can be omitted. </p>
+<p>After the command is finished, you can use the terminal as if you were working on the login node. The 
 current working directory will be a location in your file system on the cluster, rather than on your local machine. </p>
 <p>Vaughan has two login nodes. <code>login1-vaughan.hpc.uantwerpen.be</code> and <code>login2-vaughan.hpc.uantwerpen.be</code>. You can also 
-use <code>login-vaughan.hpc.uantwerpen.be</code>, then the system will choose the login node with the highest availability.</p>
+use <code>login-vaughan.hpc.uantwerpen.be</code>. Then the system will choose the login node with the highest availability.</p>
 <p><code>Ssh</code> comes with a <code>.ssh/config</code> file that allows you to store the arguments of frequently used ssh commands. E.g. </p>
 <pre><code class="language-shell"># file ~/.ssh/config
 Host vn1
@@ -715,17 +727,18 @@ Host vn1
   ForwardX11Trusted yes
   ServerAliveInterval 60
 </code></pre>
-<p>which allows to abbreviate the above <code>ssh</code> command as <code>ssh vn1</code>.</p>
+<p>which allows to abbreviate the above <code>ssh</code> command as <code>ssh vn1</code>. The <code>config</code> file can contain several <code>Host</code> entries.</p>
 <p>Editing files in terminal based access is performed using terminal editors, e.g. <code>vim</code> or <code>nano</code>. Although <code>vim</code> is 
-very powerfull, not everyone is comfortable with using it.  </p>
+very powerfull, not everyone is comfortable using it.  </p>
 <h3 id="ide-based-access">IDE based access</h3>
 <p>Many developers (including me) find code development using terminal based access rather cumbersome. IDEs (Integrated 
-Development environment) provide a more user friendly GUI based experience. 
+Development environment) provide a more user-friendly GUI based experience. 
 <a href="https://visualstudio.com">Visual Studio Code</a> provides a very reasonable user experience for both local aand remote 
-developement, providing a project directory tree, an editor pane, a debugging pane, a terminal, ... It is very well 
-suited for our project work. So, install <a href="https://visualstudio.com">Visual Studio Code</a> on your local machine. (It 
-is available for Windows, Linux, and MacOSX). Here are some useful VSCode extensions that you should install. Click 
-the <code>Extensions</code> icon in the activity bar on the left. You can search the Marketplace for interesting extensions. </p>
+development, providing a project directory tree, an editor pane, syntax highlighting, a debugging pane, a terminal, 
+... It is very well suited for our project work. So, install <a href="https://visualstudio.com">Visual Studio Code</a> on your 
+local machine. (It is available for Windows, Linux, and MacOSX). Here are some useful VSCode extensions that you 
+should install. Click the <code>Extensions</code> icon in the activity bar on the left. You can search the Marketplace for 
+interesting extensions. </p>
 <p><img alt="vscode-extensions" src="../public/vscode-extensions.png" /></p>
 <div class="admonition tip">
 <p class="admonition-title">Necessary extensions</p>
@@ -760,6 +773,20 @@ the <code>Extensions</code> icon in the activity bar on the left. You can search
 <h2 id="setting-up-a-git-account-required-for-micc2-projects">Setting up a git account (required for micc2 projects)</h2>
 <p>See <a href="https://docs.github.
 com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account">signing up for a new GitHub account</a></p>
+<p>The code that you write must be regularly committed to a remote <a href="https://github">GitHub</a> repository. This has many 
+advantages:</p>
+<ul>
+<li>First, it serves as a backup. Every single commit can be retrieved at all times. So, you can't lose your code, 
+  even not the older versions.</li>
+<li>Everyone with access to the repository can access the code. If you keep the repository public, that means everyone 
+  with access to the internet. If you make it private, only the people you invite can access. </li>
+<li>It is important that you give me access. If you have problems, I can clone your repository and debug it to see 
+  what is going wrong,</li>
+<li>If you cooperate with another student on the project you can exchange updates easily. You can make use of git 
+  branches to avoid bothering other people with your code changes before they are correct.  </li>
+</ul>
+<p>The presentation of the project must be added to your GitHub repository before you present it. I will keep a copy of 
+your project repo as a proof of your work.</p>
 <h2 id="setting-up-your-remote-environment">Setting up your remote environment</h2>
 <h3 id="lmod-modules">LMOD modules</h3>
 <p>A HPC cluster provides you with many installed software packages. However, none of them are immediately available. 
@@ -811,7 +838,7 @@ mkdir -p ${PYTHONUSERBASE}
 export PATH=&quot;$PATH:${PYTHONUSERBASE}/bin&quot;
 </code></pre>
 <p>Every time you start a new remote terminal session, you must execute the command:</p>
-<pre><code class="language-shell">&gt; source path/to/wetppr-sh
+<pre><code class="language-shell">&gt; source path/to/wetppr-env.sh
 </code></pre>
 <p>to load all modules and to modify the environment variables <code>PYTHONUSERBASE</code> and <code>PATH</code>.</p>
 <div class="admonition warning">
@@ -821,24 +848,26 @@ discover that such scripts depend on the project you work on, and that it is bet
 project directory.</p>
 </div>
 <h3 id="micc2">Micc2</h3>
-<p><a href="https://et-micc2.readthedocs.io/en/latest/index.html">Micc2</a> is a Python package that will facilitate your project 
-management considerably. Install it in a (<em>remote</em>) terminal as:</p>
+<p><a href="https://et-micc2.readthedocs.io/en/latest/index.html">Micc2</a> is a Python package that simplifies your project 
+management considerably. If you haven't already done so, source the environment script:</p>
+<pre><code class="language-shell">&gt; source path/to/wetppr-env.sh
+</code></pre>
+<p>and install it in a (<em>remote</em>) terminal as:</p>
 <pre><code class="language-shell">&gt; pip install --user et-micc2
 ...
 </code></pre>
-<p>The <code>--user</code> flag instructs <code>pip</code> to install the package in the directory defined by the environment variable 
-<code>${PYTHONUSERBASE}</code>. The default install path of <code>pip</code> is a system location where you do not have permissions to 
-install. <code>${PYTHONUSERBASE}</code> is a nice workaround. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Don't forget to <code>source wetppr-env</code> first!</p>
+<p>The <code>--user</code> flag instructs <code>pip</code> to install the package in the directory defined by the environment variable 
+<code>${PYTHONUSERBASE}</code>. The default install path of <code>pip</code> is a system location for which you do not have write 
+permissions. Omitting <code>--user</code> would raise a <code>PermissionError</code>. </p>
 </div>
 <p><a href="https://et-micc2. readthedocs.io/en/latest/index.html">Micc2</a> requires 
 <a href="https://et-micc2.readthedocs.io/en/latest/installation.html#first-time-micc2-setup">a little setup</a> before it is 
 fully functional. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>You need a GitHub account before you can setup <code>micc2</code>.</p>
+<p>You need a GitHub account before you can set up <code>micc2</code>.</p>
 </div>
 <p>To setup <code>micc2</code> , enter </p>
 <pre><code class="language-shell">&gt; micc2 setup
