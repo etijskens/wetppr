@@ -180,8 +180,7 @@ interesting extensions.
 
     - Modern Fortran
 
-Now, after completing the steps below you are good to go to try this tutorial on [Using VSCode for Remote Development]
-(presentations/TNT-VSCode.pptx). 
+Now, after completing the steps below you are good to go to try this tutorial on [Using VSCode for Remote Development](presentations/TNT-VSCode.pptx). 
 
 ## Setting up a git account (required for micc2 projects)
 
