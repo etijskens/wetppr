@@ -614,34 +614,34 @@
 
 <h1 id="vsc-infrastructure">VSC infrastructure</h1>
 <p>This document describes how to set up your environment for the <a href="../evaluation/">project work of the 2000wetppr course</a>
-on the Tier-2 cluster of the University of Antwerp, which is also a VSC cluster. With minor modifications this can 
-be applied to all VSC clusters. In general, the text is also applicable to other HPC clusters, but the modifictions 
+on the Tier-2 cluster of the University of Antwerp, which is also a VSC cluster. With minor modifications this can
+be applied to all VSC clusters. In general, the text is also applicable to other HPC clusters, but the modifictions
 needed may be a bit more substantial.</p>
 <div class="admonition note">
 <p class="admonition-title">Note for students</p>
 <p>These topics are logically ordered. Make sure that you carry out <strong><em>all</em></strong> the tasks in the order described.</p>
 </div>
-<p>In this course we often use the terms <em>local</em> and <em>remote</em>. <strong><em>Local</em></strong> refers to the physical machine you are 
-working on, <em>i.e.</em> your desktop or laptop. <strong><em>Remote</em></strong>, on the other hand refers to a machine which is, typically, 
-at some other place, and which you are accessing through your local machine and a network connection with the remote 
+<p>In this course we often use the terms <em>local</em> and <em>remote</em>. <strong><em>Local</em></strong> refers to the physical machine you are
+working on, <em>i.e.</em> your desktop or laptop. <strong><em>Remote</em></strong>, on the other hand refers to a machine which is, typically,
+at some other place, and which you are accessing through your local machine and a network connection with the remote
 machine.</p>
 <h2 id="applying-for-a-guest-account">Applying for a guest account</h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This section is <strong><em>only for students of the course 200wetppr</em></strong>.</p>
-<p>Students of the course 2000wetppr must apply for a guest account to access the university's HPC clusters unless 
-they already have a VSC account. The project work (see <a href="evaluation">Evaluation</a>) requires access to one of the 
-university's HPC clusters. </p>
+<p>Students of the course 2000wetppr must apply for a guest account to access the university's HPC clusters unless
+they already have a VSC account. The project work (see <a href="evaluation">Evaluation</a>) requires access to one of the
+university's HPC clusters.</p>
 </div>
 <p>To apply for a guest account, create a SSH public/private key pair (see below) and send it by e-mail to
-franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in cc. A <strong><em>guest account</em></strong> will subsequently 
-be created for you. </p>
+franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in cc. A <strong><em>guest account</em></strong> will subsequently
+be created for you.</p>
 <h2 id="applying-for-a-vsc-account">Applying for a VSC account</h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This section is <strong><em>only for researchers of Flemish institutes</em></strong>.</p>
 </div>
-<p>Researchers of Flemish research institutes can apply for a VSC account to get access to the VSC Tier-2 and Tier-1 
+<p>Researchers of Flemish research institutes can apply for a VSC account to get access to the VSC Tier-2 and Tier-1
 supercomputers. See <a href="https://docs. vscentrum.be/en/latest/access/getting_access.html">Getting access to VSC clusters</a>.
 An ssh public/private key pair is also required.</p>
 <h2 id="creating-an-ssh-publicprivate-key-pair">Creating an ssh public/private key pair</h2>
@@ -653,40 +653,40 @@ lock but no one can open the lock without its key, which is the private part of 
 (currently, that is <a href="https://docs.vscentrum.be/en/latest/antwerp/tier2_hardware/vaughan_hardware.html?
 highlight=vaughan">Vaughan</a>). To access to the supercomputer (<em>i.e.</em>, to open the lock) from, say, your laptop, you need the
 private key to be stored on your laptop (or a USB memory stick) and pass it to the SSH protocol, which will verify
-that the private key and the public key match. If case they do, the SSH protocol will open the lock and grant you 
+that the private key and the public key match. If case they do, the SSH protocol will open the lock and grant you
 access to the machine.</p>
 <p>To create a ssh public/private key pair proceed as follows. Open a 'terminal':</p>
 <div class="admonition note">
 <p class="admonition-title">On Windows</p>
-<p>The latest builds of Windows 10 and Windows 11 include a built-in SSH server and client that are based on 
-OpenSSH. You can use the <code>cmd</code> prompt, powershell, or WSL (Windows subsystem for Linux) as a terminal. For older 
-Windows versions, we recommend installing 
+<p>The latest builds of Windows 10 and Windows 11 include a built-in SSH server and client that are based on
+OpenSSH. You can use the <code>cmd</code> prompt, powershell, or WSL (Windows subsystem for Linux) as a terminal. For older
+Windows versions, we recommend installing
 <a href="https://docs.vscentrum.be/en/latest/access/access_using_mobaxterm.html#access-using-mobaxterm">mobaxterm</a>.
 to generate a ssh public/private key pair.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">On Linux</p>
-<p>Most Linux distributions have a <code>terminal</code> applicaton. </p>
+<p>Most Linux distributions have a <code>terminal</code> applicaton.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">MacOSX</p>
-<p>MacOSX comes with a build in <code>Terminal.app</code>. <code>iTerm2</code> is a replacement for <code>Terminal.app</code> with many interesting 
+<p>MacOSX comes with a build in <code>Terminal.app</code>. <code>iTerm2</code> is a replacement for <code>Terminal.app</code> with many interesting
 extra features.</p>
 </div>
 <p>Type the following command at the prompt:</p>
 <pre><code class="language-shell">&gt; ssh-keygen -t rsa -b 4096
 </code></pre>
-<p>You will then be prompted for a file location of the public and private key. You may accept the default location by 
-entering. The default file location will look a bit different, depending on your OS. If the files already exist you 
-canchoose to overwrite them or to cancel the operation. You might want to change the filename of the key to a more 
-meaningfull name, <em>e.g.</em> <code>access_vaughan_rsa</code>. Don't use blanks in the filename. Use hyphens (<code>-</code>) or underscores 
+<p>You will then be prompted for a file location of the public and private key. You may accept the default location by
+entering. The default file location will look a bit different, depending on your OS. If the files already exist you
+canchoose to overwrite them or to cancel the operation. You might want to change the filename of the key to a more
+meaningfull name, <em>e.g.</em> <code>access_vaughan_rsa</code>. Don't use blanks in the filename. Use hyphens (<code>-</code>) or underscores
 (<code>_</code>) instead.</p>
 <pre><code>Enter file in which to save the key (C:\Users\your_username/.ssh/id rsa) :
 C:\Users\your_username/.ssh/id rsa already exists.
 Overwrite (y/n)? y
 </code></pre>
-<p>You will then be prompted for a passphrase (twice). A passphrase provides an extra level of protection in case 
-somebody would steal your private key. Press <code>enter</code> for an empty passphrase. (Passphrases are a little annoying 
+<p>You will then be prompted for a passphrase (twice). A passphrase provides an extra level of protection in case
+somebody would steal your private key. Press <code>enter</code> for an empty passphrase. (Passphrases are a little annoying
 when using VSCode(see below) for remote development.)</p>
 <pre><code>Enter passphrase (empty for no passphrase):
 Enter same passphrase again:
@@ -697,13 +697,13 @@ Your public key has been saved in C:\Users\your_username/.ssh/id rsa.pub.
 </code></pre>
 <div class="admonition note">
 <p class="admonition-title">For students of 2000wetppr</p>
-<p>To obtain a guest account, students must send their <strong><em>public</em></strong> key (and <strong><em>only</em></strong> the public key, the private 
-key is, well, um, <em>private</em>) to <code>franky.backeljauw@uantwerpen.be</code> with <code>engelbert.tijskens@uantwerpen.be</code> in 
+<p>To obtain a guest account, students must send their <strong><em>public</em></strong> key (and <strong><em>only</em></strong> the public key, the private
+key is, well, um, <em>private</em>) to <code>franky.backeljauw@uantwerpen.be</code> with <code>engelbert.tijskens@uantwerpen.be</code> in
 <em>cc</em>. The public key is the one with the <code>.pub</code> extension.</p>
 </div>
 <h2 id="accessing-vaughan">Accessing Vaughan</h2>
 <h3 id="terminal-based-access">Terminal based access</h3>
-<p>Vaughan is (at the time of writing) the University of Antwerp's Tier-2 HPC cluster. For terminal based access you 
+<p>Vaughan is (at the time of writing) the University of Antwerp's Tier-2 HPC cluster. For terminal based access you
 open a <code>terminal</code> (see above) and execute the command:</p>
 <pre><code>&gt; ssh -i path/to/my/private-ssh-key your-user-id@login1-vaughan.hpc.uantwerpen.be
 Last login: Mon Feb 27 12:40:32 2023 from 143.129.75.140
@@ -711,12 +711,12 @@ Last login: Mon Feb 27 12:40:32 2023 from 143.129.75.140
 Welcome to VAUGHAN !
 ...
 </code></pre>
-<p>If the key is in sub-directory <code>.ssh</code> of you home directory, the <code>-i path/to/my/private-ssh-key</code> can be omitted. </p>
-<p>After the command is finished, you can use the terminal as if you were working on the login node. The 
-current working directory will be a location in your file system on the cluster, rather than on your local machine. </p>
-<p>Vaughan has two login nodes. <code>login1-vaughan.hpc.uantwerpen.be</code> and <code>login2-vaughan.hpc.uantwerpen.be</code>. You can also 
+<p>If the key is in sub-directory <code>.ssh</code> of you home directory, the <code>-i path/to/my/private-ssh-key</code> can be omitted.</p>
+<p>After the command is finished, you can use the terminal as if you were working on the login node. The
+current working directory will be a location in your file system on the cluster, rather than on your local machine.</p>
+<p>Vaughan has two login nodes. <code>login1-vaughan.hpc.uantwerpen.be</code> and <code>login2-vaughan.hpc.uantwerpen.be</code>. You can also
 use <code>login-vaughan.hpc.uantwerpen.be</code>. Then the system will choose the login node with the highest availability.</p>
-<p><code>Ssh</code> comes with a <code>.ssh/config</code> file that allows you to store the arguments of frequently used ssh commands. E.g. </p>
+<p><code>Ssh</code> comes with a <code>.ssh/config</code> file that allows you to store the arguments of frequently used ssh commands. E.g.</p>
 <pre><code class="language-shell"># file ~/.ssh/config
 Host vn1
   HostName login1-vaughan.hpc.uantwerpen.be
@@ -728,17 +728,17 @@ Host vn1
   ServerAliveInterval 60
 </code></pre>
 <p>which allows to abbreviate the above <code>ssh</code> command as <code>ssh vn1</code>. The <code>config</code> file can contain several <code>Host</code> entries.</p>
-<p>Editing files in terminal based access is performed using terminal editors, e.g. <code>vim</code> or <code>nano</code>. Although <code>vim</code> is 
+<p>Editing files in terminal based access is performed using terminal editors, e.g. <code>vim</code> or <code>nano</code>. Although <code>vim</code> is
 very powerfull, not everyone is comfortable using it.  </p>
 <h3 id="ide-based-access">IDE based access</h3>
-<p>Many developers (including me) find code development using terminal based access rather cumbersome. IDEs (Integrated 
-Development environment) provide a more user-friendly GUI based experience. 
-<a href="https://visualstudio.com">Visual Studio Code</a> provides a very reasonable user experience for both local aand remote 
-development, providing a project directory tree, an editor pane, syntax highlighting, a debugging pane, a terminal, 
-... It is very well suited for our project work. So, install <a href="https://visualstudio.com">Visual Studio Code</a> on your 
-local machine. (It is available for Windows, Linux, and MacOSX). Here are some useful VSCode extensions that you 
-should install. Click the <code>Extensions</code> icon in the activity bar on the left. You can search the Marketplace for 
-interesting extensions. </p>
+<p>Many developers (including me) find code development using terminal based access rather cumbersome. IDEs (Integrated
+Development environment) provide a more user-friendly GUI based experience.
+<a href="https://visualstudio.com">Visual Studio Code</a> provides a very reasonable user experience for both local aand remote
+development, providing a project directory tree, an editor pane, syntax highlighting, a debugging pane, a terminal,
+... It is very well suited for our project work. So, install <a href="https://visualstudio.com">Visual Studio Code</a> on your
+local machine. (It is available for Windows, Linux, and MacOSX). Here are some useful VSCode extensions that you
+should install. Click the <code>Extensions</code> icon in the activity bar on the left. You can search the Marketplace for
+interesting extensions.</p>
 <p><img alt="vscode-extensions" src="../public/vscode-extensions.png" /></p>
 <div class="admonition tip">
 <p class="admonition-title">Necessary extensions</p>
@@ -768,56 +768,56 @@ interesting extensions. </p>
 <li>Modern Fortran</li>
 </ul>
 </div>
-<p>Now, after completing the steps below you are good to go to try this tutorial on <a href="../presentations/TNT-VSCode.pptx">Using VSCode for Remote Development</a>. </p>
+<p>Now, after completing the steps below you are good to go to try this tutorial on <a href="../presentations/TNT-VSCode.pptx">Using VSCode for Remote Development</a>.</p>
 <h2 id="setting-up-a-git-account-required-for-micc2-projects">Setting up a git account (required for micc2 projects)</h2>
 <p>See <a href="https://docs.github.
 com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account">signing up for a new GitHub account</a></p>
-<p>The code that you write must be regularly committed to a remote <a href="https://github">GitHub</a> repository. This has many 
+<p>The code that you write must be regularly committed to a remote <a href="https://github">GitHub</a> repository. This has many
 advantages:</p>
 <ul>
-<li>First, it serves as a backup. Every single commit can be retrieved at all times. So, you can't lose your code, 
+<li>First, it serves as a backup. Every single commit can be retrieved at all times. So, you can't lose your code,
   even not the older versions.</li>
-<li>Everyone with access to the repository can access the code. If you keep the repository public, that means everyone 
-  with access to the internet. If you make it private, only the people you invite can access. </li>
-<li>It is important that you give me access. If you have problems, I can clone your repository and debug it to see 
+<li>Everyone with access to the repository can access the code. If you keep the repository public, that means everyone
+  with access to the internet. If you make it private, only the people you invite can access.</li>
+<li>It is important that you give me access. If you have problems, I can clone your repository and debug it to see
   what is going wrong,</li>
-<li>If you cooperate with another student on the project you can exchange updates easily. You can make use of git 
+<li>If you cooperate with another student on the project you can exchange updates easily. You can make use of git
   branches to avoid bothering other people with your code changes before they are correct.  </li>
 </ul>
-<p>The presentation of the project must be added to your GitHub repository before you present it. I will keep a copy of 
+<p>The presentation of the project must be added to your GitHub repository before you present it. I will keep a copy of
 your project repo as a proof of your work.</p>
 <h2 id="setting-up-your-remote-environment">Setting up your remote environment</h2>
 <h3 id="lmod-modules">LMOD modules</h3>
-<p>A HPC cluster provides you with many installed software packages. However, none of them are immediately available. 
-To make a package available, you must <code>load</code> the corresponding software module (this is a different <em>module</em> than 
-the Python modules, also known as <strong><code>LMOD</code> modules</strong>). Here is a list of <code>LMOD</code> modules you may need for the project 
+<p>A HPC cluster provides you with many installed software packages. However, none of them are immediately available.
+To make a package available, you must <code>load</code> the corresponding software module (this is a different <em>module</em> than
+the Python modules, also known as <strong><code>LMOD</code> modules</strong>). Here is a list of <code>LMOD</code> modules you may need for the project
 work:</p>
 <ul>
 <li><code>Python</code>,the default python distribution (= Intel Python 3.8.3, at the time of writing), also provides [<code>numpy</code>]
-  (https://numpy.org), <a href="https://numpy.org/doc/stable/f2py/"><code>f2py</code></a>, <a href="https://scipy.org"><code>scipy</code></a>, 
-  <a href="https://www.sympy. org/en/index.html"><code>sympy</code></a>, <a href="https://pandas.pydata.org"><code>pandas</code></a>, 
-  <a href="https://mpi4py.readthedocs.io/en/stable/"><code>mpi4py</code></a>, <a href="https://www.h5py.org"><code>h5py</code></a>, 
-  <a href="https://docs.pytest.org/en/7.2.x/"><code>pytest</code></a> as well as the C/C++/Fortran 
-  compilers with which the Python distribution was build. </li>
-<li><a href="https://numba.readthedocs.io/en/stable/"><code>numba</code></a> </li>
+  (https://numpy.org), <a href="https://numpy.org/doc/stable/f2py/"><code>f2py</code></a>, <a href="https://scipy.org"><code>scipy</code></a>,
+  <a href="https://www.sympy. org/en/index.html"><code>sympy</code></a>, <a href="https://pandas.pydata.org"><code>pandas</code></a>,
+  <a href="https://mpi4py.readthedocs.io/en/stable/"><code>mpi4py</code></a>, <a href="https://www.h5py.org"><code>h5py</code></a>,
+  <a href="https://docs.pytest.org/en/7.2.x/"><code>pytest</code></a> as well as the C/C++/Fortran
+  compilers with which the Python distribution was build.</li>
+<li><a href="https://numba.readthedocs.io/en/stable/"><code>numba</code></a></li>
 </ul>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>To see the list of installed Python packages, load the LMOD module for the Python distribution of your choice, 
-and execute <code>pip list -v</code>. This will show you also the location where the package is installed. Pre-installed 
-packages, the ones that are made available by loading LMOD modules, will show up under <code>/apps/antwerpen</code>, while the 
-packages you installed yourself with <code>pip install --user</code> will show up under <code>${PYTHONUSERBASE}</code>, <em>c.q.</em> 
+<p>To see the list of installed Python packages, load the LMOD module for the Python distribution of your choice,
+and execute <code>pip list -v</code>. This will show you also the location where the package is installed. Pre-installed
+packages, the ones that are made available by loading LMOD modules, will show up under <code>/apps/antwerpen</code>, while the
+packages you installed yourself with <code>pip install --user</code> will show up under <code>${PYTHONUSERBASE}</code>, <em>c.q.</em>
 <code>/scratch/antwerpen/201/vsc20170/.local</code>.  </p>
 </div>
 <p>The following LMOD modules are needed by <a href="https://et-micc2. readthedocs.io/en/latest/index.html">micc2</a> (see below):</p>
 <ul>
-<li><code>buildtools</code>, </li>
-<li><code>git</code>, </li>
+<li><code>buildtools</code>,</li>
+<li><code>git</code>,</li>
 <li><code>gh</code>.</li>
 </ul>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Every time you start a remote terminal session, you must load these modules. </p>
+<p>Every time you start a remote terminal session, you must load these modules.</p>
 </div>
 <p>This is conveniently done by writing down all the <code>load</code> commands in a file (and add the file to your <code>git</code> repository:</p>
 <pre><code class="language-shell"># File wetppr-env.sh
@@ -829,10 +829,10 @@ module load buildtools
 module load git
 module load gh
 # list all loaded modules
-module list 
+module list
 
 # allow to install python packages locally
-export PYTHONUSERBASE=/data/antwerpen/guest/your_guest_id/.local
+export PYTHONUSERBASE=/data/antwerpen/gst/guestXXX/.local # replace guestXXX with your guest ID
 mkdir -p ${PYTHONUSERBASE}
 export PATH=&quot;$PATH:${PYTHONUSERBASE}/bin&quot;
 </code></pre>
@@ -842,12 +842,12 @@ export PATH=&quot;$PATH:${PYTHONUSERBASE}/bin&quot;
 <p>to load all modules and to modify the environment variables <code>PYTHONUSERBASE</code> and <code>PATH</code>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Initially, it will appear useful to source the script automatically when you login. However, soon you will 
-discover that such scripts depend on the project you work on, and that it is better to have it somewhere in your 
+<p>Initially, it will appear useful to source the script automatically when you login. However, soon you will
+discover that such scripts depend on the project you work on, and that it is better to have it somewhere in your
 project directory.</p>
 </div>
 <h3 id="micc2">Micc2</h3>
-<p><a href="https://et-micc2.readthedocs.io/en/latest/index.html">Micc2</a> is a Python package that simplifies your project 
+<p><a href="https://et-micc2.readthedocs.io/en/latest/index.html">Micc2</a> is a Python package that simplifies your project
 management considerably. If you haven't already done so, source the environment script:</p>
 <pre><code class="language-shell">&gt; source path/to/wetppr-env.sh
 </code></pre>
@@ -857,25 +857,25 @@ management considerably. If you haven't already done so, source the environment 
 </code></pre>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code>--user</code> flag instructs <code>pip</code> to install the package in the directory defined by the environment variable 
-<code>${PYTHONUSERBASE}</code>. The default install path of <code>pip</code> is a system location for which you do not have write 
-permissions. Omitting <code>--user</code> would raise a <code>PermissionError</code>. </p>
+<p>The <code>--user</code> flag instructs <code>pip</code> to install the package in the directory defined by the environment variable
+<code>${PYTHONUSERBASE}</code>. The default install path of <code>pip</code> is a system location for which you do not have write
+permissions. Omitting <code>--user</code> would raise a <code>PermissionError</code>.</p>
 </div>
-<p><a href="https://et-micc2. readthedocs.io/en/latest/index.html">Micc2</a> requires 
-<a href="https://et-micc2.readthedocs.io/en/latest/installation.html#first-time-micc2-setup">a little setup</a> before it is 
-fully functional. </p>
+<p><a href="https://et-micc2. readthedocs.io/en/latest/index.html">Micc2</a> requires
+<a href="https://et-micc2.readthedocs.io/en/latest/installation.html#first-time-micc2-setup">a little setup</a> before it is
+fully functional.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>You need a GitHub account before you can set up <code>micc2</code>.</p>
 </div>
-<p>To setup <code>micc2</code> , enter </p>
+<p>To setup <code>micc2</code> , enter</p>
 <pre><code class="language-shell">&gt; micc2 setup
 </code></pre>
 <p>and supply <a href="https://et-micc2.readthedocs.io/en/latest/installation.
-html#first-time-micc2-setup">the data the application asks for</a>. </p>
+html#first-time-micc2-setup">the data the application asks for</a>.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Make sure that you get a personal access token (pat) to allow creating remote repositories at 
+<p>Make sure that you get a personal access token (pat) to allow creating remote repositories at
 <a href="https://github.com">GitHub</a>! Check <a href="https://et-micc2.readthedocs.io/en/latest/installation.
 html#first-time-micc2-setup">this</a>.</p>
 </div>
