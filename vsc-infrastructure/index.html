@@ -448,6 +448,13 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#avoiding-file-quota-exceeded-caused-by-vscode-remote-development" class="md-nav__link">
+    Avoiding file quota exceeded caused by vscode remote development
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#lmod-modules" class="md-nav__link">
     LMOD modules
   </a>
@@ -569,6 +576,13 @@
   
     <nav class="md-nav" aria-label="Setting up your remote environment">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#avoiding-file-quota-exceeded-caused-by-vscode-remote-development" class="md-nav__link">
+    Avoiding file quota exceeded caused by vscode remote development
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#lmod-modules" class="md-nav__link">
@@ -736,7 +750,8 @@ Development environment) provide a more user-friendly GUI based experience.
 <a href="https://visualstudio.com">Visual Studio Code</a> provides a very reasonable user experience for both local aand remote
 development, providing a project directory tree, an editor pane, syntax highlighting, a debugging pane, a terminal,
 ... It is very well suited for our project work. So, install <a href="https://visualstudio.com">Visual Studio Code</a> on your
-local machine. (It is available for Windows, Linux, and MacOSX). Here are some useful VSCode extensions that you
+local machine. (It is available for Windows, Linux, and MacOSX). </p>
+<p>Here are some useful VSCode extensions that you
 should install. Click the <code>Extensions</code> icon in the activity bar on the left. You can search the Marketplace for
 interesting extensions.</p>
 <p><img alt="vscode-extensions" src="../public/vscode-extensions.png" /></p>
@@ -768,7 +783,8 @@ interesting extensions.</p>
 <li>Modern Fortran</li>
 </ul>
 </div>
-<p>Now, after completing the steps below you are good to go to try this tutorial on <a href="../presentations/TNT-VSCode.pptx">Using VSCode for Remote Development</a>.</p>
+<p>There is a helpfull tutorial on <a href="../presentations/TNT-VSCode.pptx">Using VSCode for Remote Development</a>, but before 
+getting your hands dirty, please complete the steps below first.</p>
 <h2 id="setting-up-a-git-account-required-for-micc2-projects">Setting up a git account (required for micc2 projects)</h2>
 <p>See <a href="https://docs.github.
 com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account">signing up for a new GitHub account</a></p>
@@ -787,6 +803,28 @@ advantages:</p>
 <p>The presentation of the project must be added to your GitHub repository before you present it. I will keep a copy of
 your project repo as a proof of your work.</p>
 <h2 id="setting-up-your-remote-environment">Setting up your remote environment</h2>
+<h3 id="avoiding-file-quota-exceeded-caused-by-vscode-remote-development">Avoiding <code>file quota exceeded</code> caused by vscode remote development</h3>
+<p>Vscode remote installs some machinery on the remote machine you are using. As vscode can easily create a lot of 
+files remotely, this can easily cause <code>file quota exceeded</code> on your <code>user</code> file system (home directory). This can be 
+easily fixed. </p>
+<p>Before starting remote development on the cluster, execute these commands in a normal terminal:</p>
+<pre><code class="language-shell">&gt; cd $VSC_HOME
+&gt; mkdir $VSC_DATA/.vscode-server
+&gt; ln -s $VSC_DATA/.vscode-server
+</code></pre>
+<p>This ensures that effective location for storing the vscode machinery on the remote side is  on the <code>data</code> file system. 
+The default location is the <code>user</code> file system, which has limited file quota. As vscode often creates many files, 
+this may cause <code>file quota exceeded</code> on the <code>user</code> file system and vscode will consequently fail to connect. The above 
+commands avoid this issue. If you happen to forget to execute these commands before opening vscode on the cluster, 
+you can still fix the problem by moving the <code>.vscode-server</code> directory and soft-linking it with these commands:  </p>
+<pre><code class="language-shell">&gt; cd $VSC_HOME
+&gt; mv .vscode-server $VSC_DATA/
+&gt; ln -s $VSC_DATA/.vscode-server
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not move the <code>.vscode-server</code> directory into the <code>scratch</code> file system. </p>
+</div>
 <h3 id="lmod-modules">LMOD modules</h3>
 <p>A HPC cluster provides you with many installed software packages. However, none of them are immediately available.
 To make a package available, you must <code>load</code> the corresponding software module (this is a different <em>module</em> than
@@ -864,8 +902,8 @@ permissions. Omitting <code>--user</code> would raise a <code>PermissionError</c
 <p><a href="https://et-micc2. readthedocs.io/en/latest/index.html">Micc2</a> requires
 <a href="https://et-micc2.readthedocs.io/en/latest/installation.html#first-time-micc2-setup">a little setup</a> before it is
 fully functional.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
 <p>You need a GitHub account before you can set up <code>micc2</code>.</p>
 </div>
 <p>To setup <code>micc2</code> , enter</p>
@@ -873,8 +911,8 @@ fully functional.</p>
 </code></pre>
 <p>and supply <a href="https://et-micc2.readthedocs.io/en/latest/installation.
 html#first-time-micc2-setup">the data the application asks for</a>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
 <p>Make sure that you get a personal access token (pat) to allow creating remote repositories at
 <a href="https://github.com">GitHub</a>! Check <a href="https://et-micc2.readthedocs.io/en/latest/installation.
 html#first-time-micc2-setup">this</a>.</p>
@@ -883,6 +921,11 @@ html#first-time-micc2-setup">this</a>.</p>
 <p>You will also need <code>pybind11</code> if you want to use <code>micc2</code> for building binary extension modules for Python from C++.</p>
 <pre><code class="language-shell">&gt; pip install --user pybind11
 </code></pre>
+<h1 id="recommended-steps-from-here">Recommended steps from here</h1>
+<ul>
+<li>A helpfull tutorial on <a href="../presentations/TNT-VSCode.pptx">Using VSCode for Remote Development</a></li>
+<li>The <a href="https://et-micc2.readthedocs.io/en/stable/tutorials.html">micc2 tutorials</a></li>
+</ul>
 
 
 
