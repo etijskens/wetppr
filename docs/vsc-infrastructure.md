@@ -363,77 +363,78 @@ Rather executing a command to perform the computation that you want, you send a 
 to the scheduler. In that request you must specify the resources you need, setup the environment, including necessary
 LMOD modules, and the command you want to execute.
 
-Here is a typical job script:
+Here is a typical _hello_world_ job script ``hello_world.slurm``:
+
+```shell
+#!/bin/bash                               # 1 Shebang
+#SBATCH --ntasks=64 --cpus-per-task=1     # 2 job script parameters
+#SBATCH --time=00:05:00                   # 2
+#SBATCH --mail-type=BEGIN,END,FAIL        # 2
+#SBATCH -–mail-user=<your e-mail address> # 2
+#SBATCH --job-name hello_world            # 2
+#SBATCH -o %x.%j.stdout                   # 2
+#SBATCH -e %x.%j.stderr                   # 2
+
+module --force purge                      # 3 Setup execution environment
+module load calcua/2021a                  # 3
+module load Python                        # 3
+
+srun --mpi=pmix python hello_world.py     # 4 Job execution commands
+```
+
+The job is submitted for execution by executing this command in a terminal running a session on a login node:
+
+```shell
+> sbatch hello_world.slurm
+```
+
+The job script has four sections
+
+### Shebang
+
+The first line, starting with ``#!`` (the [_shebang_](https://linuxhandbook.com/shebang/)), sets the system ``bash`` 
+as the interpreter of a job script:  
 
 ```shell
 #!/bin/bash
-#SBATCH --ntasks=64 --cpus-per-task=1
-#SBATCH --time=00:05:00
-#SBATCH --mail-type=BEGIN,END,FAIL
-#SBATCH -–mail-user=<your e-mail address>
-#SBATCH --job-name hello_world
-#SBATCH -o %x.%j.stdout
-#SBATCH -e %x.%j.stderr
-
-# module --force purge
-# module load calcua/2020a
-# module load Python/3.8.3-intel-2020a
-module purge
-module use /data/antwerpen/200/vsc20003/easybuild/modules/vaughan/2021a
-module use /apps/antwerpen/modules/rocky8/calcua-broadwell
-module load calcua/2021a
-module load h5py
-module load matplotlib
-
-# srun --mpi=pmix python multiprocess_main.py
-for element in Be B C N O ; do
-    srun --mpi=pmix python multiprocess_main.py -e $element
-done
 ```
 
+(This is mandatory).
 
-The first line sets the system `bash` as the interpreter of a job script (this is mandatory).
-
-```shell
-#!/bin/bash
-```
-
-### Slurm job script parameters
+### Job script parameters
 
 After the *shebang* the Slurm job script parameters are specified. They all start with ``#SBATCH``.
-The second line
+The second line selects the number of tasks (processes) and cpus per process to be used for your job:
 
 ```shell
 #SBATCH --ntasks=64 --cpus-per-task=1
 ```
 
-selects the number of tasks (processes) and cpus per process to be used for your job. Typically, processes 
-communicate via MPI and the cpus of a process via OpenMP. Here, 64 processes are requested, each process 
-using one cpu for each process. Since the compute nodes of Vaughan have 64 cores, this corresponds to requesting
-a single entire node. So, each core runs a process communicating with the other processes via MPI. 
+Here, 64 processes are requested, each process using one cpu for each process. Since the compute nodes of Vaughan 
+have 64 cores, this corresponds to requesting a single entire node. Typically, processes communicate via MPI and the 
+cpus of a process via OpenMP.  So, each core runs a process communicating with the other processes via MPI. 
 
-Furthermore, we need to specify how long we suspect the job to run. Here, we request 5 minutes. If the job is 
-not finished after five minutes, it will be aborted. The maximum wall time for a job is 72 hours. Longer jobs 
-must be split into pieces shorter than 72 hours. Jobs of 1 hour or less have high priority than longer jobs.
+Furthermore, we need to specify how long we suspect the job to run:
 
 ```shell
 #SBATCH --time=00:05:00
 ```
 
+Here, we request 5 minutes. If the job is not finished after five minutes, it will be aborted. The maximum wall time 
+for a job is 72 hours. Longer jobs must be split into pieces shorter than 72 hours. Jobs of 1 hour or less have high 
+priority than longer jobs.
+
 Larger jobs typically do not start immediately. First, the requested resources must be available. Moreover, your
-job must be the next in the queue, which is made on a fair share basis. You can ask the scheduler to send you an
-e-mail when something happens to a submitted job. Here, it is requested that you receive an e-mail when the job 
-starts, ends and when it fails for some reason.
+job must be the next in the queue, which is formed on a fair share basis. To know when your job starts and ends, you 
+can ask the scheduler to send you an e-mail. Here, we request that an e-mail is sent when the job starts, 
+ends and also when it fails for some reason.
 
 ```shell
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH -–mail-user=<your e-mail address>
 ```
 
-Finally, it is convenient to specify a name for the job and its output files. Below, the job name is set to 
-``hello_world`` (because we named the job script ``hello_world.slurm`` as it is executing the Python script 
-``hello_world.py``). The output written to ``stdout`` and ``stderr`` is then redirected to ``hello_world.<jobid>.stdout``
-and ``hello_world.<jobid>.stderr``, resp. 
+Finally, it is convenient to specify a name for the job and its output files. 
 
 ```shell
 #SBATCH --job-name hello_world
@@ -441,7 +442,12 @@ and ``hello_world.<jobid>.stderr``, resp.
 #SBATCH -e %x.%j.stderr
 ```
 
-### Setup of the job script environment
+As the job script is executing the Python script ``hello_world.py`` and was therefor named ``hello_world.slurm``,
+the job name is correspondingly set to ``hello_world``. The output to ``stdout`` and ``stderr`` is then redirected
+to ``hello_world.<jobid>.stdout`` and ``hello_world.<jobid>.stderr``, resp. This ensures that an alphabetical 
+listing of files will group all files corresponding to and produced by this job script. 
+
+### Setup of the job's execution environment
 
 We prefer to start from a clean environment:
 
@@ -454,6 +460,8 @@ Then we load a toolchain:
 ```shell
 # module load calcua/2020a
 ```
+
+(More recent toolchains are upcoming).
 
 Next, we load the LMOD modules we need:
 
@@ -470,6 +478,17 @@ job is executed for later reference.:
 # module list
 ```
 
+### Job execution commands 
+
+The job script ends with a list of (``bash``) commands that compose the job: 
+
+```shell
+srun --mpi=pmix python hello_world.py
+```
+
+The ``srun`` command calls mpirun with the resources requested in the [Job script parameters](#job-script-parameters)
+. Consequentially, 64 MPI processes will be started, one on each core of a compute node. Their ranks will be 
+numbered 0..63.
 
 # Recommended steps from here
 
