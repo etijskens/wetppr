@@ -486,7 +486,7 @@ on Vaughan, you must execute a job script with the command </p>
 <pre><code class="language-shell">srun --mpi=pmix python script.py &lt;script parameters&gt;
 </code></pre>
 <p>This will automatically run the script with the requested resources. For more information about submitting 
-job scripts see <a href="#submitting-jobs-on-vaughan">Submitting jobs on Vaughan</a>. </p>
+job scripts see <a class="autorefs autorefs-internal" href="../vsc-infrastructure/#submitting-jobs-on-vaughan">Submitting jobs on Vaughan</a>. </p>
 <p>To run the python script in parallel on 4 CPUs on your local machine you must run this commmand in a terminal:</p>
 <pre><code class="language-shell">mpirun -np 4 python script.py
 </code></pre>
@@ -546,7 +546,7 @@ if __name__ == &quot;__main__&quot;:
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>At the time of writing, dask is not installed as an LMOD module on the cluster. So you must install it yourself.
-Make sure you first source the <code>wetppr-env.sh</code> script mentioned in <a href="#lmod-modules">LMOD modules</a>.</p>
+Make sure you first source the <code>wetppr-env.sh</code> script mentioned in <a class="autorefs autorefs-internal" href="../vsc-infrastructure/#lmod-modules">LMOD modules</a>.</p>
 </div>
 <p>To install <code>dask_mpi</code>, run:</p>
 <pre><code class="language-shell">&gt; . path/to/wetppr-env.sh
