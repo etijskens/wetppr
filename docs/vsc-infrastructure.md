@@ -13,10 +13,12 @@ working on, _i.e._ your desktop or laptop. ***Remote***, on the other hand refer
 at some other place, and which you are accessing through your local machine and a network connection with the remote
 machine.
 
-## Applying for a guest account
+## Preparing for the VSC infrastructure in 2000WETPPR
+
+### Applying for a guest account
 
 !!! Note
-    This section is ***only for students of the course 200wetppr***.
+    This section is ***only for students of the course 2000wetppr***.
 
     Students of the course 2000wetppr must apply for a guest account to access the university's HPC clusters unless
     they already have a VSC account. The project work (see [Evaluation](evaluation)) requires access to one of the
@@ -26,7 +28,7 @@ To apply for a guest account, create a SSH public/private key pair (see below) a
 franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in cc. A ***guest account*** will subsequently
 be created for you.
 
-## Applying for a VSC account
+### Applying for a VSC account
 
 !!! Note
     This section is ***only for researchers of Flemish institutes***.
@@ -35,7 +37,7 @@ Researchers of Flemish research institutes can apply for a VSC account to get ac
 supercomputers. See [Getting access to VSC clusters](https://docs. vscentrum.be/en/latest/access/getting_access.html).
 An ssh public/private key pair is also required.
 
-## Creating an ssh public/private key pair
+### Creating an ssh public/private key pair
 
 An ssh public/private key pair in necessary for both a guest account (students) and a VSC account (researchers).
 
@@ -104,9 +106,9 @@ Your public key has been saved in C:\Users\your_username/.ssh/id rsa.pub.
     key is, well, um, _private_) to `franky.backeljauw@uantwerpen.be` with `engelbert.tijskens@uantwerpen.be` in
     _cc_. The public key is the one with the `.pub` extension.
 
-## Accessing Vaughan
+### Accessing Vaughan
 
-### Terminal based access
+#### Terminal based access
 
 Vaughan is (at the time of writing) the University of Antwerp's Tier-2 HPC cluster. For terminal based access you
 open a `terminal` (see above) and execute the command:
@@ -146,7 +148,7 @@ which allows to abbreviate the above `ssh` command as `ssh vn1`. The `config` fi
 Editing files in terminal based access is performed using terminal editors, e.g. `vim` or `nano`. Although `vim` is
 very powerfull, not everyone is comfortable using it.  
 
-### IDE based access
+#### IDE based access
 
 Many developers (including me) find code development using terminal based access rather cumbersome. IDEs (Integrated
 Development environment) provide a more user-friendly GUI based experience.
@@ -185,7 +187,7 @@ interesting extensions.
 There is a helpfull tutorial on [Using VSCode for Remote Development](presentations/TNT-VSCode.pptx), but before 
 getting your hands dirty, please complete the steps below first.
 
-## Setting up a git account (required for micc2 projects)
+### Setting up a git account (required for micc2 projects)
 
 See [signing up for a new GitHub account](https://docs.github.
 com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account)
@@ -205,9 +207,9 @@ advantages:
 The presentation of the project must be added to your GitHub repository before you present it. I will keep a copy of
 your project repo as a proof of your work.
 
-## Setting up your remote environment
+### Setting up your remote environment
 
-### Avoiding `file quota exceeded` caused by vscode remote development
+#### Avoiding `file quota exceeded` caused by vscode remote development
 
 Vscode remote installs some machinery on the remote machine you are using. As vscode can easily create a lot of 
 files remotely, this can easily cause `file quota exceeded` on your `user` file system (home directory). This can be 
@@ -236,7 +238,7 @@ you can still fix the problem by moving the `.vscode-server` directory and soft-
 !!! warning
     Do not move the `.vscode-server` directory into the `scratch` file system. 
 
-### LMOD modules
+#### LMOD modules
 
 A HPC cluster provides you with many installed software packages. However, none of them are immediately available.
 To make a package available, you must `load` the corresponding software module (this is a different _module_ than
@@ -300,7 +302,7 @@ to load all modules and to modify the environment variables `PYTHONUSERBASE` and
     discover that such scripts depend on the project you work on, and that it is better to have it somewhere in your
     project directory.
 
-### Micc2
+#### Micc2
 
 [Micc2](https://et-micc2.readthedocs.io/en/latest/index.html) is a Python package that simplifies your project
 management considerably. If you haven't already done so, source the environment script:
@@ -343,13 +345,131 @@ html#first-time-micc2-setup).
     [GitHub](https://github.com)! Check [this](https://et-micc2.readthedocs.io/en/latest/installation.
     html#first-time-micc2-setup).
 
-### Pybind11
+#### Pybind11
 
 You will also need `pybind11` if you want to use `micc2` for building binary extension modules for Python from C++.
 
 ```shell
 > pip install --user pybind11
 ```
+
+## Submitting jobs on Vaughan
+
+Most modern supercomputers - Vaughan included - use [Slurm](https://slurm.schedmd.com) for resource management and 
+scheduling. An extensive description about using Vaughan can be found [here](https://calcua.uantwerpen.be/courses/hpc-intro/IntroductionHPC-20230313.pdf).
+
+Unlike your personal computer, which you use mainly interactively, a supercomputer is mostly used in batch mode. 
+Rather executing a command to perform the computation that you want, you send a request to execute that commmand 
+to the scheduler. In that request you must specify the resources you need, setup the environment, including necessary
+LMOD modules, and the command you want to execute.
+
+Here is a typical job script:
+
+```shell
+#!/bin/bash
+#SBATCH --ntasks=64 --cpus-per-task=1
+#SBATCH --time=00:05:00
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH -–mail-user=<your e-mail address>
+#SBATCH --job-name hello_world
+#SBATCH -o %x.%j.stdout
+#SBATCH -e %x.%j.stderr
+
+# module --force purge
+# module load calcua/2020a
+# module load Python/3.8.3-intel-2020a
+module purge
+module use /data/antwerpen/200/vsc20003/easybuild/modules/vaughan/2021a
+module use /apps/antwerpen/modules/rocky8/calcua-broadwell
+module load calcua/2021a
+module load h5py
+module load matplotlib
+
+# srun --mpi=pmix python multiprocess_main.py
+for element in Be B C N O ; do
+    srun --mpi=pmix python multiprocess_main.py -e $element
+done
+```
+
+
+The first line sets the system `bash` as the interpreter of a job script (this is mandatory).
+
+```shell
+#!/bin/bash
+```
+
+### Slurm job script parameters
+
+After the *shebang* the Slurm job script parameters are specified. They all start with ``#SBATCH``.
+The second line
+
+```shell
+#SBATCH --ntasks=64 --cpus-per-task=1
+```
+
+selects the number of tasks (processes) and cpus per process to be used for your job. Typically, processes 
+communicate via MPI and the cpus of a process via OpenMP. Here, 64 processes are requested, each process 
+using one cpu for each process. Since the compute nodes of Vaughan have 64 cores, this corresponds to requesting
+a single entire node. So, each core runs a process communicating with the other processes via MPI. 
+
+Furthermore, we need to specify how long we suspect the job to run. Here, we request 5 minutes. If the job is 
+not finished after five minutes, it will be aborted. The maximum wall time for a job is 72 hours. Longer jobs 
+must be split into pieces shorter than 72 hours. Jobs of 1 hour or less have high priority than longer jobs.
+
+```shell
+#SBATCH --time=00:05:00
+```
+
+Larger jobs typically do not start immediately. First, the requested resources must be available. Moreover, your
+job must be the next in the queue, which is made on a fair share basis. You can ask the scheduler to send you an
+e-mail when something happens to a submitted job. Here, it is requested that you receive an e-mail when the job 
+starts, ends and when it fails for some reason.
+
+```shell
+#SBATCH --mail-type=BEGIN,END,FAIL
+#SBATCH -–mail-user=<your e-mail address>
+```
+
+Finally, it is convenient to specify a name for the job and its output files. Below, the job name is set to 
+``hello_world`` (because we named the job script ``hello_world.slurm`` as it is executing the Python script 
+``hello_world.py``). The output written to ``stdout`` and ``stderr`` is then redirected to ``hello_world.<jobid>.stdout``
+and ``hello_world.<jobid>.stderr``, resp. 
+
+```shell
+#SBATCH --job-name hello_world
+#SBATCH -o %x.%j.stdout
+#SBATCH -e %x.%j.stderr
+```
+
+### Setup of the job script environment
+
+We prefer to start from a clean environment:
+
+```shell
+# module --force purge
+```
+
+Then we load a toolchain:
+
+```shell
+# module load calcua/2020a
+```
+
+Next, we load the LMOD modules we need:
+
+```shell
+# module load Python/3.8.3-intel-2020a
+```
+
+This LMOD module comes with a whole bunch of pre-installed python modules, including numpy, mpi4py, scipy, ...
+
+It is also useful to print which modules we have loaded, to leave a trace of the environment in which the 
+job is executed for later reference.:
+
+```shell
+# module list
+```
+
 
 # Recommended steps from here
 
