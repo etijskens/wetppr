@@ -486,7 +486,7 @@ The job script ends with a list of (``bash``) commands that compose the job:
 srun --mpi=pmix python hello_world.py
 ```
 
-The ``srun`` command calls mpirun with the resources requested in the [Job script parameters](#job-script-parameters)
+The ``srun`` command calls mpirun with the resources requested in the [Job script parameters][job-script-parameters]
 . Consequentially, 64 MPI processes will be started, one on each core of a compute node. Their ranks will be 
 numbered 0..63.
 
