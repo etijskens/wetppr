@@ -9,13 +9,17 @@
       
       
       
+        <link rel="prev" href="../chapter-5/">
+      
+      
+        <link rel="next" href="../evaluation/">
       
       <link rel="icon" href="../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.10">
     
     
       
-        <title>Assignment 2022-23 - Parallel programmeren</title>
+        <title>Chapter 6 - Tools for parallellization - Parallel programmeren</title>
       
     
     
@@ -65,7 +69,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#assignment-2022-23" class="md-skip">
+        <a href="#chapter-6-tools-for-parallellization" class="md-skip">
           Skip to content
         </a>
       
@@ -98,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Assignment 2022-23
+              Chapter 6 - Tools for parallellization
             
           </span>
         </div>
@@ -332,11 +336,59 @@
 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../chapter-6/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Chapter 6 - Tools for parallellization
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Chapter 6 - Tools for parallellization
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mpi4py" class="md-nav__link">
+    Mpi4py
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#dask-mpi" class="md-nav__link">
+    Dask-MPI
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -398,22 +450,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#the-mandelbrot-set" class="md-nav__link">
-    The Mandelbrot set
+  <a href="#mpi4py" class="md-nav__link">
+    Mpi4py
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-mandelbrot-challenge" class="md-nav__link">
-    The Mandelbrot challenge
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#plotting-the-images" class="md-nav__link">
-    Plotting the images
+  <a href="#dask-mpi" class="md-nav__link">
+    Dask-MPI
   </a>
   
 </li>
@@ -434,111 +479,84 @@
 
 
 
-<h1 id="assignment-2022-23">Assignment 2022-23</h1>
-<h2 id="the-mandelbrot-set">The Mandelbrot set</h2>
-<p>The <strong>Mandelbrot set</strong> <script type="math/tex">\mathcal{M}</script> is defined as the set of all complex numbers <script type="math/tex"> c \in \mathbb{C} </script>, for which the 
-iterative scheme </p>
-<p>
-<script type="math/tex; mode=display"> z_0 = 0 </script>
-<script type="math/tex; mode=display"> z_{i+1} = z_{i}^2 + c </script>
-</p>
-<p>is bounded, <em>i.e.</em> </p>
-<p>
-<script type="math/tex; mode=display"> \forall i \in \mathbb{N}, \left|z_{i}\right| \le b \in \mathbb{R}^+ </script>
-</p>
-<p>It can be demonstrated that, if for some <script type="math/tex">i</script>, <script type="math/tex"> \left|z_{i}\right| > 2 </script>, the iteration is 
-guaranteed to be unbounded, and thus <script type="math/tex">c \notin \mathcal{M}</script>. This yields a practical criterion to compute an<br />
-<strong>approximate Mandelbrot set</strong> <script type="math/tex"> \mathcal{M}_N</script>, containing as all complex numbers for which the first <script type="math/tex">N</script> iterations
-remain inside the circle with radius 2 (centered at the origin), <em>i.e.</em> for which <script type="math/tex"> \left|z_{i}\right| \le 2 </script> for all 
-<script type="math/tex">i\le{N}</script>.</p>
-<p>The Mandelbrot set <script type="math/tex">\mathcal{M}</script>, or its approximation <script type="math/tex">\mathcal{M}_N</script>, is traditionally coloured black, while the 
-other points, the points escaping outside the circle with radius 2 towards infinity, get a colour that indicates how 
-fast they escape. Here is an example (from <a href="https://en.wikipedia.org/wiki/Mandelbrot_set">wikipedia</a>):</p>
-<p><img alt="mandelbrot" src="../public/644px-Mandel_zoom_00_mandelbrot_set.jpg" /></p>
-<p>Here is the challenge for you.</p>
-<h2 id="the-mandelbrot-challenge">The Mandelbrot challenge</h2>
-<p>Take the complex numbers <script type="math/tex">c \in \mathbb{C}</script> for which <script type="math/tex">\Re(c) \in \left[-2,1\right]</script> and <script type="math/tex">\Im(c) \in \left[0,
-4/3\right]</script>, <em>i.e.</em> about the upper half of the figure above (the lower half is symmetric). Compute the approximate 
-mandelbrot sets <script type="math/tex">\mathcal{M}_{100}</script>, <script type="math/tex">\mathcal{M}_{1000}</script> and <script type="math/tex">\mathcal{M}_{10000}</script> with pixel densities <script type="math/tex">d</script> of 100, 
-500, and 2500 pixels per unit length. You may use the center of the pixels for the points <script type="math/tex">c</script>. Time each of these 9 
-cases. The rectangle measures <script type="math/tex">3</script> by <script type="math/tex">4/3</script>, so you get images of <script type="math/tex">300 \times 133 \approx 40000</script> pixels, <script type="math/tex">1500 \times 
-667 \approx 10^6</script> pixels, and <script type="math/tex">7500 \times 3333 \approx 25\times10^6</script> pixels, resp. </p>
-<p>It is best to choose the array of pixels such that the coordinate axes pass through the center of pixels. Thus, the 
-complex number corresponding to a pixel, that is the pixel's center, is always given by </p>
-<p>
-<script type="math/tex; mode=display">c_{mn} = \frac{m}{d} + i\mkern1mu\frac{n}{d}</script>
-</p>
-<p>with <script type="math/tex">m</script> and <script type="math/tex">n</script> integer constants.   </p>
-<table>
-<thead>
-<tr>
-<th>walltime[s]</th>
-<th><em>d</em>=50</th>
-<th><em>d</em>=500</th>
-<th><em>d</em>=5000</th>
-<th>sum</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><em>N</em>=100</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><em>N</em>=1000</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><em>N</em>=10000</td>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>sum</td>
-<td></td>
-<td></td>
-<td></td>
-<td><em>Total</em></td>
-</tr>
-</tbody>
-</table>
-<p><strong><em>This a competition!</em></strong> The winner, that is the one with the smallest total compute time <em>Total</em> over the 9 cases, 
-will get 5 points, the second one 4 points, and so on. The remaining 15 points are to be earned on the presentation.</p>
-<p>As in every competition, there are a few <strong><em>rules</em></strong>:</p>
+<h1 id="chapter-6-tools-for-parallellization">Chapter 6 - Tools for parallellization</h1>
+<p>These tools can be used for parallellizing a problem on the cluster (<em>e.g.</em> Vaughan), but also on your 
+local machine if you install MPI, mpi4py and dask_mpi. To execute a python script <code>script.py</code> in parallel 
+on Vaughan, you must execute a job script with the command </p>
+<pre><code class="language-shell">srun --mpi=pmix python script.py &lt;script parameters&gt;
+</code></pre>
+<p>This will automatically run the script with the requested resources. For more information about submitting 
+job scripts see <a href="#submitting-jobs-on-vaughan">Submitting jobs on Vaughan</a>. </p>
+<p>To run the python script in parallel on 4 CPUs on your local machine you must run this commmand in a terminal:</p>
+<pre><code class="language-shell">mpirun -np 4 python script.py
+</code></pre>
+<h2 id="mpi4py">Mpi4py</h2>
+<p>Mpi4py is a Python package that wraps the popular MPI framework for message passing between processes. It is very 
+flexible, but typically requires quite a bit of work to set up all the communication correctly. </p>
+<p>Here are some useful links:</p>
 <ul>
-<li>Your code must be a <strong><em>Python program</em></strong>, but you may use C++ or Fortran to build your own Python modules for speed.</li>
-<li>The timings must be run on <strong><em>a single compute node of <a href="https://docs.vscentrum.
-  be/en/latest/antwerp/tier2_hardware/vaughan_hardware.html?highlight=vaughan">Vaughan</a></em></strong>, 
-  the Tier-2 VSC-cluster of the University of Antwerp. Every compute node on Vaughan has 64 cores, all of which you can 
-  use to 
-  parallellise the work and increase the througput. </li>
-<li><strong><em>Every case must be computed in at most one job</em></strong>. If you like, you may run all cases together in one job, but 
-  splitting a case over more jobs is not allowed.</li>
-<li>Obviously, the github repo that you will use to store the different versions of your code, the presentation and 
-  the results, must contain all necessary files to rerun your program, as to verify the correctness of the results and 
-  the timings. </li>
-<li>You must save the image to disk. However, the timing must only include computing the image, not saving it to disk.  </li>
+<li><a href="https://mpi4py.readthedocs.io/en/stable">Mpi4py documentation</a>.</li>
+<li>The mpi4py documents the Python wrappers for MPI functions, not the wrapped functions themselves. The 
+  <a href="https://www.open-mpi.org/doc/">MPI documentation</a> is therefor also useful.</li>
+<li><a href="https://github.com/jbornschein/mpi4py-examples">A github repo with som simple mpi4py examples</a>.</li>
+<li>Some hints for setting up a master-slave configuration of cpus:<ul>
+<li><a href="https://github.com/luca-s/mpi-master-slave">MPI master slave</a> </li>
+<li><a href="https://stackoverflow.com/questions/40508520/get-master-to-do-work-in-task-farm">Get master to do work in a task farm</a></li>
 </ul>
-<p>Success! </p>
-<h2 id="plotting-the-images">Plotting the images</h2>
-<p>Getting the nice images of the Mandelbrot set you may encounter on the web isn't as easy as it seems. Although this is 
-not part of the challenge, I can understand your dissappointment if after spending all the effort to optimise and 
-parallelise your codes, the images do not match your expectations. However, your get a long way by applying a 
-transformation to the escape count (the pixel value), and mapping that to a color map. Here are some pointers:</p>
-<ul>
-<li><a href="https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set">Plotting algorithms for the Mandelbrot set</a></li>
-<li><a href="https://stackoverflow.
-  com/questions/16500656/which-color-gradient-is-used-to-color-mandelbrot-in-wikipedia">A related question on stackoverflow</a></li>
-<li><a href="https://www.codingame.com/playgrounds/2358/how-to-plot-the-mandelbrot-set/adding-some-colors">How to plot the mandelbrot set - adding some colors</a></li>
+</li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>On your local machine you must first install a MPI library for your OS, before you can <code>pip install mpi4py</code>.</p>
+</div>
+<h2 id="dask-mpi">Dask-MPI</h2>
+<p>The Dask-MPI project makes it easy to deploy Dask from within an existing MPI environment, such as one created with 
+the common MPI command-line launchers mpirun or mpiexec. Such environments are commonly found in high performance 
+supercomputers, academic research institutions, and other clusters where MPI has already been installed. The dask 
+documentation is <a href="https://docs.dask.org/en/stable/">here</a>. </p>
+<p><a href="https://docs.dask.org/en/stable/futures.html">Dask futures</a> provide a simple approach to distribute the computation 
+of a function for a list of arguments over a number of workers and gather the results. The approach reserves one cpu 
+for the scheduler (rank 0) and one for the client script (rank 1). All remaining ranks are <code>dask</code> workers. Here is 
+a typical example that computes the square of each item in an iterable using an arbitrary number of dask workers: </p>
+<pre><code class="language-python">from mpi4py import MPI
+from dask_mpi import initialize
+initialize()
+# Create a Client object
+from distributed import Client
+client = Client()
+
+def square(i):
+    result = i*i
+    # a print statement, just to see which worker is computing which result:
+    print(f'rank {MPI.COMM_WORLD.Get_rank()}: {i=}**2 = {result}') 
+    return result
+
+if __name__ == &quot;__main__&quot;:
+    # Apply the square method to 0, 1, ..., 999 using the available workers
+    futures = client.map(square, range(1000))
+    # client.map() returns immediately after the work is distributed. 
+    # Typically, this is well before the actual work itself is finished. 
+
+    # Gather the results
+    results = client.gather(futures)
+    # client.gather() can only return after all the work is done, obviously.
+
+    print('-*# finished #*-')
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>At the time of writing, dask is not installed as an LMOD module on the cluster. So you must install it yourself.
+Make sure you first source the <code>wetppr-env.sh</code> script mentioned in <a href="#lmod-modules">LMOD modules</a>.</p>
+</div>
+<p>To install <code>dask_mpi</code>, run:</p>
+<pre><code class="language-shell">&gt; . path/to/wetppr-env.sh
+&gt; python -m pip install --user dask_mpi --upgrade
+&gt; python -m pip install --user dask distributed --upgrade    
+</code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Dask-MPI builds on mpi4py, so, MPI and mpi4py need to be available in your environment. </p>
+</div>
 
 
 
