@@ -388,6 +388,24 @@ The job is submitted for execution by executing this command in a terminal runni
 > sbatch hello_world.slurm
 ```
 
+If all goes well, ``sbatch`` responds with something like
+
+```shell
+Submitted batch job 708158
+```
+
+Where ``708158`` is the job id. 
+
+The job is now in the job queue. You can check the status of all your submitted jobs with the ``squeue`` command:
+
+```shell
+> squeue
+             JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+            708158      zen2 hello_wo vsc20170 PD       0:00      1 (Priority)
+```
+The ``ST`` column shows the status of your job. ``PD `` means 'pending', the job is waiting for resource allocation. It will eventually run. Once running, it will show ``R`` as a status code and the ``TIME`` column will show the walltime of the job.
+
+
 The job script has four sections
 
 ### Shebang
