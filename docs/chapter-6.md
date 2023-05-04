@@ -59,6 +59,7 @@ def square(i):
     result = i*i
     # a print statement, just to see which worker is computing which result:
     print(f'rank {MPI.COMM_WORLD.Get_rank()}: {i=}**2 = {result}') 
+    # Note that the order of the output of the print statements does NOT correspond to the execution order.
     return result
 
 if __name__ == "__main__":
@@ -81,12 +82,16 @@ if __name__ == "__main__":
 To install ``dask_mpi``, run:
 
 ```shell
-> . path/to/wetppr-env.sh
+> . path/to/wetppr-env.sh     # to set $PYTHONUSERBASE
 > python -m pip install --user dask_mpi --upgrade
 > python -m pip install --user dask distributed --upgrade    
 ```
 
+!!! note
+    This installs ``dask_mpi``, ``dask`` and ``dask.distributed`` into the directory specified by ``$PYTHONUSERBASE``. 
+    This environment variable must also be available to the job. If ``$PYTHONUSERBASE`` is not set in your 
+    ``~/.bashrc`` file, you must set it in the job script. 
+
 !!! note 
     Dask-MPI builds on mpi4py, so, MPI and mpi4py need to be available in your environment. 
-
 

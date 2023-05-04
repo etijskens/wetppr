@@ -363,7 +363,7 @@ Rather executing a command to perform the computation that you want, you send a 
 to the scheduler. In that request you must specify the resources you need, setup the environment, including necessary
 LMOD modules, and the command you want to execute.
 
-Here is a typical _hello_world_ job script ``hello_world.slurm``:
+Here is a typical _hello_world_ job script ``hello_world.slurm`` (You can find it in the ``wetppr/scripts/vaughan_examples`` directory of the [wetppr github repo](https://)):
 
 ```shell
 #!/bin/bash                               # 1 Shebang
@@ -389,10 +389,7 @@ The job is submitted for execution by executing this command in a terminal runni
 > cd path/to/wetppr/scripts/vaughan_examples
 > sbatch hello_world.slurm
 ```
-!!! note 
-    First cd into the directory containing the job script.
-
-If all goes well, ``sbatch`` responds with something like
+(Note that we first cd into the directory containing the job script.) If all goes well, ``sbatch`` responds with something like
 
 ```shell
 Submitted batch job 709521
@@ -422,7 +419,9 @@ total 12
 ...
 ```
 
-File ``hello_world.709521.stderr`` contains the output written by the job to stderr. If there are no errors, it generally empty, as indicated here by the 0 file size. File ``hello_world.709521.stdout`` contains the output written by the job to stdout. Here it is:
+File ``hello_world.709521.stderr`` contains the output written by the job to stderr. If there are no errors, it 
+is generally empty, as indicated here by the 0 file size. File ``hello_world.709521.stdout`` contains the output 
+written by the job to stdout. Here it is:
 
 ```shell
 Currently Loaded Modules:
@@ -446,7 +445,9 @@ rank=5/64
 rank=25/64
 ```
 
-The lines following ``Currently Loaded Modules:`` represent the output of the ``module list`` command. The subsequent lines ``rank=<rank>/64`` represent the output of the ``print`` statement in the ``hello_world.py`` script. Each rank produces one printed line in random order (this is because of OS jitter).
+The lines following ``Currently Loaded Modules:`` represent the output of the ``module list`` command. The 
+subsequent lines ``rank=<rank>/64`` represent the output of the ``print`` statement in the ``hello_world.py`` script.
+Each rank produces one printed line in random order (this is because of OS jitter). 
 
 The job script has four sections:
 
@@ -497,7 +498,7 @@ ends and also when it fails for some reason.
 #SBATCH -–mail-user=<your e-mail address>
 ```
 
-If you leave out the ``--mail-user``, the e-mail address associated with your VSC account is used.
+If you leave out the ``--mail-user``, the e-mail address 
 
 Finally, it is convenient to specify a name for the job and its output files. 
 
