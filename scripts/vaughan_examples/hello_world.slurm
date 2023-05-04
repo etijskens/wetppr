@@ -8,7 +8,9 @@
 #SBATCH -e %x.%j.stderr
 
 module --force purge
-module load calcua/2021a
+module load calcua/2020a
 module load Python
+module list
+set | grep -i "mpi\|slurm"
 
-srun --mpi=pmix python hello_world.py
+srun  python hello_world.py

@@ -367,7 +367,7 @@ Here is a typical _hello_world_ job script ``hello_world.slurm``:
 
 ```shell
 #!/bin/bash                               # 1 Shebang
-#SBATCH --ntasks=64 --cpus-per-task=1     # 2 job script parameters
+#SBATCH --ntasks=64 --cpus-per-task=1     # 2 SLURM job script parameters
 #SBATCH --time=00:05:00                   # 2
 #SBATCH --mail-type=BEGIN,END,FAIL        # 2
 #SBATCH -–mail-user=<your e-mail address> # 2
@@ -376,50 +376,92 @@ Here is a typical _hello_world_ job script ``hello_world.slurm``:
 #SBATCH -e %x.%j.stderr                   # 2
 
 module --force purge                      # 3 Setup execution environment
-module load calcua/2021a                  # 3
+module load calcua/2020a                  # 3
 module load Python                        # 3
+module list                               # 3
 
-srun --mpi=pmix python hello_world.py     # 4 Job execution commands
+srun python hello_world.py                # 4 Job command(s)
 ```
 
 The job is submitted for execution by executing this command in a terminal running a session on a login node:
 
 ```shell
+> cd path/to/wetppr/scripts/vaughan_examples
 > sbatch hello_world.slurm
 ```
-
-If all goes well, ``sbatch`` responds with something like
+(Note that we first cd into the directory containing the job script.) If all goes well, ``sbatch`` responds with something like
 
 ```shell
-Submitted batch job 708158
+Submitted batch job 709521
 ```
 
-Where ``708158`` is the job id. 
+Where ``709521`` is the job id. 
 
 The job is now in the job queue. You can check the status of all your submitted jobs with the ``squeue`` command:
 
 ```shell
 > squeue
              JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
-            708158      zen2 hello_wo vsc20170 PD       0:00      1 (Priority)
+            709521      zen2 hello_wo vsc20170 PD       0:00      1 (Priority)
 ```
-The ``ST`` column shows the status of your job. ``PD `` means 'pending', the job is waiting for resource allocation. It will eventually run. Once running, it will show ``R`` as a status code and the ``TIME`` column will show the walltime of the job.
+The ``ST`` column shows the status of your job. ``PD `` means 'pending', the job is waiting for resource allocation. 
+It will eventually run. Once running, it will show ``R`` as a status code and the ``TIME`` column will show the 
+walltime of the job. Once completed the status will be 'CD' and after some minutes, it will disappear from the 
+output of the ``squeue`` command. The directory ``wetppr/scripts/vaughan_examples`` now contains two extra files:
 
+```shell
+> ls -l
+total 12
+-rw-rw-r-- 1 vsc20170 vsc20170   0 May  4 12:04 hello_world.709521.stderr
+-rw-rw-r-- 1 vsc20170 vsc20170 576 May  4 12:04 hello_world.709521.stdout
+-rw-rw-r-- 1 vsc20170 vsc20170 126 May  4 11:38 hello_world.py
+-rw-rw-r-- 1 vsc20170 vsc20170 346 May  4 12:01 hello_world.slurm
+...
+```
 
-The job script has four sections
+File ``hello_world.709521.stderr`` contains the output written by the job to stderr. If there are no errors, it generally empty, as indicated here by the 0 file size. File ``hello_world.709521.stdout`` contains the output written by the job to stdout. Here it is:
+
+```shell
+Currently Loaded Modules:
+  1) calcua/2020a
+  2) GCCcore/9.3.0
+  3) binutils/2.34-GCCcore-9.3.0
+  4) intel/2020a
+  5) baselibs/2020a-GCCcore-9.3.0
+  6) Tcl/8.6.10-intel-2020a
+  7) X11/2020a-GCCcore-9.3.0
+  8) Tk/8.6.10-intel-2020a
+  9) SQLite/3.31.1-intel-2020a
+ 10) HDF5/1.10.6-intel-2020a-MPI
+ 11) METIS/5.1.0-intel-2020a-i32-fp64
+ 12) SuiteSparse/5.7.1-intel-2020a-METIS-5.1.0
+ 13) Python/3.8.3-intel-2020a
+rank=6/64
+rank=7/64
+rank=5/64
+...
+rank=25/64
+```
+
+The lines following ``Currently Loaded Modules:`` represent the output of the ``module list`` command. The subsequent lines ``rank=<rank>/64`` represent the output of the ``print`` statement in the ``hello_world.py`` script. Each rank produces one printed line in random order (this is because of OS jitter).
+
+The job script has four sections:
+
+- the shebang
+- SLURM job script parameters 
+- setup of the job's execution environment
+- the actual job commands 
 
 ### Shebang
 
-The first line, starting with ``#!`` (the [_shebang_](https://linuxhandbook.com/shebang/)), sets the system ``bash`` 
-as the interpreter of a job script:  
+The first line, starting with ``#!`` is the [_shebang_](https://linuxhandbook.com/shebang/)). It is mandatory and sets the system ``bash`` 
+as the interpreter of the job script:  
 
 ```shell
 #!/bin/bash
 ```
 
-(This is mandatory).
-
-### Job script parameters
+### SLURM job script parameters
 
 After the *shebang* the Slurm job script parameters are specified. They all start with ``#SBATCH``.
 The second line selects the number of tasks (processes) and cpus per process to be used for your job:
@@ -451,6 +493,8 @@ ends and also when it fails for some reason.
 #SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH -–mail-user=<your e-mail address>
 ```
+
+If you leave out the ``--mail-user``, the e-mail address 
 
 Finally, it is convenient to specify a name for the job and its output files. 
 
