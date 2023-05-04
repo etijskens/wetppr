@@ -389,7 +389,10 @@ The job is submitted for execution by executing this command in a terminal runni
 > cd path/to/wetppr/scripts/vaughan_examples
 > sbatch hello_world.slurm
 ```
-(Note that we first cd into the directory containing the job script.) If all goes well, ``sbatch`` responds with something like
+!!! note 
+    First cd into the directory containing the job script.
+
+If all goes well, ``sbatch`` responds with something like
 
 ```shell
 Submitted batch job 709521
@@ -494,7 +497,7 @@ ends and also when it fails for some reason.
 #SBATCH -–mail-user=<your e-mail address>
 ```
 
-If you leave out the ``--mail-user``, the e-mail address 
+If you leave out the ``--mail-user``, the e-mail address associated with your VSC account is used.
 
 Finally, it is convenient to specify a name for the job and its output files. 
 
