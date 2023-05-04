@@ -1073,7 +1073,11 @@ srun python hello_world.py                # 4 Job command(s)
 <pre><code class="language-shell">&gt; cd path/to/wetppr/scripts/vaughan_examples
 &gt; sbatch hello_world.slurm
 </code></pre>
-<p>(Note that we first cd into the directory containing the job script.) If all goes well, <code>sbatch</code> responds with something like</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>First cd into the directory containing the job script.</p>
+</div>
+<p>If all goes well, <code>sbatch</code> responds with something like</p>
 <pre><code class="language-shell">Submitted batch job 709521
 </code></pre>
 <p>Where <code>709521</code> is the job id. </p>
@@ -1149,7 +1153,7 @@ ends and also when it fails for some reason.</p>
 <pre><code class="language-shell">#SBATCH --mail-type=BEGIN,END,FAIL
 #SBATCH -–mail-user=&lt;your e-mail address&gt;
 </code></pre>
-<p>If you leave out the <code>--mail-user</code>, the e-mail address </p>
+<p>If you leave out the <code>--mail-user</code>, the e-mail address associated with your VSC account is used.</p>
 <p>Finally, it is convenient to specify a name for the job and its output files. </p>
 <pre><code class="language-shell">#SBATCH --job-name hello_world
 #SBATCH -o %x.%j.stdout
