@@ -363,7 +363,8 @@ Rather executing a command to perform the computation that you want, you send a 
 to the scheduler. In that request you must specify the resources you need, setup the environment, including necessary
 LMOD modules, and the command you want to execute.
 
-Here is a typical _hello_world_ job script ``hello_world.slurm`` (You can find it in the ``wetppr/scripts/vaughan_examples`` directory of the [wetppr github repo](https://)):
+Here is a typical 'hello world' job script ``mpi4py_hello_world.slurm`` (You can find it in the 
+``wetppr/scripts/vaughan_examples`` directory of the [wetppr github repo](https://)):
 
 ```shell
 #!/bin/bash                               # 1 Shebang
@@ -371,7 +372,7 @@ Here is a typical _hello_world_ job script ``hello_world.slurm`` (You can find i
 #SBATCH --time=00:05:00                   # 2
 #SBATCH --mail-type=BEGIN,END,FAIL        # 2
 #SBATCH -–mail-user=<your e-mail address> # 2
-#SBATCH --job-name hello_world            # 2
+#SBATCH --job-name mpi4py_hello_world     # 2
 #SBATCH -o %x.%j.stdout                   # 2
 #SBATCH -e %x.%j.stderr                   # 2
 
@@ -380,14 +381,14 @@ module load calcua/2020a                  # 3
 module load Python                        # 3
 module list                               # 3
 
-srun python hello_world.py                # 4 Job command(s)
+srun python mpi4py_hello_world.py         # 4 Job command(s)
 ```
 
 The job is submitted for execution by executing this command in a terminal running a session on a login node:
 
 ```shell
 > cd path/to/wetppr/scripts/vaughan_examples
-> sbatch hello_world.slurm
+> sbatch mpi4py_hello_world.slurm
 ```
 (Note that we first cd into the directory containing the job script.) If all goes well, ``sbatch`` responds with something like
 
@@ -402,7 +403,7 @@ The job is now in the job queue. You can check the status of all your submitted 
 ```shell
 > squeue
              JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
-            709521      zen2 hello_wo vsc20170 PD       0:00      1 (Priority)
+            709521      zen2 mpi4py_h vsc20170 PD       0:00      1 (Priority)
 ```
 The ``ST`` column shows the status of your job. ``PD `` means 'pending', the job is waiting for resource allocation. 
 It will eventually run. Once running, it will show ``R`` as a status code and the ``TIME`` column will show the 
@@ -412,15 +413,15 @@ output of the ``squeue`` command. The directory ``wetppr/scripts/vaughan_example
 ```shell
 > ls -l
 total 12
--rw-rw-r-- 1 vsc20170 vsc20170   0 May  4 12:04 hello_world.709521.stderr
--rw-rw-r-- 1 vsc20170 vsc20170 576 May  4 12:04 hello_world.709521.stdout
--rw-rw-r-- 1 vsc20170 vsc20170 126 May  4 11:38 hello_world.py
--rw-rw-r-- 1 vsc20170 vsc20170 346 May  4 12:01 hello_world.slurm
+-rw-rw-r-- 1 vsc20170 vsc20170   0 May  4 12:04 mpi4py_hello_world.709521.stderr
+-rw-rw-r-- 1 vsc20170 vsc20170 576 May  4 12:04 mpi4py_hello_world.709521.stdout
+-rw-rw-r-- 1 vsc20170 vsc20170 126 May  4 11:38 mpi4py_hello_world.py
+-rw-rw-r-- 1 vsc20170 vsc20170 346 May  4 12:01 mpi4py_hello_world.slurm
 ...
 ```
 
-File ``hello_world.709521.stderr`` contains the output written by the job to stderr. If there are no errors, it 
-is generally empty, as indicated here by the 0 file size. File ``hello_world.709521.stdout`` contains the output 
+File ``mpi4py_hello_world.709521.stderr`` contains the output written by the job to stderr. If there are no errors, it 
+is generally empty, as indicated here by the 0 file size. File ``mpi4py_hello_world.709521.stdout`` contains the output 
 written by the job to stdout. Here it is:
 
 ```shell
@@ -438,15 +439,14 @@ Currently Loaded Modules:
  11) METIS/5.1.0-intel-2020a-i32-fp64
  12) SuiteSparse/5.7.1-intel-2020a-METIS-5.1.0
  13) Python/3.8.3-intel-2020a
-rank=6/64
-rank=7/64
-rank=5/64
+Hello from rank=7/64
+Hello from rank=5/64
 ...
-rank=25/64
+Hello from rank=25/64
 ```
 
 The lines following ``Currently Loaded Modules:`` represent the output of the ``module list`` command. The 
-subsequent lines ``rank=<rank>/64`` represent the output of the ``print`` statement in the ``hello_world.py`` script.
+subsequent lines ``rank=<rank>/64`` represent the output of the ``print`` statement in the ``mpi4py_hello_world.py`` script.
 Each rank produces one printed line in random order (this is because of OS jitter). 
 
 The job script has four sections:
@@ -503,14 +503,14 @@ If you leave out the ``--mail-user``, the e-mail address
 Finally, it is convenient to specify a name for the job and its output files. 
 
 ```shell
-#SBATCH --job-name hello_world
+#SBATCH --job-name mpi4py_hello_world
 #SBATCH -o %x.%j.stdout
 #SBATCH -e %x.%j.stderr
 ```
 
-As the job script is executing the Python script ``hello_world.py`` and was therefor named ``hello_world.slurm``,
-the job name is correspondingly set to ``hello_world``. The output to ``stdout`` and ``stderr`` is then redirected
-to ``hello_world.<jobid>.stdout`` and ``hello_world.<jobid>.stderr``, resp. This ensures that an alphabetical 
+As the job script is executing the Python script ``mpi4py_hello_world.py`` and was therefor named ``mpi4py_hello_world.slurm``,
+the job name is correspondingly set to ``mpi4py_hello_world``. The output to ``stdout`` and ``stderr`` is then redirected
+to ``mpi4py_hello_world.<jobid>.stdout`` and ``mpi4py_hello_world.<jobid>.stderr``, resp. This ensures that an alphabetical 
 listing of files will group all files corresponding to and produced by this job script. 
 
 ### Setup of the job's execution environment
@@ -549,7 +549,7 @@ job is executed for later reference.:
 The job script ends with a list of (``bash``) commands that compose the job: 
 
 ```shell
-srun --mpi=pmix python hello_world.py
+srun python mpi4py_hello_world.py
 ```
 
 The ``srun`` command calls mpirun with the resources requested in the [Job script parameters][job-script-parameters]

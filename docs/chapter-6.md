@@ -5,7 +5,7 @@ local machine if you install MPI, mpi4py and dask_mpi. To execute a python scrip
 on Vaughan, you must execute a job script with the command 
 
 ```shell
-srun --mpi=pmix python script.py <script parameters>
+srun python script.py <script parameters>
 ```
 
 This will automatically run the script with the requested resources. For more information about submitting 
