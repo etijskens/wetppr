@@ -483,7 +483,7 @@
 <p>These tools can be used for parallellizing a problem on the cluster (<em>e.g.</em> Vaughan), but also on your 
 local machine if you install MPI, mpi4py and dask_mpi. To execute a python script <code>script.py</code> in parallel 
 on Vaughan, you must execute a job script with the command </p>
-<pre><code class="language-shell">srun --mpi=pmix python script.py &lt;script parameters&gt;
+<pre><code class="language-shell">srun python script.py &lt;script parameters&gt;
 </code></pre>
 <p>This will automatically run the script with the requested resources. For more information about submitting 
 job scripts see <a class="autorefs autorefs-internal" href="../vsc-infrastructure/#submitting-jobs-on-vaughan">Submitting jobs on Vaughan</a>. </p>
@@ -529,6 +529,7 @@ def square(i):
     result = i*i
     # a print statement, just to see which worker is computing which result:
     print(f'rank {MPI.COMM_WORLD.Get_rank()}: {i=}**2 = {result}') 
+    # Note that the order of the output of the print statements does NOT correspond to the execution order.
     return result
 
 if __name__ == &quot;__main__&quot;:
@@ -549,10 +550,16 @@ if __name__ == &quot;__main__&quot;:
 Make sure you first source the <code>wetppr-env.sh</code> script mentioned in <a class="autorefs autorefs-internal" href="../vsc-infrastructure/#lmod-modules">LMOD modules</a>.</p>
 </div>
 <p>To install <code>dask_mpi</code>, run:</p>
-<pre><code class="language-shell">&gt; . path/to/wetppr-env.sh
+<pre><code class="language-shell">&gt; . path/to/wetppr-env.sh     # to set $PYTHONUSERBASE
 &gt; python -m pip install --user dask_mpi --upgrade
 &gt; python -m pip install --user dask distributed --upgrade    
 </code></pre>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This installs <code>dask_mpi</code>, <code>dask</code> and <code>dask.distributed</code> into the directory specified by <code>$PYTHONUSERBASE</code>. 
+This environment variable must also be available to the job. If <code>$PYTHONUSERBASE</code> is not set in your 
+<code>~/.bashrc</code> file, you must set it in the job script. </p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Dask-MPI builds on mpi4py, so, MPI and mpi4py need to be available in your environment. </p>
