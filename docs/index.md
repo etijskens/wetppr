@@ -1,4 +1,4 @@
-# Wellcome at Parallel programming
+# Welcome at Parallel programming
 
 # *Welkom bij Parallel programmeren*
 
