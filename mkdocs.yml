@@ -1,33 +1,28 @@
-site_name: Parallel programmeren
+site_name: Parallel Programming
 
 theme:
-  name: "material"
-
-nav:
-  - index.md
-  - over-de-auteur.md
-  - glossary.md
-  - links.md
-  - overview.md
-  - chapter-1.md
-  - chapter-2.md
-  - chapter-3.md
-  - chapter-4.md
-  - chapter-5.md
-  - chapter-6.md
-  - evaluation.md
-  - vsc-infrastructure.md
+  name: lumen
 
 markdown_extensions:
-    - markdown.extensions.admonition
-    - mdx_math:
-        enable_dollar_delimiter: True #for use of inline $..$
+  - markdown.extensions.admonition
+  - mdx_math:
+      enable_dollar_delimiter: True #for use of inline $..$
 
 extra_javascript:
-    - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML
 
 plugins:
   - search
   - autorefs
   - mkdocstrings
   - mkdocs-video
+
+nav:
+  - index.md
+  - glossary.md
+  - links.md
+  - overview.md
+  - course-text.md
+  - exercices.md
+  - evaluation.md
+  - vsc-infrastructure.md

@@ -1,27 +1,24 @@
 # Overview
 
-## Goals 
+## Goals of the course
 
-- What is parallel programming?
-- Why parallel programming?
-  - Performance is important
-- How to parallelize a program?
-  - Tools
-  - Principles and *best practices*
-  - Strategy for scientific software development
+- Parallel programming?
+  - What? 
+    - Distribute work over many CPUs
+  - why?
+    - Shorter time to solution
+    - Bigger problems
+    - higher accuracy
+  - how?
+    - tools: OpenMP, MPI
+    - Principles and *best practices*
+    - A strategy for scientific software development
+      - Python + C++/Modern Fortran
 
-## Background knowledge
+## Performance aspects of modern CPU architecture and hierarchical memory
+    
+- A short introduction: 
+  [Memory location matters for performance](https://pythonspeed.com/articles/performance-memory-locality/)
+- A very good talk about this topic, you need to see this: 
+  [Scott Meyers on *Cpu Caches and Why You Care*](https://www.youtube.com/watch?v=WDIkqP4JbkE) 
 
-- The working of a modern processor
-  - CPU architectory and hierarchical memory architecture
-    - A short introduction: [Memory location matters for performance](https://pythonspeed.
-      com/articles/performance-memory-locality/)
-    - A very good talk about this topic, you need to see this: [Scott Meyers on *Cpu Caches 
-      and Why You Care*](https://www.youtube.com/watch?v=WDIkqP4JbkE) 
-  - Accelerators (GPU), increasingly important topic, but we cannot treate everything in this course. 
-- The architecture of a supercomputer
-  - Nodes
-  - Interconnect
-  - Accelerators (GPU), increasingly important topic, but we cannot treate everything in this course. 
-
-  

@@ -16,7 +16,7 @@ to ensure that you understand what you present.
 
 ## Assignment
 
-Here is this year's [assignment](assignment-2022-23.md).
+Here is this year's [assignment](assignment-2023-24.md).
 
 ## Use of VSC clusters for the assignment
 
