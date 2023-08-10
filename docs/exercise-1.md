@@ -16,13 +16,12 @@
    out with a Python implementation. Use a Python [list](https://docs.python.org/3/library/stdtypes.html?highlight=list#list)
    for representing the arrays. 
 
-2. Time the Python implementation for a range of array lengths. Repeat the timings when using a 
-   different type for representing the arrays, _e.g._ a Python [array.array](https://docs.python.org/3/library/array.
-   html), or a Numpy [array](https://numpy.org/doc/stable/reference/generated/numpy.array.html). 
-   Explain your observations.
+2. Time the Python implementation for a range of array lengths. 
 
 3. Try improving the timings by using the [numba](https://numba.readthedocs.io/en/stable/) `@jit`
-decorator.
+   decorator. Tip: use Numpy [arrays](https://numpy.org/doc/stable/reference/generated/numpy.array.html)
+   for storing your arrays instead of a Python [list](https://docs.python.org/3/library/stdtypes.html?
+   highlight=list#list).
 
 4. Try improving the code by providing your own C++ and/or Modern Fortran implementation.
 

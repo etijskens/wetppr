@@ -482,7 +482,7 @@ numbers is NOT commutative:
 2.7755575615628914e-17
 ```
 
-## 2. Timing 
+## 2. Timing your code
 
 Parallel programming is about getting the maximum performance out of the machine you are computing
 on. Whether that is your laptop, or a Tier-0 supercomputer does not matter. Timing your code is 
@@ -539,4 +539,99 @@ n=100000 dot(a, b) took 0.017176923499999996s
 n=1000000 dot(a, b) took 0.1444069864s
 .
 
-========================================= 6 passed in 10.63s ==========================================```
+========================================= 6 passed in 10.63s ==========================================
+```
+
+## 3.Using numba for speeding up your code
+
+Python is notoriously slow at executing loops. Moreover, the Python `list` is an extremely flexible 
+data structure, mimicking an array (it has an indexing operator that takes an integer). Actually, it
+is and array of pointers, each of which may point to an arbitrary type. As a consequence, iterating over 
+a Python `list` is extra slow because it does not use the cache optimally. A true array is a contiguous 
+piece of memory where each entry has the same data type.  Numpy 
+[arrays](https://numpy.org/doc/stable/reference/generated/numpy.array.html) are extremly useful for 
+scientific computing. The Numba [jit] decorator takes a Python method, translates the code into C and 
+compiles it. Together with a contiguous data structure this can achieve significant speedups.
+
+### A Numba accelerated version of the `dot` method
+
+The standard way to create a Numba accelerated version of a method is to precede its definition with
+the `@jit` decorator:
+
+```python
+from numba import jit
+@jit
+def dot(a, b):
+    ...
+
+```
+
+The first time the `dot` method is called, it is compiled and then applied. All subsequent calls directly
+apply the compiled version. The decorator approach hides the original Python version. This is impractical 
+if we want to compare the timings of both versions. We can keep both versions like this:
+
+```python
+# File dot/__init__.py
+from numba import jit
+def dot(a, b):
+    ...
+
+nb_dot = jit(dot)
+```
+
+If we want the Python version, we call `dot`, the `numba.jit` accelerated version is called as `nb_dot`.
+
+Let's add a timing function to our tests (using Numpy arrays instead of Python lists):
+
+```python
+import numpy as np
+def test_time_numba():
+    print(f'\ntest_time_numba()')
+    n_repetitions = 10
+    print(f'{n_repetitions=}')
+    for n in [1_000, 10_000, 100_000, 1_000_000]:
+        # a = [random.random() for i in range(n)] 
+        # b = [random.random() for i in range(n)]
+        # python lists are replaced with numpy arrays
+        a = np.random.random(n)
+        b = np.random.random(n)
+        t0 = perf_counter()
+        for _ in range(n_repetitions):
+            a_dot_b = nb_dot(a, b)
+        seconds = (perf_counter() - t0) / n_repetitions
+        print(f'{n=} dot(a, b) took {seconds}s')
+```
+
+Here are the timings:
+
+```shell
+> pytest tests -s
+========================================= test session starts =========================================
+platform darwin -- Python 3.9.5, pytest-7.4.0, pluggy-1.2.0
+rootdir: /Users/etijskens/software/dev/workspace/Dot
+collected 8 items
+
+tests/dot/test_dot.py .....
+test_time()
+n_repetitions=10
+n=1000 dot(a, b) took 9.876120000000821e-05s
+n=10000 dot(a, b) took 0.0012254463999999965s
+n=100000 dot(a, b) took 0.011126110799999988s
+n=1000000 dot(a, b) took 0.1173576513s
+.
+test_time_numba()
+n_repetitions=10
+n=1000 dot(a, b) took 0.055231137799999885s
+n=10000 dot(a, b) took 1.419590000004689e-05s
+n=100000 dot(a, b) took 0.00015608759999992118s
+n=1000000 dot(a, b) took 0.0019177367999999363s
+.
+
+==================================== 8 passed, 1 warning in 10.99s ====================================
+```
+
+The speedup for the largest arrays is 0.1174/0.001918 = 61.20. 
+
+##
+
+At this point is  
