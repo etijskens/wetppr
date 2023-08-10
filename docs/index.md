@@ -7,7 +7,7 @@ Faculty of Science, Academic year 2023-24,
 2. [Glossary](glossary.md)
 3. [Links](links.md)
 4. [Course text](course-text.md)
-5. [Exercices](exercices.md)
+5. [Exercises](exercises.md)
 4. [Evaluation](evaluation.md)
 5. [VSC infrastructure](vsc-infrastructure.md)
 0. [About the author](about-the-author.md)
