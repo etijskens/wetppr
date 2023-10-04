@@ -32,17 +32,21 @@
 
 ## Project management
 
-- [micc2](https://et-micc2.readthedocs.io/en/latest/index.html): managing your Python/C++/Fortran project, helps with
+- [wiptools](https://etijskens.github.io/wiptools): managing your Python/C++/Fortran project. Wiptools facilitates
 
-  - creating new projects
-  - adding Python sub-modules, Python applications (CLIs), binary extension modules written in C++ and Fortran. 
-  - automatically extracting documentation from the doc-strings of your files (html or pdf)
-  - (unit) testing ([pytest](https://docs.pytest.org/en/7.2.x/))
-  - publishing the documentation on [readthedocs](https://readthedocs.org)
-  - publishing your code on the [Python package index](https://pypi.org) 
-  - version management and control (on [GitHub](https://github.com))
+    - creating new projects
+    - adding Python sub-modules, Python applications (CLIs), binary extension modules written in C++ and Fortran. 
+    - automatically extracting documentation from the doc-strings of your files (html or pdf)
+    - (unit) testing ([pytest](https://docs.pytest.org/en/7.2.x/))
+    - publishing the documentation on [readthedocs](https://readthedocs.org)
+    - publishing your code on the [Python package index](https://pypi.org) 
+    - version management and control (on [GitHub](https://github.com)). If you are not familiar
+      with git, [here](https://coderefinery.github.io/git-intro/) is an excellent starting point.
 
 ## Other courses
 
-- [This](https://hands-on.coderefinery.org)
+- [CodeRefinery](https://coderefinery.org/lessons/from-coderefinery/) 
+  teaches _all the essential tools which are usually skipped in academic education_. 
+  Especially useful is the [Introduction to git](https://coderefinery.github.io/git-intro/).
+- [Hands-on Scientific Computing](https://hands-on.coderefinery.org) 
 - [The Missing Semester of Your CS Education](https://missing.csail.mit.edu/)

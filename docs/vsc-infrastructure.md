@@ -8,10 +8,10 @@ needed may be a bit more substantial.
 !!! Note "Note for students"
     These topics are logically ordered. Make sure that you carry out ***all*** the tasks in the order described.
 
-In this course we often use the terms _local_ and _remote_. ***Local*** refers to the physical machine you are
-working on, _i.e._ your desktop or laptop. ***Remote***, on the other hand refers to a machine which is, typically,
-at some other place, and which you are accessing through your local machine and a network connection with the remote
-machine.
+In this course we often use the terms _local_ and _remote_. The term **local** refers to the physical machine you are
+working on, _i.e._ your desktop or laptop, whereas **remote**, on the other hand refers to a machine which is, 
+typically, at some other place, and which you are accessing through your local machine and a network connection with the 
+remote machine.
 
 ## Preparing for the VSC infrastructure in 2000WETPPR
 
@@ -20,12 +20,12 @@ machine.
 !!! Note
     This section is ***only for students of the course 2000wetppr***.
 
-    Students of the course 2000wetppr must apply for a guest account to access the university's HPC clusters unless
+    Students of the course 2000wetppr must apply for a guest account to access the university's HPC clusters, unless
     they already have a VSC account. The project work (see [Evaluation](evaluation)) requires access to one of the
     university's HPC clusters.
 
 To apply for a guest account, create a SSH public/private key pair (see below) and send it by e-mail to
-franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in cc. A ***guest account*** will subsequently
+franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in cc. A guest account will subsequently
 be created for you.
 
 ### Applying for a VSC account
@@ -121,8 +121,13 @@ Welcome to VAUGHAN !
 ...
 ```
 
-If the key is in sub-directory `.ssh` of you home directory, the `-i path/to/my/private-ssh-key` can be omitted.
+!!! Note
+    If the key is in sub-directory `.ssh` of you home directory, the `-i path/to/my/private-ssh-key` can be omitted.
 
+The `ssh` command above, connects your terminal session to the **login node** of the Vaughan cluster.
+This is where users execute simple tasks like job preparation, organization their workspace and projects,
+create input data, software development, small tests, ... Computational tasks, on the other hand, are
+executed on ***compute nodes*** (see below, [Submitting jobs on Vaughan][submitting-jobs-on-vaughan]).
 After the command is finished, you can use the terminal as if you were working on the login node. The
 current working directory will be a location in your file system on the cluster, rather than on your local machine.
 
@@ -242,7 +247,7 @@ you can still fix the problem by moving the `.vscode-server` directory and soft-
 
 A HPC cluster provides you with many installed software packages. However, none of them are immediately available.
 To make a package available, you must `load` the corresponding software module (this is a different _module_ than
-the Python modules, also known as **`LMOD` modules**). Here is a list of `LMOD` modules you may need for the project
+the Python modules, also known as **LMOD modules**). Here is a list of LMOD modules you may need for the project
 work:
 
 - `Python`,the default python distribution (= Intel Python 3.8.3, at the time of writing), also provides [`numpy`]
@@ -302,6 +307,8 @@ to load all modules and to modify the environment variables `PYTHONUSERBASE` and
     discover that such scripts depend on the project you work on, and that it is better to have it somewhere in your
     project directory.
 
+#TODO: ## replace micc2 with wiptools
+
 #### Micc2
 
 [Micc2](https://et-micc2.readthedocs.io/en/latest/index.html) is a Python package that simplifies your project
@@ -355,20 +362,27 @@ You will also need `pybind11` if you want to use `micc2` for building binary ext
 
 ## Submitting jobs on Vaughan
 
+Unlike your personal computer, which you use mainly interactively, a supercomputer is mostly used in **batch mode**.
+Behind the ***login node*** you use to access the supercomputer and perform small tasks, there is a large collection 
+of **compute nodes**, which are used for the actual number crunching. These are interconnected through a fast network
+(type InfiniBand) so that many nodes can cooperate on the same problem by distributing the work and communicating the 
+results. To get a computational job done, you send a request to the **scheduler** in which you specify the resources 
+you need, how the environment must be set up, _e.g._ necessary LMOD modules, and the command you want to execute. Such
+a request is called a **job script**. The scheduler decides which compute nodes will be used for your job and when it 
+will be started, based on a fair share policy and the availability of the resources of the cluster. 
+
 Most modern supercomputers - Vaughan included - use [Slurm](https://slurm.schedmd.com) for resource management and 
 scheduling. An extensive description about using Vaughan can be found [here](https://calcua.uantwerpen.be/courses/hpc-intro/IntroductionHPC-20230313.pdf).
 
-Unlike your personal computer, which you use mainly interactively, a supercomputer is mostly used in batch mode. 
-Rather executing a command to perform the computation that you want, you send a request to execute that commmand 
-to the scheduler. In that request you must specify the resources you need, setup the environment, including necessary
-LMOD modules, and the command you want to execute.
+#TODO: ## fix link and code (mpi+openmp)
 
 Here is a typical 'hello world' job script ``mpi4py_hello_world.slurm`` (You can find it in the 
 ``wetppr/scripts/vaughan_examples`` directory of the [wetppr github repo](https://)):
 
 ```shell
 #!/bin/bash                               # 1 Shebang
-#SBATCH --ntasks=64 --cpus-per-task=1     # 2 SLURM job script parameters
+#SBATCH --nodes=2                         # 2 SLURM job script parameters
+#SBATCH --ntasks=64 --cpus-per-task=2     # 2 
 #SBATCH --time=00:05:00                   # 2
 #SBATCH --mail-type=BEGIN,END,FAIL        # 2
 #SBATCH -–mail-user=<your e-mail address> # 2
@@ -471,12 +485,13 @@ After the *shebang* the Slurm job script parameters are specified. They all star
 The second line selects the number of tasks (processes) and cpus per process to be used for your job:
 
 ```shell
-#SBATCH --ntasks=64 --cpus-per-task=1
+#SBATCH --nodes=2
+#SBATCH --ntasks=64 --cpus-per-task=2
 ```
 
-Here, 64 processes are requested, each process using one cpu for each process. Since the compute nodes of Vaughan 
-have 64 cores, this corresponds to requesting a single entire node. Typically, processes communicate via MPI and the 
-cpus of a process via OpenMP.  So, each core runs a process communicating with the other processes via MPI. 
+Here, 2 compute nodes are requested for 64 MPI processes , each process using 2 cpus for each process. 
+Since the compute nodes of Vaughan have 64 cores, this corresponds to requesting two entire nodes. 
+Typically, processes communicate via MPI and the cpus of a process via OpenMP.  
 
 Furthermore, we need to specify how long we suspect the job to run:
 

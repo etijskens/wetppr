@@ -2,14 +2,6 @@
 
 Here is an alphabetical list of terms with links to where they are explained in the text.
 
-## *
-
-- [*Local*** refers to the physical machine you are working on, _i.e._ your desktop or laptop. ][vsc-infrastructure]
-
-## `
-
-- [`LMOD` modules][lmod-modules]
-
 ## A
 
 - [address space][common-approaches-towards-parallelization]
@@ -47,6 +39,11 @@ Here is an alphabetical list of terms with links to where they are explained in 
 
 - [embarrassingly parallel][what-is-a-parallel-program]
 
+## G
+
+- [GitHub account][preconditions]
+- [GitHub personal access token][preconditions]
+
 ## H
 
 - [hardware thread][common-approaches-towards-parallelization]
@@ -61,6 +58,8 @@ Here is an alphabetical list of terms with links to where they are explained in 
 - [L1 cache][the-hierarchical-structure-of-cpu-memory]
 - [L2 cache][the-hierarchical-structure-of-cpu-memory]
 - [L3 cache][the-hierarchical-structure-of-cpu-memory]
+- [LMOD modules][lmod-modules]
+- [local][vsc-infrastructure]
 - [loop fusion][the-hierarchical-structure-of-cpu-memory]
 
 ## M
@@ -84,10 +83,12 @@ Here is an alphabetical list of terms with links to where they are explained in 
 - [pipeline stalls][instruction-pipelining]
 - [process][common-approaches-towards-parallelization]
 - [profiling][when-is-code-optimized-enough]
+- [Python 3.9][preconditions]
 
 ## R
 
 - [registers][the-hierarchical-structure-of-cpu-memory]
+- [remote][vsc-infrastructure]
 
 ## S
 

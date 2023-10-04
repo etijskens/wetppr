@@ -5,8 +5,8 @@
 #### Education
 
 Lic. Aard- en delfstofkunde, *Master in Physics of Microelectronics and Material Sciences*, Doctor in de 
-Natuurwetenschappen - ik heb dus eigenlijk geen opleiding genoten in programmeren of wetenschappelijk rekenen ... 
-maar veel opleidingen bijgewoond, en vooral veel gelezen tijdens mijn voortdurende zoektocht naar betere manieren 
+Natuurwetenschappen - ik heb dus eigenlijk geen opleiding genoten in programmeren of wetenschappelijk rekenen ...,  
+maar veel opleidingen bijgewoond en vooral veel gelezen tijdens mijn voortdurende zoektocht naar betere manieren 
 om de opdrachten waar ik voor stond uit te voeren.  
 
 #### Work

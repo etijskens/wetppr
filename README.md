@@ -1,8 +1,8 @@
 # 2000wetppr
 
-Materiaal voor de cursus Parallel programmeren.
+Material for course Parallel programming (University of Antwerp, 2000wetppr).
 
-Je kan alles [hier](https://etijskens.github.io/wetppr) online bekijken. 
+You can check everything  [here](https://etijskens.github.io/wetppr) online bekijken. 
 
-Note that this is **work in progress**. It is incomplete, unfinished and flawed, just as life. 
+This is **work in progress**. It is incomplete, unfinished and flawed, just as life. 
 However, sometimes *good enough is good enough* ;-). It will improve with time. 
