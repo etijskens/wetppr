@@ -12,7 +12,7 @@ module load SciPy-bundle
 module list
 
 # Add the project directory to the PATH so the python script can find the hello_omp binary extension module
-export PATH=../../../:${PATH}
+export PATH=/data/antwerpen/201/vsc20170/wetppr/:${PATH}
 echo "PATH = ${PATH}"
 
 # run the Python script hello-mpi4py.py on the requested resources
