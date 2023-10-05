@@ -8,7 +8,7 @@ license = "MIT"
 readme = 'README.rst'
 
 repository = "https://github.com/etijskens/wetppr"
-homepage = "https://github.com/etijskens/wetppr"
+homepage = "https://etijskens.github.io/wetppr"
 
 keywords = []
 
