@@ -13,7 +13,7 @@ namespace nb = nanobind;
 void
 hello_omp()
 {
-    int omp_thrd = 0, n_omp_thrds = 1;
+    int omp_thrd = -1, n_omp_thrds = -1;
 
   #pragma omp parallel default(shared) private(omp_thrd, n_omp_thrds)
     {

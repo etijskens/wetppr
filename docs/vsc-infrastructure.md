@@ -392,10 +392,24 @@ Here is a typical 'hello world' job script ``mpi4py_hello_world.slurm`` (You can
 
 module --force purge                      # 3 Setup execution environment
 module load calcua/2020a                  # 3
-module load Python                        # 3
+module load intel                         # 3
 module list                               # 3
 
-srun python mpi4py_hello_world.py         # 4 Job command(s)
+# build the program _build/hello-mpi-omp
+module load CMake
+mkdir -p _build
+cd _build
+cmake ..
+cmake --build .
+cd ..
+
+# set some environment variables to distribute the cpus optimally over the MPI processes
+export OMP_PROC_BIND=true
+export I_MPI_PIN_DOMAIN=omp,compact
+export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
+
+# run the program _build/hello-mpi-omp onl the requested resources
+srun --quiet -n${SLURM_NTASKS} -c${SLURM_CPUS_PER_TASK} --exclusive --unbuffered _build/hello-mpi-omp
 ```
 
 The job is submitted for execution by executing this command in a terminal running a session on a login node:
@@ -417,7 +431,7 @@ The job is now in the job queue. You can check the status of all your submitted 
 ```shell
 > squeue
              JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
-            709521      zen2 mpi4py_h vsc20170 PD       0:00      1 (Priority)
+           1154283      zen2 hello-mp vsc20170 PD       0:00      2 (Priority)
 ```
 The ``ST`` column shows the status of your job. ``PD `` means 'pending', the job is waiting for resource allocation. 
 It will eventually run. Once running, it will show ``R`` as a status code and the ``TIME`` column will show the 
@@ -427,37 +441,59 @@ output of the ``squeue`` command. The directory ``wetppr/scripts/vaughan_example
 ```shell
 > ls -l
 total 12
--rw-rw-r-- 1 vsc20170 vsc20170   0 May  4 12:04 mpi4py_hello_world.709521.stderr
--rw-rw-r-- 1 vsc20170 vsc20170 576 May  4 12:04 mpi4py_hello_world.709521.stdout
--rw-rw-r-- 1 vsc20170 vsc20170 126 May  4 11:38 mpi4py_hello_world.py
--rw-rw-r-- 1 vsc20170 vsc20170 346 May  4 12:01 mpi4py_hello_world.slurm
-...
+total 36
+drwxrwxr-x 3 vsc20170   134 Oct  5 09:11 _build/
+-rw-rw-r-- 1 vsc20170   488 Oct  4 18:31 CMakeLists.txt
+-rw-rw-r-- 1 vsc20170     0 Oct  5 09:11 hello-mpi-omp.1154283.stderr
+-rw-rw-r-- 1 vsc20170 19791 Oct  5 09:12 hello-mpi-omp.1154283.stdout
+-rw-rw-r-- 1 vsc20170  2589 Oct  5 08:50 hello-mpi-omp.c
+-rw-rw-r-- 1 vsc20170   496 Oct  5 08:44 hello-mpi-omp.slurm
+-rwxrwxr-x 1 vsc20170   430 Oct  5 09:57 sort.py*
 ```
 
-File ``mpi4py_hello_world.709521.stderr`` contains the output written by the job to stderr. If there are no errors, it 
-is generally empty, as indicated here by the 0 file size. File ``mpi4py_hello_world.709521.stdout`` contains the output 
-written by the job to stdout. Here it is:
+File ``hello-mpi-omp.1154283.stderr`` contains the output written by the job to stderr. If there are no errors, it 
+is generally empty, as indicated here by the 0 file size. File ``hello-mpi-omp.1154283.stdout`` contains the output 
+written by the job to stdout. The `module list` command produces an overview of all loaded modules:
 
 ```shell
 Currently Loaded Modules:
-  1) calcua/2020a
-  2) GCCcore/9.3.0
-  3) binutils/2.34-GCCcore-9.3.0
-  4) intel/2020a
-  5) baselibs/2020a-GCCcore-9.3.0
-  6) Tcl/8.6.10-intel-2020a
-  7) X11/2020a-GCCcore-9.3.0
-  8) Tk/8.6.10-intel-2020a
-  9) SQLite/3.31.1-intel-2020a
- 10) HDF5/1.10.6-intel-2020a-MPI
- 11) METIS/5.1.0-intel-2020a-i32-fp64
- 12) SuiteSparse/5.7.1-intel-2020a-METIS-5.1.0
- 13) Python/3.8.3-intel-2020a
-Hello from rank=7/64
-Hello from rank=5/64
-...
-Hello from rank=25/64
+  1) calcua/2022a                    7) UCX/1.12.1-GCCcore-11.3.0
+  2) GCCcore/11.3.0                  8) impi/2021.6.0-intel-compilers-2022.1.0
+  3) zlib/1.2.12-GCCcore-11.3.0      9) imkl/2022.1.0
+  4) binutils/2.38-GCCcore-11.3.0   10) iimpi/2022a
+  5) intel-compilers/2022.1.0       11) imkl-FFTW/2022.1.0-iimpi-2022a
+  6) numactl/2.0.14-GCCcore-11.3.0  12) intel/2022a
 ```
+
+Then there is some output produced by the CMake commands building the program `_build/hello-mpi-omp` that 
+subsequently is run in parallel on the requested resources. This produces a series of lines starting with 
+`Host=...`. Each MPI process produces  line like:
+
+```
+Host=r2c06cn3.vaughan  Pid=814085  MPI_rank=000/064                      CPU=0
+```
+
+printing, respectively, 
+
+* the name of the compute node on which the mpi process runs (`Host=...`), 
+* the process ID of the process (`Pid=...``), 
+* the MPI rank of the process and the total number of MPI ranks (`MPI_rank=xxx/nnn`), and 
+* the CPU ID on which the proces runs (`CPU=...`).
+
+The MPI process also has an OpenMP parallel section which prints a line for every OpenMP thread 
+involved in that parallel section (there is 2 of them  in this case):
+
+```
+Host=r2c06cn3.vaughan  Pid=814085  MPI_rank=000/064  OMP_thread=000/002  CPU=000  NUMA_node=0  CPU_affinity=0,
+Host=r2c06cn3.vaughan  Pid=814085  MPI_rank=000/064  OMP_thread=001/002  CPU=001  NUMA_node=0  CPU_affinity=1,
+```
+
+Each line contains, respectively, 
+
+* the name of the compute node on which the mpi process runs (`Host=...`), 
+* the process ID of the process (`Pid=...``), 
+* the MPI rank of the process and the total number of MPI ranks (`MPI_rank=xxx/nnn`), and 
+* the OpenMP thread number of the thread in the parallel section (`OMP_thread=...`).
 
 The lines following ``Currently Loaded Modules:`` represent the output of the ``module list`` command. The 
 subsequent lines ``rank=<rank>/64`` represent the output of the ``print`` statement in the ``mpi4py_hello_world.py`` script.
