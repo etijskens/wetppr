@@ -14,6 +14,7 @@ module --force purge
 ml calcua/${toolchain_version}
 ml $toolchain
 ml SciPy-bundle
+ml numba
 ml CMake
 ml
 echo

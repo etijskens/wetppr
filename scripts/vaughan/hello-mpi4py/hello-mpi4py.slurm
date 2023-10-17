@@ -13,6 +13,8 @@
 export PYTHONPATH=/data/antwerpen/201/vsc20170/wetppr/:${PYTHONPATH}
 export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
 export OMP_PROC_BIND=true
+export NUMBA_THREADING_LAYER=omp
+export NUMBA_NUM_THREADS=$SLURM_CPUS_PER_TASK
 
 # run the Python script hello-mpi4py.py on the requested resources
 srun --quiet -n${SLURM_NTASKS} -c${SLURM_CPUS_PER_TASK} --exclusive --unbuffered python hello-mpi4py.py
