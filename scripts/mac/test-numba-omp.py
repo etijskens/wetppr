@@ -10,6 +10,5 @@ def omp():
     for i in numba.prange(4):
         print(f"[i={i}] thread {numba.get_thread_id()}/{numba.get_num_threads()}")
     
-
 if __name__ == "__main__":
     omp()
