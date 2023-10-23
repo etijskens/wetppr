@@ -1,0 +1,113 @@
+
+Currently Loaded Modules:
+  1) calcua/2022a                      21) gompi/2022a
+  2) GCCcore/11.3.0                    22) FFTW.MPI/3.3.10-gompi-2022a
+  3) zlib/1.2.12-GCCcore-11.3.0        23) ScaLAPACK/2.2.0-gompi-2022a-fb
+  4) binutils/2.38-GCCcore-11.3.0      24) foss/2022a
+  5) GCC/11.3.0                        25) bzip2/1.0.8-GCCcore-11.3.0
+  6) numactl/2.0.14-GCCcore-11.3.0     26) ncurses/6.3-GCCcore-11.3.0
+  7) XZ/5.2.5-GCCcore-11.3.0           27) libreadline/8.1.2-GCCcore-11.3.0
+  8) libxml2/2.9.13-GCCcore-11.3.0     28) Tcl/8.6.12-GCCcore-11.3.0
+  9) libpciaccess/0.16-GCCcore-11.3.0  29) SQLite/3.38.3-GCCcore-11.3.0
+ 10) hwloc/2.7.1-GCCcore-11.3.0        30) GMP/6.2.1-GCCcore-11.3.0
+ 11) OpenSSL/1.1                       31) libffi/3.4.2-GCCcore-11.3.0
+ 12) libevent/2.1.12-GCCcore-11.3.0    32) Python/3.10.4-GCCcore-11.3.0
+ 13) UCX/1.12.1-GCCcore-11.3.0         33) pybind11/2.9.2-GCCcore-11.3.0
+ 14) libfabric/1.15.1-GCCcore-11.3.0   34) SciPy-bundle/2022.05-foss-2022a
+ 15) PMIx/4.1.2-GCCcore-11.3.0         35) LLVM/14.0.3-GCCcore-11.3.0
+ 16) UCC/1.0.0-GCCcore-11.3.0          36) numba/0.56.4-foss-2022a
+ 17) OpenMPI/4.1.4-GCC-11.3.0          37) cURL/7.83.0-GCCcore-11.3.0
+ 18) OpenBLAS/0.3.20-GCC-11.3.0        38) libarchive/3.6.1-GCCcore-11.3.0
+ 19) FlexiBLAS/3.2.0-GCC-11.3.0        39) CMake/3.24.3-GCCcore-11.3.0
+ 20) FFTW/3.3.10-GCC-11.3.0
+
+Using toolchain foss/2022a 
+
+${SLURM_NTASKS}=16
+${SLURM_CPUS_PER_TASK}=4
+numba.config.THREADING_LAYER='omp'
+${NUMBA_THREADING_LAYER}=omp
+${OMP_NUM_THREADS}=4
+${NUMBA_NUM_THREADS}=4
+numba.config.NUMBA_NUM_THREADS=4
+jobid.stepid=1168857.0, MPI_rank=0/16, pid=687782 : affinity=0-3
+jobid.stepid=1168857.0, MPI_rank=4/16, pid=687786 : affinity=16-19
+jobid.stepid=1168857.0, MPI_rank=5/16, pid=687787 : affinity=20-23
+jobid.stepid=1168857.0, MPI_rank=6/16, pid=687788 : affinity=24-27
+jobid.stepid=1168857.0, MPI_rank=8/16, pid=687790 : affinity=32-35
+jobid.stepid=1168857.0, MPI_rank=9/16, pid=687791 : affinity=36-39
+jobid.stepid=1168857.0, MPI_rank=10/16, pid=687792 : affinity=40-43
+jobid.stepid=1168857.0, MPI_rank=11/16, pid=687793 : affinity=44-47
+jobid.stepid=1168857.0, MPI_rank=12/16, pid=687794 : affinity=48-51
+jobid.stepid=1168857.0, MPI_rank=13/16, pid=687795 : affinity=52-55
+jobid.stepid=1168857.0, MPI_rank=14/16, pid=687796 : affinity=56-59
+jobid.stepid=1168857.0, MPI_rank=15/16, pid=687797 : affinity=60-63
+jobid.stepid=1168857.0, MPI_rank=1/16, pid=687783 : affinity=4-7
+jobid.stepid=1168857.0, MPI_rank=2/16, pid=687784 : affinity=8-11
+jobid.stepid=1168857.0, MPI_rank=3/16, pid=687785 : affinity=12-15
+jobid.stepid=1168857.0, MPI_rank=7/16, pid=687789 : affinity=28-31
+hello_numba_from(MPI_rank=13)  omp_thread=0/4
+hello_numba_from(MPI_rank=13)  omp_thread=2/4
+hello_numba_from(MPI_rank=13)  omp_thread=1/4
+hello_numba_from(MPI_rank=13)  omp_thread=3/4
+hello_numba_from(MPI_rank=8)  omp_thread=0/4
+[0mhello_numba_from(MPI_rank=8)  omp_thread=3/4
+hello_numba_from(MPI_rank=8)  omp_thread=2/4
+hello_numba_from(MPI_rank=8)  omp_thread=1/4
+[0mhello_numba_from(MPI_rank=7)  omp_thread=0/4
+hello_numba_from(MPI_rank=7)  omp_thread=3/4
+hello_numba_from(MPI_rank=7)  omp_thread=2/4
+hello_numba_from(MPI_rank=7)  omp_thread=1/4
+hello_numba_from(MPI_rank=1)  omp_thread=0/4
+hello_numba_from(MPI_rank=1)  omp_thread=3/4
+hello_numba_from(MPI_rank=1)  omp_thread=1/4
+hello_numba_from(MPI_rank=1)  omp_thread=2/4
+[0m[0mhello_numba_from(MPI_rank=2)  omp_thread=0/4
+hello_numba_from(MPI_rank=2)  omp_thread=1/4
+hello_numba_from(MPI_rank=2)  omp_thread=3/4
+hello_numba_from(MPI_rank=2)  omp_thread=2/4
+[0mhello_numba_from(MPI_rank=11)  omp_thread=0/4
+hello_numba_from(MPI_rank=11)  omp_thread=1/4
+hello_numba_from(MPI_rank=4)  omp_thread=0/4
+hello_numba_from(MPI_rank=4)  omp_thread=2/4
+hello_numba_from(MPI_rank=11)  omp_thread=3/4
+hello_numba_from(MPI_rank=11)  omp_thread=2/4
+hello_numba_from(MPI_rank=4)  omp_thread=3/4
+hello_numba_from(MPI_rank=4)  omp_thread=1/4
+[0m[0mhello_numba_from(MPI_rank=9)  omp_thread=0/4
+hello_numba_from(MPI_rank=9)  omp_thread=3/4
+hello_numba_from(MPI_rank=9)  omp_thread=2/4
+hello_numba_from(MPI_rank=9)  omp_thread=1/4
+[0mhello_numba_from(MPI_rank=12)  omp_thread=0/4
+hello_numba_from(MPI_rank=12)  omp_thread=1/4
+hello_numba_from(MPI_rank=12)  omp_thread=2/4
+hello_numba_from(MPI_rank=12)  omp_thread=3/4
+hello_numba_from(MPI_rank=15)  omp_thread=0/4
+hello_numba_from(MPI_rank=15)  omp_thread=1/4
+hello_numba_from(MPI_rank=15)  omp_thread=2/4
+hello_numba_from(MPI_rank=15)  omp_thread=3/4
+hello_numba_from(MPI_rank=5)  omp_thread=0/4
+[0mhello_numba_from(MPI_rank=5)  omp_thread=1/4
+hello_numba_from(MPI_rank=5)  omp_thread=3/4
+[0mhello_numba_from(MPI_rank=6)  omp_thread=0/4
+hello_numba_from(MPI_rank=6)  omp_thread=2/4
+hello_numba_from(MPI_rank=6)  omp_thread=1/4
+hello_numba_from(MPI_rank=6)  omp_thread=3/4
+hello_numba_from(MPI_rank=5)  omp_thread=2/4
+[0m[0mhello_numba_from(MPI_rank=10)  omp_thread=0/4
+hello_numba_from(MPI_rank=10)  omp_thread=3/4
+hello_numba_from(MPI_rank=10)  omp_thread=1/4
+hello_numba_from(MPI_rank=10)  omp_thread=2/4
+[0mhello_numba_from(MPI_rank=0)  omp_thread=0/4
+hello_numba_from(MPI_rank=0)  omp_thread=1/4
+hello_numba_from(MPI_rank=0)  omp_thread=3/4
+hello_numba_from(MPI_rank=0)  omp_thread=2/4
+[0mhello_numba_from(MPI_rank=3)  omp_thread=0/4
+hello_numba_from(MPI_rank=3)  omp_thread=3/4
+hello_numba_from(MPI_rank=3)  omp_thread=1/4
+hello_numba_from(MPI_rank=3)  omp_thread=2/4
+[0mhello_numba_from(MPI_rank=14)  omp_thread=0/4
+hello_numba_from(MPI_rank=14)  omp_thread=3/4
+hello_numba_from(MPI_rank=14)  omp_thread=2/4
+hello_numba_from(MPI_rank=14)  omp_thread=1/4
+[0m

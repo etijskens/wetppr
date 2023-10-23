@@ -1,33 +1,26 @@
+import itertools
+import os
+jobid  = os.getenv('SLURM_JOB_ID')
+stepid = os.getenv('SLURM_STEP_ID')
+pid    = os.getpid()
+affinity = os.sched_getaffinity(0) # set of the CPUs used by the current MPI proces
+
 from mpi4py import MPI
 comm = MPI.COMM_WORLD
 
-import sys
-import os
-if comm.rank == 0:
-    print(f"{os.environ['SLURM_NTASKS']=}")
-    print(f"{os.environ['SLURM_CPUS_PER_TASK']=}")
-    print(f"{os.environ['OMP_NUM_THREADS']=}")
-    print(f"{os.environ['NUMBA_NUM_THREADS']=}")
-    print(f"{os.environ['NUMBA_THREADING_LAYER']=}")
 
-import numba
-if comm.rank == 0:
-    print(f"{numba.config.THREADING_LAYER=}")
-    print(f"{numba.config.NUMBA_NUM_THREADS=}")
-
-from wetppr.hello_omp import info, hello_omp_from
-import numpy as np
-
-@numba.njit(parallel=True)
-def hello_numba_from(mpi_rank):
-    for i in numba.prange(numba.config.NUMBA_NUM_THREADS):
-        print(f"hello_numba_from)MPI_rank={mpi_rank})  omp_thread={numba.get_thread_id()}/{numba.get_num_threads()}")
+def print_environment_variable(name):
+    value = os.getenv(name)
+    print(f"${{{name}}}={value}")
 
 
 if __name__ == '__main__':
-    print(f'Hello from MPI_rank={comm.rank}/{comm.size}  aff={os.sched_getaffinity(0)}')
-    info(comm.rank)
-    hello_numba_from(comm.rank)
-    hello_omp_from(comm.rank)
+    # print some environment variables
+    if comm.rank == 0:
+        print_environment_variable('SLURM_NTASKS')
+        print_environment_variable('SLURM_CPUS_PER_TASK')
+
+    print(f'jobid.stepid={jobid}.{stepid}, MPI_rank={comm.rank}/{comm.size}, {pid=} : affinity={affinity}')
+
     
     

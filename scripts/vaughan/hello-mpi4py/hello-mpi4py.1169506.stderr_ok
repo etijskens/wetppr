@@ -1,0 +1,16 @@
+cpu-bind=MASK - r4c03cn3.vaughan, task  0  0 [814848]: mask 0x1 set
+cpu-bind=MASK - r4c03cn3.vaughan, task  1  1 [814849]: mask 0x2 set
+cpu-bind=MASK - r4c03cn3.vaughan, task  2  2 [814850]: mask 0x4 set
+cpu-bind=MASK - r4c03cn3.vaughan, task  3  3 [814851]: mask 0x8 set
+cpu-bind=MASK - r4c03cn3.vaughan, task  4  4 [814852]: mask 0x10 set
+cpu-bind=MASK - r4c03cn3.vaughan, task  5  5 [814853]: mask 0x20 set
+cpu-bind=MASK - r4c03cn3.vaughan, task  6  6 [814854]: mask 0x40 set
+cpu-bind=MASK - r4c03cn3.vaughan, task  7  7 [814855]: mask 0x80 set
+cpu-bind=MASK - r4c03cn3.vaughan, task  8  8 [814856]: mask 0x100 set
+cpu-bind=MASK - r4c03cn3.vaughan, task  9  9 [814857]: mask 0x200 set
+cpu-bind=MASK - r4c03cn3.vaughan, task 10 10 [814858]: mask 0x400 set
+cpu-bind=MASK - r4c03cn3.vaughan, task 11 11 [814859]: mask 0x800 set
+cpu-bind=MASK - r4c03cn3.vaughan, task 12 12 [814860]: mask 0x1000 set
+cpu-bind=MASK - r4c03cn3.vaughan, task 13 13 [814861]: mask 0x2000 set
+cpu-bind=MASK - r4c03cn3.vaughan, task 14 14 [814862]: mask 0x4000 set
+cpu-bind=MASK - r4c03cn3.vaughan, task 15 15 [814863]: mask 0x8000 set
