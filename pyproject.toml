@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "wetppr"
-version = "0.0.0"
+version = "23.0.0"
 description = "Material for the course WERPPR2000 - Parallel Programming"
 authors = ["Bert Tijskens <engelbert.tijskens@uantwerpen.be>"]
 license = "MIT"
