@@ -7,5 +7,5 @@ This contains a series of unrelated python projects, e.g. with case studies and 
 
 """
 
-__version__ = "0.0.0"
+__version__ = "23.0.0"
 
