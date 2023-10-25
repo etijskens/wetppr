@@ -67,7 +67,10 @@ ml_verbose calcua/${toolchain_version}
 ml_verbose $toolchain_name
 ml_verbose SciPy-bundle
 ml_verbose numba
+echo "wip-tools dependencies:"
 ml_verbose CMake
+ml_verbose git
+ml_verbose gh
 echo
 
 # Allow to pip install missing python packages yourself ------------------------
