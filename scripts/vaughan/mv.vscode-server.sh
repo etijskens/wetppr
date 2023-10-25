@@ -1,16 +1,17 @@
 #!/bin/bash
 # Run this script to move the .vscode-server directory to $VSC_DATA 
 # to avoid `file quota exceeded` errors on $VSC_HOME.
-set -eux
+# set -eux
 
 cd $VSC_HOME
 if [ -d .vscode-server ]
     # directory $VSC_HOME/.vscode-server exists
 then
-    if [ -L .vscode-server]
+    if [ -L .vscode-server ]
     then 
         # but it is a soft link
-        echo "There is already a soft link for .vscode-server"
+        echo "There is already a soft link for .vscode-server in $VSC_HOME:"
+        readlink -f .vscode-server
         exit 0
     else
         mv .vscode-server $VSC_DATA/

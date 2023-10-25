@@ -20,7 +20,7 @@ usage()
 
 ml_verbose()
 {
-    echo "ml $1"
+    echo "module load $1"
     ml $1
 }
 
