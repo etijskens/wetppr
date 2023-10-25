@@ -8,10 +8,34 @@ needed may be a bit more substantial.
 !!! Note "Note for students"
     These topics are logically ordered. Make sure that you carry out ***all*** the tasks in the order described.
 
+## A bit of terminology
+
 In this course we often use the terms _local_ and _remote_. The term **local** refers to the physical machine you are
-working on, _i.e._ your desktop or laptop, whereas **remote**, on the other hand refers to a machine which is, 
-typically, at some other place, and which you are accessing through your local machine and a network connection with the 
-remote machine.
+working on, _i.e._ your desktop or laptop, or even a tablet or cell phone. On the other hand **remote** refers to a machine which is usually in some other place, and which you are accessing from your local machine through a network connection (usually the internet) with the remote machine. In this course the remote machine is the university's Tier-2 supercomputer, _Vaughan_, at the time of writing. 
+
+![local-remote](public/local-remote.png)
+
+The supercomputer, basically, consists of:
+
+* One or more **login nodes**. When users logs in to the supercomputer, a connection is established between the user's local machine and a login node. This is where users execute simple, not computationally intensive tasks, _e.g._:
+
+    * job preparation,
+
+    * organization of the workspace and projects,
+
+    * create input data,
+
+    * software development tasks,
+
+    * small tests,
+
+    * ...
+
+* A collection of **compute nodes**, potentially many thousands. This is where computationally intensive tasks of the users are executed. Typically, the user has no direct connection to the compute nodes.
+
+* One or more **master nodes**. The master node runs the **resource manager** and the **scheduler**> and is the connection between the login node and the compute nodes. The former keeps an eye on what the compute nodes are doing and whether they are ready to accept new computational tasks. The scheduler does the planning of that work.
+
+To carry out some computational work on the compute nodes, the user must send a request to the scheduler, describing the task, the environment in which that task must be executed, and the resources (number of nodes, memory, accelerators, ...) needed by the task. Such a request is called a **job script** and the task is referred to as a **job**.
 
 ## Preparing for the VSC infrastructure in 2000WETPPR
 
@@ -20,52 +44,33 @@ remote machine.
 !!! Note
     This section is ***only for students of the course 2000wetppr***.
 
-    Students of the course 2000wetppr must apply for a guest account to access the university's HPC clusters, unless
-    they already have a VSC account. The project work (see [Evaluation](evaluation)) requires access to one of the
-    university's HPC clusters.
+    Students of the course 2000wetppr must apply for a guest account to access the university's HPC clusters, unless they already have a VSC account. The project work (see [Evaluation](evaluation)) requires access to one of the university's HPC clusters.
 
-To apply for a guest account, create a SSH public/private key pair (see below) and send it by e-mail to
-franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in cc. A guest account will subsequently
-be created for you.
+To apply for a guest account, create a SSH public/private key pair (see below) and send it by e-mail to ``franky.backeljauw@uantwerpen.be`` with ``engelbert.tijskens@uantwerpen.be`` in cc. A guest account will subsequently be created for you.
 
 ### Applying for a VSC account
 
 !!! Note
     This section is ***only for researchers of Flemish institutes***.
 
-Researchers of Flemish research institutes can apply for a VSC account to get access to the VSC Tier-2 and Tier-1
-supercomputers. See [Getting access to VSC clusters](https://docs. vscentrum.be/en/latest/access/getting_access.html).
-An ssh public/private key pair is also required.
+Researchers of Flemish research institutes can apply for a VSC account to get access to the VSC Tier-2 and Tier-1 supercomputers. See [Getting access to VSC clusters](https://docs. vscentrum.be/en/latest/access/getting_access.html). An ssh public/private key pair is also required.
 
 ### Creating an ssh public/private key pair
 
 An ssh public/private key pair in necessary for both a guest account (students) and a VSC account (researchers).
 
-A ssh public/private key pair is a way for secure access to a system through the Secure Shell protocol. They are
-basically two small files with matching numbers. You may think of the public key as a lock. Everyone may see the
-lock but no one can open the lock without its key, which is the private part of the key pair. The public key
-(the lock) will be placed on a system you need access to, in this case the Tier-2 supercomputer of our university
-(currently, that is [Vaughan](https://docs.vscentrum.be/en/latest/antwerp/tier2_hardware/vaughan_hardware.html?
-highlight=vaughan)). To access to the supercomputer (_i.e._, to open the lock) from, say, your laptop, you need the
-private key to be stored on your laptop (or a USB memory stick) and pass it to the SSH protocol, which will verify
-that the private key and the public key match. If case they do, the SSH protocol will open the lock and grant you
-access to the machine.
+A ssh public/private key pair is a way for secure access to a system through the Secure Shell protocol. They are basically two small files with matching numbers. You may think of the public key as a lock. Everyone is allowed to see the lock, but no one can open the lock without its key, which is the private part of the key pair. The public key (the lock) will be placed on a system you need access to, in this case the Tier-2 supercomputer of our university. To access to the supercomputer (_i.e._, to open the lock) from, say, your laptop, you need the private key to be stored on your laptop (or a USB memory stick) and pass it to the SSH protocol, which will verify that the private key and the public key match. If case they do, the SSH protocol will open the lock and grant you access to the machine.
 
-To create a ssh public/private key pair proceed as follows. Open a 'terminal':
+To create a ssh public/private key pair proceed as follows. Open a 'terminal'.
 
 !!! Note "On Windows"
-    The latest builds of Windows 10 and Windows 11 include a built-in SSH server and client that are based on
-    OpenSSH. You can use the `cmd` prompt, powershell, or WSL (Windows subsystem for Linux) as a terminal. For older
-    Windows versions, we recommend installing
-    [mobaxterm](https://docs.vscentrum.be/en/latest/access/access_using_mobaxterm.html#access-using-mobaxterm).
-    to generate a ssh public/private key pair.
+    The latest builds of Windows 10 and Windows 11 include a built-in SSH server and client that are based on OpenSSH. You can use the `cmd` prompt, powershell, or WSL (Windows subsystem for Linux) as a terminal. For older Windows versions, we recommend installing [mobaxterm](https://docs.vscentrum.be/en/latest/access/access_using_mobaxterm.html#access-using-mobaxterm) to generate a ssh public/private key pair.
 
 !!! note "On Linux"
-    Most Linux distributions have a `terminal` applicaton.
+    Most Linux distributions have a `terminal` application.
 
 !!! note "MacOSX"
-    MacOSX comes with a build in `Terminal.app`. `iTerm2` is a replacement for `Terminal.app` with many interesting
-    extra features.
+    MacOSX comes with a build in `Terminal.app`. `iTerm2` is a replacement for `Terminal.app` with many interesting extra features.
 
 Type the following command at the prompt:
 
@@ -73,11 +78,7 @@ Type the following command at the prompt:
 > ssh-keygen -t rsa -b 4096
 ```
 
-You will then be prompted for a file location of the public and private key. You may accept the default location by
-entering. The default file location will look a bit different, depending on your OS. If the files already exist you
-canchoose to overwrite them or to cancel the operation. You might want to change the filename of the key to a more
-meaningfull name, _e.g._ `access_vaughan_rsa`. Don't use blanks in the filename. Use hyphens (`-`) or underscores
-(`_`) instead.
+You will then be prompted for a file location of the public and private key. You may accept the default location by entering. The default file location will look a bit different, depending on your OS. If the files already exist you can choose to overwrite them or to cancel the operation. You might want to change the filename of the key to a more meaningfull name, _e.g._ `access_vaughan_rsa`. Don't use blanks in the filename. Use hyphens (`-`) or underscores (`_`) instead.
 
 ```
 Enter file in which to save the key (C:\Users\your_username/.ssh/id rsa) :
@@ -85,9 +86,7 @@ C:\Users\your_username/.ssh/id rsa already exists.
 Overwrite (y/n)? y
 ```
 
-You will then be prompted for a passphrase (twice). A passphrase provides an extra level of protection in case
-somebody would steal your private key. Press `enter` for an empty passphrase. (Passphrases are a little annoying
-when using VSCode(see below) for remote development.)
+You will then be prompted for a passphrase (twice). A passphrase provides an extra level of protection in case somebody would steal your private key. Press `enter` for an empty passphrase. (Passphrases are a little annoying when using VS Code (see below) for remote development.)
 
 ```
 Enter passphrase (empty for no passphrase):
@@ -103,8 +102,7 @@ Your public key has been saved in C:\Users\your_username/.ssh/id rsa.pub.
 
 !!! Note "For students of 2000wetppr"
     To obtain a guest account, students must send their ***public*** key (and ***only*** the public key, the private
-    key is, well, um, _private_) to `franky.backeljauw@uantwerpen.be` with `engelbert.tijskens@uantwerpen.be` in
-    _cc_. The public key is the one with the `.pub` extension.
+ key is, well, um, _private_) to `franky.backeljauw@uantwerpen.be` with `engelbert.tijskens@uantwerpen.be` in _cc_. The public key is the one with the `.pub` extension.
 
 ### Accessing Vaughan
 
@@ -122,17 +120,11 @@ Welcome to VAUGHAN !
 ```
 
 !!! Note
-    If the key is in sub-directory `.ssh` of you home directory, the `-i path/to/my/private-ssh-key` can be omitted.
+    If the key is in sub-directory `.ssh` of your home directory, the `-i path/to/my/private-ssh-key` can be omitted.
 
-The `ssh` command above, connects your terminal session to the **login node** of the Vaughan cluster.
-This is where users execute simple tasks like job preparation, organization their workspace and projects,
-create input data, software development, small tests, ... Computational tasks, on the other hand, are
-executed on ***compute nodes*** (see below, [Submitting jobs on Vaughan][submitting-jobs-on-vaughan]).
-After the command is finished, you can use the terminal as if you were working on the login node. The
-current working directory will be a location in your file system on the cluster, rather than on your local machine.
-
-Vaughan has two login nodes. `login1-vaughan.hpc.uantwerpen.be` and `login2-vaughan.hpc.uantwerpen.be`. You can also
-use `login-vaughan.hpc.uantwerpen.be`. Then the system will choose the login node with the highest availability.
+The `ssh` command above, connects your terminal session to a _login node_ (see above) of the Vaughan cluster. 
+After the command is finished, you can use the terminal as if you were working on the login node. The current working directory will be a location in your file system on the cluster, rather than on your local machine. Vaughan has two login nodes, `login1-vaughan.hpc.uantwerpen.be` and `login2-vaughan.hpc.uantwerpen.be`. You can also
+use `login-vaughan.hpc.uantwerpen.be`. The system then will choose the login node with the highest availability.
 
 `Ssh` comes with a `.ssh/config` file that allows you to store the arguments of frequently used ssh commands. E.g.
 
@@ -150,24 +142,16 @@ Host vn1
 
 which allows to abbreviate the above `ssh` command as `ssh vn1`. The `config` file can contain several `Host` entries.
 
-Editing files in terminal based access is performed using terminal editors, e.g. `vim` or `nano`. Although `vim` is
-very powerfull, not everyone is comfortable using it.  
-
 #### IDE based access
 
-Many developers (including me) find code development using terminal based access rather cumbersome. IDEs (Integrated
-Development environment) provide a more user-friendly GUI based experience.
-[Visual Studio Code](https://visualstudio.com) provides a very reasonable user experience for both local aand remote
-development, providing a project directory tree, an editor pane, syntax highlighting, a debugging pane, a terminal,
-... It is very well suited for our project work. So, install [Visual Studio Code](https://visualstudio.com) on your
-local machine. (It is available for Windows, Linux, and MacOSX). 
+While editing files in terminal based access is very well possible using terminal editors, e.g. `vim` or `nano`,
+Many developers find code development using terminal based access rather cumbersome. IDEs (Integrated Development environment) provide a more user-friendly GUI based experience. [Visual Studio Code](https://visualstudio.com) provides a very reasonable user experience for both local aand remote development, providing a project directory tree, an editor pane, syntax highlighting, a debugging pane, a terminal, ... It is very well suited for our project work. So, install [Visual Studio Code](https://visualstudio.com) on your local machine. (It is available for Windows, Linux, and MacOSX).
 
-Here are some useful VSCode extensions that you
+Here are some useful VS Code extensions that you
 should install. Click the `Extensions` icon in the activity bar on the left. You can search the Marketplace for
 interesting extensions.
 
-![vscode-extensions](public/vscode-extensions.png)
-
+![VS Code-extensions](public/vscode-extensions.png)
 
 !!! Tip "Necessary extensions"
 
@@ -189,194 +173,99 @@ interesting extensions.
 
     - Modern Fortran
 
-There is a helpfull tutorial on [Using VSCode for Remote Development](presentations/TNT-VSCode.pptx), but before 
+There is a helpfull tutorial on [Using VS Code for Remote Development](presentations/TNT-VS Code.pptx), but before 
 getting your hands dirty, please complete the steps below first.
 
-### Setting up a git account (required for micc2 projects)
+#### VS Code fails to connect due to `file quota exceeded`
 
-See [signing up for a new GitHub account](https://docs.github.
-com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account)
+VS Code Remote installs some machinery in your home directory (`~/.vscode-server`) of the remote machine you are using. As VS Code can easily create a lot of files remotely, this can easily cause `file quota exceeded` on your `user` file system. When accessing the cluster through VS Code, you will probably only notice that VS Code fails to connect with the cluster. Log in on the cluster from a terminal with `ssh` and run  
 
-The code that you write must be regularly committed to a remote [GitHub](https://github) repository. This has many
-advantages:
+```shell
+> ./path/to/wetppr/scripts/mv.vscode-server.sh
+```
 
-- First, it serves as a backup. Every single commit can be retrieved at all times. So, you can't lose your code,
-  even not the older versions.
-- Everyone with access to the repository can access the code. If you keep the repository public, that means everyone
-  with access to the internet. If you make it private, only the people you invite can access.
-- It is important that you give me access. If you have problems, I can clone your repository and debug it to see
-  what is going wrong,
-- If you cooperate with another student on the project you can exchange updates easily. You can make use of git
-  branches to avoid bothering other people with your code changes before they are correct.  
-
-The presentation of the project must be added to your GitHub repository before you present it. I will keep a copy of
-your project repo as a proof of your work.
+This moves the `.vscode-server` directory from your home directory to $VSC_DATA where file quota are much larger and cannot cause problems.
 
 ### Setting up your remote environment
 
-#### Avoiding `file quota exceeded` caused by vscode remote development
-
-Vscode remote installs some machinery on the remote machine you are using. As vscode can easily create a lot of 
-files remotely, this can easily cause `file quota exceeded` on your `user` file system (home directory). This can be 
-easily fixed. 
-
-Before starting remote development on the cluster, execute these commands in a normal terminal:
-
-```shell
-> cd $VSC_HOME
-> mkdir $VSC_DATA/.vscode-server
-> ln -s $VSC_DATA/.vscode-server
-```
-
-This ensures that effective location for storing the vscode machinery on the remote side is  on the `data` file system. 
-The default location is the `user` file system, which has limited file quota. As vscode often creates many files, 
-this may cause `file quota exceeded` on the `user` file system and vscode will consequently fail to connect. The above 
-commands avoid this issue. If you happen to forget to execute these commands before opening vscode on the cluster, 
-you can still fix the problem by moving the `.vscode-server` directory and soft-linking it with these commands:  
-
-```shell
-> cd $VSC_HOME
-> mv .vscode-server $VSC_DATA/
-> ln -s $VSC_DATA/.vscode-server
-```
-
-!!! warning
-    Do not move the `.vscode-server` directory into the `scratch` file system. 
-
 #### LMOD modules
 
-A HPC cluster provides you with many installed software packages. However, none of them are immediately available.
-To make a package available, you must `load` the corresponding software module (this is a different _module_ than
-the Python modules, also known as **LMOD modules**). Here is a list of LMOD modules you may need for the project
-work:
-
-- `Python`,the default python distribution (= Intel Python 3.8.3, at the time of writing), also provides [`numpy`]
-  (https://numpy.org), [`f2py`](https://numpy.org/doc/stable/f2py/), [`scipy`](https://scipy.org),
-  [`sympy`](https://www.sympy. org/en/index.html), [`pandas`](https://pandas.pydata.org),
-  [`mpi4py`](https://mpi4py.readthedocs.io/en/stable/), [`h5py`](https://www.h5py.org),
-  [`pytest`](https://docs.pytest.org/en/7.2.x/) as well as the C/C++/Fortran
-  compilers with which the Python distribution was build.
-- [`numba`](https://numba.readthedocs.io/en/stable/)
-
-!!! tip
-    To see the list of installed Python packages, load the LMOD module for the Python distribution of your choice,
-    and execute `pip list -v`. This will show you also the location where the package is installed. Pre-installed
-    packages, the ones that are made available by loading LMOD modules, will show up under `/apps/antwerpen`, while the
-    packages you installed yourself with `pip install --user` will show up under `${PYTHONUSERBASE}`, _c.q._
-    `/scratch/antwerpen/201/vsc20170/.local`.  
-
-The following LMOD modules are needed by [micc2](https://et-micc2. readthedocs.io/en/latest/index.html) (see below):
-
-- `buildtools`,
-- `git`,
-- `gh`.
-
-!!! note
-    Every time you start a remote terminal session, you must load these modules.
-
-This is conveniently done by writing down all the `load` commands in a file (and add the file to your `git` repository:
+A HPC cluster provides you with many installed software packages. However, none of them are immediately available. To make a package available, you must `load` the corresponding software module. (These modules, also known as **LMOD modules**, are a different _module_ kind than the Python modules). In the project directory ``scripts/vaughan/`` you find a script ``env-lmod.sh`` that can be sourced to load a set of commonly used LMOD modules in this course.  Additional modules can be loaded as ``module load <module-name>``, or the shorthand ``ml <module-name>`` . Sourcing a script differs from executing it in that it modifies the current environment ([see _e.g. this](https://superuser.com/questions/176783/what-is-the-difference-between-executing-a-bash-script-vs-sourcing-it)). A script is sourced through the **source** command:
 
 ```shell
-# File wetppr-env.sh
-# Prepare environment for Python/C++/Fortran development
-# You must 'source' this file
-module load Python
+> cd path/to/wetppr 
+> source scripts/vaughan/env-lmod.sh
+Using toolchain_name foss/2022a 
+
+module load calcua/2022a
+module load foss
+module load SciPy-bundle
 module load numba
-module load buildtools
+wip-tools dependencies:
+module load CMake
 module load git
 module load gh
-# list all loaded modules
-module list
-
-# allow to install python packages locally
-export PYTHONUSERBASE=/data/antwerpen/gst/guestXXX/.local # replace guestXXX with your guest ID
-mkdir -p ${PYTHONUSERBASE}
-export PATH="$PATH:${PYTHONUSERBASE}/bin"
 ```
 
-Every time you start a new remote terminal session, you must execute the command:
+The `env-lmod.sh` script can be used to load the modules for different toolchains and versions:
 
 ```shell
-> source path/to/wetppr-env.sh
+> source scripts/vaughan/env-lmod.sh intel # => intel/2022a
+> source  scripts/vaughan/env-lmod.sh foss/2023a # => foss/2022a
 ```
 
-to load all modules and to modify the environment variables `PYTHONUSERBASE` and `PATH`.
+The **foss** toolchain uses the GCC compilers to build software, whereas the **intel** toolchain uses the Intel compilers.
 
-!!! Warning
-    Initially, it will appear useful to source the script automatically when you login. However, soon you will
-    discover that such scripts depend on the project you work on, and that it is better to have it somewhere in your
-    project directory.
+!!! tip
+    The `source` command can be abbreviated as `.`.
 
-#TODO: ## replace micc2 with wiptools
+!!! Tip
+    Sourcing a script modifies your environment for the time of your shell session. Every time you start a new shell session, you must reload these modules. Initially, it might be tempting to source the script in your `.bashrc`. However, soon you will discover that such scripts depend on the project you are working on, and that it is better to have it somewhere in your project directory.
 
-#### Micc2
+!!! tip
+    In order to be able to execute a shell script, it must be made **executable** (`chmod +x <path/to/script>`). Shell scripts that intend to modify the environment, like `env-lmod.sh`, and thus must be sourced, need not be executable. If you do not make the script executable, it can only be sourced. In this way you avoid the surprises from an unmodified environment after executing a script that expect to be sourced. (There are also [tricks to detect if a script is being sourced(https://stackoverflow.com/questions/2683279/how-to-detect-if-a-script-is-being-sourced)] or not.)
 
-[Micc2](https://et-micc2.readthedocs.io/en/latest/index.html) is a Python package that simplifies your project
-management considerably. If you haven't already done so, source the environment script:
+#### Wiptools
+
+[Wiptools](https://etijskens.github.io/wiptools) is a Python package that can simplify your project management considerably. If you haven't already done so, source the `env-lmod.sh` script  above and install wip-tools in a (remote) terminal as:
 
 ```shell
-> source path/to/wetppr-env.sh
+> pip install --user wiptools
+...
 ```
 
-and install it in a (_remote_) terminal as:
+If you are interested in building binary extension modules from C++, you should also install `nanobind`
 
 ```shell
-> pip install --user et-micc2
+> pip install --user nanobind
 ...
 ```
 
 !!! note
-    The `--user` flag instructs `pip` to install the package in the directory defined by the environment variable
-    `${PYTHONUSERBASE}`. The default install path of `pip` is a system location for which you do not have write
-    permissions. Omitting `--user` would raise a `PermissionError`.
-
-[Micc2](https://et-micc2. readthedocs.io/en/latest/index.html) requires
-[a little setup](https://et-micc2.readthedocs.io/en/latest/installation.html#first-time-micc2-setup) before it is
-fully functional.
+    The `--user` flag instructs `pip` to install the package in the directory defined by the environment variable `${PYTHONUSERBASE}`. The default install path of `pip` is a system location for which you do not have write permissions. Omitting `--user` would raise a `PermissionError`. When installing on your local machine, the `--user` flag may be omitted.
 
 !!! warning
-    You need a GitHub account before you can set up `micc2`.
-
-To setup `micc2` , enter
-
-```shell
-> micc2 setup
-```
-
-and supply [the data the application asks for](https://et-micc2.readthedocs.io/en/latest/installation.
-html#first-time-micc2-setup).
-
-
-!!! warning
-    Make sure that you get a personal access token (pat) to allow creating remote repositories at
-    [GitHub](https://github.com)! Check [this](https://et-micc2.readthedocs.io/en/latest/installation.
-    html#first-time-micc2-setup).
-
-#### Pybind11
-
-You will also need `pybind11` if you want to use `micc2` for building binary extension modules for Python from C++.
-
-```shell
-> pip install --user pybind11
-```
+    Before starting to use `wiptools`, checkout these [prerequisites](https://etijskens.github.io/wiptools/installation/#prerequisites).
 
 ## Submitting jobs on Vaughan
 
-Unlike your personal computer, which you use mainly interactively, a supercomputer is mostly used in **batch mode**.
-Behind the ***login node*** you use to access the supercomputer and perform small tasks, there is a large collection 
-of **compute nodes**, which are used for the actual number crunching. These are interconnected through a fast network
-(type InfiniBand) so that many nodes can cooperate on the same problem by distributing the work and communicating the 
-results. To get a computational job done, you send a request to the **scheduler** in which you specify the resources 
-you need, how the environment must be set up, _e.g._ necessary LMOD modules, and the command you want to execute. Such
-a request is called a **job script**. The scheduler decides which compute nodes will be used for your job and when it 
-will be started, based on a fair share policy and the availability of the resources of the cluster. 
+Unlike your personal computer, which you use mainly **interactively**, a supercomputer is mostly used in **batch mode**. To execute some computational work, you send a request to the **scheduler** specifying the work and how you want it to be executed. This means you need to specify
+
+* the resources you need,
+
+* how the environment must be set up, _i.e._ necessary LMOD modules and environment variables, and
+
+* the command(s) you want to execute.
+
+Such a request is called a **job script**. The scheduler decides which compute nodes will be used for your job and when it will be started, based on a fair share policy and the availability of the resources of the cluster. 
 
 Most modern supercomputers - Vaughan included - use [Slurm](https://slurm.schedmd.com) for resource management and 
 scheduling. An extensive description about using Vaughan can be found [here](https://calcua.uantwerpen.be/courses/hpc-intro/IntroductionHPC-20230313.pdf).
 
 #TODO: ## fix link and code (mpi+openmp)
 
-Here is a typical 'hello world' job script ``mpi4py_hello_world.slurm`` (You can find it in the 
+Here is a simple job script 
+(You can find it in the 
 ``wetppr/scripts/vaughan_examples`` directory of the [wetppr github repo](https://)):
 
 ```shell
@@ -609,5 +498,5 @@ numbered 0..63.
 
 # Recommended steps from here
 
-* A helpfull tutorial on [Using VSCode for Remote Development](presentations/TNT-VSCode.pptx)
+* A helpfull tutorial on [Using VS Code for Remote Development](presentations/TNT-VS Code.pptx)
 * The [micc2 tutorials](https://et-micc2.readthedocs.io/en/stable/tutorials.html)
