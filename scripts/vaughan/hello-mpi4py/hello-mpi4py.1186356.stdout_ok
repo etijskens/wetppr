@@ -1,0 +1,30 @@
+
+Using toolchain_name foss/2022a 
+
+module load calcua/2022a
+module load foss
+module load SciPy-bundle
+module load numba
+wip-tools dependencies:
+module load CMake
+module load git
+module load gh
+
+${SLURM_NTASKS}=16
+${SLURM_CPUS_PER_TASK}=1
+jobid.stepid=1186356.0, MPI_rank=0/16, pid=1489956 : affinity={0}
+jobid.stepid=1186356.0, MPI_rank=1/16, pid=1489957 : affinity={1}
+jobid.stepid=1186356.0, MPI_rank=2/16, pid=1489958 : affinity={2}
+jobid.stepid=1186356.0, MPI_rank=3/16, pid=1489959 : affinity={3}
+jobid.stepid=1186356.0, MPI_rank=4/16, pid=1489960 : affinity={4}
+jobid.stepid=1186356.0, MPI_rank=5/16, pid=1489961 : affinity={5}
+jobid.stepid=1186356.0, MPI_rank=6/16, pid=1489962 : affinity={6}
+jobid.stepid=1186356.0, MPI_rank=7/16, pid=1489963 : affinity={7}
+jobid.stepid=1186356.0, MPI_rank=8/16, pid=1489964 : affinity={8}
+jobid.stepid=1186356.0, MPI_rank=9/16, pid=1489965 : affinity={9}
+jobid.stepid=1186356.0, MPI_rank=10/16, pid=1489966 : affinity={10}
+jobid.stepid=1186356.0, MPI_rank=11/16, pid=1489967 : affinity={11}
+jobid.stepid=1186356.0, MPI_rank=12/16, pid=1489968 : affinity={12}
+jobid.stepid=1186356.0, MPI_rank=13/16, pid=1489969 : affinity={13}
+jobid.stepid=1186356.0, MPI_rank=14/16, pid=1489970 : affinity={14}
+jobid.stepid=1186356.0, MPI_rank=15/16, pid=1489971 : affinity={15}
