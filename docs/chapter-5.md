@@ -208,8 +208,7 @@ Here are some interesting Python modules for visualisation:
 
 ### Test and validate your code (changes)
 
-In view of these amazing facts on the abundance of [bugs in code](https://www.openrefactory.com/intelligent-code-repair-icr/) 
-there seems to be little chance that a programmer writes 100 lines of code without bugs. On average 7 bugs are to be 
+In view of these amazing facts on the abundance of [bugs in code](https://www.openrefactory.com/intelligent-code-repair-icr/) there seems to be little chance that a programmer writes 100 lines of code without bugs. On average 7 bugs are to be 
 expected in every 100 lines of code. Probably not all these bugs affect the outcome of the program, but in research 
 code the outcome  is of course crucial. How can we ensure that our code is correct, and remains so as we continue to 
 work on it? The answer is unit-tests. [Unit-testing](https://en.wikipedia.org/wiki/Unit_testing) are pieces of 
@@ -222,6 +221,8 @@ and a small project [wetppr/mcgse][project-mcgse] where the original study is re
 described by the formula:
 
 $$ V(r) = D_e(1 - e^{-\alpha(r-r_e)})^2 $$
+
+#TODO: ## fix the link
 
 The code for this function is found in [wetppr/mcgse/__init__.py](public/symlinks/__init__.py). Note that we 
 provided default unit values for all the parameters: 
