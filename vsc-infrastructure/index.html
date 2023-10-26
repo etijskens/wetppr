@@ -1,755 +1,126 @@
-
-<!doctype html>
-<html lang="en" class="no-js">
-  <head>
-    
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      
-      
-      
-      
-        <link rel="prev" href="../evaluation/">
-      
-      
-      <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.10">
-    
-    
-      
-        <title>VSC infrastructure - Parallel programmeren</title>
-      
-    
-    
-      <link rel="stylesheet" href="../assets/stylesheets/main.0d440cfe.min.css">
-      
-        
-        <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
-      
-      
-
-    
-    
-    
-      
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-      
-    
-    
-      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
-    
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
-    
-      
-
-    
-    
-    
-  </head>
-  
-  
-    
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
-  
-    
-    
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer"></label>
-    <div data-md-component="skip">
-      
         
-        <a href="#vsc-infrastructure" class="md-skip">
-          Skip to content
-        </a>
-      
-    </div>
-    <div data-md-component="announce">
-      
-    </div>
-    
-    
-      
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>VSC infrastructure - Parallel Programming</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/color-brewer.min.css">
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet">
 
-<header class="md-header" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Parallel programmeren" class="md-header__button md-logo" aria-label="Parallel programmeren" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
 
-    </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
-    </label>
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
-        <div class="md-header__topic">
-          <span class="md-ellipsis">
-            Parallel programmeren
-          </span>
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Parallel Programming</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../glossary/" class="nav-link">Glossary</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../links/" class="nav-link">Useful links</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../overview/" class="nav-link">Overview</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../course-text/" class="nav-link">Course text</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../exercises/" class="nav-link">Exercises</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../evaluation/" class="nav-link">Evaluation of this course</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">VSC infrastructure</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../evaluation/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
-            
-              VSC infrastructure
-            
-          </span>
-        </div>
-      </div>
-    </div>
-    
-    
-    
-      <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
         </button>
-      </nav>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
     </div>
-  </div>
-</div>
+
     
-    
-  </nav>
-  
-</header>
-    
-    <div class="md-container" data-md-component="container">
-      
-      
-        
-          
-        
-      
-      <main class="md-main" data-md-component="main">
-        <div class="md-main__inner md-grid">
-          
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
             
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Parallel programmeren" class="md-nav__button md-logo" aria-label="Parallel programmeren" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
-
-    </a>
-    Parallel programmeren
-  </label>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
-        Wellcome at Parallel programming
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../over-de-auteur/" class="md-nav__link">
-        Over de auteur
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../glossary/" class="md-nav__link">
-        Glossary
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../links/" class="md-nav__link">
-        Useful links
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../overview/" class="md-nav__link">
-        Overview
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter-1/" class="md-nav__link">
-        Chapter 1 - Introduction
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter-2/" class="md-nav__link">
-        Chapter 2 - Aspects of modern CPU architecture
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter-3/" class="md-nav__link">
-        Chapter 3 - Optimise first, then parallelize
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter-4/" class="md-nav__link">
-        chapter 4 - Case studies
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter-5/" class="md-nav__link">
-        Chapter 5 - Developing Research Software
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter-6/" class="md-nav__link">
-        Chapter 6 - Tools for parallellization
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../evaluation/" class="md-nav__link">
-        Evaluation of this course
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-    
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          VSC infrastructure
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        VSC infrastructure
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#preparing-for-the-vsc-infrastructure-in-2000wetppr" class="md-nav__link">
-    Preparing for the VSC infrastructure in 2000WETPPR
-  </a>
-  
-    <nav class="md-nav" aria-label="Preparing for the VSC infrastructure in 2000WETPPR">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#applying-for-a-guest-account" class="md-nav__link">
-    Applying for a guest account
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#applying-for-a-vsc-account" class="md-nav__link">
-    Applying for a VSC account
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#creating-an-ssh-publicprivate-key-pair" class="md-nav__link">
-    Creating an ssh public/private key pair
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#accessing-vaughan" class="md-nav__link">
-    Accessing Vaughan
-  </a>
-  
-    <nav class="md-nav" aria-label="Accessing Vaughan">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#terminal-based-access" class="md-nav__link">
-    Terminal based access
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ide-based-access" class="md-nav__link">
-    IDE based access
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#setting-up-a-git-account-required-for-micc2-projects" class="md-nav__link">
-    Setting up a git account (required for micc2 projects)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#setting-up-your-remote-environment" class="md-nav__link">
-    Setting up your remote environment
-  </a>
-  
-    <nav class="md-nav" aria-label="Setting up your remote environment">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#avoiding-file-quota-exceeded-caused-by-vscode-remote-development" class="md-nav__link">
-    Avoiding file quota exceeded caused by vscode remote development
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lmod-modules" class="md-nav__link">
-    LMOD modules
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#micc2" class="md-nav__link">
-    Micc2
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pybind11" class="md-nav__link">
-    Pybind11
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#submitting-jobs-on-vaughan" class="md-nav__link">
-    Submitting jobs on Vaughan
-  </a>
-  
-    <nav class="md-nav" aria-label="Submitting jobs on Vaughan">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#shebang" class="md-nav__link">
-    Shebang
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#slurm-job-script-parameters" class="md-nav__link">
-    SLURM job script parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#setup-of-the-jobs-execution-environment" class="md-nav__link">
-    Setup of the job's execution environment
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#job-execution-commands" class="md-nav__link">
-    Job execution commands
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-    
-  </ul>
-</nav>
-                  </div>
-                </div>
-              </div>
+            <li class="nav-item" data-level="1"><a href="#vsc-infrastructure" class="nav-link">VSC infrastructure</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#a-bit-of-terminology" class="nav-link">A bit of terminology</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#preparing-for-the-vsc-infrastructure-in-2000wetppr" class="nav-link">Preparing for the VSC infrastructure in 2000WETPPR</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#submitting-jobs-on-vaughan" class="nav-link">Submitting jobs on Vaughan</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
             
-            
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
+            <li class="nav-item" data-level="1"><a href="#recommended-steps-from-here" class="nav-link">Recommended steps from here</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#preparing-for-the-vsc-infrastructure-in-2000wetppr" class="md-nav__link">
-    Preparing for the VSC infrastructure in 2000WETPPR
-  </a>
-  
-    <nav class="md-nav" aria-label="Preparing for the VSC infrastructure in 2000WETPPR">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#applying-for-a-guest-account" class="md-nav__link">
-    Applying for a guest account
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#applying-for-a-vsc-account" class="md-nav__link">
-    Applying for a VSC account
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#creating-an-ssh-publicprivate-key-pair" class="md-nav__link">
-    Creating an ssh public/private key pair
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#accessing-vaughan" class="md-nav__link">
-    Accessing Vaughan
-  </a>
-  
-    <nav class="md-nav" aria-label="Accessing Vaughan">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#terminal-based-access" class="md-nav__link">
-    Terminal based access
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#ide-based-access" class="md-nav__link">
-    IDE based access
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#setting-up-a-git-account-required-for-micc2-projects" class="md-nav__link">
-    Setting up a git account (required for micc2 projects)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#setting-up-your-remote-environment" class="md-nav__link">
-    Setting up your remote environment
-  </a>
-  
-    <nav class="md-nav" aria-label="Setting up your remote environment">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#avoiding-file-quota-exceeded-caused-by-vscode-remote-development" class="md-nav__link">
-    Avoiding file quota exceeded caused by vscode remote development
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#lmod-modules" class="md-nav__link">
-    LMOD modules
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#micc2" class="md-nav__link">
-    Micc2
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#pybind11" class="md-nav__link">
-    Pybind11
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#submitting-jobs-on-vaughan" class="md-nav__link">
-    Submitting jobs on Vaughan
-  </a>
-  
-    <nav class="md-nav" aria-label="Submitting jobs on Vaughan">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#shebang" class="md-nav__link">
-    Shebang
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#slurm-job-script-parameters" class="md-nav__link">
-    SLURM job script parameters
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#setup-of-the-jobs-execution-environment" class="md-nav__link">
-    Setup of the job's execution environment
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#job-execution-commands" class="md-nav__link">
-    Job execution commands
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-          
-          
-            <div class="md-content" data-md-component="content">
-              <article class="md-content__inner md-typeset">
-                
-                  
-
-
-
-<h1 id="vsc-infrastructure">VSC infrastructure</h1>
+<div><h1 id="vsc-infrastructure">VSC infrastructure</h1>
 <p>This document describes how to set up your environment for the <a href="../evaluation/">project work of the 2000wetppr course</a>
 on the Tier-2 cluster of the University of Antwerp, which is also a VSC cluster. With minor modifications this can
 be applied to all VSC clusters. In general, the text is also applicable to other HPC clusters, but the modifictions
@@ -758,74 +129,82 @@ needed may be a bit more substantial.</p>
 <p class="admonition-title">Note for students</p>
 <p>These topics are logically ordered. Make sure that you carry out <strong><em>all</em></strong> the tasks in the order described.</p>
 </div>
-<p>In this course we often use the terms <em>local</em> and <em>remote</em>. <strong><em>Local</em></strong> refers to the physical machine you are
-working on, <em>i.e.</em> your desktop or laptop. <strong><em>Remote</em></strong>, on the other hand refers to a machine which is, typically,
-at some other place, and which you are accessing through your local machine and a network connection with the remote
-machine.</p>
+<h2 id="a-bit-of-terminology">A bit of terminology</h2>
+<p>In this course we often use the terms <em>local</em> and <em>remote</em>. The term <strong>local</strong> refers to the physical machine you are
+working on, <em>i.e.</em> your desktop or laptop, or even a tablet or cell phone. On the other hand <strong>remote</strong> refers to a machine which is usually in some other place, and which you are accessing from your local machine through a network connection (usually the internet) with the remote machine. In this course the remote machine is the university's Tier-2 supercomputer, <em>Vaughan</em>, at the time of writing. </p>
+<p><img alt="local-remote" src="../public/local-remote.png"></p>
+<p>The supercomputer, basically, consists of:</p>
+<ul>
+<li>
+<p>One or more <strong>login nodes</strong>. When users logs in to the supercomputer, a connection is established between the user's local machine and a login node. This is where users execute simple, not computationally intensive tasks, <em>e.g.</em>:</p>
+<ul>
+<li>
+<p>job preparation,</p>
+</li>
+<li>
+<p>organization of the workspace and projects,</p>
+</li>
+<li>
+<p>create input data,</p>
+</li>
+<li>
+<p>software development tasks,</p>
+</li>
+<li>
+<p>small tests,</p>
+</li>
+<li>
+<p>...</p>
+</li>
+</ul>
+</li>
+<li>
+<p>A collection of <strong>compute nodes</strong>, potentially many thousands. This is where computationally intensive tasks of the users are executed. Typically, the user has no direct connection to the compute nodes.</p>
+</li>
+<li>
+<p>One or more <strong>master nodes</strong>. The master node runs the <strong>resource manager</strong> and the <strong>scheduler</strong>&gt; and is the connection between the login node and the compute nodes. The former keeps an eye on what the compute nodes are doing and whether they are ready to accept new computational tasks. The scheduler does the planning of that work.</p>
+</li>
+</ul>
+<p>To carry out some computational work on the compute nodes, the user must send a request to the scheduler, describing the task, the environment in which that task must be executed, and the resources (number of nodes, memory, accelerators, ...) needed by the task. Such a request is called a <strong>job script</strong> and the task is referred to as a <strong>job</strong>.</p>
 <h2 id="preparing-for-the-vsc-infrastructure-in-2000wetppr">Preparing for the VSC infrastructure in 2000WETPPR</h2>
 <h3 id="applying-for-a-guest-account">Applying for a guest account</h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This section is <strong><em>only for students of the course 2000wetppr</em></strong>.</p>
-<p>Students of the course 2000wetppr must apply for a guest account to access the university's HPC clusters unless
-they already have a VSC account. The project work (see <a href="evaluation">Evaluation</a>) requires access to one of the
-university's HPC clusters.</p>
+<p>Students of the course 2000wetppr must apply for a guest account to access the university's HPC clusters, unless they already have a VSC account. The project work (see <a href="evaluation">Evaluation</a>) requires access to one of the university's HPC clusters.</p>
 </div>
-<p>To apply for a guest account, create a SSH public/private key pair (see below) and send it by e-mail to
-franky.backeljauw@uantwerpen.be with engelbert.tijskens@uantwerpen.be in cc. A <strong><em>guest account</em></strong> will subsequently
-be created for you.</p>
+<p>To apply for a guest account, create a SSH public/private key pair (see below) and send it by e-mail to <code>franky.backeljauw@uantwerpen.be</code> with <code>engelbert.tijskens@uantwerpen.be</code> in cc. A guest account will subsequently be created for you.</p>
 <h3 id="applying-for-a-vsc-account">Applying for a VSC account</h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This section is <strong><em>only for researchers of Flemish institutes</em></strong>.</p>
 </div>
-<p>Researchers of Flemish research institutes can apply for a VSC account to get access to the VSC Tier-2 and Tier-1
-supercomputers. See <a href="https://docs. vscentrum.be/en/latest/access/getting_access.html">Getting access to VSC clusters</a>.
-An ssh public/private key pair is also required.</p>
+<p>Researchers of Flemish research institutes can apply for a VSC account to get access to the VSC Tier-2 and Tier-1 supercomputers. See <a href="https://docs.%20vscentrum.be/en/latest/access/getting_access.html">Getting access to VSC clusters</a>. An ssh public/private key pair is also required.</p>
 <h3 id="creating-an-ssh-publicprivate-key-pair">Creating an ssh public/private key pair</h3>
 <p>An ssh public/private key pair in necessary for both a guest account (students) and a VSC account (researchers).</p>
-<p>A ssh public/private key pair is a way for secure access to a system through the Secure Shell protocol. They are
-basically two small files with matching numbers. You may think of the public key as a lock. Everyone may see the
-lock but no one can open the lock without its key, which is the private part of the key pair. The public key
-(the lock) will be placed on a system you need access to, in this case the Tier-2 supercomputer of our university
-(currently, that is <a href="https://docs.vscentrum.be/en/latest/antwerp/tier2_hardware/vaughan_hardware.html?
-highlight=vaughan">Vaughan</a>). To access to the supercomputer (<em>i.e.</em>, to open the lock) from, say, your laptop, you need the
-private key to be stored on your laptop (or a USB memory stick) and pass it to the SSH protocol, which will verify
-that the private key and the public key match. If case they do, the SSH protocol will open the lock and grant you
-access to the machine.</p>
-<p>To create a ssh public/private key pair proceed as follows. Open a 'terminal':</p>
+<p>A ssh public/private key pair is a way for secure access to a system through the Secure Shell protocol. They are basically two small files with matching numbers. You may think of the public key as a lock. Everyone is allowed to see the lock, but no one can open the lock without its key, which is the private part of the key pair. The public key (the lock) will be placed on a system you need access to, in this case the Tier-2 supercomputer of our university. To access to the supercomputer (<em>i.e.</em>, to open the lock) from, say, your laptop, you need the private key to be stored on your laptop (or a USB memory stick) and pass it to the SSH protocol, which will verify that the private key and the public key match. If case they do, the SSH protocol will open the lock and grant you access to the machine.</p>
+<p>To create a ssh public/private key pair proceed as follows. Open a 'terminal'.</p>
 <div class="admonition note">
 <p class="admonition-title">On Windows</p>
-<p>The latest builds of Windows 10 and Windows 11 include a built-in SSH server and client that are based on
-OpenSSH. You can use the <code>cmd</code> prompt, powershell, or WSL (Windows subsystem for Linux) as a terminal. For older
-Windows versions, we recommend installing
-<a href="https://docs.vscentrum.be/en/latest/access/access_using_mobaxterm.html#access-using-mobaxterm">mobaxterm</a>.
-to generate a ssh public/private key pair.</p>
+<p>The latest builds of Windows 10 and Windows 11 include a built-in SSH server and client that are based on OpenSSH. You can use the <code>cmd</code> prompt, powershell, or WSL (Windows subsystem for Linux) as a terminal. For older Windows versions, we recommend installing <a href="https://docs.vscentrum.be/en/latest/access/access_using_mobaxterm.html#access-using-mobaxterm">mobaxterm</a> to generate a ssh public/private key pair.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">On Linux</p>
-<p>Most Linux distributions have a <code>terminal</code> applicaton.</p>
+<p>Most Linux distributions have a <code>terminal</code> application.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">MacOSX</p>
-<p>MacOSX comes with a build in <code>Terminal.app</code>. <code>iTerm2</code> is a replacement for <code>Terminal.app</code> with many interesting
-extra features.</p>
+<p>MacOSX comes with a build in <code>Terminal.app</code>. <code>iTerm2</code> is a replacement for <code>Terminal.app</code> with many interesting extra features.</p>
 </div>
 <p>Type the following command at the prompt:</p>
 <pre><code class="language-shell">&gt; ssh-keygen -t rsa -b 4096
 </code></pre>
-<p>You will then be prompted for a file location of the public and private key. You may accept the default location by
-entering. The default file location will look a bit different, depending on your OS. If the files already exist you
-canchoose to overwrite them or to cancel the operation. You might want to change the filename of the key to a more
-meaningfull name, <em>e.g.</em> <code>access_vaughan_rsa</code>. Don't use blanks in the filename. Use hyphens (<code>-</code>) or underscores
-(<code>_</code>) instead.</p>
+<p>You will then be prompted for a file location of the public and private key. You may accept the default location by entering. The default file location will look a bit different, depending on your OS. If the files already exist you can choose to overwrite them or to cancel the operation. You might want to change the filename of the key to a more meaningfull name, <em>e.g.</em> <code>access_vaughan_rsa</code>. Don't use blanks in the filename. Use hyphens (<code>-</code>) or underscores (<code>_</code>) instead.</p>
 <pre><code>Enter file in which to save the key (C:\Users\your_username/.ssh/id rsa) :
 C:\Users\your_username/.ssh/id rsa already exists.
 Overwrite (y/n)? y
 </code></pre>
-<p>You will then be prompted for a passphrase (twice). A passphrase provides an extra level of protection in case
-somebody would steal your private key. Press <code>enter</code> for an empty passphrase. (Passphrases are a little annoying
-when using VSCode(see below) for remote development.)</p>
+<p>You will then be prompted for a passphrase (twice). A passphrase provides an extra level of protection in case somebody would steal your private key. Press <code>enter</code> for an empty passphrase. (Passphrases are a little annoying when using VS Code (see below) for remote development.)</p>
 <pre><code>Enter passphrase (empty for no passphrase):
 Enter same passphrase again:
 </code></pre>
@@ -835,10 +214,9 @@ Your public key has been saved in C:\Users\your_username/.ssh/id rsa.pub.
 </code></pre>
 <div class="admonition note">
 <p class="admonition-title">For students of 2000wetppr</p>
-<p>To obtain a guest account, students must send their <strong><em>public</em></strong> key (and <strong><em>only</em></strong> the public key, the private
-key is, well, um, <em>private</em>) to <code>franky.backeljauw@uantwerpen.be</code> with <code>engelbert.tijskens@uantwerpen.be</code> in
-<em>cc</em>. The public key is the one with the <code>.pub</code> extension.</p>
+<p>To obtain a guest account, students must send their <strong><em>public</em></strong> key (and <strong><em>only</em></strong> the public key, the private</p>
 </div>
+<p>key is, well, um, <em>private</em>) to <code>franky.backeljauw@uantwerpen.be</code> with <code>engelbert.tijskens@uantwerpen.be</code> in <em>cc</em>. The public key is the one with the <code>.pub</code> extension.</p>
 <h3 id="accessing-vaughan">Accessing Vaughan</h3>
 <h4 id="terminal-based-access">Terminal based access</h4>
 <p>Vaughan is (at the time of writing) the University of Antwerp's Tier-2 HPC cluster. For terminal based access you
@@ -849,11 +227,13 @@ Last login: Mon Feb 27 12:40:32 2023 from 143.129.75.140
 Welcome to VAUGHAN !
 ...
 </code></pre>
-<p>If the key is in sub-directory <code>.ssh</code> of you home directory, the <code>-i path/to/my/private-ssh-key</code> can be omitted.</p>
-<p>After the command is finished, you can use the terminal as if you were working on the login node. The
-current working directory will be a location in your file system on the cluster, rather than on your local machine.</p>
-<p>Vaughan has two login nodes. <code>login1-vaughan.hpc.uantwerpen.be</code> and <code>login2-vaughan.hpc.uantwerpen.be</code>. You can also
-use <code>login-vaughan.hpc.uantwerpen.be</code>. Then the system will choose the login node with the highest availability.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the key is in sub-directory <code>.ssh</code> of your home directory, the <code>-i path/to/my/private-ssh-key</code> can be omitted.</p>
+</div>
+<p>The <code>ssh</code> command above, connects your terminal session to a <em>login node</em> (see above) of the Vaughan cluster. 
+After the command is finished, you can use the terminal as if you were working on the login node. The current working directory will be a location in your file system on the cluster, rather than on your local machine. Vaughan has two login nodes, <code>login1-vaughan.hpc.uantwerpen.be</code> and <code>login2-vaughan.hpc.uantwerpen.be</code>. You can also
+use <code>login-vaughan.hpc.uantwerpen.be</code>. The system then will choose the login node with the highest availability.</p>
 <p><code>Ssh</code> comes with a <code>.ssh/config</code> file that allows you to store the arguments of frequently used ssh commands. E.g.</p>
 <pre><code class="language-shell"># file ~/.ssh/config
 Host vn1
@@ -866,19 +246,13 @@ Host vn1
   ServerAliveInterval 60
 </code></pre>
 <p>which allows to abbreviate the above <code>ssh</code> command as <code>ssh vn1</code>. The <code>config</code> file can contain several <code>Host</code> entries.</p>
-<p>Editing files in terminal based access is performed using terminal editors, e.g. <code>vim</code> or <code>nano</code>. Although <code>vim</code> is
-very powerfull, not everyone is comfortable using it.  </p>
 <h4 id="ide-based-access">IDE based access</h4>
-<p>Many developers (including me) find code development using terminal based access rather cumbersome. IDEs (Integrated
-Development environment) provide a more user-friendly GUI based experience.
-<a href="https://visualstudio.com">Visual Studio Code</a> provides a very reasonable user experience for both local aand remote
-development, providing a project directory tree, an editor pane, syntax highlighting, a debugging pane, a terminal,
-... It is very well suited for our project work. So, install <a href="https://visualstudio.com">Visual Studio Code</a> on your
-local machine. (It is available for Windows, Linux, and MacOSX). </p>
-<p>Here are some useful VSCode extensions that you
+<p>While editing files in terminal based access is very well possible using terminal editors, e.g. <code>vim</code> or <code>nano</code>,
+Many developers find code development using terminal based access rather cumbersome. IDEs (Integrated Development environment) provide a more user-friendly GUI based experience. <a href="https://visualstudio.com">Visual Studio Code</a> provides a very reasonable user experience for both local aand remote development, providing a project directory tree, an editor pane, syntax highlighting, a debugging pane, a terminal, ... It is very well suited for our project work. So, install <a href="https://visualstudio.com">Visual Studio Code</a> on your local machine. (It is available for Windows, Linux, and MacOSX).</p>
+<p>Here are some useful VS Code extensions that you
 should install. Click the <code>Extensions</code> icon in the activity bar on the left. You can search the Marketplace for
 interesting extensions.</p>
-<p><img alt="vscode-extensions" src="../public/vscode-extensions.png" /></p>
+<p><img alt="VS Code-extensions" src="../public/vscode-extensions.png"></p>
 <div class="admonition tip">
 <p class="admonition-title">Necessary extensions</p>
 <ul>
@@ -907,334 +281,306 @@ interesting extensions.</p>
 <li>Modern Fortran</li>
 </ul>
 </div>
-<p>There is a helpfull tutorial on <a href="../presentations/TNT-VSCode.pptx">Using VSCode for Remote Development</a>, but before 
-getting your hands dirty, please complete the steps below first.</p>
-<h3 id="setting-up-a-git-account-required-for-micc2-projects">Setting up a git account (required for micc2 projects)</h3>
-<p>See <a href="https://docs.github.
-com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account">signing up for a new GitHub account</a></p>
-<p>The code that you write must be regularly committed to a remote <a href="https://github">GitHub</a> repository. This has many
-advantages:</p>
-<ul>
-<li>First, it serves as a backup. Every single commit can be retrieved at all times. So, you can't lose your code,
-  even not the older versions.</li>
-<li>Everyone with access to the repository can access the code. If you keep the repository public, that means everyone
-  with access to the internet. If you make it private, only the people you invite can access.</li>
-<li>It is important that you give me access. If you have problems, I can clone your repository and debug it to see
-  what is going wrong,</li>
-<li>If you cooperate with another student on the project you can exchange updates easily. You can make use of git
-  branches to avoid bothering other people with your code changes before they are correct.  </li>
-</ul>
-<p>The presentation of the project must be added to your GitHub repository before you present it. I will keep a copy of
-your project repo as a proof of your work.</p>
+<p>There is a helpfull tutorial on <a href="presentations/TNT-vscode.pptx">Using VS Code for Remote Development</a>, but before getting your hands dirty, please complete the steps below first.</p>
+<h4 id="vs-code-fails-to-connect-due-to-file-quota-exceeded">VS Code fails to connect due to <code>file quota exceeded</code></h4>
+<p>VS Code Remote installs some machinery in your home directory (<code>~/.vscode-server</code>) of the remote machine you are using. As VS Code can easily create a lot of files remotely, this can easily cause <code>file quota exceeded</code> on your <code>user</code> file system. When accessing the cluster through VS Code, you will probably only notice that VS Code fails to connect with the cluster. Log in on the cluster from a terminal with <code>ssh</code> and run  </p>
+<pre><code class="language-shell">&gt; ./path/to/wetppr/scripts/mv.vscode-server.sh
+</code></pre>
+<p>This moves the <code>.vscode-server</code> directory from your home directory to $VSC_DATA where file quota are much larger and cannot cause problems.</p>
 <h3 id="setting-up-your-remote-environment">Setting up your remote environment</h3>
-<h4 id="avoiding-file-quota-exceeded-caused-by-vscode-remote-development">Avoiding <code>file quota exceeded</code> caused by vscode remote development</h4>
-<p>Vscode remote installs some machinery on the remote machine you are using. As vscode can easily create a lot of 
-files remotely, this can easily cause <code>file quota exceeded</code> on your <code>user</code> file system (home directory). This can be 
-easily fixed. </p>
-<p>Before starting remote development on the cluster, execute these commands in a normal terminal:</p>
-<pre><code class="language-shell">&gt; cd $VSC_HOME
-&gt; mkdir $VSC_DATA/.vscode-server
-&gt; ln -s $VSC_DATA/.vscode-server
-</code></pre>
-<p>This ensures that effective location for storing the vscode machinery on the remote side is  on the <code>data</code> file system. 
-The default location is the <code>user</code> file system, which has limited file quota. As vscode often creates many files, 
-this may cause <code>file quota exceeded</code> on the <code>user</code> file system and vscode will consequently fail to connect. The above 
-commands avoid this issue. If you happen to forget to execute these commands before opening vscode on the cluster, 
-you can still fix the problem by moving the <code>.vscode-server</code> directory and soft-linking it with these commands:  </p>
-<pre><code class="language-shell">&gt; cd $VSC_HOME
-&gt; mv .vscode-server $VSC_DATA/
-&gt; ln -s $VSC_DATA/.vscode-server
-</code></pre>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Do not move the <code>.vscode-server</code> directory into the <code>scratch</code> file system. </p>
-</div>
 <h4 id="lmod-modules">LMOD modules</h4>
-<p>A HPC cluster provides you with many installed software packages. However, none of them are immediately available.
-To make a package available, you must <code>load</code> the corresponding software module (this is a different <em>module</em> than
-the Python modules, also known as <strong><code>LMOD</code> modules</strong>). Here is a list of <code>LMOD</code> modules you may need for the project
-work:</p>
-<ul>
-<li><code>Python</code>,the default python distribution (= Intel Python 3.8.3, at the time of writing), also provides [<code>numpy</code>]
-  (https://numpy.org), <a href="https://numpy.org/doc/stable/f2py/"><code>f2py</code></a>, <a href="https://scipy.org"><code>scipy</code></a>,
-  <a href="https://www.sympy. org/en/index.html"><code>sympy</code></a>, <a href="https://pandas.pydata.org"><code>pandas</code></a>,
-  <a href="https://mpi4py.readthedocs.io/en/stable/"><code>mpi4py</code></a>, <a href="https://www.h5py.org"><code>h5py</code></a>,
-  <a href="https://docs.pytest.org/en/7.2.x/"><code>pytest</code></a> as well as the C/C++/Fortran
-  compilers with which the Python distribution was build.</li>
-<li><a href="https://numba.readthedocs.io/en/stable/"><code>numba</code></a></li>
-</ul>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>To see the list of installed Python packages, load the LMOD module for the Python distribution of your choice,
-and execute <code>pip list -v</code>. This will show you also the location where the package is installed. Pre-installed
-packages, the ones that are made available by loading LMOD modules, will show up under <code>/apps/antwerpen</code>, while the
-packages you installed yourself with <code>pip install --user</code> will show up under <code>${PYTHONUSERBASE}</code>, <em>c.q.</em>
-<code>/scratch/antwerpen/201/vsc20170/.local</code>.  </p>
-</div>
-<p>The following LMOD modules are needed by <a href="https://et-micc2. readthedocs.io/en/latest/index.html">micc2</a> (see below):</p>
-<ul>
-<li><code>buildtools</code>,</li>
-<li><code>git</code>,</li>
-<li><code>gh</code>.</li>
-</ul>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>Every time you start a remote terminal session, you must load these modules.</p>
-</div>
-<p>This is conveniently done by writing down all the <code>load</code> commands in a file (and add the file to your <code>git</code> repository:</p>
-<pre><code class="language-shell"># File wetppr-env.sh
-# Prepare environment for Python/C++/Fortran development
-# You must 'source' this file
-module load Python
+<p>A HPC cluster provides you with many installed software packages. However, none of them are immediately available. To make a package available, you must <code>load</code> the corresponding software module. (These modules, also known as <strong>LMOD modules</strong>, are a different <em>module</em> kind than the Python modules). In the project directory <code>scripts/vaughan/</code> you find a script <code>env-lmod.sh</code> that can be sourced to load a set of commonly used LMOD modules in this course.  Additional modules can be loaded as <code>module load &lt;module-name&gt;</code>, or the shorthand <code>ml &lt;module-name&gt;</code> . Sourcing a script differs from executing it in that it modifies the current environment (<a href="https://superuser.com/questions/176783/what-is-the-difference-between-executing-a-bash-script-vs-sourcing-it">see _e.g. this</a>). A script is sourced through the <strong>source</strong> command:</p>
+<pre><code class="language-shell">&gt; cd path/to/wetppr 
+&gt; source scripts/vaughan/env-lmod.sh
+Using toolchain_name foss/2022a 
+
+module load calcua/2022a
+module load foss
+module load SciPy-bundle
 module load numba
-module load buildtools
+wip-tools dependencies:
+module load CMake
 module load git
 module load gh
-# list all loaded modules
-module list
-
-# allow to install python packages locally
-export PYTHONUSERBASE=/data/antwerpen/gst/guestXXX/.local # replace guestXXX with your guest ID
-mkdir -p ${PYTHONUSERBASE}
-export PATH=&quot;$PATH:${PYTHONUSERBASE}/bin&quot;
 </code></pre>
-<p>Every time you start a new remote terminal session, you must execute the command:</p>
-<pre><code class="language-shell">&gt; source path/to/wetppr-env.sh
+<p>The <code>env-lmod.sh</code> script can be used to load the modules for different toolchains and versions:</p>
+<pre><code class="language-shell">&gt; source scripts/vaughan/env-lmod.sh intel # =&gt; intel/2022a
+&gt; source  scripts/vaughan/env-lmod.sh foss/2023a # =&gt; foss/2022a
 </code></pre>
-<p>to load all modules and to modify the environment variables <code>PYTHONUSERBASE</code> and <code>PATH</code>.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Initially, it will appear useful to source the script automatically when you login. However, soon you will
-discover that such scripts depend on the project you work on, and that it is better to have it somewhere in your
-project directory.</p>
+<p>The <strong>foss</strong> toolchain uses the GCC compilers to build software, whereas the <strong>intel</strong> toolchain uses the Intel compilers.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>The <code>source</code> command can be abbreviated as <code>.</code>.</p>
 </div>
-<h4 id="micc2">Micc2</h4>
-<p><a href="https://et-micc2.readthedocs.io/en/latest/index.html">Micc2</a> is a Python package that simplifies your project
-management considerably. If you haven't already done so, source the environment script:</p>
-<pre><code class="language-shell">&gt; source path/to/wetppr-env.sh
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Sourcing a script modifies your environment for the time of your shell session. Every time you start a new shell session, you must reload these modules. Initially, it might be tempting to source the script in your <code>.bashrc</code>. However, soon you will discover that such scripts depend on the project you are working on, and that it is better to have it somewhere in your project directory.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>In order to be able to execute a shell script, it must be made <strong>executable</strong> (<code>chmod +x &lt;path/to/script&gt;</code>). Shell scripts that intend to modify the environment, like <code>env-lmod.sh</code>, and thus must be sourced, need not be executable. If you do not make the script executable, it can only be sourced. In this way you avoid the surprises from an unmodified environment after executing a script that expect to be sourced. (There are also [tricks to detect if a script is being sourced(https://stackoverflow.com/questions/2683279/how-to-detect-if-a-script-is-being-sourced)] or not.)</p>
+</div>
+<h4 id="wiptools">Wiptools</h4>
+<p><a href="https://etijskens.github.io/wiptools">Wiptools</a> is a Python package that can simplify your project management considerably. If you haven't already done so, source the <code>env-lmod.sh</code> script  above and install wip-tools in a (remote) terminal as:</p>
+<pre><code class="language-shell">&gt; pip install --user wiptools
+...
 </code></pre>
-<p>and install it in a (<em>remote</em>) terminal as:</p>
-<pre><code class="language-shell">&gt; pip install --user et-micc2
+<p>If you are interested in building binary extension modules from C++, you should also install <code>nanobind</code></p>
+<pre><code class="language-shell">&gt; pip install --user nanobind
 ...
 </code></pre>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The <code>--user</code> flag instructs <code>pip</code> to install the package in the directory defined by the environment variable
-<code>${PYTHONUSERBASE}</code>. The default install path of <code>pip</code> is a system location for which you do not have write
-permissions. Omitting <code>--user</code> would raise a <code>PermissionError</code>.</p>
+<p>The <code>--user</code> flag instructs <code>pip</code> to install the package in the directory defined by the environment variable <code>${PYTHONUSERBASE}</code>. The default install path of <code>pip</code> is a system location for which you do not have write permissions. Omitting <code>--user</code> would raise a <code>PermissionError</code>. When installing on your local machine, the <code>--user</code> flag may be omitted.</p>
 </div>
-<p><a href="https://et-micc2. readthedocs.io/en/latest/index.html">Micc2</a> requires
-<a href="https://et-micc2.readthedocs.io/en/latest/installation.html#first-time-micc2-setup">a little setup</a> before it is
-fully functional.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>You need a GitHub account before you can set up <code>micc2</code>.</p>
+<p>Before starting to use <code>wiptools</code>, checkout these <a href="https://etijskens.github.io/wiptools/installation/#prerequisites">prerequisites</a>.</p>
 </div>
-<p>To setup <code>micc2</code> , enter</p>
-<pre><code class="language-shell">&gt; micc2 setup
-</code></pre>
-<p>and supply <a href="https://et-micc2.readthedocs.io/en/latest/installation.
-html#first-time-micc2-setup">the data the application asks for</a>.</p>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>Make sure that you get a personal access token (pat) to allow creating remote repositories at
-<a href="https://github.com">GitHub</a>! Check <a href="https://et-micc2.readthedocs.io/en/latest/installation.
-html#first-time-micc2-setup">this</a>.</p>
-</div>
-<h4 id="pybind11">Pybind11</h4>
-<p>You will also need <code>pybind11</code> if you want to use <code>micc2</code> for building binary extension modules for Python from C++.</p>
-<pre><code class="language-shell">&gt; pip install --user pybind11
-</code></pre>
 <h2 id="submitting-jobs-on-vaughan">Submitting jobs on Vaughan</h2>
-<p>Most modern supercomputers - Vaughan included - use <a href="https://slurm.schedmd.com">Slurm</a> for resource management and 
-scheduling. An extensive description about using Vaughan can be found <a href="https://calcua.uantwerpen.be/courses/hpc-intro/IntroductionHPC-20230313.pdf">here</a>.</p>
-<p>Unlike your personal computer, which you use mainly interactively, a supercomputer is mostly used in batch mode. 
-Rather executing a command to perform the computation that you want, you send a request to execute that commmand 
-to the scheduler. In that request you must specify the resources you need, setup the environment, including necessary
-LMOD modules, and the command you want to execute.</p>
-<p>Here is a typical 'hello world' job script <code>mpi4py_hello_world.slurm</code> (You can find it in the 
-<code>wetppr/scripts/vaughan_examples</code> directory of the <a href="https://">wetppr github repo</a>):</p>
-<pre><code class="language-shell">#!/bin/bash                               # 1 Shebang
-#SBATCH --ntasks=64 --cpus-per-task=1     # 2 SLURM job script parameters
-#SBATCH --time=00:05:00                   # 2
-#SBATCH --mail-type=BEGIN,END,FAIL        # 2
-#SBATCH -–mail-user=&lt;your e-mail address&gt; # 2
-#SBATCH --job-name mpi4py_hello_world     # 2
-#SBATCH -o %x.%j.stdout                   # 2
-#SBATCH -e %x.%j.stderr                   # 2
+<p>Unlike your personal computer, which you use mainly <strong>interactively</strong>, a supercomputer is mostly used in <strong>batch mode</strong>. To execute some computational work, you send a request to the <strong>scheduler</strong> specifying the work and how you want it to be executed. You must specify</p>
+<ul>
+<li>
+<p>the resources you need,</p>
+</li>
+<li>
+<p>how the environment must be set up, <em>i.e.</em> necessary LMOD modules and environment variables, and</p>
+</li>
+<li>
+<p>the command(s) you want to execute.</p>
+</li>
+</ul>
+<p>Such a request is called a <strong>job script</strong>. The scheduler decides which compute nodes will be used for your job and when it will be started, based on a fair share policy and the availability of the resources of the cluster. </p>
+<p>Most modern supercomputers - all VSC clusters - use <a href="https://slurm.schedmd.com">Slurm</a> for resource management and scheduling. An extensive description about using Slurm on Vaughan can be found <a href="https://calcua.uantwerpen.be/courses/hpc-intro/IntroductionHPC-20230313.pdf">here</a>.</p>
+<p>Here is a simple job script, annotated with explanations for each line:</p>
+<pre><code class="language-shell">&lt;!-- BEGIN INCLUDE ../scripts/vaughan/hello-mpi4py/hello-mpi4py.slurm --&gt;
+#!/bin/bash
+### The line above is the shebang. It specifies the interpreter for the script. 
+### (see https://linuxhandbook.com/shebang/). Always /bin/bash for job scripts.
 
-module --force purge                      # 3 Setup execution environment
-module load calcua/2020a                  # 3
-module load Python                        # 3
-module list                               # 3
+### Submit this job from the parent directory as:
+### &gt; cd path/to/wetppr/scripts/vaughan/hello-mpi4py
+### &gt; sbatch hello-mpi4py.slurm
 
-srun python mpi4py_hello_world.py         # 4 Job command(s)
+### Slurm job script parameters ################################################
+### Accounting info. Specify the account from which credits will be taken to 
+### execute this job. At the time of writing (11/2023) only applicable on 
+### the VSC Tier-1 computer Hortense and the Tier-2 supercomputers at KU Leuven,
+### soon also in Tier-2 supercomputers at UAntwerpen. 
+### SBATCH --account=&lt;account-name&gt;
+
+### Specify the job name
+#SBATCH --job-name hello-mpi4py
+
+### Redirect output written to stdout to file &lt;job-name&gt;.&lt;job-id&gt;.stdout 
+### Redirect output written to stderr to file &lt;job-name&gt;.&lt;job-id&gt;.stderr
+### This groups your files nicely in a alphabetical listing.
+#SBATCH -o %x.%j.stdout
+#SBATCH -e %x.%j.stderr
+
+### Slurm resource specifications 
+### Request 1 compute node
+#SBATCH --nodes=1
+
+### Request 16 MPI processes
+#SBATCH --ntasks=16 
+
+### Request 1 CPU per MPI process (no hybrid OpenMP-MPI)
+#SBATCH --cpus-per-task=1
+
+### Tell Slurm that you expect the job to end in 5 minutes.
+### (Abort the job if it takes longer).
+#SBATCH --time=00:05:00
+
+### Prepare the environment for the job ########################################
+### Source the env-lmod.sh script to loads the LMOD modules needed.
+### We request it to use the foss toolchain. 
+source ../env-lmod.sh foss
+
+### Specify the computational work #############################################
+### Run the Python script hello-mpi4py.py on the requested resources by calling 
+### srun (this is a Slurm command)
+srun -n${SLURM_NTASKS} -c${SLURM_CPUS_PER_TASK} --exclusive --unbuffered python hello-mpi4py.py
+&lt;!-- END INCLUDE --&gt;
 </code></pre>
-<p>The job is submitted for execution by executing this command in a terminal running a session on a login node:</p>
-<pre><code class="language-shell">&gt; cd path/to/wetppr/scripts/vaughan_examples
+<p>This job script reqests the parallel execution of a simple Python script <code>hello-mpi4py.py</code> that prints some environment variables set by Slurm, and a line for each MPI process with some info about the MPI process:</p>
+<pre><code class="language-python">&lt;!-- BEGIN INCLUDE ../scripts/vaughan/hello-mpi4py/hello-mpi4py.py --&gt;
+import os
+jobid  = os.getenv('SLURM_JOB_ID')
+stepid = os.getenv('SLURM_STEP_ID')
+pid    = os.getpid()
+affinity = os.sched_getaffinity(0) # set of the CPUs used by the current MPI proces
+
+from mpi4py import MPI
+comm = MPI.COMM_WORLD
+
+
+def print_environment_variable(name):
+    """Print the name and the value of an environment value."""
+    value = os.getenv(name)
+    print(f"${{{name}}}={value}")
+
+
+if __name__ == '__main__':
+    # Print some environment variables (only if the MPI rank is 0)
+    if comm.rank == 0:
+        print_environment_variable('SLURM_NTASKS')
+        print_environment_variable('SLURM_CPUS_PER_TASK')
+
+    # Print a line with the job-id, job-step-id, MPI rank, total number of MPI
+    # processes, process id, and the affinity (the id of the CPU on which 
+    # the MPI process is running). Every MPI process will print one line.
+    print(f'jobid.stepid={jobid}.{stepid}, MPI_rank={comm.rank}/{comm.size}, {pid=} : affinity={affinity}')
+
+&lt;!-- END INCLUDE --&gt;
+</code></pre>
+<p>The job is submitted from the login node as:</p>
+<pre><code class="language-shell">&gt; cd path/to/wetppr/scripts/vaughan/hello-mpi4py
 &gt; sbatch mpi4py_hello_world.slurm
 </code></pre>
-<p>(Note that we first cd into the directory containing the job script.) If all goes well, <code>sbatch</code> responds with something like</p>
-<pre><code class="language-shell">Submitted batch job 709521
+<p>Note that we first cd into the parent directory of the job script because the job script uses paths relative to the parent directory ()<code>../env-lmod.sh</code> and <code>hello-mpi4py.py</code>). If all goes well, <code>sbatch</code> responds with something like:</p>
+<pre><code class="language-shell">Submitted batch job 1186356
 </code></pre>
-<p>Where <code>709521</code> is the job id. </p>
+<p>Where <code>1186356</code> is the job-id. </p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If something goes wrong with the job and you need help from the system administrator, always mention the job-id.</p>
+</div>
 <p>The job is now in the job queue. You can check the status of all your submitted jobs with the <code>squeue</code> command:</p>
 <pre><code class="language-shell">&gt; squeue
              JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
-            709521      zen2 mpi4py_h vsc20170 PD       0:00      1 (Priority)
+           1186356      zen2 hello-mp vsc20170 PD       0:00      2 (Priority)
 </code></pre>
-<p>The <code>ST</code> column shows the status of your job. <code>PD</code> means 'pending', the job is waiting for resource allocation. 
-It will eventually run. Once running, it will show <code>R</code> as a status code and the <code>TIME</code> column will show the 
-walltime of the job. Once completed the status will be 'CD' and after some minutes, it will disappear from the 
-output of the <code>squeue</code> command. The directory <code>wetppr/scripts/vaughan_examples</code> now contains two extra files:</p>
+<p>The <code>ST</code> column shows the status of your job. <code>PD</code> means 'pending', the job is waiting for resource allocation. It will eventually run. Once running, it will show <code>R</code> as a status code and the <code>TIME</code> column will show the walltime of the job. Once completed the status will be 'CD' and after some minutes, it will disappear from the output of the <code>squeue</code> command. The directory <code>wetppr/scripts/vaughan_examples</code> now contains two extra files:</p>
 <pre><code class="language-shell">&gt; ls -l
-total 12
--rw-rw-r-- 1 vsc20170 vsc20170   0 May  4 12:04 mpi4py_hello_world.709521.stderr
--rw-rw-r-- 1 vsc20170 vsc20170 576 May  4 12:04 mpi4py_hello_world.709521.stdout
--rw-rw-r-- 1 vsc20170 vsc20170 126 May  4 11:38 mpi4py_hello_world.py
--rw-rw-r-- 1 vsc20170 vsc20170 346 May  4 12:01 mpi4py_hello_world.slurm
-...
+-rw-rw-r-- 1 vsc20170 vsc20170    0 Oct 26 09:32 hello-mpi4py.1186356.stderr
+-rw-rw-r-- 1 vsc20170 vsc20170 1306 Oct 26 09:43 hello-mpi4py.1186356.stdout
+-rw-rw-r-- 1 vsc20170 vsc20170  973 Oct 26 09:42 hello-mpi4py.py
+-rw-rw-r-- 1 vsc20170 vsc20170 1826 Oct 26 08:56 hello-mpi4py.slurm
 </code></pre>
-<p>File <code>mpi4py_hello_world.709521.stderr</code> contains the output written by the job to stderr. If there are no errors, it 
-is generally empty, as indicated here by the 0 file size. File <code>mpi4py_hello_world.709521.stdout</code> contains the output 
-written by the job to stdout. Here it is:</p>
-<pre><code class="language-shell">Currently Loaded Modules:
-  1) calcua/2020a
-  2) GCCcore/9.3.0
-  3) binutils/2.34-GCCcore-9.3.0
-  4) intel/2020a
-  5) baselibs/2020a-GCCcore-9.3.0
-  6) Tcl/8.6.10-intel-2020a
-  7) X11/2020a-GCCcore-9.3.0
-  8) Tk/8.6.10-intel-2020a
-  9) SQLite/3.31.1-intel-2020a
- 10) HDF5/1.10.6-intel-2020a-MPI
- 11) METIS/5.1.0-intel-2020a-i32-fp64
- 12) SuiteSparse/5.7.1-intel-2020a-METIS-5.1.0
- 13) Python/3.8.3-intel-2020a
-Hello from rank=7/64
-Hello from rank=5/64
-...
-Hello from rank=25/64
+<p>The job has created two output files with the output written to stderr and stdout, respectively. As requested by the job script lines <code>#SBATCH -o %x.%j.stdout</code> and <code>#SBATCH -e %x.%j.stderr</code>, they are compose as <code>&lt;job-name&gt;.&lt;job-id&gt;.stdout</code> and <code>&lt;job-name&gt;.&lt;job-id&gt;.stderr</code>, respectively. Error messages are normally written to the <code>stderr</code> file, which is empty in this case, as indicated by the 0 file size. The output of the Python script <code>hello-mpi4py.py</code> appears in <code>hello-mpi4py.1186356.stdout</code>, as well as that of <code>env-lmod.sh</code>, which precedes that of <code>hello-mpi4py.py</code> .</p>
+<pre><code class="language-shell">&lt;!-- BEGIN INCLUDE ../scripts/vaughan/hello-mpi4py/hello-mpi4py.1186356.stdout_ok --&gt;
+
+Using toolchain_name foss/2022a 
+
+module load calcua/2022a
+module load foss
+module load SciPy-bundle
+module load numba
+wip-tools dependencies:
+module load CMake
+module load git
+module load gh
+
+${SLURM_NTASKS}=16
+${SLURM_CPUS_PER_TASK}=1
+jobid.stepid=1186356.0, MPI_rank=0/16, pid=1489956 : affinity={0}
+jobid.stepid=1186356.0, MPI_rank=1/16, pid=1489957 : affinity={1}
+jobid.stepid=1186356.0, MPI_rank=2/16, pid=1489958 : affinity={2}
+jobid.stepid=1186356.0, MPI_rank=3/16, pid=1489959 : affinity={3}
+jobid.stepid=1186356.0, MPI_rank=4/16, pid=1489960 : affinity={4}
+jobid.stepid=1186356.0, MPI_rank=5/16, pid=1489961 : affinity={5}
+jobid.stepid=1186356.0, MPI_rank=6/16, pid=1489962 : affinity={6}
+jobid.stepid=1186356.0, MPI_rank=7/16, pid=1489963 : affinity={7}
+jobid.stepid=1186356.0, MPI_rank=8/16, pid=1489964 : affinity={8}
+jobid.stepid=1186356.0, MPI_rank=9/16, pid=1489965 : affinity={9}
+jobid.stepid=1186356.0, MPI_rank=10/16, pid=1489966 : affinity={10}
+jobid.stepid=1186356.0, MPI_rank=11/16, pid=1489967 : affinity={11}
+jobid.stepid=1186356.0, MPI_rank=12/16, pid=1489968 : affinity={12}
+jobid.stepid=1186356.0, MPI_rank=13/16, pid=1489969 : affinity={13}
+jobid.stepid=1186356.0, MPI_rank=14/16, pid=1489970 : affinity={14}
+jobid.stepid=1186356.0, MPI_rank=15/16, pid=1489971 : affinity={15}
+
+&lt;!-- END INCLUDE --&gt;
 </code></pre>
-<p>The lines following <code>Currently Loaded Modules:</code> represent the output of the <code>module list</code> command. The 
-subsequent lines <code>rank=&lt;rank&gt;/64</code> represent the output of the <code>print</code> statement in the <code>mpi4py_hello_world.py</code> script.
-Each rank produces one printed line in random order (this is because of OS jitter). </p>
-<p>The job script has four sections:</p>
-<ul>
-<li>the shebang</li>
-<li>SLURM job script parameters </li>
-<li>setup of the job's execution environment</li>
-<li>the actual job commands </li>
-</ul>
-<h3 id="shebang">Shebang</h3>
-<p>The first line, starting with <code>#!</code> is the <a href="https://linuxhandbook.com/shebang/"><em>shebang</em></a>). It is mandatory and sets the system <code>bash</code> 
-as the interpreter of the job script:  </p>
-<pre><code class="language-shell">#!/bin/bash
-</code></pre>
-<h3 id="slurm-job-script-parameters">SLURM job script parameters</h3>
-<p>After the <em>shebang</em> the Slurm job script parameters are specified. They all start with <code>#SBATCH</code>.
-The second line selects the number of tasks (processes) and cpus per process to be used for your job:</p>
-<pre><code class="language-shell">#SBATCH --ntasks=64 --cpus-per-task=1
-</code></pre>
-<p>Here, 64 processes are requested, each process using one cpu for each process. Since the compute nodes of Vaughan 
-have 64 cores, this corresponds to requesting a single entire node. Typically, processes communicate via MPI and the 
-cpus of a process via OpenMP.  So, each core runs a process communicating with the other processes via MPI. </p>
-<p>Furthermore, we need to specify how long we suspect the job to run:</p>
-<pre><code class="language-shell">#SBATCH --time=00:05:00
-</code></pre>
-<p>Here, we request 5 minutes. If the job is not finished after five minutes, it will be aborted. The maximum wall time 
-for a job is 72 hours. Longer jobs must be split into pieces shorter than 72 hours. Jobs of 1 hour or less have high 
-priority than longer jobs.</p>
-<p>Larger jobs typically do not start immediately. First, the requested resources must be available. Moreover, your
-job must be the next in the queue, which is formed on a fair share basis. To know when your job starts and ends, you 
-can ask the scheduler to send you an e-mail. Here, we request that an e-mail is sent when the job starts, 
-ends and also when it fails for some reason.</p>
-<pre><code class="language-shell">#SBATCH --mail-type=BEGIN,END,FAIL
+<p>We already explained the job-id. The step-id is tied to an individual srun command. The job script has only one srun command, so the step-id is always 0 (counting starts at 0, in C/C++/Python tradition). The MPI rank is tied to he MPI process running. The job script requested <code>#SBATCH --ntasks=16</code>, hence, the MPI rank ranges from 0 to 15. Pid is the process id. It refers to the Linux process of the given MPI rank. Finally, affinity is the set of CPUs on which the process runs. Since the job script requested <code>#SBATCH --cpus-per-task=1</code>, each MPI rank uses only a single CPU. In hybrid MPI-OpenMP programs, an MPI rank can use OpenMP parallel sections over several CPUs. In that case one would request, <em>e.g.</em>, <code>#SBATCH --cpus-per-task=4</code> and the afinity sets would show 4 different CPUs.</p>
+<p>The job above requested only a single compute node and a very short wall time (5'). Often, it will start executing allmost immediately after submitting. For larger jobs, requiring many nodes, the scheduler has to find a moment at which the number of nodes requested are available (that is, without work load). Typically, one has to wait a bit before the job starts.  The waiting time depends on the total work load of the cluster, but rarely exceeds more than a day. To know when your job starts and ends, you can ask the scheduler to send you an e-mail, by adding these lines to your job script:</p>
+<pre><code class="language-shell">### Send mail when the job starts, ands and fails 
+#SBATCH --mail-type=BEGIN,END,FAIL
+### Send mail to this address:
 #SBATCH -–mail-user=&lt;your e-mail address&gt;
 </code></pre>
-<p>If you leave out the <code>--mail-user</code>, the e-mail address </p>
-<p>Finally, it is convenient to specify a name for the job and its output files. </p>
-<pre><code class="language-shell">#SBATCH --job-name mpi4py_hello_world
-#SBATCH -o %x.%j.stdout
-#SBATCH -e %x.%j.stderr
-</code></pre>
-<p>As the job script is executing the Python script <code>mpi4py_hello_world.py</code> and was therefor named <code>mpi4py_hello_world.slurm</code>,
-the job name is correspondingly set to <code>mpi4py_hello_world</code>. The output to <code>stdout</code> and <code>stderr</code> is then redirected
-to <code>mpi4py_hello_world.&lt;jobid&gt;.stdout</code> and <code>mpi4py_hello_world.&lt;jobid&gt;.stderr</code>, resp. This ensures that an alphabetical 
-listing of files will group all files corresponding to and produced by this job script. </p>
-<h3 id="setup-of-the-jobs-execution-environment">Setup of the job's execution environment</h3>
-<p>We prefer to start from a clean environment:</p>
-<pre><code class="language-shell"># module --force purge
-</code></pre>
-<p>Then we load a toolchain:</p>
-<pre><code class="language-shell"># module load calcua/2020a
-</code></pre>
-<p>(More recent toolchains are upcoming).</p>
-<p>Next, we load the LMOD modules we need:</p>
-<pre><code class="language-shell"># module load Python/3.8.3-intel-2020a
-</code></pre>
-<p>This LMOD module comes with a whole bunch of pre-installed python modules, including numpy, mpi4py, scipy, ...</p>
-<p>It is also useful to print which modules we have loaded, to leave a trace of the environment in which the 
-job is executed for later reference.:</p>
-<pre><code class="language-shell"># module list
-</code></pre>
-<h3 id="job-execution-commands">Job execution commands</h3>
-<p>The job script ends with a list of (<code>bash</code>) commands that compose the job: </p>
-<pre><code class="language-shell">srun python mpi4py_hello_world.py
-</code></pre>
-<p>The <code>srun</code> command calls mpirun with the resources requested in the [Job script parameters][job-script-parameters]
-. Consequentially, 64 MPI processes will be started, one on each core of a compute node. Their ranks will be 
-numbered 0..63.</p>
+<p>Note that the maximum wall time for a job is 72 hours. Longer jobs must be split into pieces shorter than 72 hours. Jobs of 1 hour or less have higher priority.</p>
 <h1 id="recommended-steps-from-here">Recommended steps from here</h1>
 <ul>
-<li>A helpfull tutorial on <a href="../presentations/TNT-VSCode.pptx">Using VSCode for Remote Development</a></li>
-<li>The <a href="https://et-micc2.readthedocs.io/en/stable/tutorials.html">micc2 tutorials</a></li>
-</ul>
-
-
-
-
-
-                
-              </article>
+<li>A helpfull tutorial on <a href="presentations/TNT-vscode.pptx">Using VS Code for Remote Development</a></li>
+<li>The <a href="">Getting started with wip</a></li>
+</ul></div></div>
             </div>
-          
-          
         </div>
-        
-      </main>
-      
-        <footer class="md-footer">
-  
-  <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright">
-  
-  
-    Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-      Material for MkDocs
-    </a>
-  
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
-      
-    </div>
-  </div>
-</footer>
-      
-    </div>
-    <div class="md-dialog" data-md-component="dialog">
-      <div class="md-dialog__inner md-typeset"></div>
-    </div>
-    
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
-    
-    
-      <script src="../assets/javascripts/bundle.6df46069.min.js"></script>
-      
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML"></script>
-      
-    
-  </body>
+
+    </body>
 </html>

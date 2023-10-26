@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Useful links - Parallel Programming</title>
+        <title>Exercises - Parallel Programming</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -40,8 +40,8 @@
                             <li class="navitem">
                                 <a href="../glossary/" class="nav-link">Glossary</a>
                             </li>
-                            <li class="navitem active">
-                                <a href="./" class="nav-link">Useful links</a>
+                            <li class="navitem">
+                                <a href="../links/" class="nav-link">Useful links</a>
                             </li>
                             <li class="navitem">
                                 <a href="../overview/" class="nav-link">Overview</a>
@@ -49,8 +49,8 @@
                             <li class="navitem">
                                 <a href="../course-text/" class="nav-link">Course text</a>
                             </li>
-                            <li class="navitem">
-                                <a href="../exercises/" class="nav-link">Exercises</a>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Exercises</a>
                             </li>
                             <li class="navitem">
                                 <a href="../evaluation/" class="nav-link">Evaluation of this course</a>
@@ -67,12 +67,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../glossary/" class="nav-link">
+                                <a rel="prev" href="../course-text/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../overview/" class="nav-link">
+                                <a rel="next" href="../evaluation/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -94,36 +94,8 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#useful-links" class="nav-link">Useful links</a>
+            <li class="nav-item" data-level="1"><a href="#exercises" class="nav-link">Exercises</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#c" class="nav-link">C++</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#fortran" class="nav-link">Fortran</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#python" class="nav-link">Python</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#parallelization-approaches" class="nav-link">Parallelization approaches</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#hpc" class="nav-link">HPC</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#project-management" class="nav-link">Project management</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#other-courses" class="nav-link">Other courses</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
               </ul>
             </li>
         </ul>
@@ -131,61 +103,13 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<div><h1 id="useful-links">Useful links</h1>
-<h2 id="c">C++</h2>
-<ul>
-<li><a href="https://cplusplus.com">cplusplus.com</a></li>
-<li><a href="http://www.cppreference.com">cppreferencee.com</a></li>
-</ul>
-<h2 id="fortran">Fortran</h2>
-<ul>
-<li><a href="https://fortran-lang.org">fortran-lang.org</a></li>
-</ul>
-<h2 id="python">Python</h2>
-<ul>
-<li><a href="https://www.python.org">python.org</a></li>
-<li><a href="https://realpython.com">realpython.com</a></li>
-</ul>
-<h2 id="parallelization-approaches">Parallelization approaches</h2>
-<ul>
-<li><a href="https://www.openmp.org">OpenMP</a>: C/C++/Fortran</li>
-<li><a href="https://www.mpi.org">MPI</a>: C/C++/Fortran</li>
-<li><a href="https://mpi4py.readthedocs.io/en/stable/">mpi4py</a>: Python, the documentation of mpi4py is not self-contained. It 
-  relies (silently) on the documentation of MPI.</li>
-<li><a href="https://docs.python.org/3/library/multiprocessing.html">multiprocessing</a>: Python</li>
-<li><a href="https://docs.python.org/3/library/concurrent.futures.html">concurrent.futures</a>: Python</li>
-<li><a href="https://www.dask.org">dask</a>: Python</li>
-</ul>
-<h2 id="hpc">HPC</h2>
-<ul>
-<li><a href="https://blogs.fau.de/hager/">Georg Hager's blog</a></li>
-<li><a href="https://blogs.fau.de/hager/archives/8861">SC20 tutorial “Node-Level Performance Engineering”</a>: This is all about 
-  "When to parallelize, and <strong><em>what to do first</em></strong>".</li>
-</ul>
-<h2 id="project-management">Project management</h2>
-<ul>
-<li>
-<p><a href="https://etijskens.github.io/wiptools">wiptools</a>: managing your Python/C++/Fortran project. Wiptools facilitates</p>
-<ul>
-<li>creating new projects</li>
-<li>adding Python sub-modules, Python applications (CLIs), binary extension modules written in C++ and Fortran. </li>
-<li>automatically extracting documentation from the doc-strings of your files (html or pdf)</li>
-<li>(unit) testing (<a href="https://docs.pytest.org/en/7.2.x/">pytest</a>)</li>
-<li>publishing the documentation on <a href="https://readthedocs.org">readthedocs</a></li>
-<li>publishing your code on the <a href="https://pypi.org">Python package index</a> </li>
-<li>version management and control (on <a href="https://github.com">GitHub</a>). If you are not familiar
-  with git, <a href="https://coderefinery.github.io/git-intro/">here</a> is an excellent starting point.</li>
-</ul>
-</li>
-</ul>
-<h2 id="other-courses">Other courses</h2>
-<ul>
-<li><a href="https://coderefinery.org/lessons/from-coderefinery/">CodeRefinery</a> 
-  teaches <em>all the essential tools which are usually skipped in academic education</em>. 
-  Especially useful is the <a href="https://coderefinery.github.io/git-intro/">Introduction to git</a>.</li>
-<li><a href="https://hands-on.coderefinery.org">Hands-on Scientific Computing</a> </li>
-<li><a href="https://missing.csail.mit.edu/">The Missing Semester of Your CS Education</a></li>
-</ul></div></div>
+<div><h1 id="exercises">Exercises</h1>
+<p>Exercises 1-2 are meant learn the practical principles of setting up a project and developing code
+in Python, C++ and Modern Fortran, both on your local machine and the VSC clusters.</p>
+<p><a href="../exercise-1/">Exercise 1 - Getting started with <code>wip</code></a></p>
+<p><a href="../exercise-2/">Exercise 2 - Deploying your project on a HPC cluster</a></p>
+<p>The remaining exercises are evaluated and must be delivered.</p>
+<p><a href="../exercise-3/">Exercise 3 - The matrix-vector product</a></p></div></div>
             </div>
         </div>
 

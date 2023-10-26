@@ -1,821 +1,132 @@
-
-<!doctype html>
-<html lang="en" class="no-js">
-  <head>
-    
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      
-      
-      
-      
-        <link rel="prev" href="../chapter-4/">
-      
-      
-        <link rel="next" href="../chapter-6/">
-      
-      <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.10">
-    
-    
-      
-        <title>Chapter 5 - Developing Research Software - Parallel programmeren</title>
-      
-    
-    
-      <link rel="stylesheet" href="../assets/stylesheets/main.0d440cfe.min.css">
-      
-        
-        <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
-      
-      
-
-    
-    
-    
-      
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-      
-    
-    
-      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
-    
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
-    
-      
-
-    
-    
-    
-  </head>
-  
-  
-    
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
-  
-    
-    
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer"></label>
-    <div data-md-component="skip">
-      
         
-        <a href="#chapter-5-developing-research-software" class="md-skip">
-          Skip to content
-        </a>
-      
-    </div>
-    <div data-md-component="announce">
-      
-    </div>
-    
-    
-      
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Chapter 5 - Developing Research Software - Parallel Programming</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/color-brewer.min.css">
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet">
 
-<header class="md-header" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Parallel programmeren" class="md-header__button md-logo" aria-label="Parallel programmeren" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
 
-    </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
-    </label>
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
-        <div class="md-header__topic">
-          <span class="md-ellipsis">
-            Parallel programmeren
-          </span>
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Parallel Programming</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../glossary/" class="nav-link">Glossary</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../links/" class="nav-link">Useful links</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../overview/" class="nav-link">Overview</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../course-text/" class="nav-link">Course text</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../exercises/" class="nav-link">Exercises</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../evaluation/" class="nav-link">Evaluation of this course</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../vsc-infrastructure/" class="nav-link">VSC infrastructure</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
-            
-              Chapter 5 - Developing Research Software
-            
-          </span>
-        </div>
-      </div>
-    </div>
-    
-    
-    
-      <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
         </button>
-      </nav>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
     </div>
-  </div>
-</div>
+
     
-    
-  </nav>
-  
-</header>
-    
-    <div class="md-container" data-md-component="container">
-      
-      
-        
-          
-        
-      
-      <main class="md-main" data-md-component="main">
-        <div class="md-main__inner md-grid">
-          
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
             
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Parallel programmeren" class="md-nav__button md-logo" aria-label="Parallel programmeren" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
-
-    </a>
-    Parallel programmeren
-  </label>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
-        Wellcome at Parallel programming
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../over-de-auteur/" class="md-nav__link">
-        Over de auteur
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../glossary/" class="md-nav__link">
-        Glossary
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../links/" class="md-nav__link">
-        Useful links
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../overview/" class="md-nav__link">
-        Overview
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter-1/" class="md-nav__link">
-        Chapter 1 - Introduction
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter-2/" class="md-nav__link">
-        Chapter 2 - Aspects of modern CPU architecture
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter-3/" class="md-nav__link">
-        Chapter 3 - Optimise first, then parallelize
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter-4/" class="md-nav__link">
-        chapter 4 - Case studies
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-    
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Chapter 5 - Developing Research Software
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        Chapter 5 - Developing Research Software
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#a-strategy-for-the-development-research-software" class="md-nav__link">
-    A strategy for the development research software
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#principle-1" class="md-nav__link">
-    Principle 1
-  </a>
-  
-    <nav class="md-nav" aria-label="Principle 1">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#start-out-in-a-high-level-language" class="md-nav__link">
-    Start out in a high level language
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#principle-2" class="md-nav__link">
-    Principle 2
-  </a>
-  
-    <nav class="md-nav" aria-label="Principle 2">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#start-out-as-simple-as-possible" class="md-nav__link">
-    Start out as simple as possible
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#principle-3" class="md-nav__link">
-    Principle 3
-  </a>
-  
-    <nav class="md-nav" aria-label="Principle 3">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#test-and-validate-your-code-changes" class="md-nav__link">
-    Test and validate your code (changes)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#automating-tests" class="md-nav__link">
-    Automating tests
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#debugging-a-failing-test" class="md-nav__link">
-    Debugging a failing test
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#quick-and-dirty-testing" class="md-nav__link">
-    Quick and dirty testing
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#principle-4" class="md-nav__link">
-    Principle 4
-  </a>
-  
-    <nav class="md-nav" aria-label="Principle 4">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#improve-and-extend-the-code" class="md-nav__link">
-    Improve and extend the code
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#principle-5" class="md-nav__link">
-    Principle 5
-  </a>
-  
-    <nav class="md-nav" aria-label="Principle 5">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#optimise-if-necessary" class="md-nav__link">
-    Optimise if necessary
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#techniques-for-optimising-performance" class="md-nav__link">
-    Techniques for optimising performance
-  </a>
-  
-    <nav class="md-nav" aria-label="Techniques for optimising performance">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#use-python-modules-built-for-hpc" class="md-nav__link">
-    Use Python modules built for HPC
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#numba" class="md-nav__link">
-    Numba
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#developing-your-own-modules-in-cfortran" class="md-nav__link">
-    Developing your own modules in C++/Fortran
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#principle-6" class="md-nav__link">
-    Principle 6
-  </a>
-  
-    <nav class="md-nav" aria-label="Principle 6">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#parallelise-if-necessary" class="md-nav__link">
-    Parallelise if necessary
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter-6/" class="md-nav__link">
-        Chapter 6 - Tools for parallellization
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../evaluation/" class="md-nav__link">
-        Evaluation of this course
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../vsc-infrastructure/" class="md-nav__link">
-        VSC infrastructure
-      </a>
-    </li>
-  
-
-    
-  </ul>
-</nav>
-                  </div>
-                </div>
-              </div>
+            <li class="nav-item" data-level="1"><a href="#chapter-5-developing-research-software" class="nav-link">Chapter 5 - Developing Research Software</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#a-strategy-for-the-development-research-software" class="nav-link">A strategy for the development research software</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#principle-1" class="nav-link">Principle 1</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#principle-2" class="nav-link">Principle 2</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#principle-3" class="nav-link">Principle 3</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
             
-            
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
+            <li class="nav-item" data-level="1"><a href="#todo-fix-the-link" class="nav-link">TODO: ## fix the link</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#principle-4" class="nav-link">Principle 4</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#principle-5" class="nav-link">Principle 5</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#principle-6" class="nav-link">Principle 6</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
 
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#a-strategy-for-the-development-research-software" class="md-nav__link">
-    A strategy for the development research software
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#principle-1" class="md-nav__link">
-    Principle 1
-  </a>
-  
-    <nav class="md-nav" aria-label="Principle 1">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#start-out-in-a-high-level-language" class="md-nav__link">
-    Start out in a high level language
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#principle-2" class="md-nav__link">
-    Principle 2
-  </a>
-  
-    <nav class="md-nav" aria-label="Principle 2">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#start-out-as-simple-as-possible" class="md-nav__link">
-    Start out as simple as possible
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#principle-3" class="md-nav__link">
-    Principle 3
-  </a>
-  
-    <nav class="md-nav" aria-label="Principle 3">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#test-and-validate-your-code-changes" class="md-nav__link">
-    Test and validate your code (changes)
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#automating-tests" class="md-nav__link">
-    Automating tests
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#debugging-a-failing-test" class="md-nav__link">
-    Debugging a failing test
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#quick-and-dirty-testing" class="md-nav__link">
-    Quick and dirty testing
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#principle-4" class="md-nav__link">
-    Principle 4
-  </a>
-  
-    <nav class="md-nav" aria-label="Principle 4">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#improve-and-extend-the-code" class="md-nav__link">
-    Improve and extend the code
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#principle-5" class="md-nav__link">
-    Principle 5
-  </a>
-  
-    <nav class="md-nav" aria-label="Principle 5">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#optimise-if-necessary" class="md-nav__link">
-    Optimise if necessary
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#techniques-for-optimising-performance" class="md-nav__link">
-    Techniques for optimising performance
-  </a>
-  
-    <nav class="md-nav" aria-label="Techniques for optimising performance">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#use-python-modules-built-for-hpc" class="md-nav__link">
-    Use Python modules built for HPC
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#numba" class="md-nav__link">
-    Numba
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#developing-your-own-modules-in-cfortran" class="md-nav__link">
-    Developing your own modules in C++/Fortran
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#principle-6" class="md-nav__link">
-    Principle 6
-  </a>
-  
-    <nav class="md-nav" aria-label="Principle 6">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#parallelise-if-necessary" class="md-nav__link">
-    Parallelise if necessary
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-          
-          
-            <div class="md-content" data-md-component="content">
-              <article class="md-content__inner md-typeset">
-                
-                  
-
-
-
-<h1 id="chapter-5-developing-research-software">Chapter 5 - Developing Research Software</h1>
+<div><h1 id="chapter-5-developing-research-software">Chapter 5 - Developing Research Software</h1>
 <h2 id="a-strategy-for-the-development-research-software">A strategy for the development research software</h2>
 <p>You are facing a new research question, to be solved computationally and on your shelf of computational tools nothing 
 useful is found. You start with an empty sheet of paper on you desk. or rather with an empty screen on your laptop. 
@@ -861,8 +172,7 @@ disappoint him and told him that he needed a 'true' magician, which I, unfortuna
 was flawed in some sense, but other than a bug it might just as well be one or more of the situations below:</p>
 <ul>
 <li>The program may contain many bugs, which is very well possible in view of its size. On average a programmer 
-  introduces about 1 bug in every 10 lines of code! Check this link for <a href="https://www.
-  openrefactory.com/intelligent-code-repair-icr/">some amazing facts</a> </li>
+  introduces about 1 bug in every 10 lines of code! Check this link for <a href="https://www.%0A%20%20openrefactory.com/intelligent-code-repair-icr/">some amazing facts</a> </li>
 <li>The algorithm for solving the problem is inappropriate. </li>
 <li>There is an accuracy problem, related e.g. discretisation of time, space, or a insufficient basis function for 
   expanding the solution, or related to the finite precision of floating point numbers. (Floating point numbers are a 
@@ -887,7 +197,7 @@ it is small or big, simple or complex, starting from scratch or from someone els
    possible. </li>
 <li>Improve your code, adding better algorithms (which usually are more complex), pay attention to data structure 
    facilitating good data access patterns, think of <a class="autorefs autorefs-internal" href="../chapter-3/#common-sense-optimisations">common sense optimisations</a>, 
-   gradually increase the complexity of the problem.<br />
+   gradually increase the complexity of the problem.<br>
    Keep principle 3. in mind and continue testing and validating the improvements.</li>
 <li>If neccessary, optimise your code. Necessary is when the time to solution is too long.</li>
 <li>If necessary, parallelise your code. Necessary is when the time to solution is still too long after paying 
@@ -900,7 +210,7 @@ it is small or big, simple or complex, starting from scratch or from someone els
 wellcome to contact me for support when developing research software. The best time to do that would be before 
 having written any line of code at all for the problem, in order to follow all principles.    </p>
 </div>
-<p>The ordering of the list is important and reflects the successive steps in working on a project.<br />
+<p>The ordering of the list is important and reflects the successive steps in working on a project.<br>
 Below, we explain these principles in depth.</p>
 <p>Much of the wisdom of this strategy is integrated into a Python application <a class="autorefs autorefs-internal" href="../links/#project-management">micc2</a>.</p>
 <h2 id="principle-1">Principle 1</h2>
@@ -921,8 +231,7 @@ Below, we explain these principles in depth.</p>
   installing packages is as easy as: <code>pip install numpy</code>. The use of modules is so practical and natural to Python 
   that researchers do not so often feel the need to reinvent wheels.</li>
 <li>Availability of High quality Python distributions (
-  <a href="https://www.intel.com/content/www/us/en/developer/articles/technical/get-started-with-intel-distribution
-  -for-python.html">Intel</a>, <a href="https://www.anaconda.com/products/distribution">Anaconda</a>), cross-platform Windows/Linux/MACOS</li>
+  <a href="https://www.intel.com/content/www/us/en/developer/articles/technical/get-started-with-intel-distribution%0A%20%20-for-python.html">Intel</a>, <a href="https://www.anaconda.com/products/distribution">Anaconda</a>), cross-platform Windows/Linux/MACOS</li>
 <li>Python is open source. In itself that is not necessarily an advantage, but its large community guarantees an 
   very good documentation, and for many problems high-quality solutions are found readily on user forums.  </li>
 <li>Python is used in probably any scientific domain, and may have many third party extension freely available in that 
@@ -960,7 +269,7 @@ If the implementation is easy to explain, it may be a good idea.
 Namespaces are one honking great idea -- let's do more of those!
 </code></pre>
 <p>In many ways, Python gently pushes you in the right direction, providing a pleasant programming experience.</p>
-<p><img alt="excellent-just-ahead" src="../public/excellence-just-ahead.png" /></p>
+<p><img alt="excellent-just-ahead" src="../public/excellence-just-ahead.png"></p>
 <p>As an alternative on could consider <a href="https://julialang.org">Julia</a>. Following a different programming paradigm, called 
 <a href="https://docs.julialang.org/en/v1/manual/methods/">multiple dispatch</a>, its learning curve is probably a bit steeper 
 and it has a smaller community. However, it is more performant than Python. On the other hand its programming 
@@ -1000,8 +309,7 @@ reference case for validating improvements.  </p>
 </ul>
 <h2 id="principle-3">Principle 3</h2>
 <h3 id="test-and-validate-your-code-changes">Test and validate your code (changes)</h3>
-<p>In view of these amazing facts on the abundance of <a href="https://www.openrefactory.com/intelligent-code-repair-icr/">bugs in code</a> 
-there seems to be little chance that a programmer writes 100 lines of code without bugs. On average 7 bugs are to be 
+<p>In view of these amazing facts on the abundance of <a href="https://www.openrefactory.com/intelligent-code-repair-icr/">bugs in code</a> there seems to be little chance that a programmer writes 100 lines of code without bugs. On average 7 bugs are to be 
 expected in every 100 lines of code. Probably not all these bugs affect the outcome of the program, but in research 
 code the outcome  is of course crucial. How can we ensure that our code is correct, and remains so as we continue to 
 work on it? The answer is unit-tests. <a href="https://en.wikipedia.org/wiki/Unit_testing">Unit-testing</a> are pieces of 
@@ -1015,12 +323,13 @@ described by the formula:</p>
 <p>
 <script type="math/tex; mode=display"> V(r) = D_e(1 - e^{-\alpha(r-r_e)})^2 </script>
 </p>
-<p>The code for this function is found in <a href="../public/symlinks/__init__.py">wetppr/mcgse/<strong>init</strong>.py</a>. Note that we 
+<h1 id="todo-fix-the-link">TODO: ## fix the link</h1>
+<p>The code for this function is found in <a href="public/symlinks/__init__.py">wetppr/mcgse/<strong>init</strong>.py</a>. Note that we 
 provided default unit values for all the parameters: </p>
 <pre><code class="language-python">import numpy as np
 
 def morse_potential(r: float, D_e: float = 1, alpha: float = 1, r_e: float = 1) -&gt; float:
-    &quot;&quot;&quot;Compute the Morse potential for interatomic distance r.
+    """Compute the Morse potential for interatomic distance r.
 
     This is better than it looks, we can pass a numpy array for r, and it will
     use numpy array arithmetic to evaluate the expression for the array.
@@ -1030,7 +339,7 @@ def morse_potential(r: float, D_e: float = 1, alpha: float = 1, r_e: float = 1) 
         D_e: depth of the potential well, default = 1
         alpha: width of the potential well, default = 1
         r_e: location of the potential well, default = 1
-    &quot;&quot;&quot;
+    """
     return D_e * (1 - np.exp(-alpha*(r - r_e)))**2
 </code></pre>
 <p>The implementation of the function comprises only one line. How can we test its correctness? One approach would be 
@@ -1097,17 +406,17 @@ order to find the source of the error. IDEs like <a href="https://www.jetbrains.
 <a href="https://code.visualstudio.com">VS Code</a> provide a most friendly debugging experience, but you can also use the 
 Python debugging module <a href="https://docs.python.org/3/library/pdb.html">pdb</a>:</p>
 <p>Debugging a failing test is often the best way to investigate the source of the error. </p>
-<p>Python has an interesting idiom that allows a module to be run as a script, <em>i.e.</em><br />
+<p>Python has an interesting idiom that allows a module to be run as a script, <em>i.e.</em><br>
 <a href="https://realpython.com/lessons/executing-module/">execute a module</a>. To that end you put this code snippet at the 
 end of a module:</p>
 <pre><code class="language-python">#
 # module code here
 #
-if __name__ == &quot;__main__&quot;:
+if __name__ == "__main__":
     #
     # script code here.
     #
-    print(&quot;-*# finished #*-&quot;) # if this line doesn't show up, something went wrong. 
+    print("-*# finished #*-") # if this line doesn't show up, something went wrong. 
 </code></pre>
 <p>The idiom has no common name :-(, we will refer to it as the <code>if __name__ == "__main__":</code> idiom. </p>
 <p>If a module file is imported as in <code>import module_name</code>, only the module code is executed, and the body of the <code>if</code> 
@@ -1144,12 +453,12 @@ FAILED tests/wetppr/mcgse/test_mcgse.py::test_morse_potential_mathematical_prope
 <pre><code class="language-python">#
 # test functions here
 #
-if __name__ == &quot;__main__&quot;:
+if __name__ == "__main__":
     the_test_you_want_to_debug = test_energy
 
-    print(&quot;__main__ running&quot;, the_test_you_want_to_debug)
+    print("__main__ running", the_test_you_want_to_debug)
     the_test_you_want_to_debug()
-    print(&quot;-*# finished #*-&quot;)
+    print("-*# finished #*-")
 </code></pre>
 <p>When we run <code>pytest tests</code>, pytest <em>imports</em> the test module, setting <code>__name__</code> to <code>"test_mcgse"</code>. Hence the 
 condition <code>__name__ == "__main__"</code> evaluates to <code>False</code> and its body is not executed. Only when the module is 
@@ -1212,8 +521,7 @@ below. If not, try optimising the whole function with the very same techniques.<
 <p>Below a series of optimisation techniques is presented, ordered by development effort needed.</p>
 <h4 id="use-python-modules-built-for-hpc">Use Python modules built for HPC</h4>
 <p>There exist excellent Python modules that provide very performant high level data structures and operations. Using 
-them can make a dramatic difference. E.g. the difference in performance between Python lists and <a href="https://numpy.
-org">Numpy</a> arrays can easily be a factor 100. By using them you do not only gain performance. Once you have learned how to 
+them can make a dramatic difference. E.g. the difference in performance between Python lists and <a href="https://numpy.%0Aorg">Numpy</a> arrays can easily be a factor 100. By using them you do not only gain performance. Once you have learned how to 
 use a Python module, such as Numpy, development time is also reduced as you no longer have to code the low-level 
 logic yourself. Here are a few interesting scientific Python modules:</p>
 <ul>
@@ -1271,51 +579,82 @@ research problem does not fit in the memory of a single machine. In that case it
 <ul>
 <li><a href="http://dask.pydata.org/en/latest/">dask</a>: multi-core and multi-node parallellisation</li>
 <li><a href="https://mpi4py.readthedocs.io/en/stable/">mpi4py</a>: MPI parallellisation with python</li>
-</ul>
-
-
-
-
-
-                
-              </article>
+</ul></div></div>
             </div>
-          
-          
         </div>
-        
-      </main>
-      
-        <footer class="md-footer">
-  
-  <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright">
-  
-  
-    Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-      Material for MkDocs
-    </a>
-  
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
-      
-    </div>
-  </div>
-</footer>
-      
-    </div>
-    <div class="md-dialog" data-md-component="dialog">
-      <div class="md-dialog__inner md-typeset"></div>
-    </div>
-    
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
-    
-    
-      <script src="../assets/javascripts/bundle.6df46069.min.js"></script>
-      
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML"></script>
-      
-    
-  </body>
+
+    </body>
 </html>

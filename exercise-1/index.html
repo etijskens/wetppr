@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Useful links - Parallel Programming</title>
+        <title>Exercise 1 - Getting started with `wip` - Dot product implementations - Parallel Programming</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -40,8 +40,8 @@
                             <li class="navitem">
                                 <a href="../glossary/" class="nav-link">Glossary</a>
                             </li>
-                            <li class="navitem active">
-                                <a href="./" class="nav-link">Useful links</a>
+                            <li class="navitem">
+                                <a href="../links/" class="nav-link">Useful links</a>
                             </li>
                             <li class="navitem">
                                 <a href="../overview/" class="nav-link">Overview</a>
@@ -66,16 +66,6 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="../glossary/" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="../overview/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
                     </ul>
                 </div>
             </div>
@@ -94,33 +84,17 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#useful-links" class="nav-link">Useful links</a>
+            <li class="nav-item" data-level="1"><a href="#exercise-1-getting-started-with-wip-dot-product-implementations" class="nav-link">Exercise 1 - Getting started with wip - Dot product implementations</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#c" class="nav-link">C++</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#fortran" class="nav-link">Fortran</a>
+            <li class="nav-item" data-level="2"><a href="#preconditions" class="nav-link">Preconditions</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#python" class="nav-link">Python</a>
+            <li class="nav-item" data-level="2"><a href="#assignment" class="nav-link">Assignment</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#parallelization-approaches" class="nav-link">Parallelization approaches</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#hpc" class="nav-link">HPC</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#project-management" class="nav-link">Project management</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#other-courses" class="nav-link">Other courses</a>
+            <li class="nav-item" data-level="2"><a href="#solution" class="nav-link">Solution</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -131,61 +105,56 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<div><h1 id="useful-links">Useful links</h1>
-<h2 id="c">C++</h2>
+<div><h1 id="exercise-1-getting-started-with-wip-dot-product-implementations">Exercise 1 - Getting started with <code>wip</code> - Dot product implementations</h1>
+<h2 id="preconditions">Preconditions</h2>
 <ul>
-<li><a href="https://cplusplus.com">cplusplus.com</a></li>
-<li><a href="http://www.cppreference.com">cppreferencee.com</a></li>
+<li>You have <strong>Python 3.9</strong> or higher on your system.</li>
+<li>You have a <strong>GitHub account</strong>. If you don't, create one
+  <a href="https://docs.github.com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account">here</a>.</li>
+<li>You have a (classic) <strong>GitHub personal access token</strong>. If not, you can create a (classic) personal access
+  token following <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-personal-access-token-classic">these instructions</a>
+  Make sure you check at least the scopes <code>repo</code> and <code>read:org</code>.</li>
+<li><code>wiptools</code> must be installed (<a href="https://etijskens.github.io/wiptools/installation">Installation instructions here</a>).</li>
 </ul>
-<h2 id="fortran">Fortran</h2>
-<ul>
-<li><a href="https://fortran-lang.org">fortran-lang.org</a></li>
-</ul>
-<h2 id="python">Python</h2>
-<ul>
-<li><a href="https://www.python.org">python.org</a></li>
-<li><a href="https://realpython.com">realpython.com</a></li>
-</ul>
-<h2 id="parallelization-approaches">Parallelization approaches</h2>
-<ul>
-<li><a href="https://www.openmp.org">OpenMP</a>: C/C++/Fortran</li>
-<li><a href="https://www.mpi.org">MPI</a>: C/C++/Fortran</li>
-<li><a href="https://mpi4py.readthedocs.io/en/stable/">mpi4py</a>: Python, the documentation of mpi4py is not self-contained. It 
-  relies (silently) on the documentation of MPI.</li>
-<li><a href="https://docs.python.org/3/library/multiprocessing.html">multiprocessing</a>: Python</li>
-<li><a href="https://docs.python.org/3/library/concurrent.futures.html">concurrent.futures</a>: Python</li>
-<li><a href="https://www.dask.org">dask</a>: Python</li>
-</ul>
-<h2 id="hpc">HPC</h2>
-<ul>
-<li><a href="https://blogs.fau.de/hager/">Georg Hager's blog</a></li>
-<li><a href="https://blogs.fau.de/hager/archives/8861">SC20 tutorial “Node-Level Performance Engineering”</a>: This is all about 
-  "When to parallelize, and <strong><em>what to do first</em></strong>".</li>
-</ul>
-<h2 id="project-management">Project management</h2>
-<ul>
+<h2 id="assignment">Assignment</h2>
+<p>This assignment must be carried out on your <strong><em>local</em></strong> system.</p>
+<ol>
 <li>
-<p><a href="https://etijskens.github.io/wiptools">wiptools</a>: managing your Python/C++/Fortran project. Wiptools facilitates</p>
-<ul>
-<li>creating new projects</li>
-<li>adding Python sub-modules, Python applications (CLIs), binary extension modules written in C++ and Fortran. </li>
-<li>automatically extracting documentation from the doc-strings of your files (html or pdf)</li>
-<li>(unit) testing (<a href="https://docs.pytest.org/en/7.2.x/">pytest</a>)</li>
-<li>publishing the documentation on <a href="https://readthedocs.org">readthedocs</a></li>
-<li>publishing your code on the <a href="https://pypi.org">Python package index</a> </li>
-<li>version management and control (on <a href="https://github.com">GitHub</a>). If you are not familiar
-  with git, <a href="https://coderefinery.github.io/git-intro/">here</a> is an excellent starting point.</li>
-</ul>
+<p>Construct a Python module with function for the dot product <script type="math/tex">\sum_{i=1}^{n}{a_i}{b_i}</script> of two
+   arrays <script type="math/tex">a</script> and <script type="math/tex">b</script>. Start out with a Python implementation. Use a<br>
+<a href="https://docs.python.org/3/library/stdtypes.html?highlight=list#list">Python list</a>
+   for representing arrays.</p>
 </li>
-</ul>
-<h2 id="other-courses">Other courses</h2>
-<ul>
-<li><a href="https://coderefinery.org/lessons/from-coderefinery/">CodeRefinery</a> 
-  teaches <em>all the essential tools which are usually skipped in academic education</em>. 
-  Especially useful is the <a href="https://coderefinery.github.io/git-intro/">Introduction to git</a>.</li>
-<li><a href="https://hands-on.coderefinery.org">Hands-on Scientific Computing</a> </li>
-<li><a href="https://missing.csail.mit.edu/">The Missing Semester of Your CS Education</a></li>
-</ul></div></div>
+<li>
+<p>Time the Python implementation for a range of array lengths.</p>
+</li>
+<li>
+<p>Try improving the timings by using the <a href="https://numba.readthedocs.io/en/stable/">numba</a> <code>@jit</code>
+   decorator. Tip: use Numpy's
+   <a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html">ndarray</a>
+   for storing arrays instead of a
+   <a href="https://docs.python.org/3/library/stdtypes.html?highlight=list#list">Python list</a>.</p>
+</li>
+<li>
+<p>Try improving the code by providing your own C++ and/or Modern Fortran implementation. Again use
+   Numpy <a href="https://numpy.org/doc/stable/reference/generated/numpy.array.html">arrays</a> instead of
+   Python <a href="https://docs.python.org/3/library/stdtypes.html?highlight=list#list">list</a>.</p>
+</li>
+<li>
+<p>Compare your implementations with
+   <a href="https://numpy.org/doc/stable/reference/generated/numpy.dot.html">numpy's own dot product</a> <code>numpy.dot</code>.</p>
+</li>
+<li>
+<p>Report all timings and explain your observations in the <code>README.md</code> file.</p>
+</li>
+<li>
+<p>Store you project files on GitHub.</p>
+</li>
+</ol>
+<h2 id="solution">Solution</h2>
+<p>Although the dot product is an extremely simple concept, this exercise is more involved than one
+would expect. The <a href="../exercise-1-solution/">solution</a> also demonstrates our software development
+strategy developed in <a class="autorefs autorefs-internal" href="../chapter-5/#a-strategy-for-the-development-research-software">chapter 5</a>.</p></div></div>
             </div>
         </div>
 

@@ -1,661 +1,107 @@
-
-<!doctype html>
-<html lang="en" class="no-js">
-  <head>
-    
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width,initial-scale=1">
-      
-      
-      
-      
-        <link rel="prev" href="../chapter-3/">
-      
-      
-        <link rel="next" href="../chapter-5/">
-      
-      <link rel="icon" href="../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.4.2, mkdocs-material-9.0.10">
-    
-    
-      
-        <title>chapter 4 - Case studies - Parallel programmeren</title>
-      
-    
-    
-      <link rel="stylesheet" href="../assets/stylesheets/main.0d440cfe.min.css">
-      
-        
-        <link rel="stylesheet" href="../assets/stylesheets/palette.2505c338.min.css">
-      
-      
-
-    
-    
-    
-      
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
-        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
-      
-    
-    
-      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
-    
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
-    
-      
-
-    
-    
-    
-  </head>
-  
-  
-    
-    
-    
-    
-    
-    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="" data-md-color-accent="">
-  
-    
-    
-    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
-    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
-    <label class="md-overlay" for="__drawer"></label>
-    <div data-md-component="skip">
-      
         
-        <a href="#chapter-4-case-studies" class="md-skip">
-          Skip to content
-        </a>
-      
-    </div>
-    <div data-md-component="announce">
-      
-    </div>
-    
-    
-      
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>chapter 4 - Case studies - Parallel Programming</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/color-brewer.min.css">
+        <link href="../assets/_mkdocstrings.css" rel="stylesheet">
 
-<header class="md-header" data-md-component="header">
-  <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Parallel programmeren" class="md-header__button md-logo" aria-label="Parallel programmeren" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
 
-    </a>
-    <label class="md-header__button md-icon" for="__drawer">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
-    </label>
-    <div class="md-header__title" data-md-component="header-title">
-      <div class="md-header__ellipsis">
-        <div class="md-header__topic">
-          <span class="md-ellipsis">
-            Parallel programmeren
-          </span>
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">Parallel Programming</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../glossary/" class="nav-link">Glossary</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../links/" class="nav-link">Useful links</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../overview/" class="nav-link">Overview</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../course-text/" class="nav-link">Course text</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../exercises/" class="nav-link">Exercises</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../evaluation/" class="nav-link">Evaluation of this course</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../vsc-infrastructure/" class="nav-link">VSC infrastructure</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
-        <div class="md-header__topic" data-md-component="header-topic">
-          <span class="md-ellipsis">
-            
-              chapter 4 - Case studies
-            
-          </span>
-        </div>
-      </div>
-    </div>
-    
-    
-    
-      <label class="md-header__button md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-      </label>
-      <div class="md-search" data-md-component="search" role="dialog">
-  <label class="md-search__overlay" for="__search"></label>
-  <div class="md-search__inner" role="search">
-    <form class="md-search__form" name="search">
-      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
-      <label class="md-search__icon md-icon" for="__search">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
-      </label>
-      <nav class="md-search__options" aria-label="Search">
-        
-        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
         </button>
-      </nav>
-      
-    </form>
-    <div class="md-search__output">
-      <div class="md-search__scrollwrap" data-md-scrollfix>
-        <div class="md-search-result" data-md-component="search-result">
-          <div class="md-search-result__meta">
-            Initializing search
-          </div>
-          <ol class="md-search-result__list" role="presentation"></ol>
-        </div>
-      </div>
     </div>
-  </div>
-</div>
+
     
-    
-  </nav>
-  
-</header>
-    
-    <div class="md-container" data-md-component="container">
-      
-      
-        
-          
-        
-      
-      <main class="md-main" data-md-component="main">
-        <div class="md-main__inner md-grid">
-          
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
             
-              
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
+            <li class="nav-item" data-level="1"><a href="#chapter-4-case-studies" class="nav-link">chapter 4 - Case studies</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#monte-carlo-ground-state-energy-calculation-of-a-small-atom-cluster" class="nav-link">Monte Carlo ground state energy calculation of a small atom cluster</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#study-of-data-access-patterns-in-a-large-lennard-jones-systems" class="nav-link">Study of data access patterns in a large Lennard-Jones systems</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
 
-
-<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
-  <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Parallel programmeren" class="md-nav__button md-logo" aria-label="Parallel programmeren" data-md-component="logo">
-      
-  
-  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
-
-    </a>
-    Parallel programmeren
-  </label>
-  
-  <ul class="md-nav__list" data-md-scrollfix>
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
-        Wellcome at Parallel programming
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../over-de-auteur/" class="md-nav__link">
-        Over de auteur
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../glossary/" class="md-nav__link">
-        Glossary
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../links/" class="md-nav__link">
-        Useful links
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../overview/" class="md-nav__link">
-        Overview
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter-1/" class="md-nav__link">
-        Chapter 1 - Introduction
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter-2/" class="md-nav__link">
-        Chapter 2 - Aspects of modern CPU architecture
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter-3/" class="md-nav__link">
-        Chapter 3 - Optimise first, then parallelize
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-    
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          chapter 4 - Case studies
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        chapter 4 - Case studies
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#monte-carlo-ground-state-energy-calculation-of-a-small-atom-cluster" class="md-nav__link">
-    Monte Carlo ground state energy calculation of a small atom cluster
-  </a>
-  
-    <nav class="md-nav" aria-label="Monte Carlo ground state energy calculation of a small atom cluster">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
-    Introduction
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#implementation" class="md-nav__link">
-    Implementation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#optimisation" class="md-nav__link">
-    Optimisation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#parallelization" class="md-nav__link">
-    Parallelization
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#project-mcgse" class="md-nav__link">
-    Project mcgse
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#study-of-data-access-patterns-in-a-large-lennard-jones-systems" class="md-nav__link">
-    Study of data access patterns in a large Lennard-Jones systems
-  </a>
-  
-    <nav class="md-nav" aria-label="Study of data access patterns in a large Lennard-Jones systems">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#introduction_1" class="md-nav__link">
-    Introduction
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#monte-carlo-setting" class="md-nav__link">
-    Monte Carlo setting
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#molecular-dynamics-setting" class="md-nav__link">
-    Molecular Dynamics setting
-  </a>
-  
-    <nav class="md-nav" aria-label="Molecular Dynamics setting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#implementing-cutoff" class="md-nav__link">
-    Implementing cutoff
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#moving-atoms" class="md-nav__link">
-    Moving atoms
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter-5/" class="md-nav__link">
-        Chapter 5 - Developing Research Software
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chapter-6/" class="md-nav__link">
-        Chapter 6 - Tools for parallellization
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../evaluation/" class="md-nav__link">
-        Evaluation of this course
-      </a>
-    </li>
-  
-
-    
-      
-      
-      
-
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../vsc-infrastructure/" class="md-nav__link">
-        VSC infrastructure
-      </a>
-    </li>
-  
-
-    
-  </ul>
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-            
-              
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
-                <div class="md-sidebar__scrollwrap">
-                  <div class="md-sidebar__inner">
-                    
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#monte-carlo-ground-state-energy-calculation-of-a-small-atom-cluster" class="md-nav__link">
-    Monte Carlo ground state energy calculation of a small atom cluster
-  </a>
-  
-    <nav class="md-nav" aria-label="Monte Carlo ground state energy calculation of a small atom cluster">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
-    Introduction
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#implementation" class="md-nav__link">
-    Implementation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#optimisation" class="md-nav__link">
-    Optimisation
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#parallelization" class="md-nav__link">
-    Parallelization
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#project-mcgse" class="md-nav__link">
-    Project mcgse
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#study-of-data-access-patterns-in-a-large-lennard-jones-systems" class="md-nav__link">
-    Study of data access patterns in a large Lennard-Jones systems
-  </a>
-  
-    <nav class="md-nav" aria-label="Study of data access patterns in a large Lennard-Jones systems">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#introduction_1" class="md-nav__link">
-    Introduction
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#monte-carlo-setting" class="md-nav__link">
-    Monte Carlo setting
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#molecular-dynamics-setting" class="md-nav__link">
-    Molecular Dynamics setting
-  </a>
-  
-    <nav class="md-nav" aria-label="Molecular Dynamics setting">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#implementing-cutoff" class="md-nav__link">
-    Implementing cutoff
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#moving-atoms" class="md-nav__link">
-    Moving atoms
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-                  </div>
-                </div>
-              </div>
-            
-          
-          
-            <div class="md-content" data-md-component="content">
-              <article class="md-content__inner md-typeset">
-                
-                  
-
-
-
-<h1 id="chapter-4-case-studies">chapter 4 - Case studies</h1>
+<div><h1 id="chapter-4-case-studies">chapter 4 - Case studies</h1>
 <h2 id="monte-carlo-ground-state-energy-calculation-of-a-small-atom-cluster">Monte Carlo ground state energy calculation of a small atom cluster</h2>
 <h3 id="introduction">Introduction</h3>
 <p>The code for this benchmark was Kindly provided by Jesus Eduardo Galvan Moya, former PhD student of the Physics 
@@ -722,7 +168,7 @@ square root for the distance which here cannot be avoided:</p>
 <p>Initially, both expressions for the interatomic distance <script type="math/tex">r_{ij}(r_i,r_j)</script> and the interaction potential <script type="math/tex">V(r)</script>
 were implemented as functions called in the double loop. The first timing for the double loop with 50 atoms is 144 
 <script type="math/tex">\mu</script>s. By checking the vectorisation report of the compiler, we learned that the two function calls prohibited 
-vectorisation. After inlining the functions,  the timing was reduced to 93 <script type="math/tex">\mu</script>s.<br />
+vectorisation. After inlining the functions,  the timing was reduced to 93 <script type="math/tex">\mu</script>s.<br>
 The inner loop contains a lot of short loops. This is bad for pipelining and vectorisation (many loops end with 
 incompletely filled vector registers.) If we split the loop in a double loop for calculating the interatomic 
 distances and storing them in a long array, and a long loop over that array to compute the interactions, the 
@@ -763,19 +209,19 @@ complexity  from <script type="math/tex">O(N^2)</script> to <script type="math/t
 the researcher to investigate. </p>
 <p>Let's see how we can implement this modification and how that effects the performance. We start with depicting the 
 relation between $r_{ij}) as a (lower triangular) matrix and as the linear <code>rij</code> array in the split loop above. </p>
-<p><img alt="rij" src="../public/rij.png" /></p>
+<p><img alt="rij" src="../public/rij.png"></p>
 <p>The linear array stores the rows of the lower triangular matrix: <script type="math/tex">[r_{10}</script>, <script type="math/tex">r_{20}</script>, <script type="math/tex">r_{21}</script>, <script type="math/tex">r_{30}</script>, <script type="math/tex">r_{31}</script>, 
 <script type="math/tex">r_{32}, r_{40}</script>, <script type="math/tex">r_{41}</script>, <script type="math/tex">r_{42}</script>, <script type="math/tex">r_{43}</script>, ... <script type="math/tex">]</script>. The matrix elements show the value or the 
 index into the linear array. Let's do something similar for the interaction energy:</p>
-<p><img alt="Eij" src="../public/Eij.png" /></p>
+<p><img alt="Eij" src="../public/Eij.png"></p>
 <p>We have added a column to compute the row sums and the total sum of the interaction energies <script type="math/tex">E_{ij}</script>. Let's now 
 visualize the changes when an atom, say atom 4, is perturbed.</p>
-<p><img alt="Eij" src="../public/Eij-perturb-4.png" /></p>
+<p><img alt="Eij" src="../public/Eij-perturb-4.png"></p>
 <p>The items changing due to perturbing <script type="math/tex">r_4</script> are marked in orange. The row sum for row 4 has to be computed from scratch
 and in row 5 and 6 the elements corresponding to column 4 change as well. The next figure shows how the perturbed 
 result can be computed from the previous result by first subtracting the previous result and then adding the new 
 result. </p>
-<p><img alt="Eij" src="../public/Eij-perturb-4-bis.png" /></p>
+<p><img alt="Eij" src="../public/Eij-perturb-4-bis.png"></p>
 <p>Here is a comparison of the timings:</p>
 <table>
 <thead>
@@ -835,8 +281,7 @@ achieve with OpenMP. In the end every thread would have its own minimum energy c
 minimum energy configuration is simply found as the minimum of per thread minima. Since every core has its own L1 
 cache, the problem for each thread also fits in L1. </p>
 <h3 id="project-mcgse">Project mcgse</h3>
-<p>The <code>wetppr/mcgse</code> folder repeats this case study for the <a href="https://en.wikipedia.
-org/wiki/Morse_potential">Morse potential</a> (I lost the original code :-( )</p>
+<p>The <code>wetppr/mcgse</code> folder repeats this case study for the <a href="https://en.wikipedia.%0Aorg/wiki/Morse_potential">Morse potential</a> (I lost the original code :-( )</p>
 <p>
 <script type="math/tex; mode=display"> V(r) = D_e(1 - e^{-\alpha(r-r_e)})^2 </script>
 </p>
@@ -845,7 +290,7 @@ org/wiki/Morse_potential">Morse potential</a> (I lost the original code :-( )</p
 <script type="math/tex; mode=display"> V(r) = (1 - e^{1-r)})^2 </script>
 </p>
 <p>Here is its graph:</p>
-<p><img alt="morse" src="../public/morse.png" /></p>
+<p><img alt="morse" src="../public/morse.png"></p>
 <p>Using our <a href="../chapter-5/">research software devolopment strategy</a>, we start in Python, implement both algorithms and 
 test. A good test is the case of a cluster of 4 atoms. Energy minimum then consists of a tetrahedron with unit sides.
 Every pair is then at equilibrium distance and <script type="math/tex">E_{min}=0</script>. The vertices of the tetrahedron are on a sphere of 
@@ -984,7 +429,7 @@ over <script type="math/tex">j</script>
 <script type="math/tex">2^{29}/N</script> times. In this way the amount of interaction potential evaluations is exactly <script type="math/tex">2^{29}</script> 
 irrespective of the length of the array, and the timings can be compared. The smallest arrays fit in L1, while the 
 longest arrays (<script type="math/tex">2^29\approx0.5\times10^9</script>) do not even fit in L3. Here are the timings:</p>
-<p><img alt="0" src="../public/LJ-system-MC-setting-0.png" /></p>
+<p><img alt="0" src="../public/LJ-system-MC-setting-0.png"></p>
 <p>It is clearly visible that the behaviour of the random case above is very different from the two contiguous cases. 
 For the longest arrays, the performance is a whopping 15x worse on the random loop, yet every case performs exactly 
 the same work. There burning question is of course: "what is causing the performance breakdown of the randomized 
@@ -993,7 +438,7 @@ case) the best we can get?". If you are really curious, you might wonder about t
 case and the SoA case at larger <script type="math/tex">N</script>. To help your understanding of the problem, here is a different representation 
 of the same graph, this time the number of bytes used by the arrays on the x-axis instead of the array size <script type="math/tex">N</script>. 
 With this x-axis it is easy to draw the boundaries of the L1, L2 and L3 caches. </p>
-<p><img alt="1" src="../public/LJ-system-MC-setting-cache-boundaries.png" /></p>
+<p><img alt="1" src="../public/LJ-system-MC-setting-cache-boundaries.png"></p>
 <p>Surprisingly enough, the changes in 
 the curves coincide with the cache boundaries. As soon as the problem is too large for a cache, cache misses cause 
 pipeline stalls, and the CPU has to wait for the data needed. The latency increases at every cache boundary and the 
@@ -1019,7 +464,7 @@ enddo                                   ! 14 flops
 The peak performance of the machine is 1 core x 1 instruction per cycle x 4 SIMD registers per instruction x 2.8 GHz = 
 11.2 Gcycles/s = 11.2 Gflops/s. Consequently, we are running at 56% of the peak performance. So it looks as if we 
 could still do better.  </p>
-<p><img alt="2" src="../public/LJ-system-MC-setting-peak-performance.png" /></p>
+<p><img alt="2" src="../public/LJ-system-MC-setting-peak-performance.png"></p>
 <p>Let us analyze the data traffic of the same loop:</p>
 <pre><code class="language-fortran">! Contiguous access, SoA: p=[xxx…yyy…zzz…]
 do ik=1,k
@@ -1038,7 +483,7 @@ enddo                                   ! 14 flops      ! 24B
 GB/s for 10 cores, that is 10.9 GB for 1 core. Our loop runs at the maximum bandwidth. It is <strong>bandwith saturated</strong>. 
 This is a machine limit. It can simply not feed the CPU with data faster than this. It is instructive to draw a 
 roofline model for this. </p>
-<p><img alt="3" src="../public/LJ-system-MC-setting-roofline.png" /></p>
+<p><img alt="3" src="../public/LJ-system-MC-setting-roofline.png"></p>
 <p>The above loop, that is the contiguous cases, plot on the bandwidth part of the roofline indicating that the machine 
 limit (bandwidth) is reached, the random case sits close to the bottom far away from all machine limits. The 
 conclusion is that the loop as it is runs at its maximum speed, being bandwidth limited. However, 44% of the time 
@@ -1145,7 +590,7 @@ its 8 nearest neighbours, all coloured light-blue. By iterating over all cells a
 Verlet lists of all atoms can be constructed with <script type="math/tex">O(N)</script> complexity. In fact, by looking for pairs in all 
 rearest neighbours, all candidate pairs are visited twice (<script type="math/tex">ij</script> and <script type="math/tex">ji</script>). Hence, only half of the nearest 
 neighbours needs to be visited (right figure). </p>
-<p><img alt="cell-based-verlet-list" src="../public/cell-based-verlet-list-construction-0-2.png" /></p>
+<p><img alt="cell-based-verlet-list" src="../public/cell-based-verlet-list-construction-0-2.png"></p>
 <p>The algorithm requires that the grid implements: </p>
 <ul>
 <li>a cell list: a list of all the atoms that are in the cell, in order to iterate over all atoms in a cell. The cell 
@@ -1189,51 +634,82 @@ allows for a good data access pattern. However, as (simulation) time proceeds th
 Every timestep, some atoms will move in and out of some other atom's Verlet sphere. Gradually, the atoms will move 
 further and further from their original positions, but their location in memory does not change, and, consequentially, 
 the data access pattern appproaches the random array access we discussed above, leading to considerable performance 
-degradation.</p>
-
-
-
-
-
-                
-              </article>
+degradation.</p></div></div>
             </div>
-          
-          
         </div>
-        
-      </main>
-      
-        <footer class="md-footer">
-  
-  <div class="md-footer-meta md-typeset">
-    <div class="md-footer-meta__inner md-grid">
-      <div class="md-copyright">
-  
-  
-    Made with
-    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
-      Material for MkDocs
-    </a>
-  
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
 </div>
-      
-    </div>
-  </div>
-</footer>
-      
-    </div>
-    <div class="md-dialog" data-md-component="dialog">
-      <div class="md-dialog__inner md-typeset"></div>
-    </div>
-    
-    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.db81ec45.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
-    
-    
-      <script src="../assets/javascripts/bundle.6df46069.min.js"></script>
-      
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML"></script>
-      
-    
-  </body>
+
+    </body>
 </html>

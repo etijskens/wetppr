@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Useful links - Parallel Programming</title>
+        <title>Exercise 2 - Transfer your local project to a VSC cluster - Parallel Programming</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -40,8 +40,8 @@
                             <li class="navitem">
                                 <a href="../glossary/" class="nav-link">Glossary</a>
                             </li>
-                            <li class="navitem active">
-                                <a href="./" class="nav-link">Useful links</a>
+                            <li class="navitem">
+                                <a href="../links/" class="nav-link">Useful links</a>
                             </li>
                             <li class="navitem">
                                 <a href="../overview/" class="nav-link">Overview</a>
@@ -66,16 +66,6 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="../glossary/" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="../overview/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
                     </ul>
                 </div>
             </div>
@@ -94,33 +84,17 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#useful-links" class="nav-link">Useful links</a>
+            <li class="nav-item" data-level="1"><a href="#exercise-2-transfer-your-local-project-to-a-vsc-cluster" class="nav-link">Exercise 2 - Transfer your local project to a VSC cluster</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#c" class="nav-link">C++</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#fortran" class="nav-link">Fortran</a>
+            <li class="nav-item" data-level="2"><a href="#1-cloning-a-remote-github-repo" class="nav-link">1. Cloning a remote GitHub repo</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#python" class="nav-link">Python</a>
+            <li class="nav-item" data-level="2"><a href="#2-repeat-all-the-timings-of-exercise-1" class="nav-link">2. Repeat all the timings of Exercise 1</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#parallelization-approaches" class="nav-link">Parallelization approaches</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#hpc" class="nav-link">HPC</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#project-management" class="nav-link">Project management</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#other-courses" class="nav-link">Other courses</a>
+            <li class="nav-item" data-level="2"><a href="#3-add-the-timings-to-the-readmemd-file-and-explain-your-observations" class="nav-link">3. Add the timings to the README.md file and explain your observations</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -131,61 +105,143 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<div><h1 id="useful-links">Useful links</h1>
-<h2 id="c">C++</h2>
+<div><h1 id="exercise-2-transfer-your-local-project-to-a-vsc-cluster">Exercise 2 - Transfer your local project to a VSC cluster</h1>
+<h2 id="1-cloning-a-remote-github-repo">1. Cloning a remote GitHub repo</h2>
+<p>First, login on Vaughan (Check out the VSC documentation on
+<a href="https://docs.vscentrum.be/en/latest/access/access_and_data_transfer.html#logging-in-to-a-cluster">this</a>
+).</p>
+<h3 id="logging-in-on-vaughan">Logging in on Vaughan</h3>
+<p>Open a terminal and execute the command:</p>
+<pre><code class="language-shell">&gt; ssh &lt;your_vsc_id&gt;@login-vaughan.hpc.uantwerpen.be
+Last login: Mon Aug 14 14:25:17 2023 from 81.164.139.192
+
+--------------------------------------------------------------------
+
+Welcome to VAUGHAN !
+
+Vaughan specific links:
+  https://docs.vscentrum.be/en/latest/antwerp/tier2_hardware/vaughan_hardware.html
+  https://docs.vscentrum.be/en/latest/antwerp/SLURM_UAntwerp.html
+
+General links:
+  https://docs.vscentrum.be/en/latest/antwerp/tier2_hardware.html
+  https://docs.vscentrum.be
+  https://www.uantwerpen.be/hpc
+
+Questions or problems? Do not hesitate and contact us:
+  hpc@uantwerpen.be
+
+Happy computing!
+
+--------------------------------------------------------------------
+
+Your quota is:
+
+file system /data/antwerpen
+    using 95.77G of 250G space, 311062 of 500k files
+file system /user/antwerpen
+    using 494.4M of 3G space, 2463 of 20k files
+file system /scratch/antwerpen
+    using 382.1G of 2T space, 57803 of 250k files
+
+--------------------------------------------------------------------
+&gt;
+</code></pre>
+<p>Which one of the (currently) two login nodes of Vaughan you will land on, is rather random. You can
+explicitly ask for a login node:</p>
+<pre><code class="language-shell">&gt; ssh &lt;your_vsc_id&gt;@login1-vaughan.hpc.uantwerpen.be
+</code></pre>
+<p>or</p>
+<pre><code class="language-shell">&gt; ssh &lt;your_vsc_id&gt;@login2-vaughan.hpc.uantwerpen.be
+</code></pre>
+<p>After logging in you will receive information about</p>
 <ul>
-<li><a href="https://cplusplus.com">cplusplus.com</a></li>
-<li><a href="http://www.cppreference.com">cppreferencee.com</a></li>
+<li>the last time you logged in</li>
+<li>some links with information</li>
+<li>information on your file quota on <code>/data/antwerpen</code>, <code>/user/antwerpen</code> and <code>/scratch/antwerpen</code></li>
 </ul>
-<h2 id="fortran">Fortran</h2>
+<p>The latter is especially important. You have access to 3 file spaces: data, user (or home) and
+scratch.</p>
 <ul>
-<li><a href="https://fortran-lang.org">fortran-lang.org</a></li>
-</ul>
-<h2 id="python">Python</h2>
-<ul>
-<li><a href="https://www.python.org">python.org</a></li>
-<li><a href="https://realpython.com">realpython.com</a></li>
-</ul>
-<h2 id="parallelization-approaches">Parallelization approaches</h2>
-<ul>
-<li><a href="https://www.openmp.org">OpenMP</a>: C/C++/Fortran</li>
-<li><a href="https://www.mpi.org">MPI</a>: C/C++/Fortran</li>
-<li><a href="https://mpi4py.readthedocs.io/en/stable/">mpi4py</a>: Python, the documentation of mpi4py is not self-contained. It 
-  relies (silently) on the documentation of MPI.</li>
-<li><a href="https://docs.python.org/3/library/multiprocessing.html">multiprocessing</a>: Python</li>
-<li><a href="https://docs.python.org/3/library/concurrent.futures.html">concurrent.futures</a>: Python</li>
-<li><a href="https://www.dask.org">dask</a>: Python</li>
-</ul>
-<h2 id="hpc">HPC</h2>
-<ul>
-<li><a href="https://blogs.fau.de/hager/">Georg Hager's blog</a></li>
-<li><a href="https://blogs.fau.de/hager/archives/8861">SC20 tutorial “Node-Level Performance Engineering”</a>: This is all about 
-  "When to parallelize, and <strong><em>what to do first</em></strong>".</li>
-</ul>
-<h2 id="project-management">Project management</h2>
-<ul>
+<li>user file space is small and backed up. It is intended for configuration files.</li>
 <li>
-<p><a href="https://etijskens.github.io/wiptools">wiptools</a>: managing your Python/C++/Fortran project. Wiptools facilitates</p>
+<p>data file space is large, backed up, but has slower access than scratch. This is the place to:</p>
 <ul>
-<li>creating new projects</li>
-<li>adding Python sub-modules, Python applications (CLIs), binary extension modules written in C++ and Fortran. </li>
-<li>automatically extracting documentation from the doc-strings of your files (html or pdf)</li>
-<li>(unit) testing (<a href="https://docs.pytest.org/en/7.2.x/">pytest</a>)</li>
-<li>publishing the documentation on <a href="https://readthedocs.org">readthedocs</a></li>
-<li>publishing your code on the <a href="https://pypi.org">Python package index</a> </li>
-<li>version management and control (on <a href="https://github.com">GitHub</a>). If you are not familiar
-  with git, <a href="https://coderefinery.github.io/git-intro/">here</a> is an excellent starting point.</li>
+<li>store your own Python projects</li>
+<li>install Python packages not installed on Vaughan by the VSC user support team</li>
 </ul>
 </li>
+<li>
+<p>scratch file space is large, fast, but not backed up.</p>
+</li>
 </ul>
-<h2 id="other-courses">Other courses</h2>
+<p>On each of these file spaces you can use a limited amount of disk space and a limited number of
+files. <em>E.g.</em> my data file space allows for 250G (97.55G occupied) and 500 000 files (I have already
+311062 files). When you install your own software components the number of files rises quickly.
+When your file quota are exceeded for aa file space, you will still be able to login, but any proces
+that tries to create a file will fail. Sometimes the cause of failure is not immediately clear.
+<em>E.g.</em> a submitted job may fail when attempting to create an output file. Or, connecting to the
+cluster with <a href="">vscode</a> will fail because it installs a <code>.vscode-server</code> every time, and it cannot
+due to <code>file quota eceeded</code>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Check the file quota message on every login.</p>
+</div>
+<h3 id="cloning-a-github-repo">Cloning a GitHub repo</h3>
+<p>As explained above, it is best to clone the remote repo on the data file space</p>
+<pre><code class="language-shell">&gt; cd $VSC_DATA
+&gt; pwd
+/data/antwerpen/201/vsc20170
+</code></pre>
+<p>Make a workspace directory for all our projects</p>
+<pre><code class="language-shell">&gt; mkdir workspace
+&gt; cd workspace
+&gt; pwd
+/data/antwerpen/201/vsc20170/workspace
+</code></pre>
+<p>Clone my Dot repo (<em>e.g.</em>):</p>
+<pre><code class="language-shell">&gt; git clone https://github.com/etijskens/Dot.git
+Cloning into 'Dot'...
+remote: Enumerating objects: 55, done.
+remote: Counting objects: 100% (55/55), done.
+remote: Compressing objects: 100% (34/34), done.
+remote: Total 55 (delta 15), reused 52 (delta 12), pack-reused 0
+Receiving objects: 100% (55/55), 16.82 KiB | 1.29 MiB/s, done.
+Resolving deltas: 100% (15/15), done.
+</code></pre>
+<p>To work with the project, <code>cd</code> into the project directory:</p>
+<pre><code class="language-shell">&gt; cd Dot
+&gt; pwd
+/data/antwerpen/201/vsc20170/workspace/Dot
+</code></pre>
+<p>As <code>Dot</code> is a <code>wip</code> project we must make Python available first:</p>
+<pre><code class="language-shell">&gt; module load Python
+&gt; wip info
+Project    : Dot: dot product implementations
+Version    : 0.0.0
+Package    : dot
+GitHub repo: --
+Home page  : --
+Location   : /data/antwerpen/201/vsc20170/Dot
+docs format: Markdown
+</code></pre>
+<h2 id="2-repeat-all-the-timings-of-exercise-1">2. Repeat all the timings of <a href="../exercise-1/">Exercise 1</a></h2>
+<p>When you login on the cluster, you land on a <strong><em>login node</em></strong>, together with many other users that are
+logged in. That makes it a crowded place. Although you can run commands, commands taking longer than
+a minute, may need to share resources with other users, making it slower than on your personal
+machine. Timing tests are therefor not always reliable when run on a login node. The login node is
+your point of access for manipulating files and setting up the work, but the real number crunching
+is to happen on the compute nodes, of which there are far more than login nodes. Compute nodes must
+be reserved by you in a <strong><em>job script</em></strong>. The job script</p>
 <ul>
-<li><a href="https://coderefinery.org/lessons/from-coderefinery/">CodeRefinery</a> 
-  teaches <em>all the essential tools which are usually skipped in academic education</em>. 
-  Especially useful is the <a href="https://coderefinery.github.io/git-intro/">Introduction to git</a>.</li>
-<li><a href="https://hands-on.coderefinery.org">Hands-on Scientific Computing</a> </li>
-<li><a href="https://missing.csail.mit.edu/">The Missing Semester of Your CS Education</a></li>
-</ul></div></div>
+<li>requests the resources needed for the job,</li>
+<li>sets up the system environment for the job,</li>
+<li>specifies the command(s) to be executed.</li>
+</ul>
+<p>Details are described in <a class="autorefs autorefs-internal" href="../vsc-infrastructure/#submitting-jobs-on-vaughan">VSC infrastructure/Submitting jobs on Vaughan</a></p>
+<h2 id="3-add-the-timings-to-the-readmemd-file-and-explain-your-observations">3. Add the timings to the <code>README.md</code> file and explain your observations</h2>
+<p>Compare the timings from the compute node with those on our own machine, Do you notice any
+differences?</p></div></div>
             </div>
         </div>
 
