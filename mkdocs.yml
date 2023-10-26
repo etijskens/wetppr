@@ -16,6 +16,7 @@ plugins:
   - autorefs
   - mkdocstrings
   - mkdocs-video
+  - include-markdown
 
 nav:
   - index.md
