@@ -173,8 +173,7 @@ interesting extensions.
 
     - Modern Fortran
 
-There is a helpfull tutorial on [Using VS Code for Remote Development](presentations/TNT-VS Code.pptx), but before 
-getting your hands dirty, please complete the steps below first.
+There is a helpfull tutorial on [Using VS Code for Remote Development](presentations/TNT-VSCode.pptx), but before getting your hands dirty, please complete the steps below first.
 
 #### VS Code fails to connect due to `file quota exceeded`
 
@@ -249,7 +248,7 @@ If you are interested in building binary extension modules from C++, you should 
 
 ## Submitting jobs on Vaughan
 
-Unlike your personal computer, which you use mainly **interactively**, a supercomputer is mostly used in **batch mode**. To execute some computational work, you send a request to the **scheduler** specifying the work and how you want it to be executed. This means you need to specify
+Unlike your personal computer, which you use mainly **interactively**, a supercomputer is mostly used in **batch mode**. To execute some computational work, you send a request to the **scheduler** specifying the work and how you want it to be executed. You must specify
 
 * the resources you need,
 
@@ -259,244 +258,83 @@ Unlike your personal computer, which you use mainly **interactively**, a superco
 
 Such a request is called a **job script**. The scheduler decides which compute nodes will be used for your job and when it will be started, based on a fair share policy and the availability of the resources of the cluster. 
 
-Most modern supercomputers - Vaughan included - use [Slurm](https://slurm.schedmd.com) for resource management and 
-scheduling. An extensive description about using Vaughan can be found [here](https://calcua.uantwerpen.be/courses/hpc-intro/IntroductionHPC-20230313.pdf).
+Most modern supercomputers - all VSC clusters - use [Slurm](https://slurm.schedmd.com) for resource management and scheduling. An extensive description about using Slurm on Vaughan can be found [here](https://calcua.uantwerpen.be/courses/hpc-intro/IntroductionHPC-20230313.pdf).
 
-#TODO: ## fix link and code (mpi+openmp)
-
-Here is a simple job script 
-(You can find it in the 
-``wetppr/scripts/vaughan_examples`` directory of the [wetppr github repo](https://)):
+Here is a simple job script, annotated with explanations for each line:
 
 ```shell
-#!/bin/bash                               # 1 Shebang
-#SBATCH --nodes=2                         # 2 SLURM job script parameters
-#SBATCH --ntasks=64 --cpus-per-task=2     # 2 
-#SBATCH --time=00:05:00                   # 2
-#SBATCH --mail-type=BEGIN,END,FAIL        # 2
-#SBATCH -–mail-user=<your e-mail address> # 2
-#SBATCH --job-name mpi4py_hello_world     # 2
-#SBATCH -o %x.%j.stdout                   # 2
-#SBATCH -e %x.%j.stderr                   # 2
-
-module --force purge                      # 3 Setup execution environment
-module load calcua/2020a                  # 3
-module load intel                         # 3
-module list                               # 3
-
-# build the program _build/hello-mpi-omp
-module load CMake
-mkdir -p _build
-cd _build
-cmake ..
-cmake --build .
-cd ..
-
-# set some environment variables to distribute the cpus optimally over the MPI processes
-export OMP_PROC_BIND=true
-export I_MPI_PIN_DOMAIN=omp,compact
-export OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK
-
-# run the program _build/hello-mpi-omp onl the requested resources
-srun --quiet -n${SLURM_NTASKS} -c${SLURM_CPUS_PER_TASK} --exclusive --unbuffered _build/hello-mpi-omp
+{%
+include-markdown "../scripts/vaughan/hello-mpi4py/hello-mpi4py.slurm"
+%}
 ```
 
-The job is submitted for execution by executing this command in a terminal running a session on a login node:
+This job script reqests the parallel execution of a simple Python script `hello-mpi4py.py` that prints some environment variables set by Slurm, and a line for each MPI process with some info about the MPI process:
+
+```python
+{%
+include-markdown "../scripts/vaughan/hello-mpi4py/hello-mpi4py.py"
+%}
+```
+
+The job is submitted from the login node as:
 
 ```shell
-> cd path/to/wetppr/scripts/vaughan_examples
+> cd path/to/wetppr/scripts/vaughan/hello-mpi4py
 > sbatch mpi4py_hello_world.slurm
 ```
-(Note that we first cd into the directory containing the job script.) If all goes well, ``sbatch`` responds with something like
+
+Note that we first cd into the parent directory of the job script because the job script uses paths relative to the parent directory ()`../env-lmod.sh` and `hello-mpi4py.py`). If all goes well, ``sbatch`` responds with something like:
 
 ```shell
-Submitted batch job 709521
+Submitted batch job 1186356
 ```
 
-Where ``709521`` is the job id. 
+Where `1186356` is the job-id. 
+
+!!! tip
+    If something goes wrong with the job and you need help from the system administrator, always mention the job-id.
 
 The job is now in the job queue. You can check the status of all your submitted jobs with the ``squeue`` command:
 
 ```shell
 > squeue
              JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
-           1154283      zen2 hello-mp vsc20170 PD       0:00      2 (Priority)
+           1186356      zen2 hello-mp vsc20170 PD       0:00      2 (Priority)
 ```
-The ``ST`` column shows the status of your job. ``PD `` means 'pending', the job is waiting for resource allocation. 
-It will eventually run. Once running, it will show ``R`` as a status code and the ``TIME`` column will show the 
-walltime of the job. Once completed the status will be 'CD' and after some minutes, it will disappear from the 
-output of the ``squeue`` command. The directory ``wetppr/scripts/vaughan_examples`` now contains two extra files:
+
+The ``ST`` column shows the status of your job. ``PD `` means 'pending', the job is waiting for resource allocation. It will eventually run. Once running, it will show ``R`` as a status code and the ``TIME`` column will show the walltime of the job. Once completed the status will be 'CD' and after some minutes, it will disappear from the output of the ``squeue`` command. The directory ``wetppr/scripts/vaughan_examples`` now contains two extra files:
 
 ```shell
 > ls -l
-total 12
-total 36
-drwxrwxr-x 3 vsc20170   134 Oct  5 09:11 _build/
--rw-rw-r-- 1 vsc20170   488 Oct  4 18:31 CMakeLists.txt
--rw-rw-r-- 1 vsc20170     0 Oct  5 09:11 hello-mpi-omp.1154283.stderr
--rw-rw-r-- 1 vsc20170 19791 Oct  5 09:12 hello-mpi-omp.1154283.stdout
--rw-rw-r-- 1 vsc20170  2589 Oct  5 08:50 hello-mpi-omp.c
--rw-rw-r-- 1 vsc20170   496 Oct  5 08:44 hello-mpi-omp.slurm
--rwxrwxr-x 1 vsc20170   430 Oct  5 09:57 sort.py*
+-rw-rw-r-- 1 vsc20170 vsc20170    0 Oct 26 09:32 hello-mpi4py.1186356.stderr
+-rw-rw-r-- 1 vsc20170 vsc20170 1306 Oct 26 09:43 hello-mpi4py.1186356.stdout
+-rw-rw-r-- 1 vsc20170 vsc20170  973 Oct 26 09:42 hello-mpi4py.py
+-rw-rw-r-- 1 vsc20170 vsc20170 1826 Oct 26 08:56 hello-mpi4py.slurm
 ```
 
-File ``hello-mpi-omp.1154283.stderr`` contains the output written by the job to stderr. If there are no errors, it 
-is generally empty, as indicated here by the 0 file size. File ``hello-mpi-omp.1154283.stdout`` contains the output 
-written by the job to stdout. The `module list` command produces an overview of all loaded modules:
+The job has created two output files with the output written to stderr and stdout, respectively. As requested by the job script lines `#SBATCH -o %x.%j.stdout` and `#SBATCH -e %x.%j.stderr`, they are compose as `<job-name>.<job-id>.stdout` and `<job-name>.<job-id>.stderr`, respectively. Error messages are normally written to the `stderr` file, which is empty in this case, as indicated by the 0 file size. The output of the Python script `hello-mpi4py.py` appears in `hello-mpi4py.1186356.stdout`, as well as that of `env-lmod.sh`, which precedes that of `hello-mpi4py.py` .
 
 ```shell
-Currently Loaded Modules:
-  1) calcua/2022a                    7) UCX/1.12.1-GCCcore-11.3.0
-  2) GCCcore/11.3.0                  8) impi/2021.6.0-intel-compilers-2022.1.0
-  3) zlib/1.2.12-GCCcore-11.3.0      9) imkl/2022.1.0
-  4) binutils/2.38-GCCcore-11.3.0   10) iimpi/2022a
-  5) intel-compilers/2022.1.0       11) imkl-FFTW/2022.1.0-iimpi-2022a
-  6) numactl/2.0.14-GCCcore-11.3.0  12) intel/2022a
+{%
+include-markdown "../scripts/vaughan/hello-mpi4py/hello-mpi4py.1186356.stdout_ok"
+%}
 ```
 
-Then there is some output produced by the CMake commands building the program `_build/hello-mpi-omp` that 
-subsequently is run in parallel on the requested resources. This produces a series of lines starting with 
-`Host=...`. Each MPI process produces  line like:
+We already explained the job-id. The step-id is tied to an individual srun command. The job script has only one srun command, so the step-id is always 0 (counting starts at 0, in C/C++/Python tradition). The MPI rank is tied to he MPI process running. The job script requested `#SBATCH --ntasks=16`, hence, the MPI rank ranges from 0 to 15. Pid is the process id. It refers to the Linux process of the given MPI rank. Finally, affinity is the set of CPUs on which the process runs. Since the job script requested `#SBATCH --cpus-per-task=1`, each MPI rank uses only a single CPU. In hybrid MPI-OpenMP programs, an MPI rank can use OpenMP parallel sections over several CPUs. In that case one would request, _e.g._, `#SBATCH --cpus-per-task=4` and the afinity sets would show 4 different CPUs.
 
-```
-Host=r2c06cn3.vaughan  Pid=814085  MPI_rank=000/064                      CPU=0
-```
-
-printing, respectively, 
-
-* the name of the compute node on which the mpi process runs (`Host=...`), 
-* the process ID of the process (`Pid=...``), 
-* the MPI rank of the process and the total number of MPI ranks (`MPI_rank=xxx/nnn`), and 
-* the CPU ID on which the proces runs (`CPU=...`).
-
-The MPI process also has an OpenMP parallel section which prints a line for every OpenMP thread 
-involved in that parallel section (there is 2 of them  in this case):
-
-```
-Host=r2c06cn3.vaughan  Pid=814085  MPI_rank=000/064  OMP_thread=000/002  CPU=000  NUMA_node=0  CPU_affinity=0,
-Host=r2c06cn3.vaughan  Pid=814085  MPI_rank=000/064  OMP_thread=001/002  CPU=001  NUMA_node=0  CPU_affinity=1,
-```
-
-Each line contains, respectively, 
-
-* the name of the compute node on which the mpi process runs (`Host=...`), 
-* the process ID of the process (`Pid=...``), 
-* the MPI rank of the process and the total number of MPI ranks (`MPI_rank=xxx/nnn`), and 
-* the OpenMP thread number of the thread in the parallel section (`OMP_thread=...`).
-
-The lines following ``Currently Loaded Modules:`` represent the output of the ``module list`` command. The 
-subsequent lines ``rank=<rank>/64`` represent the output of the ``print`` statement in the ``mpi4py_hello_world.py`` script.
-Each rank produces one printed line in random order (this is because of OS jitter). 
-
-The job script has four sections:
-
-- the shebang
-- SLURM job script parameters 
-- setup of the job's execution environment
-- the actual job commands 
-
-### Shebang
-
-The first line, starting with ``#!`` is the [_shebang_](https://linuxhandbook.com/shebang/)). It is mandatory and sets the system ``bash`` 
-as the interpreter of the job script:  
+The job above requested only a single compute node and a very short wall time (5'). Often, it will start executing allmost immediately after submitting. For larger jobs, requiring many nodes, the scheduler has to find a moment at which the number of nodes requested are available (that is, without work load). Typically, one has to wait a bit before the job starts.  The waiting time depends on the total work load of the cluster, but rarely exceeds more than a day. To know when your job starts and ends, you can ask the scheduler to send you an e-mail, by adding these lines to your job script:
 
 ```shell
-#!/bin/bash
-```
-
-### SLURM job script parameters
-
-After the *shebang* the Slurm job script parameters are specified. They all start with ``#SBATCH``.
-The second line selects the number of tasks (processes) and cpus per process to be used for your job:
-
-```shell
-#SBATCH --nodes=2
-#SBATCH --ntasks=64 --cpus-per-task=2
-```
-
-Here, 2 compute nodes are requested for 64 MPI processes , each process using 2 cpus for each process. 
-Since the compute nodes of Vaughan have 64 cores, this corresponds to requesting two entire nodes. 
-Typically, processes communicate via MPI and the cpus of a process via OpenMP.  
-
-Furthermore, we need to specify how long we suspect the job to run:
-
-```shell
-#SBATCH --time=00:05:00
-```
-
-Here, we request 5 minutes. If the job is not finished after five minutes, it will be aborted. The maximum wall time 
-for a job is 72 hours. Longer jobs must be split into pieces shorter than 72 hours. Jobs of 1 hour or less have high 
-priority than longer jobs.
-
-Larger jobs typically do not start immediately. First, the requested resources must be available. Moreover, your
-job must be the next in the queue, which is formed on a fair share basis. To know when your job starts and ends, you 
-can ask the scheduler to send you an e-mail. Here, we request that an e-mail is sent when the job starts, 
-ends and also when it fails for some reason.
-
-```shell
+### Send mail when the job starts, ands and fails 
 #SBATCH --mail-type=BEGIN,END,FAIL
+### Send mail to this address:
 #SBATCH -–mail-user=<your e-mail address>
 ```
 
-If you leave out the ``--mail-user``, the e-mail address 
+Note that the maximum wall time for a job is 72 hours. Longer jobs must be split into pieces shorter than 72 hours. Jobs of 1 hour or less have higher priority.
 
-Finally, it is convenient to specify a name for the job and its output files. 
-
-```shell
-#SBATCH --job-name mpi4py_hello_world
-#SBATCH -o %x.%j.stdout
-#SBATCH -e %x.%j.stderr
-```
-
-As the job script is executing the Python script ``mpi4py_hello_world.py`` and was therefor named ``mpi4py_hello_world.slurm``,
-the job name is correspondingly set to ``mpi4py_hello_world``. The output to ``stdout`` and ``stderr`` is then redirected
-to ``mpi4py_hello_world.<jobid>.stdout`` and ``mpi4py_hello_world.<jobid>.stderr``, resp. This ensures that an alphabetical 
-listing of files will group all files corresponding to and produced by this job script. 
-
-### Setup of the job's execution environment
-
-We prefer to start from a clean environment:
-
-```shell
-# module --force purge
-```
-
-Then we load a toolchain:
-
-```shell
-# module load calcua/2020a
-```
-
-(More recent toolchains are upcoming).
-
-Next, we load the LMOD modules we need:
-
-```shell
-# module load Python/3.8.3-intel-2020a
-```
-
-This LMOD module comes with a whole bunch of pre-installed python modules, including numpy, mpi4py, scipy, ...
-
-It is also useful to print which modules we have loaded, to leave a trace of the environment in which the 
-job is executed for later reference.:
-
-```shell
-# module list
-```
-
-### Job execution commands 
-
-The job script ends with a list of (``bash``) commands that compose the job: 
-
-```shell
-srun python mpi4py_hello_world.py
-```
-
-The ``srun`` command calls mpirun with the resources requested in the [Job script parameters][slurm-job-script-parameters]
-. Consequentially, 64 MPI processes will be started, one on each core of a compute node. Their ranks will be 
-numbered 0..63.
 
 # Recommended steps from here
 
-* A helpfull tutorial on [Using VS Code for Remote Development](presentations/TNT-VS Code.pptx)
-* The [micc2 tutorials](https://et-micc2.readthedocs.io/en/stable/tutorials.html)
+* A helpfull tutorial on [Using VS Code for Remote Development](presentations/TNT-VSCode.pptx)
+* The [Getting started with wip](https://etijskens.github.io/wetppr/exercise-1/)
