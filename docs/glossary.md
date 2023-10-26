@@ -12,6 +12,7 @@ Here is an alphabetical list of terms with links to where they are explained in 
 
 - [bandwidth limited][1-reduce-the-time-to-solution]
 - [bandwith saturated][monte-carlo-setting]
+- [batch mode][submitting-jobs-on-vaughan]
 
 ## C
 
@@ -29,6 +30,7 @@ Here is an alphabetical list of terms with links to where they are explained in 
 - [computational intensity][recommendations-for-array-processing]
 - [compute limited][1-reduce-the-time-to-solution]
 - [compute node][supercomputer-architecture]
+- [compute nodes][a-bit-of-terminology]
 
 ## D
 
@@ -38,6 +40,11 @@ Here is an alphabetical list of terms with links to where they are explained in 
 ## E
 
 - [embarrassingly parallel][what-is-a-parallel-program]
+- [executable][lmod-modules]
+
+## F
+
+- [foss][lmod-modules]
 
 ## G
 
@@ -52,6 +59,14 @@ Here is an alphabetical list of terms with links to where they are explained in 
 ## I
 
 - [instruction pipelining][intra-core-parallellisation-features]
+- [intel][lmod-modules]
+- [interactively][submitting-jobs-on-vaughan]
+
+## J
+
+- [job script][a-bit-of-terminology]
+- [job script][submitting-jobs-on-vaughan]
+- [job][a-bit-of-terminology]
 
 ## L
 
@@ -59,12 +74,14 @@ Here is an alphabetical list of terms with links to where they are explained in 
 - [L2 cache][the-hierarchical-structure-of-cpu-memory]
 - [L3 cache][the-hierarchical-structure-of-cpu-memory]
 - [LMOD modules][lmod-modules]
-- [local][vsc-infrastructure]
+- [local][a-bit-of-terminology]
+- [login nodes][a-bit-of-terminology]
 - [loop fusion][the-hierarchical-structure-of-cpu-memory]
 
 ## M
 
 - [main memory][the-hierarchical-structure-of-cpu-memory]
+- [master nodes][a-bit-of-terminology]
 - [memory bandwidth][1-reduce-the-time-to-solution]
 - [multi-core][cant-i-just-by-a-faster-and-bigger-computer]
 - [multi-processor][cant-i-just-by-a-faster-and-bigger-computer]
@@ -88,16 +105,20 @@ Here is an alphabetical list of terms with links to where they are explained in 
 ## R
 
 - [registers][the-hierarchical-structure-of-cpu-memory]
-- [remote][vsc-infrastructure]
+- [remote][a-bit-of-terminology]
+- [resource manager][a-bit-of-terminology]
 
 ## S
 
+- [scheduler][a-bit-of-terminology]
+- [scheduler][submitting-jobs-on-vaughan]
 - [sequential][what-is-a-parallel-program]
 - [serial][what-is-a-parallel-program]
 - [shared memory parallelization][shared-memory-parallelization]
 - [short-ranged][molecular-dynamics-setting]
 - [SIMD vectorisation][intra-core-parallellisation-features]
 - [software thread][common-approaches-towards-parallelization]
+- [source][lmod-modules]
 - [Spatial locality][the-hierarchical-structure-of-cpu-memory]
 - [structure of Arrays][recommendations-for-data-structures]
 
