@@ -24,6 +24,4 @@ if __name__ == '__main__':
     # processes, process id, and the affinity (the id of the CPU on which 
     # the MPI process is running). Every MPI process will print one line.
     print(f'jobid.stepid={jobid}.{stepid}, MPI_rank={comm.rank}/{comm.size}, {pid=} : affinity={affinity}')
-
-    
-    
+          

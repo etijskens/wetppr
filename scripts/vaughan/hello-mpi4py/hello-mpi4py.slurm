@@ -1,5 +1,6 @@
 #!/bin/bash
-### The line above is the shebang. It specifies the interpreter for the script. Always /bin/bash.
+### The line above is the shebang. It specifies the interpreter for the script. 
+### (see https://linuxhandbook.com/shebang/). Always /bin/bash for job scripts.
 
 ### Submit this job from the parent directory as:
 ### > cd path/to/wetppr/scripts/vaughan/hello-mpi4py
@@ -37,7 +38,7 @@
 
 ### Prepare the environment for the job ########################################
 ### Source the env-lmod.sh script to loads the LMOD modules needed.
-### We requeste it to use the foss toolchain. 
+### We request it to use the foss toolchain. 
 source ../env-lmod.sh foss
 
 ### Specify the computational work #############################################
