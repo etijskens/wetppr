@@ -1,6 +1,11 @@
-3. [Chapter 1 - Introduction](chapter-1.md)
-3. [Chapter 2 - Aspects of modern CPU architecture](chapter-2.md)
+1. [Chapter 1 - Introduction](chapter-1.md)
+
+2. [Chapter 2 - Aspects of modern CPU architecture](chapter-2.md)
+
 3. [Chapter 3 - Optimise first, then parallelize](chapter-3.md)
-3. [Chapter 4 - Case studies](chapter-4.md)
-3. [Chapter 5 - A strategy for the development research software](chapter-5.md)
-4. [Chapter 6 - Tools for parallellization](chapter-6.md)
+
+4. [Chapter 4 - Case studies](chapter-4.md)
+
+5. [Chapter 5 - A strategy for the development research software](chapter-5.md)
+
+6. [Chapter 6 - Tools for parallellization](chapter-6.md)
