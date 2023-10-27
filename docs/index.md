@@ -6,7 +6,7 @@ Material for the course ***2000wetppr -- Parallel programming*** of the Universi
 
 2. [Glossary](glossary.md)
 
-3. [Links](links.md)
+3. [Useful links](links.md)
 
 4. [Course text](course-text.md)
 
