@@ -44,4 +44,4 @@ source ../env-lmod.sh foss
 ### Specify the computational work #############################################
 ### Run the Python script hello-mpi4py.py on the requested resources by calling 
 ### srun (this is a Slurm command)
-srun -n${SLURM_NTASKS} -c${SLURM_CPUS_PER_TASK} --exclusive --unbuffered python hello-mpi4py.py
+srun -n${SLURM_NTASKS} -c${SLURM_CPUS_PER_TASK} python hello-mpi4py.py
