@@ -101,21 +101,23 @@ Wiptools is suitable for small projects but scales very well to large projects.
 
 The assignment is there because imho ***programming is something you can only learn by doing***. It involves important skills that you should develop while working on the assignment:
 
-- Using the background information presented in chapters 1-4
+- Use the background information presented in chapters 1-4 and carefully read chapter 5 on research strategy.
 
 - Reason about the mathematical formulation of the problem and the algorithm to solve it,
 
 - Do research on the problem, with respect to solution algorithms and implementation issues.
 
-- Write and debug code in Python. 
+- Write and debug code in Python.
 
-- Learn how slow Python functions can be sped up by converting them to either C++ or Fortran. 
+- Learn how slow Python functions can be sped up by converting them to either C++ or Fortran.
 
-- Run your code on one of the UAntwerp HPC clusters.
+- First develop code on your local machine. In general, local development and debugging are more user friendly.
+
+- Once things work, migrate your code for further testing to one of the UAntwerp HPC clusters.
 
 Learning is an incremental process. Especially for scientific software development the following is a good approach:
 
-1. ***Try, and test*** (We'll see what testing exactly means). 
+1. ***Try, and test*** (We'll see what testing exactly means).
 
 2. ***Fail*** (often, [the faster you fail, the faster you learn](https://testsigma.com/blog/test-automation-achieve-fail-fast-fail-often/)! ).
 
@@ -132,25 +134,6 @@ Although this approach may look as if you are supposed to find the solution to t
 - ***make incremental changes***.
 
 Don't write a lot of code before you try and test. Typically, and this is corroborated by research, one bug is introduced with every new 10 lines. Finding 10 bugs in 100 lines is a lot more difficult than finding one bug in 10 lines (although sometimes there is more than one bug :( ).
-
-!!! Warning "Anecdotical evidence"
-    A PhD student once asked me for support. He had written a ~10 000 line Fortran program (without tests). When he ran it, the results were not what he expected and he suspected that there was a bug 'somewhere'. He asked if I could help him find the bug and - no kidding - by the end of next week because the program had to go into production by then. I had to disappoint him and told him that he needed a true magician, which I am not.Obviously, the program was flawed in some sense, but other than _a_ bug, it might just as well be one or more of the issues below:
-
-    - The program may contain many bugs, which is very well possible in view of its size.
-
-    - The algorithm for solving the problem is inappropriate.
-
-    - There is an accuracy problem, related to the discretisation of time, space, or an insufficient set of basis functions for expanding the solution, or related to the finite precision of floating point numbers. (Floating point numbers are a processor's approximation of the real numbers, but they do have different mathematical properties. *E.g.* floating point addition is ***not*** commutative.)
-
-    - The mathematical formulation itself could be flawed or misunderstood.
-
-    - It is even possible that the program is correct but that the researcher's expectations are wrong. 
-
-    - any combination of the above, and more ...
-
-    It could easily take weeks, if not months to write tests for the individual components to learn about the behaviour of the program and narrow down to the source of the error. 
-
-For this reason a sound strategy for scientific software development that makes sure that the code you write has a sense of correctness is indispensable. Had the researcher come to me before he started programming this is the advice he would have been given:
 
 !!! Tip
     ***Write 5 lines of code and write a test for them. Do not proceed (with the next 5 lines) before the test passes***. Just 5, not 10! Your test code is also code and will initially contain bugs as well. ***As you get more experienced you may increase that number to 6, even 7, ...***
