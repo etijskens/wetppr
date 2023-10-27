@@ -26,6 +26,65 @@ Students of the course 2000wetppr must use one of the VSC-clusters for the proje
 
 ## Guide lines
 
+### Mandatory tools to be used
+
+You must (!)
+
+- create your exercise projects with wiptools.
+
+- deliver your exercise projects on your GitHub account.
+
+#### Use git
+
+Git is a version control system. It helps you storing versions of your projects. As a novice in programming, git helps you 
+
+* To ensure that you do not loose your programming work by providing a versioned backup.
+
+* To store the history of your project. If at any time you might decide that the current version of your project is on the wrong track, you can always return to previous versions, even on a file level.
+
+* To easily transfer your project to another machine. You may be working on your project on your laptop, a desktop at home, one of the VSC clusters, ... without problems. It also provides a clean way of delivering over your programming assignments to the evaluator and asking for help to fix bugs and review code. Therefor, ***using git is mandatory*** for this course. 
+
+If you become a researcher later, you will learn that git also helps you 
+
+* To collaborate with other people on a piece of software.
+
+* To separate released work from development and bug fixing.
+
+#### Git workflow
+
+Below we focuses on a git work flow useful for the programming projects for the evaluation of this course.
+
+Git stores the different versions of your project in a **local git repository**. This is a `.git` directory in your project directory. Obviously, this local repository is only accessible from your machine. To make it accessible to others, you also need a remote **GitHub repository**. This is located in the cloud `https://github.com/<your-GitHub-username>/<your-project-name>`. To transfer changes to your project files to the repositories this workflow is appropriate:
+
+1. List your changes using the `git status` command.
+
+2. Stage changed files that you want to transfer to the local git repository with the `git add <file-to-stage>`. The `git status` command shows which changes are staged and which are not.
+
+3. Transfer staged changes to the local git repository using the `git commit` command. (This called _committing changes_). The `git commit` command will prompt you for a commit message. Here's a single page of [good advice on committing changes](https://tilburgsciencehub.com/building-blocks/collaborate-and-share-your-work/use-github/git-commits/). 
+
+    !!! Tip "Committing incomplete changes"
+        Best practises on commiting recommends that you should _only_ commit completed changes. Sometimes you simply want to store the current status just for backup (_e.g._ you want to continue working from home the next day on your home computer). In that case use a commit message that makes clear that this is a commit with incompleted changes, _e.g._ "Work in progress - incomplete changes!". Use exactly the same message every time you do this.
+
+4. Transfer your changes from the local git repository to the remote repository at github.com using the `git push` command.
+
+5. To transfer a remote Github repository to a local machine that does not yet have a local repository for that project, use the command `git clone §https://github.com/<your-GitHub-username>/<your-project-name>`.
+
+6. To transfer the latest changes from a remote Github repository to a local machine that already has local repository for that project, use the command `git pull`.
+
+What has not yet been described in this work flow is how you start. How do you create a local git repository? How do you create a remote GitHub repository? How do you connect one to the other? This is taken care of by another tool that is ***mandatory*** for students of this course: [wiptools](https://etijskens.github.io/wiptools/). 
+
+#### Use wiptools
+
+[Wiptools](https://etijskens.github.io/wiptools) is a Python package and a CLI for Python project management. It was developed to assist in research software development along the strategy described in [Chapter 5][a-strategy-for-the-development-research-software]. When creating a new project with the wip CLI:
+
+```shell
+> cd workspace
+> wip init foo
+...
+```
+
+a template is used to create a Python project with directories for tests and documentation, a local git repository and a remote GitHub repository. On top of that you can add python sub-modules, binary extension modules built from C++ or Modern Fortran source, CLIs and CLIs with subcommands. All files created are committed and pushed to the remote GitHub repository. After this, the [Git workflow][git-workflow] above can be applied easily.  
+
 ### Learning by doing
 
 The assignment is there because imho ***programming is something you can only learn by doing***. It involves important skills that you should develop while working on the assignment:
@@ -63,7 +122,7 @@ Although this approach may look as if you are supposed to find the solution to t
 Don't write a lot of code before you try and test. Typically, and this is corroborated by research, one bug is introduced with every new 10 lines. Finding 10 bugs in 100 lines is a lot more difficult than finding one bug in 10 lines (although sometimes there is more than one bug :( ).
 
 !!! Warning "Anecdotical evidence"
-    A PhD student once asked me for support. He had written a ~10 000 line Fortran program (without tests). When he ran it, the results were not what he expected and he suspected that there was a bug 'somewhere'. He asked if I could help him find the bug and - no kidding - by the end of next week because the program had to go into production by then. I had to disappoint him and told him that he needed a true magician, which I am not.Obviously, the program was flawed in some sense, but other than _a_ bug it might just as well be one or more of the issues below:
+    A PhD student once asked me for support. He had written a ~10 000 line Fortran program (without tests). When he ran it, the results were not what he expected and he suspected that there was a bug 'somewhere'. He asked if I could help him find the bug and - no kidding - by the end of next week because the program had to go into production by then. I had to disappoint him and told him that he needed a true magician, which I am not.Obviously, the program was flawed in some sense, but other than _a_ bug, it might just as well be one or more of the issues below:
 
     - The program may contain many bugs, which is very well possible in view of its size.
 
@@ -88,54 +147,3 @@ Admittedly, this advice is slightly biased to the conservative side, but I hope 
 
 !!! note "Caveat"
     There is a small disadvantage to the approach we are following. It is biased towards **bottom-up design**. In bottom-up design your start from the details, gradually aggregating them into larger parts, and, eventually, into the final application. Its opponent is **top-down** design, in which you start with the a high-level formulation of the problem. This is then broken down in smaller components and gradually refined until all details are covered. With a bit of imagination it is, however, possible to write tests for a top-down approach by focussing on how the components work together, rather than on what they are doing. Top-down design is important because it forces you to think on the high-level structure of your application. This is paramount to how fast users will adopt your application, because it relates to user-friendly-ness, intuitive understanding, flexibility, ... In general, however, research scientists seem to more at ease with bottom-up thinking.
-
-### Use git
-
-Git is a version control system. It helps you storing versions of your projects. As a novice in programming, git helps you 
-
-* To ensure that you do not loose your programming work by providing a versioned backup.
-
-* To store the history of your project. If at any time you might decide that the current version of your project is on the wrong track, you can always return to previous versions, even on a file level.
-
-* To easily transfer your project to another machine. You may be working on your project on your laptop, a desktop at home, one of the VSC clusters, ... without problems. It also provides a clean way of delivering over your programming assignments to the evaluator and asking for help to fix bugs and review code. Therefor, ***using git is mandatory*** for this course. 
-
-If you become a researcher later, you will learn that git also helps you 
-
-* To collaborate with other people on a piece of software.
-
-* To separate released work from development and bug fixing.
-
-### Git workflow
-
-Below we focuses on a git work flow useful for the programming projects for the evaluation of this course.
-
-Git stores the different versions of your project in a **local git repository**. This is a `.git` directory in your project directory. Obviously, this local repository is only accessible from your machine. To make it accessible to others, you also need a remote **GitHub repository**. This is located in the cloud `https://github.com/<your-GitHub-username>/<your-project-name>`. To transfer changes to your project files to the repositories this workflow is appropriate:
-
-1. List your changes using the `git status` command.
-
-2. Stage changed files that you want to transfer to the local git repository with the `git add <file-to-stage>`. The `git status` command shows which changes are staged and which are not.
-
-3. Transfer staged changes to the local git repository using the `git commit` command. (This called _committing changes_). The `git commit` command will prompt you for a commit message. Here's a single page of [good advice on committing changes](https://tilburgsciencehub.com/building-blocks/collaborate-and-share-your-work/use-github/git-commits/). 
-
-    !!! Tip "Committing incomplete changes"
-        Best practises on commiting recommends that you should _only_ commit completed changes. Sometimes you simply want to store the current status just for backup (_e.g._ you want to continue working from home the next day on your home computer). In that case use a commit message that makes clear that this is a commit with incompleted changes, _e.g._ "Work in progress - incomplete changes!". Use exactly the same message every time you do this.
-
-4. Transfer your changes from the local git repository to the remote repository at github.com using the `git push` command.
-
-5. To transfer a remote Github repository to a local machine that does not yet have a local repository for that project, use the command `git clone §https://github.com/<your-GitHub-username>/<your-project-name>`.
-
-6. To transfer the latest changes from a remote Github repository to a local machine that already has local repository for that project, use the command `git pull`.
-
-What has not yet been described in this work flow is how you start. How do you create a local git repository? How do you create a remote GitHub repository? How do you connect one to the other? This is taken care of by another tool that is ***mandatory*** for students of this course: [wiptools](https://etijskens.github.io/wiptools/). 
-
-### Use wiptools
-
-[Wiptools](https://etijskens.github.io/wiptools) is a Python package and a CLI for Python project management. It was developed to assist in research software development along with the strategy described in [Chapter 5][a-strategy-for-the-development-research-software]. When creating a new project with the wip CLI:
-
-```shell
-> cd workspace
-> wip init foo
-...
-```
-
-a template is used to create a Python project with directories for tests and documentation, a local git repository and a remote GitHub repository. On top of that you can add python sub-modules, binary extension modules built from C++ or Modern Fortran source, CLIs and CLIs with subcommands. All files created are  committed and pushed to the remote GitHub repository. After this, the [Git workflow][git-workflow] above can be applied easily. 
