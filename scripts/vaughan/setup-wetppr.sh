@@ -1,4 +1,5 @@
 #!/bin/bash
+# Prepare the remote environment for wetppr exercises.
 # This script accepts the same arguments as env-lmod.sh
 
 # Debug this script ------------------------------------------------------------
