@@ -28,11 +28,13 @@ Students of the course 2000wetppr must use one of the VSC-clusters for the proje
 
 ### Mandatory tools to be used
 
-You must (!)
+You ***MUST*** (!)
 
-- create your exercise projects with wiptools.
+- create your exercise projects with the wiptools CLI (`wip`),
 
 - deliver your exercise projects on your GitHub account.
+
+If not, you will not receive any credits.
 
 #### Use git
 
@@ -83,7 +85,17 @@ What has not yet been described in this work flow is how you start. How do you c
 ...
 ```
 
-a template is used to create a Python project with directories for tests and documentation, a local git repository and a remote GitHub repository. On top of that you can add python sub-modules, binary extension modules built from C++ or Modern Fortran source, CLIs and CLIs with subcommands. All files created are committed and pushed to the remote GitHub repository. After this, the [Git workflow][git-workflow] above can be applied easily.  
+a set of templates is used to create a Python project `foo` with directories for tests and documentation, a local git repository and a remote GitHub repository `https://github.com/<your-github-username>/foo`. On top of that you can add
+
+- Python sub-modules,
+
+- binary extension modules built from C++ or Modern Fortran source,
+
+- CLIs and CLIs with subcommands.
+
+All files created are automatically committed and pushed to the remote GitHub repository. After this, the [Git workflow][git-workflow] above can be applied easily.
+
+Wiptools is suitable for small projects but scales very well to large projects.
 
 ### Learning by doing
 
