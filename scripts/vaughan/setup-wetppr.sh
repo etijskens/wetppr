@@ -5,10 +5,10 @@
 # Debug this script ------------------------------------------------------------
 # set -eux
 
-# Retrieve the parent directory of this script
+# Retrieve the parent directory of this script (->path/to/wetppr/scripts/vaughan)
 my_app_path=$(dirname $(readlink -f "$0"))
 
-# fix the "vscode fails to connect due to file quota exceeded." issue:
+# fix the "vscode fails to connect due to file quota exceeded" issue:
 ${my_app_path}/../mv.vscode-server.sh
 
 # Load LMOD modules 
