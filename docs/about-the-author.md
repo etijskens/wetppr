@@ -4,61 +4,49 @@
 
 #### Education
 
-Lic. Aard- en delfstofkunde, *Master in Physics of Microelectronics and Material Sciences*, Doctor in de 
-Natuurwetenschappen - ik heb dus eigenlijk geen opleiding genoten in programmeren of wetenschappelijk rekenen ...,  
-maar veel opleidingen bijgewoond en vooral veel gelezen tijdens mijn voortdurende zoektocht naar betere manieren 
-om de opdrachten waar ik voor stond uit te voeren.  
+Lic. Aard- en delfstofkunde (_Master in Geology_), _Master in Physics of Microelectronics and Material Sciences_, Doctor in de Natuurwetenschappen (_PhD in Science_). None of these included a formal course in programming, nor computational science... I learned by continuously searching for better ways to accomplish the computational tasks I was facing.
 
 #### Work
 
-ik werk sinds 2012 voor **[CalcUA](https://www.uantwerpen.be/en/research-facilities/calcua/)**, de UA 
-kernfaciliteit voor supercomputing, en voor het [VSC](https://vscentrum.be), het **Vlaams Supercomputer Centrum**.  
-Ik verzorg er opleiding en ondersteuning van onderzoekers rond wetenschappelijk programmeren voor HPC-omgevingen 
-en performantie-analyse. k ben gepassioneerd door **Python**, **C++**, **Fortran** en *libraries* en frameworks 
-waarmee hoog-performante en parallelle applicaties kunnen gebouwd worden.
+Since 2012 I am employed at **[CalcUA](https://www.uantwerpen.be/en/research-facilities/calcua/)**, the University of Antwerp's core facility for supercomputing, and for the [VSC](https://vscentrum.be) (**Vlaams Supercomputer Centrum**), providing support and education to researchers on topics as scientific programming, high performance computing, code modernization, performance analysis. I am passionate about  **Python**, **C++**, **Fortran** and libraries and frameworks for building performant parallel applications.
 
 #### Teaching
 
-Sinds 2014 geef ik het vak "Parallel programmeren". Ik geef graag les en wil mijn ervaring van 30 jaar 
-wetenschappelijk programmeren delen met jonge onderzoekers.
-
+Since 2014 I teach "Parallel programmeren - 2000WETPPR" at the Science Faculty of the University of Antwerp. I enjoy teaching and sharing +30 years of experience in scientific programming for HPC environments.
 
 #### Discrete Element Modelling
-Voor 2012 leidde ik de **DEM Research Group** aan de KU Leuven. DEM staat voor ***Discrete Element Modelling***. 
-Je kan het vergelijken met ***Molecular Dynamics***, maar dan in de macroscopische wereld met atomen die een vorm 
-hebben, korrels dus, of *grains* in het Engels. Daarom wordt het ook ***Granular Dynamics*** genoemd. 
-Korrelstromen komen in heel wat industriële processen voor en het modelleren ervan is interessant, om inzicht te 
-verwerven in korrelige processen en om er goede procesinstallaties voor te ontwerpen. Dit is erg uitdagend omdat de 
-fysica van korrelige processen zo complex is. In tegenstelling tot MD zijn interacties tussen korrels dissipatief 
-en worden de contactkrachten bepaald door materiaaleigenschappen en oppervlakte-eigenschappen en zijn er zowel 
-normale als tangentiële contactkrachten (wrijving). Bovendien zijn de korrels - afhankelijk van het materiaal - 
-soms vervormbaar, of zelfs breekbaar. Omdat korrelige processen vaak over heel veel deeltjes gaan, zijn 
-performantie en parallellisatie essentieel. De simulatiesoftware waar we toen aan werkten, wordt nu 
-gecommercialiseerd door **[Mpacts](https://mpacts.com)**. 
+Before 2012 I was leading the **DEM Research Group** At KU Leuven. DEM stands for ***Discrete Element Modelling***. It is comparable to ***Molecular Dynamics***, but then in the macroscopic world with the atoms replaced by 3D grains with an arbitrary shape. It is also referred to as ***Granular Dynamics*** genoemd. Granular flow occur abundantly in many natural and industrial processes and its modelling is interesting to understand their behavior, and optimize industrial process installations. The computations are challenging because the physics of granular flows is complex. Contrary to Molecular Dynamics, interactions between grains are dissipative and contact forces are determined by material and surface properties, and, because of the 3D shape of the grains also have a tangential component (friction). Furthermore, grains can be deformable and break up into smaller grains. Because granular processes often involve large numbers of particles, performance and parallellisation of modelling software is essential. The simulation software developed at the DEM Research Group is currently commercialized by **[Mpacts](https://mpacts.com)**.
 
-##### CNH maaidorser - ontwikkeld met Mpacts
+##### CNH combine harvesteer - designed with Mpacts software
 
-![CNH maaidorser](public/cnh-combine-harvester.jpeg)
+![CNH combine harvester](public/cnh-combine-harvester.jpeg)
 
-Hier zijn verscheidene korrelige processen aan de orde:
+The combine harvester exhibits several granular processes:
 
-- de strohalmen maaien en binnen trekken in de machine,
-- de graantjes losmaken van de aar en ze scheiden van het stro,
-- stro afvoeren naar achter,
-- het kaf van het koren scheiden (kaf weg blazen),
-- het graan transporteren naar de verzamelbak bovenaan de machine,
-- het graan transporteren van de verzamelbak naar de aanhangwagen achter de tractor,
+- the straw is cut and drawn into the machine,
 
-##### Spherische korrels die op een trampoline vallen
+- threshing (detach the grains from the straw),
+
+- separating straw and grains,
+
+- blowing away the chaff,
+
+- transporting the grains to the tank,
+
+- emptying the tank and transport to the trailer behind the tractor
+
+##### Spherical grains falling on a trampoline
 
 ![type:video](public/spheres2000_sheet4.mp4)
 
-##### Mpacts: ijsbreker
+Because interactions are dissipative, the motion of the particles fades.
 
-Mpacts simulatie van een ijsbreker die door een ijslaag breekt.
+##### Mpacts: ice breaker
 
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/6qd7HAVRCn8/0.jpg)](https://www.youtube.com/watch?v=6qd7HAVRCn8)
 
-Kijk op [Mpacts case studies](https://mpacts.com/case-studies.html) voor meer voorbeelden. 
+Mpacts simulation of an ice breaker cutting through a layer of ice.
+
+Check out [Mpacts case studies](https://mpacts.com/case-studies.html) for more examples.
 
 
