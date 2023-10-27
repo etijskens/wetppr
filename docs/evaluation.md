@@ -111,9 +111,7 @@ The assignment is there because imho ***programming is something you can only le
 
 - Learn how slow Python functions can be sped up by converting them to either C++ or Fortran.
 
-- First develop code on your local machine. In general, local development and debugging are more user friendly.
-
-- Once things work, migrate your code for further testing to one of the UAntwerp HPC clusters.
+- First develop code on your local machine. In general, local development and debugging are more user friendly. Once things work, migrate your code for further testing to one of the UAntwerp HPC clusters. The disadvantage is that you have to set up your local development environment yourself. Students of this course are free to choose wether they develop on their local machine or not. However, migration of your code to the cluster is mandatory.
 
 Learning is an incremental process. Especially for scientific software development the following is a good approach:
 
