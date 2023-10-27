@@ -1,8 +1,8 @@
 #!/bin/bash
 # call this script as
-#   > source path/to/wetppr/scripts/vaughan/env-lmod.sh foss
+#   > source path/to/wetppr/scripts/vaughan/env-lmod.sh [foss[/toolchain_version]]
 # to load the foss toolchain_name, or 
-#   > source path/to/wetppr/scripts/vaughan/env-lmod.sh intel
+#   > source path/to/wetppr/scripts/vaughan/env-lmod.sh intel[/toolchain_version]
 # to load the intel toolchain_name.
 
 # Debug this script ------------------------------------------------------------
