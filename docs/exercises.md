@@ -7,6 +7,6 @@ in Python, C++ and Modern Fortran, both on your local machine and the VSC cluste
 
 [Exercise 2 - Deploying your project on a HPC cluster](exercise-2.md)
 
-The remaining exercises are evaluated and must be delivered.
+The remaining exercises are evaluated and must be delivered. Make sure you use wiptools and git. See []
 
 [Exercise 3 - The matrix-vector product](exercise-3.md)
