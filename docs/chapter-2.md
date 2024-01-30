@@ -25,8 +25,7 @@ Faster memory is more expensive and therefor smaller. The figure below illustrat
 
 The I/O hub connects the cpu to the outside world, hard disk, network, ...
 
-When an instruction needs a data item in a register, the CPU 
-looks first in the L1 cache, if it is there it will it to the register that was requested. Otherwise, the CPU looks 
+When an instruction needs a data item in a register, the CPU looks first in the L1 cache, if it is there it will it to the register that was requested. Otherwise, the CPU looks 
 in L2. If it is there, it is copied to L1 and the register. Otherwise, the CPU looks in L3. If it is there, it is 
 copied to L2, L1 and the register. Otherwise, the CPU looks copies the **cache line** surrounding the data item to 
 L3, L2, L1 and the data item itself to the register. A cache line is typically 64 bytes long and thus can contain 4 
@@ -91,7 +90,9 @@ a good compromise to the many faces of a truly complex problem.\
 !!! Tip
     ***An absolute must-see*** for this course is the excellent presentation on this matter by Scott Meyers: 
     [*CPU Caches and Why You Care*](https://www.youtube.com/watch?v=WDIkqP4JbkE).  (We can also recommend all his 
-    books on C++).
+    books on C++). 
+
+This, in fact, holds for GPUs as well. An equally interesting presentation is [*How GPU computing works*](https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s31151/) by Stephen Jones from NVIDIA.
 
 ## Intra-core parallellisation features 
 
