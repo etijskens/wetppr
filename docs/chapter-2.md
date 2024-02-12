@@ -1,7 +1,58 @@
-# Chapter 2 - Aspects of modern CPU architecture
+# Chapter 2 - Aspects of modern CPU architecture impacting performance
 
-You do not have to be a CPU architecture specialist in order to be able to write efficient code. However, there are 
-a few aspects of CPU architecture that you should understand.
+Modern CPUs deliver an enormous amount of **FLOPs** (floating point operations per second). This is the **peak performance** of the machine. The importance of peak performance, in general however, is rather limited. In practice, very little codes, or algorithms, can achieve the peak performance of modern CPUs. The reason for this astonishing fact is that instuctions must operate on data. That data must first be moved from the main memory (**DRAM**) to the registers of the **ALU** (Arithmetic and Logic Unit) that executes the instructions, and moving data takes time. In fact, generally much more than executing floating point operations. This is extremely well explained in this presentation by Stephen Jones from NVIDIA: [How GPU computing works](https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s31151/). Despite the title, it also explains how ***CPU*** computing works, contrasting the architectural design of CPUs and GPUs to achieve two different things. We will not deal with GPUs in this course, but for examining wether a code can profit from being run on a GPU an understanding of this presentation is highly beneficial.
+
+## Summary of *How GPU computing works*
+
+* [0:00-5:00] The **compute intensity of a device** is the peak performance (FLOPs) divided by the data rate. The **data rate** is the bandwidth of the device (GBytes/s) divided by the size of a single data item. A **single precision** (SP) floating point number is 4 Bytes and a **double precision** (SP) floating point number is 8 Bytes. The bandwidth of a device is the amount of data that can be transferred between the CPU and the main memory (DRAM) of the device. As the presentation explains, the compute intensity for double precision data of modern CPUs is 80 (40 for single precision). This basically means that, on average, a DP data item coming from main memory should be used by 80 floating point operations in order to keep the CPU busy. That is a pritty tall number. In fact there aren't many algorithms that have to do that much work to do on each data item. 
+
+* [5:30] "*Notice I count loads and not stores, because I don't care about stores, because I don't have to wait for them.*" Obviously, the loads of `x[i]` and `y[i]` must precede the computation, and the store of `y[i]` can, in principle be executed any time after the result is computed. This is a bit of a simplification. The store must at least be executed before the register can be reused, which is, in view of the limited number of registers pritty soon. Furthermore, stores consume bandwidth too. Roughly, two loads and one store use 1.5 times the bandwidth of a two loads. So, while you don't have to wait for the store, you wait a bit longer for the two loads.  
+
+* [6:10] **Memory latency** the time between sending a load request and receiving the data item requested.
+
+* [6:40] pipelining. See [Instruction pipelining](#instruction-pipelining)
+
+* [15:10] The focus of the presentation is now on GPUs. 
+
+Although this presentation explains why memory bandwidth and memory latency matter more than FLOPs and how the GPU solves the latency problem, it does not talk about how the CPU solves it (probably intentionally). This is explained in another presentation by Scott Meyers [*CPU Caches and Why You Care*](https://www.youtube.com/watch?v=WDIkqP4JbkE). Nothwithstanding the presentation is from 2013 and uses a CPU from 2010, the principles are fully valid today, although the numbers will be different for today's CPUs.
+
+## Summary of *CPU Caches and Why You Care*
+
+* [0:01:10-0:04:05] example 1: matrix traversal,traversal order matters.
+
+* [0:04:05-0:10:30] example 2: parallel threads,thread memory access matters.
+
+* [0:10:30-] understanding CPU caches (see [The hierarchical structure of CPU Memory](#the-hierarchical-structure-of-cpu-memory) below).
+
+* [0:20:20] '*Non-cache access can slow down things by orders of magnitude*' **cache misses**.
+
+* [0:20:20] '*compact, well localized code that fits in cache is fastest*'
+
+* [0:20:20] '*compact data structures that fit in cache are fastest*'.
+
+* [0:20:20] '*data structure traversals touching only cached data are fastest*'.
+
+* [0:21:40] The concept of **cache lines**. Cache favor linear traversal of memory. The concept of **prefetching**. A linear array, being traversed linearly, is the fastest data structure you can possibly have. CPU hardware is designed with this purpose in mind. 
+
+* [0:24:30] Implications
+
+    * Locality counts: reads/writes at address A => contents near A are already cached
+
+        * e.g. on the same cache line
+        * e.g. on a nearby cache line that was prefetched
+
+    * Predictable access patterns count. 
+
+        * predictable ~ forward or backward traversal.
+
+    * linear traversals *very* cache-friendly
+
+        * excellent locality, predictable traversal pattern
+        * linear array search can beat $log_2 n$ searches of heap-based binary search trees
+        * $log_2 n$ binary search of a sorted array can beat $O(1)$ searches of heap-based hash tables.
+        * Big-Oh wins for large $n$, but hardware caching takes early lead
+
+Below, we explain some details of modern CPU architecture with an impact on performance. We start out with the memory of a CPU because, as the presentation explains, that is key to performance. Then, we explain some tricks of the CPU to achieve the peak performance delivered by modern CPUs.
 
 ## The hierarchical structure of CPU Memory
 
@@ -25,12 +76,11 @@ Faster memory is more expensive and therefor smaller. The figure below illustrat
 
 The I/O hub connects the cpu to the outside world, hard disk, network, ...
 
-When an instruction needs a data item in a register, the CPU looks first in the L1 cache, if it is there it will it to the register that was requested. Otherwise, the CPU looks 
-in L2. If it is there, it is copied to L1 and the register. Otherwise, the CPU looks in L3. If it is there, it is 
+When an instruction needs a data item in a register, the CPU looks first in the L1 cache, if it is there it will it to the register that was requested. Otherwise, the CPU looks in L2. If it is there, it is copied to L1 and the register. Otherwise, the CPU looks in L3. If it is there, it is 
 copied to L2, L1 and the register. Otherwise, the CPU looks copies the **cache line** surrounding the data item to 
 L3, L2, L1 and the data item itself to the register. A cache line is typically 64 bytes long and thus can contain 4 
 double precision floating point numbers or 8 single precision numbers. The main consequence of this strategy is that 
-if the data item is part of an array, the next elements of that array will also be copied to L1 so that when 
+if the data item is part of an array, the elements of that array surrounding the requested element will also be copied to L1 so that when 
 processing the array the latency associated with main memory is amortized over 4 or 8 iterations. In addition, the 
 CPU will notice when it is processing an array and prefetch the next cache line of the array in order to avoid that 
 the processor has to wait for the data again. This strategy for loading data leads to two important best practices for 
@@ -102,7 +152,7 @@ account for a large part of the work load of a program. To make that possible CP
 
 ### Instruction pipelining
 
-Instruction pipelining is very well explained [here](https://en.wikipedia.org/wiki/Instruction_pipelining).
+**Instruction pipelining** is very well explained [here](https://en.wikipedia.org/wiki/Instruction_pipelining).
 
 Basically, instructions are composed of micro-instructions (typically 5: instruction Fetch (IF), instruction decode 
 (ID), execute (EX), memory access (MEM), write back (WB), [details here](https://courses.cs.washington.
