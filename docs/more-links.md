@@ -138,6 +138,7 @@ to write low-level code yourself.
 -   [How vectorization speeds up your Python  code](https://pythonspeed.com/articles/vectorization-python/) Quite  a few interesting ideas:  -   self-instrumenting a python program for performance measurements  -   using pypy
 -   [Speeding up your code](https://pythonspeed.com/performance/)
 -   [Cython, Rust, and more: choosing a language for Python  extensions](https://pythonspeed.com/articles/rust-cython-python-extensions/)
+- [Calling Rust from Python](https://blog.frankel.ch/rust-from-python/)
 -   [PyCon 22 Talk - Henry Fredrick Schreiner III: Building a binary  extension](https://www.youtube.com/watch?v=gROGDQakzas&list=PL2Uw4_HvXqvYeXy8ab7iRHjA-9HiYhRQl&index=24)
 -   [Deep CMake for library  authors](https://www.youtube.com/watch?v=m0DwB4OvDXk) CppCon 2019,  Interesting CMake stuff by craig scott, the author of [Professional  CMake - a practical guide](https://crascit.com/professional-cmake/)
 -   [nanobind, a fastder pybind11](https://github.com/wjakob/nanobind)

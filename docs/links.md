@@ -1,5 +1,9 @@
 # Useful links
 
+## VS Code 
+
+- [VS Code Tutorial – Become More Productive](https://www.youtube.com/watch?v=heXQnM99oAI)
+
 ## C++
 
 - [cplusplus.com](https://cplusplus.com)
@@ -32,7 +36,7 @@
 
 ## Project management
 
-- [micc2](https://et-micc2.readthedocs.io/en/latest/index.html): managing your Python/C++/Fortran project, helps with
+- [wiptools](https://wiptools.readthedocs.io/en/latest/index.html): managing your Python/C++/Fortran project, helps with
 
   - creating new projects
   - adding Python sub-modules, Python applications (CLIs), binary extension modules written in C++ and Fortran. 
