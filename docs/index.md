@@ -12,6 +12,7 @@ Material for the course ***2000wetppr*** of the University of Antwerp
 1. [Overview](overview.md)
 2. [Glossary](glossary.md)
 3. [Links](links.md)
+4. [(Un)sorted links](more-links.md)
 3. [Chapter 1 - Introduction](chapter-1.md)
 3. [Chapter 2 - Aspects of modern CPU architecture](chapter-2.md)
 3. [Chapter 3 - Optimise first, then parallelize](chapter-3.md)
