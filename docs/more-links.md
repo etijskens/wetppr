@@ -449,6 +449,7 @@ to write low-level code yourself.
 
 -   [Building a CLI for Firmware Projects using  Invoke](https://interrupt.memfault.com/blog/building-a-cli-for-firmware-projects)
 -   [Click](https://click.palletsprojects.com)
+- [Things I’ve learned about building CLI tools in Python](https://simonwillison.net/2023/Sep/30/cli-tools-python/)
 -   [QUICK: A real quick GUI generator for  click](https://github.com/szsdk/quick)
 -   [When laziness is efficient: Make the most of your command  line](https://stackoverflow.blog/2020/02/12/when-laziness-is-efficient-make-the-most-of-your-command-line/?utm_source=Iterable&utm_medium=email&utm_campaign=the_overflow_newsletter&utm_content=02-19-20)
 -   [Messing with the python  shell](https://www.kbairak.net/programming/python/2021/02/01/messing-with-the-python-shell.html)
