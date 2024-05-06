@@ -1,0 +1,4 @@
+- [Compute N terms of the sum of inverse squares](https://www.nathom.dev/blog/casual_performance_optimization_python/)
+- The Mandelbrot set
+  - [How Mojo🔥 gets a 35,000x speedup over Python – Part 1](https://www.modular.com/blog/how-mojo-gets-a-35-000x-speedup-over-python-part-1)
+  - [How Mojo🔥 gets a 35,000x speedup over Python – Part 1](https://www.modular.com/blog/how-mojo-gets-a-35-000x-speedup-over-python-part-2)
