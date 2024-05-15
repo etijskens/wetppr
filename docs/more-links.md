@@ -1,4 +1,6 @@
-> This page is a compilation of links I found interesting while learning programming and while solving everyday problems in project management and maintenance, and of course scientific computing. As I keep on learning this list evolves continuously :-)
+ This page is a compilation of links I found interesting while learning programming and while solving everyday problems in project management and maintenance, and of course scientific computing. As I keep on learning this list evolves continuously :-)
+
+[How to Learn to Code - 8 Hard Truths](https://www.youtube.com/watch?v=NtfbWkxJTHw)
 
 # Software engineering
 
@@ -40,7 +42,7 @@
 - [Writing your first Python program](https://able.bio/SamDev14/writing-your-first-python-program--31a3607)
 - [How long did it take you to learn Python](https://nedbatchelder.com/blog/202003/how_long_did_it_take_you_to_learn_python.html) Wait, don’t answer that. It doesn’t matter. Ned Batchelder
 
-## Python idioms and readability
+## Python idioms, readability and internals
 
 ### Decorators
 - [Practical decorators](https://www.youtube.com/watch?v=MjHpMCIvwsY&t=1475s)
@@ -48,17 +50,20 @@
 - [Decorators, unwrapped How do they work - PyCon 2017](https://youtu.be/UBSyD1RkOX0)
 - [Decorators and descriptors decoded - PyCon 2017](https://youtu.be/81S01c9zytE)
 - [Gang of 4 inspired decorators](https://www.nacnez.com/gof-inspired-decorators.html)
+- [pycon 2021 TUTORIAL / Geir Arne Hjelle / Introduction to Decorators: Power UP Your Python Code](https://www.youtube.com/watch?v=VWZAh1QrqRE&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=77)
 
 ### Regular expressions
 - [Regular Expressions: Regexes in Python (Part 1)](https://realpython.com/regex-python/)
 - [Regular Expressions: Regexes in Python (Part 2)](https://realpython.com/regex-python-part-2/)
 - [Yes, It's Time to Learn Regular Expressions - PyCon 2017](https://youtu.be/abrcJ9MpF60)
 - [Readable Regular Expressions - PyCon 2017](https://youtu.be/0sOfhhduqks)
+- [pycon 2021 TUTORIAL / Trey Hunner / Hands-On Regular Expressions in Python](https://www.youtube.com/watch?v=aTZalKdYB44&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=65)
 
 ### Dictionaries
 - [The Dictionary Even Mightier - PyCon 2017](https://youtu.be/66P5FMkWoVU)
 - [Modern Python Dictionaries: A confluence of a dozen great ideas - PyCon 2017](https://youtu.be/npw4s1QTmPg)
 - [Getting the most out of Python collections](https://sourcery.ai/blog/effective-collection-handling/)
+- [Understanding Attributes, Dicts and Slots in Python](https://bas.codes/posts/python-dict-slots)
 
 ### Exceptions
 - [Better Python tracebacks with Rich](https://www.willmcgugan.com/blog/tech/post/better-python-tracebacks-with-rich/)
@@ -67,6 +72,7 @@
 - [Python KeyError Exceptions and How to Handle Them](https://realpython.com/courses/python-keyerror/)
 - [Passing Exceptions 101 Paradigms in Error Handling - PyCon 2017](https://youtu.be/BMtJbrvwlmo)
 - [Exceptions](https://orbifold.xyz/raising-exceptions.html)
+- [pycon 2021 TALK / Reuven M. Lerner / When is an exception not an exception? Using warnings in Python](https://www.youtube.com/watch?v=X0AjcpicNOM&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=36)
 
 ### Type annotation
 - [Type-checked Python in the real world - PyCon 2018](https://www.youtube.com/watch?v=pMgmKJyWKn8) mypy
@@ -75,6 +81,9 @@
 - [Type hints for busy programmers](https://inventwithpython.com/blog/2019/11/24/type-hints-for-busy-python-programmers/)
 - [Exhaustiveness (enum) Checking with Mypy](https://hakibenita.com/python-mypy-exhaustive-checking)
 - [Type annotations](https://dev.to/dan_starner/using-pythons-type-annotations-4cfe)
+- [pycon 2021 TALK / Alexander Hultnér / Intro to Pydantic, run-time type checking for your dataclasses](https://www.youtube.com/watch?v=W7f52FhfYqQ&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=35)
+- [pycon 2021 TALK / Luciano Ramalho / Protocol: the keystone of type hints](https://www.youtube.com/watch?v=kDDCKwP7QgQ&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=42)
+- [pycon 2021 TALK / Maggie Moss / Gradual Typing in Practice](https://www.youtube.com/watch?v=Lj_9TyT3V98&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=43)
 
 ### Iteration
 - [Looping Like a Pro in Python - PyCon 2017](https://youtu.be/81S01c9zytE)
@@ -88,11 +97,41 @@
 - [73 Examples to Help You Master Python's f-strings](https://miguendes.me/amp/73-examples-to-help-you-master-pythons-f-strings)
 - [Python f-strings Are More Powerful Than You Might Think](https://martinheinz.dev/blog/70)
 - [The unreasonable effectiveness of f-strings and re.VERBOSE](https://death.andgravity.com/f-re) how to construct readable and documented regular expressions.
+- [Pragmatic Unicode - Ned Batchelder - PyCon 2012](https://nedbatchelder.com/text/unipain.html)
 
-## Context manager
+### Context manager
 - [The Curious Case of Python's Context Manager](https://rednafi.github.io/digressions/python/2020/03/26/python-contextmanager.html)
 
-## Miscellaneous
+### Code execution
+- [How to run a python script](https://realpython.com/run-python-scripts/)
+- [The many ways to pass code to Python from the terminal](https://snarky.ca/the-many-ways-to-pass-code-to-python-from-the-terminal/)
+- [pycon 2021 TALK / Graham Bleaney, the_storm/ Unexpected Execution: Wild Ways Code Execution can Occur in Python](https://www.youtube.com/watch?v=R1KrPc1IOeE&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=51)
+
+### Internals 
+- [Boolean short-circuiting](https://mathspp.com/blog/pydonts/boolean-short-circuiting)
+- [Cpython source code guide](https://realpython.com/cpython-source-code-guide/)
+- [Know thy self - Methods and method binding - PyCon 2017](https://youtu.be/byff9LhYXOg)
+- [Namespaces and Scope in Python](https://realpython.com/python-namespaces-scope/)
+- [Unpacking in Python: Beyond Parallel Assignment](https://stackabuse.com/unpacking-in-python-beyond-parallel-assignment/)
+- [Constant folding in Python (constant expressions)](https://arpitbhayani.me/blogs/constant-folding-python)
+- [Python behind the scenes](https://tenthousandmeters.com)
+- [Python behind the scenes \#7: how Python attributes work](https://tenthousandmeters.com/blog/python-behind-the-scenes-7-how-python-attributes-work/)
+- [Unravelling the import statement](https://snarky.ca/unravelling-the-import-statement/)
+- [Episode 40: How Python Manages Memory and Creating Arrays With np.linspace](https://realpython.com/podcasts/rpp/40/)
+- [Syntactic sugar](https://snarky.ca/tag/syntactic-sugar/)
+- [Unravelling Python classes](https://snarky.ca/unravelling-pythons-classes/)
+- [Python range](https://python.land/deep-dives/python-range)
+- [Python Lambda functions](https://www.dataquest.io/blog/tutorial-lambda-functions-in-python/)
+- [Strict Python function parameters](https://sethmlarson.dev/blog/strict-python-function-parameters)
+- [Python bytecode explained](https://github.com/MoserMichael/pyasmtool/blob/master/bytecode_disasm.md)
+- [This Is Why Python **Data Classes** Are Awesome](https://www.youtube.com/watch?v=CvQ7e6yUtnw)
+- [understanding **class** and **instance** variables](https://www.digitalocean.com/community/tutorials/understanding-class-and-instance-variables-in-python-3)
+- [Blog on Python internals with many interesting topics](https://tenthousandmeters.com/)
+- [Python List sort(): An In-Depth Guide to **Sorting Lists**](https://datagy.io/python-list-sort/)
+- [pycon 2021 TALK / Sebastiaan Zeeff / The magic of "self": How Python inserts "self" into methods](https://www.youtube.com/watch?v=ANLjBsWHshc&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=30)
+
+### Miscellaneous
+- [Python Pitfalls - Expecting The Unexpected](https://towardsdatascience.com/python-pitfalls-expecting-the-unexpected-2e595dd1306c)
 - [Weird Python "Features" That Might Catch You By Surprise](https://martinheinz.dev/blog/103)
 - [Python quirks](https://writing.peercy.net/p/python-quirks)
 - [How to write Python code people actually want to use](https://www.youtube.com/watch?v=spi0N_PNznE)
@@ -136,7 +175,6 @@
 ### Installing packages
 - [A quick-and-dirty guide on how to install packages for Python](https://snarky.ca/a-quick-and-dirty-guide-on-how-to-install-packages-for-python/)
 
-
 ### Single package/purpose links
 - [Show progress in your Python apps with tqdm](https://opensource.com/article/20/12/tqdm-python)
 - [No Really, Python's Pathlib is Great](https://rednafi.github.io/digressions/python/2020/04/13/python-pathlib.html)
@@ -155,7 +193,7 @@
 - [Python asyncio](https://superfastpython.com/python-asyncio/)
 - [stringzilla](https://github.com/ashvardanian/Stringzilla?utm_source=tldrnewsletter)
 
-### Overviews
+### Package overview links
 - [A curated list of awesome Python frameworks, libraries, software and resources](https://github.com/vinta/awesome-python)
 - [Python's Missing Batteries: Essential Libraries You're Missing Out On](https://martinheinz.dev/blog/96?utm_source=tldrnewsletter)
 - [The 22 Most-Used Python Packages in the World](https://medium.com/better-programming/the-22-most-used-python-packages-in-the-world-7020a904b2e)
@@ -163,36 +201,6 @@
 - [The most underrated python packages](https://towardsdatascience.com/the-most-underrated-python-packages-e22bf6049b5e)
 - [Python Packages: Five Real Python Favorites](https://realpython.com/python-packages/)
 
-## Python internals
-
-### Code execution
-- [How to run a python script](https://realpython.com/run-python-scripts/)
-- [The many ways to pass code to Python from the terminal](https://snarky.ca/the-many-ways-to-pass-code-to-python-from-the-terminal/)
-
-### Miscellaneous
-- [Boolean short-circuiting](https://mathspp.com/blog/pydonts/boolean-short-circuiting)
-- [Cpython source code guide](https://realpython.com/cpython-source-code-guide/)
-- [Know thy self - Methods and method binding - PyCon 2017](https://youtu.be/byff9LhYXOg)
-- [Namespaces and Scope in Python](https://realpython.com/python-namespaces-scope/)
-- [Unpacking in Python: Beyond Parallel Assignment](https://stackabuse.com/unpacking-in-python-beyond-parallel-assignment/)
-- [Pragmatic Unicode - Ned Batchelder - PyCon 2012](https://nedbatchelder.com/text/unipain.html)
-- [Constant folding in Python (constant expressions)](https://arpitbhayani.me/blogs/constant-folding-python)
-- [Python behind the scenes](https://tenthousandmeters.com)
-- [Python behind the scenes \#7: how Python attributes work](https://tenthousandmeters.com/blog/python-behind-the-scenes-7-how-python-attributes-work/)
-- [Unravelling the import statement](https://snarky.ca/unravelling-the-import-statement/)
-- [Episode 40: How Python Manages Memory and Creating Arrays With np.linspace](https://realpython.com/podcasts/rpp/40/)
-- [Syntactic sugar](https://snarky.ca/tag/syntactic-sugar/)
-- [Python Pitfalls - Expecting The Unexpected](https://towardsdatascience.com/python-pitfalls-expecting-the-unexpected-2e595dd1306c)
-- [Unravelling Python classes](https://snarky.ca/unravelling-pythons-classes/)
-- [Python range](https://python.land/deep-dives/python-range)
-- [Python Lambda functions](https://www.dataquest.io/blog/tutorial-lambda-functions-in-python/)
-- [Understanding Attributes, Dicts and Slots in Python](https://bas.codes/posts/python-dict-slots)
-- [Strict Python function parameters](https://sethmlarson.dev/blog/strict-python-function-parameters)
-- [Python bytecode explained](https://github.com/MoserMichael/pyasmtool/blob/master/bytecode_disasm.md)
-- [This Is Why Python Data Classes Are Awesome](https://www.youtube.com/watch?v=CvQ7e6yUtnw)
-- [understanding class and instance variables](https://www.digitalocean.com/community/tutorials/understanding-class-and-instance-variables-in-python-3)
-- [Blog on Python internals with many interesting topics](https://tenthousandmeters.com/)
-- [Python List sort(): An In-Depth Guide to Sorting Lists](https://datagy.io/python-list-sort/)
 
 ## Interactive Python
 
@@ -239,6 +247,7 @@
 - [Common Issues Using Celery (And Other Task Queues)](https://adamj.eu/tech/2020/02/03/common-celery-issues-on-django-projects/)
 - [The Parallelism Blues: when faster code is slower](https://pythonspeed.com/articles/parallelism-slower/)
 - [Dask](https://dask.org)
+- [pycon 2021 TUTORIAL / James Bourbeau, Julia Signell / Hacking Dask: Diving Into Dask's Internals](https://www.youtube.com/watch?v=LQrgDhN-XOo&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=72)
 - [Visualize multi-threaded Python programs with an open source tool](https://opensource.com/article/21/3/python-viztracer?utm_medium=Email&utm_campaign=weekly&sc_cid=7013a000002vuw2AAA)
 
 ### The GIL
@@ -252,22 +261,25 @@
 - [How GPU computing works](https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s31151/)
 
 
-# Profiling
+# Profiling and performance analysis
+
 - [Profiling python](http://www.admin-magazine.com/HPC/Articles/Profiling-Python-Code)
-- [Python profiling with blackfire](https://hello.blackfire.io/python?utm_source=pycoder_weekly&utm_medium=newsletter&utm_campaign=q4_2019)
-- [Python 3.9 StatsProfile](https://medium.com/@olshansky/python-3-9-statsprofile-my-first-oss-contribution-to-cpython-9dd6847eb802)
+- [Python profiling with **blackfire**](https://hello.blackfire.io/python?utm_source=pycoder_weekly&utm_medium=newsletter&utm_campaign=q4_2019)
+- [Python 3.9 **StatsProfile**](https://medium.com/@olshansky/python-3-9-statsprofile-my-first-oss-contribution-to-cpython-9dd6847eb802)
 - [Profiling Python Code](https://www.admin-magazine.com/HPC/Articles/Profiling-Python-Code?utm_source=ADMIN+Newsletter&utm_campaign=HPC_Update_134_2020-03-19_MPI_Apps_with_Singularity&utm_medium=email)
 - [Disassemble Your Python Code](https://florian-dahlitz.de/blog/disassemble-your-python-code)
 - [Counting FLOPS and other CPU counters in Python](http://www.bnikolic.co.uk/blog/python/flops/2019/09/27/python-counting-events.html)
 - [A Comprehensive Guide to Profiling Python Programs](https://medium.com/better-programming/a-comprehensive-guide-to-profiling-python-programs-f8b7db772e6)
 - [Yet Another Python Profiler, but this time thread&coroutine&greenlet aware](https://github.com/sumerc/yappi)
-- [scalene](https://www.youtube.com/watch?v=nrQPqy3YY5A&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=19)
-- [Memory profiler for Python](https://github.com/bloomberg/memray)
+
+## Timing
 - [Python timer functions](https://realpython.com/python-timer/)
 - [How to Benchmark (Python) Code](https://switowski.com/blog/how-to-benchmark-python-code/)
 
 ## Memory profiling
 
+- [Memory profiler for Python](https://github.com/bloomberg/memray)
+- [pycon 2021 TALK / Emery Berger / **Scalene**: A high-performance, high-precision CPU+GPU+memory profiler for Python](https://www.youtube.com/watch?v=nrQPqy3YY5A&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=19)
 - [Optimizing Memory Usage in Python Applications](https://martinheinz.dev/blog/68)
 - [Pycon 2023 Talk - Pablo Galindo Salgado: How memory profilers work](https://www.youtube.com/watch?v=mqu66lg79X8&list=PL2Uw4_HvXqvY2zhJ9AMUa_Z6dtMGF3gtb&index=91)
 
@@ -277,6 +289,17 @@
 - [REMORA: REsource MOnitoring for Remote Applications](https://github.com/TACC/remora)
 - [My favorite Linux top command options](https://opensource.com/article/22/3/linux-top-command)
 
+## LUMI (and AMD systems in general)
+
+
+- [LUMI training materials](https://lumi-supercomputer.github.io/LUMI-training-materials/)
+
+- [Introduction to ROCm Profiler -AMD Profiling workshop - Day 1- Pt1](https://www.youtube.com/watch?v=AKenglkAziA)
+- [Introduction to **OmniTrace** - AMD Profiling workshop - Day 1 - Pt2](https://www.youtube.com/watch?v=xwNzreM0oqk)
+- [Introduction to **Omniperf** - AMD Profiling workshop - Day 2- Pt1](https://www.youtube.com/watch?v=9AkxBCiInCw)
+- [Introduction to **Roofline** 1 - AMD Profiling workshop - Day 2 - Pt2](https://www.youtube.com/watch?v=5-paZXoSfFk)
+
+(The [Pawsey Supercomputing Research Centre](https://pawsey.org.au/about-us/the-pawsey-centre/) is located in Perth, Western Australia)
 
 # Design patterns
 
@@ -296,6 +319,7 @@
 - [Pytest Features, That You Need in Your (Testing) Life](https://martinheinz.dev/blog/7)
 - [Effective Python Testing With Pytest](https://realpython.com/pytest-python-testing)
 - [Testing Python Applications with Pytest \[Guide\]](https://stribny.name/blog/pytest/)
+- [pycon 2021 TUTORIAL / Moshe Z / Python Unit Testing with Pytest and Mock](https://www.youtube.com/watch?v=DJoffYEPttY&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=71)
 
 ## PyTest plugins
 - [A pytest plugin designed for analyzing resource usage](https://github.com/CFMTech/pytest-monitor)
@@ -314,22 +338,26 @@
 - [How to mock in Python? – (almost) definitive guide](https://breadcrumbscollector.tech/how-to-mock-in-python-almost-definitive-guide/)
 - [Why your mock doesn't work](https://nedbatchelder.com/blog/201908/why_your_mock_doesnt_work.html)
  
+## Property-based testing
+- [**Property-Based Testing** with hypothesis, and associated use cases](https://bytes.yingw787.com/posts/2021/02/02/property_based_testing/)
+- [pycon 2021 TUTORIAL / Zac Hatfield-Dodds / Introduction to **Property-Based Testing**](https://www.youtube.com/watch?v=uN6JjpzVsAo&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=73)
+- [**Property-based tests** for the Python standard library (and builtins)](https://github.com/Zac-HD/stdlib-property-tests)
+- 
 ## General ideas
-- [Property-Based Testing with hypothesis, and associated use cases](https://bytes.yingw787.com/posts/2021/02/02/property_based_testing/)
 - [Beyond Unit Tests: Taking Your Testing to the Next Level - PyCon 2018](https://www.youtube.com/watch?v=MYucYon2-lk)
 - ["WHAT IS THIS MESS?" - Writing tests for pre-existing code bases - PyCon 2018](https://www.youtube.com/watch?v=LDdUuoI_lIg)
 - [An Introduction To Test Driven Development](https://able.bio/SamDev14/an-introduction-to-test-driven-development--69muplk)
 - [How To Write Tests For Python](https://able.bio/SamDev14/how-to-write-tests-for-python--22m3q1n)
 - [How I’m testing in 2020](https://www.b-list.org/weblog/2020/feb/03/how-im-testing-2020/)
 - [Building Good Tests](https://salmonmode.github.io/2019/03/29/building-good-tests.html)
-- [Property-based tests for the Python standard library (and builtins)](https://github.com/Zac-HD/stdlib-property-tests)
 - [The Clean Architecture in Python - How to write testable and flexible code](https://breadcrumbscollector.tech/the-clean-architecture-in-python-how-to-write-testable-and-flexible-code/)
 - [Document your tests](https://hynek.me/articles/document-your-tests/)
 - [Why you should document your tests](https://hynek.me/articles/document-your-tests/)
 - [ARRANGE-ACT-ASSERT: A PATTERN FOR WRITING GOOD TESTS](https://automationpanda.com/2020/07/07/arrange-act-assert-a-pattern-for-writing-good-tests/)
-- [There's no one right way to test your code](https://mattsegal.dev/alternate-test-styles.html
+- [There's no one right way to test your code](https://mattsegal.dev/alternate-test-styles.html)
 - [Learning Python Test Automation](https://automationpanda.com/2020/11/09/learning-python-test-automation/amp/) These days, there’s a wealth of great content on Python testing. Here’s a brief reference to help you get started.
 - [Pycon 2023 Talk - Shai Geva: 10 Ways To Shoot Yourself In The Foot With Tests](https://www.youtube.com/watch?v=Ub31Ae6S1BY&list=PL2Uw4_HvXqvY2zhJ9AMUa_Z6dtMGF3gtb&index=102)
+- ["It's A Bug Hunt" - Armor Plate Your Unit Tests in Cpp - Dave Steffen - CppCon 2022](https://www.youtube.com/watch?v=P8qYIerTYA0&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=130)
 
 # Debugging
 
@@ -382,28 +410,35 @@
 
 # CLIs and scripting
 
-## Click
+## General ideas
+- [Command Line Interface Guidelines](https://clig.dev)
+- [build a command line text editor with Python and curses](https://wasimlorgat.com/editor.html)
+
+## Click and typer
 - [Click](https://click.palletsprojects.com)
 - [Things I’ve learned about building CLI tools in Pythonx](https://simonwillison.net/2023/Sep/30/cli-tools-python/)
 - [QUICK: A real quick GUI generator for click](https://github.com/szsdk/quick)
+- [typer: Python library for building CLI applications](https://github.com/tiangolo/typer) Built on top of click
 
-## General ideas
-- [Building a CLI for Firmware Projects using Invoke](https://interrupt.memfault.com/blog/building-a-cli-for-firmware-projects)
+## bash
 - [When laziness is efficient: Make the most of your command line](https://stackoverflow.blog/2020/02/12/when-laziness-is-efficient-make-the-most-of-your-command-line/?utm_source=Iterable&utm_medium=email&utm_campaign=the_overflow_newsletter&utm_content=02-19-20)
 - [Messing with the python shell](https://www.kbairak.net/programming/python/2021/02/01/messing-with-the-python-shell.html)
 - [Converting shell scripts to python scripts](https://github.com/jroose/shtk)
 - [a Python shell environment that combines the expressiveness of shell pipelines with the power of python iterators](https://github.com/redhog/pieshell)
-- [build a command line text editor with Python and curses](https://wasimlorgat.com/editor.html)
-- [Questionary is a Python library for effortlessly building pretty command line interfaces](https://github.com/tmbo/questionary)
-- [Command Line Interface Guidelines](https://clig.dev)
 - [iterm2 plugins written in python](https://cgamesplay.com/post/2020/11/25/iterm-plugins/)
-- [typer: Python library for building CLI applications](https://github.com/tiangolo/typer) Built on top of click
+
+## Other tools
+- [Building a CLI for Firmware Projects using Invoke](https://interrupt.memfault.com/blog/building-a-cli-for-firmware-projects)
+- [Questionary is a Python library for effortlessly building pretty command line interfaces](https://github.com/tmbo/questionary)
 
 # GUI
 
+## Qt
 - [Use PyQt's QThread to Prevent Freezing GUIs](https://realpython.com/python-pyqt-qthread/)
-- [CustomTkinter UI-Library](https://github.com/TomSchimansky/CustomTkinter)
 - [Learn Python GUI Development for Desktop – PySide6 and Qt Tutorial](https://www.youtube.com/watch?v=Z1N9JzNax2k)
+
+## Tkinter
+- [CustomTkinter UI-Library](https://github.com/TomSchimansky/CustomTkinter)
 - [Create a modern user interface with the Tkinter Python library](https://opensource.com/article/23/2/user-interface-tkinter-python)
 - [Python Tkinter GUI Design Using ttkbootstrap](https://www.youtube.com/watch?v=0tM-l_ZsxjU)
 
@@ -440,9 +475,11 @@
 - [HiPlot is a lightweight interactive visualization tool to help discover correlations and patterns in high-dimensional data](https://github.com/facebookresearch/hiplot)
 - [Taichi: a programming language designed for high-performance computer graphics](https://github.com/taichi-dev/taichi)
 - [Plotnine: Grammar of Graphics for Python](https://www.datascienceworkshops.com/blog/plotnine-grammar-of-graphics-for-python/)
+- [pycon 2021 TUTORIAL / Husni Almoubayyed / Effective Data Visualization (with **Seaborn**)](https://www.youtube.com/watch?v=65rzi8QxZdA&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=75) 
 
 # Artificial intelligence, machine learning
 
+- [Deep Learning Course for Beginners](https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fprogrammerweekly.us2.list-manage.com%2Ftrack%2Fclick%3Fu%3D72f68dcee17c92724bc7822fb%26id%3D76b6b2bd47%26e%3D4d28de90d0&data=05%7C02%7Cengelbert.tijskens%40uantwerpen.be%7C55d18ff3a6dc42f66c6808dc703ce148%7C792e08fb2d544a8eaf72202548136ef6%7C0%7C0%7C638508653984841541%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C0%7C%7C%7C&sdata=HBd2EZw3EE77yKEKHmo%2BQQE7U7C5tzC6B5I4wXrHPo8%3D&reserved=0)
 - [Scikit-learn, wrapping your head around machine learning - PyCon 2019](https://www.youtube.com/watch?v=kTdt0P0e3Qc)
 - [Applied Deep Learning for NLP Using PyTorch](https://youtu.be/VBM1u-UIoI0)
 - [Thinking like a Panda: Everything you need to know to use pandas the right way](https://www.youtube.com/watch?v=ObUcgEO4N8w)
@@ -460,7 +497,7 @@
 - [This guide is designated to anybody with basic programming knowledge or a computer science background interested in becoming a Research Scientist with 🎯 on Deep Learning and NLP](https://github.com/ahmedbahaaeldin/From-0-to-Research-Scientist-resources-guide?utm_source=tldrnewsletter)
 - [Harvard CS50’s Artificial Intelligence with Python – Full University Course](https://www.youtube.com/watch?v=5NgNicANyqM)
 
-# data science
+# Data science
 - [pyGWalker: A Python Library for Exploratory Data Analysis with Visualization](https://github.com/Kanaries/pygwalker)
 - [streamz: Build Pipelines to Manage Continuous Streams of Data](https://github.com/python-streamz/streamz/blob/master/docs/source/index.rst)
 - [nfstream - A flexible network data analysis framework](https://github.com/aouinizied/nfstream)
@@ -503,7 +540,7 @@
 
 # Tools
 
--[pycfon 2023 Talks - Al Sweigart: An Overview of the Python Code Tool Landscape 2023](https://www.youtube.com/watch?v=knUGpULAmn4&list=PL2Uw4_HvXqvY2zhJ9AMUa_Z6dtMGF3gtb&index=136)
+- [pycon 2023 Talks - Al Sweigart: An Overview of the Python Code Tool Landscape 2023](https://www.youtube.com/watch?v=knUGpULAmn4&list=PL2Uw4_HvXqvY2zhJ9AMUa_Z6dtMGF3gtb&index=136)
 - [Software Development Checklist for Python Applications](http://www.patricksoftwareblog.com/software-development-checklist-for-python-applications/)
 - [Faster Python Programs - Measure, don't Guess - PyCon 2019](https://youtu.be/EcGWDNlGTNg)
 - [Python Tooling Makes a Project Tick](https://medium.com/georgian-impact-blog/python-tooling-makes-a-project-tick-181d567eea44)
@@ -547,32 +584,40 @@
 - [10 Git tips we can't live without](https://opensource.com/article/22/4/git-tips)
 - [idiot proof git](https://softwaredoug.com/blog/2022/11/09/idiot-proof-git-aliases.html?utm_source=tldrnewsletter)
 - [how to use git squash, git rebase, and git cherry-pick](https://opensource.com/article/22/11/advanced-git-commands)
+- [Rewriting your git history, removing files permanently - cheatsheet & guide](https://blog.gitguardian.com/rewriting-git-history-cheatsheet/)
 
 ### Other version control systems
 - [Pijul, a sound and fast distributed version control system based on a mathematical theory of asynchronous work.](https://nest.pijul.com/pijul/pijul)
 
-## (Integrated) development environment, development workflow
+## Development environment/workflow
 
-- [pyenv+poetry+pipx](https://jacobian.org/2019/nov/11/python-environment-2020/)
-- [Improving Python Dependency Management With pipx and Poetry](https://cedaei.com/posts/python-poetry-pipx/)
-- <https://sourcery.ai/blog/python-best-practices/>
-- <https://pypi.org/project/create-python-package/> a wiptools 'light'
-- [Managing Python Environments](https://www.pluralsight.com/tech-blog/managing-python-environments/)
-- [Using Sublime Text for python](https://storiesinmypocket.com/articles/using-sublime-text-python/)
+- [How to set up a perfect Python project](https://sourcery.ai/blog/python-best-practices/)
 - [How to Set Up a Python Project For Automation and Collaboration](https://eugeneyan.com/writing/setting-up-python-project-for-automation-and-collaboration/)
 - [Hypermodern Python](https://cjolowicz.github.io/posts/hypermodern-python-01-setup/)
 - [Thoughts on where tools fit into a workflow](https://snarky.ca/thoughts-on-a-tooling-workflow/)
+
+- [wiptools](https://etijskens.github.io/wiptools/)
+- [create-python-package](https://pypi.org/project/create-python-package/) a wiptools 'light'
+
+- [pyenv+poetry+pipx](https://jacobian.org/2019/nov/11/python-environment-2020/)
+- [Improving Python Dependency Management With pipx and Poetry](https://cedaei.com/posts/python-poetry-pipx/)
+- [Managing Python Environments](https://www.pluralsight.com/tech-blog/managing-python-environments/)
 - [poetry](https://github.com/python-poetry/poetry)
-- [Rewriting your git history, removing files permanently - cheatsheet & guide](https://blog.gitguardian.com/rewriting-git-history-cheatsheet/)
+
 - [pipupgrade](https://github.com/achillesrasquinha/pipupgrade)
-- [How to Set Environment Variables in Linux and Mac: The Missing Manual](https://doppler.com/blog/how-to-set-environment-variables-in-linux-and-mac)
-- [a file browser for your terminal](https://github.com/juftin/browsr)
-- [GitHub Actions: the full course](https://www.youtube.com/playlist?list=PLArH6NjfKsUhvGHrpag7SuPumMzQRhUKY)
+
+## (I)DE
+- [I tried 10 code editors](https://www.youtube.com/watch?v=8PhdfcX9tG0)
+- [VS Code](https://code.visualstudio.com)
+- [PyCharm](https://www.jetbrains.com/pycharm/)
+- [Using Sublime Text for python](https://storiesinmypocket.com/articles/using-sublime-text-python/)
+- [C++ Coding with Neovim - Prateek Raman - CppCon 2022](https://www.youtube.com/watch?v=nzRnWUjGJl8)
 
 ## CI/CD
-
+- [GitHub Actions: the full course](https://www.youtube.com/playlist?list=PLArH6NjfKsUhvGHrpag7SuPumMzQRhUKY)
 - [Blazing fast CI with GitHub Actions, Poetry, Black and Pytest](https://medium.com/@vanflymen/blazing-fast-ci-with-github-actions-poetry-black-and-pytest-9e74299dd4a5)
 - [A beginner’s guide to CI/CD and automation on GitHub](https://github.blog/2022-06-03-a-beginners-guide-to-ci-cd-and-automation-on-github/?utm_source=tldrnewsletter)
+- [GitHub Features Every C++ Developer Should Know - Michael Price - CppCon 2022](https://www.youtube.com/watch?v=Mo8MeVzzdE8&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=72)
 
 ## Documentation
 
@@ -582,28 +627,26 @@
 - [How to document Python code with Sphinx](https://opensource.com/article/19/11/document-python-sphinx)  interesting section about tox
 - [Scott Meyers' advise on writing](https://scottmeyers.blogspot.com/2013/01/effective-effective-books.html)
 - [Write documentation as code](https://opensource.com/article/22/10/docs-as-code)
+- [pycon 2021 TALK / Meredydd Luff / Writing Good Documentation for Developers](https://www.youtube.com/watch?v=eWaWvUhpseM&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=11)
+- [pycon 2021 TALK / Paul Everitt / Static Sites with Sphinx and Markdown](https://www.youtube.com/watch?v=YclYtM56qjo&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=39)
 
 ### Mkdocs and Markdown
 
-[This tutorial by Real Python](https://realpython.com/python-project-documentation-with-mkdocs/)really got me going in an afternoon... The extension with autorefs is also very useful. Note that the command `mkdocs gh-deploy` makes publication on readthedocs superfluous! 
+[This tutorial by Real Python](https://realpython.com/python-project-documentation-with-mkdocs/) really got me going in an afternoon... The extension with autorefs is also very useful. Note that the command `mkdocs gh-deploy` makes publication on readthedocs superfluous! 
 
 #### Installation
 We need the following packages to build documentation:
 
-  > python -m pip install mkdocs
-  > python -m pip install "mkdocstrings[python]"
-  > python -m pip install mkdocs-material
-  > python -m pip install mkdocs-autorefs 
+    > python -m pip install mkdocs
+    > python -m pip install "mkdocstrings[python]"
+    > python -m pip install mkdocs-material
+    > python -m pip install mkdocs-autorefs 
 
 #### Markdown FAQ
 
 1. For ~~all~~ most of your formatting questions: [The Markdown guide](https://www.markdownguide.org)
 2. How to do [comments](https://stackoverflow.com/questions/4823468/comments-in-markdown)
-3. Tune Your Configuration: Explore [advanced configuration for MkDocs](https://squidfunk.github.
-  io/mkdocs-material/creating-your-site/#advanced-configuration), such as adding support for search and 
-  multiple languages. Or install and include additional plugins. A good option is [autorefs](https://github.
-  com/mkdocstrings/autorefs/), which allows you to add relative links in your docstrings that work in your rendered 
-  documentation.  
+3. Tune Your Configuration: Explore [advanced configuration for MkDocs](https://squidfunk.github.io/mkdocs-material/creating-your-site/#advanced-configuration), such as adding support for search and multiple languages. Or install and include additional plugins. A good option is [autorefs](https://github.com/mkdocstrings/autorefs/), which allows you to add relative links in your docstrings that work in your rendered documentation.  
 4. [LateX in markdown](https://www.fabriziomusacchio.com/blog/2021-08-10-How_to_use_LaTeX_in_Markdown/)
 5. [Converting reStucturedText to Markdown]()
 
@@ -613,11 +656,15 @@ We need the following packages to build documentation:
 - Markdown Code Runner: https://github.com/basnijholt/markdown-code-runner
  
 ### Sphinx and ReST
+(imho less practical than `mkdocs`)
 - [Writing Documentation with Sphinx and reStructuredText](https://www.youtube.com/watch?v=gWrc4xzm45Y&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=74)
 - [Practical Sphinx - PyCon 2018](https://youtu.be/0ROZRNZkPS8) 
 - [A “How to” Guide for Sphinx + ReadTheDocs](https://sphinx-rtd-tutorial.readthedocs.io)
 - [sphinx-autodoc-typehints](https://pypi.org/project/sphinx-autodoc-typehints/)
 
+## Containers
+
+- [Building Python Data Science Container using Docker](https://faizanbashir.me/building-python-data-science-container-using-docker-c8e346295669)
 
 # Low-level programming languages
 
@@ -630,8 +677,41 @@ We need the following packages to build documentation:
 - [A friendly guide to the syntax of C++ method pointers](https://opensource.com/article/21/2/ccc-method-pointers?utm_medium=Email&utm_campaign=weekly&sc_cid=7013a000002vqnQAAQ)
 - [How Many Strings Does C++ Have?](https://blogs.msmvps.com/gdicanio/2018/05/28/how-many-strings-does-c-have/)
 - [Johnny's software lab](https://johnnysswlab.com) very thorough site on C++ performance issues.
-- [CPPCON 2023 - std::simd: How to Express Inherent Parallelism Efficiently Via Data-parallel Types - Matthias Kretz](https://www.youtube.com/watch?v=LAJ_hywLtMA&list=PLHTh1InhhwT7gQEuYznhhvAYTel0qzl72&index=20)
-- [The Au C++ Units Library: Handling Physical Units Safely, Quickly, & Broadly - Chip Hogg - CppCon 23](https://www.youtube.com/watch?v=o0ck5eqpOLc&list=PLHTh1InhhwT7gQEuYznhhvAYTel0qzl72&index=33)
+
+
+- [**std::simd**: How to Express Inherent Parallelism Efficiently Via Data-parallel Types - Matthias Kretz - CPPCON 2023](https://www.youtube.com/watch?v=LAJ_hywLtMA&list=PLHTh1InhhwT7gQEuYznhhvAYTel0qzl72&index=20)
+- [**SIMD** Libraries in C++ - Jeff Garland - CppNow 2023](https://www.youtube.com/watch?v=hlgCeWC9jxI)
+- [Fast C++ by using **SIMD** Types with Generic Lambdas and Filters - Andrew Drakeford - CppCon 2022](https://www.youtube.com/watch?v=sQvlPHuE9KY&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=64)
+- [The Au C++ **Units** Library: Handling Physical Units Safely, Quickly, & Broadly - Chip Hogg - CppCon 2023](https://www.youtube.com/watch?v=o0ck5eqpOLc&list=PLHTh1InhhwT7gQEuYznhhvAYTel0qzl72&index=33)
+- [Taking Static Type-Safety to the Next Level - Physical Units for Matrices - Daniel Withopf CppCon 22](https://www.youtube.com/watch?v=aF3samjRzD4&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=122)
+- [Exploration of Strongly-typed Units in C++: A Case Study from Digital Audio - Roth Michaels - CppCon 2023](https://www.youtube.com/watch?v=oxnCdIfC4Z4&list=RDCMUCMlGfpWw-RUdWX_JbLCukXg&index=47)
+- [**std::linalg**: Linear Algebra Coming to Standard C++ - Mark Hoemmen - CppCon 2023](https://www.youtube.com/watch?v=-UXHMlAMXNk&list=PLHTh1InhhwT7gQEuYznhhvAYTel0qzl72&index=36)
+- [**HPX** - A C++ Library for Parallelism and Concurrency - Hartmut Kaiser - CppCon 2022](https://www.youtube.com/watch?v=npufmMlGOoM&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=52)
+- [An Introduction to **Multithreading** in C++20 - Anthony Williams - CppCon 2022](https://www.youtube.com/watch?v=A7sVFJLJM-A&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=6)
+- [C++ Algorithmic Complexity, Data Locality, Parallelism, and Compiler Optimizations, seasoned with Some Concurrency - a deep dive into Performance](https://www.youtube.com/watch?v=0iXRRCnurvo&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=66): on the importance of cache-friendly code.
+- [C++ Performance Portability - A Decade of Lessons Learned - Christian Trott - CppCon 2022](https://www.youtube.com/watch?v=jNGGKFkt4lA&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=104) (from the developers of kokkos)
+
+
+- [Nobody Can Program Correctly - Lessons From 20 Years of Debugging C++ Code - Sebastian Theophil CppCon 2022](https://www.youtube.com/watch?v=2uk2Z6lSams&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=44)
+- [Back to Basics: Debugging in C++ - Mike Shah - CppCon 2022](https://www.youtube.com/watch?v=YzIBwqWC6EM&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=20)
+
+
+- [**C++23**: An Overview of Almost All New and Updated Features - Marc Gregoire - CppCon 2023](https://www.youtube.com/watch?v=Cttb8vMuq-Y)
+- [What’s New in **C++23** - Sy Brand - CppCon 2022](https://www.youtube.com/watch?v=vbHWDvY59SQ&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=17)
+- [What’s New in C++26 - Alexander Fokin CppZurich 2024](https://www.youtube.com/watch?v=FqzrQf6Xr8g)
+
+
+- [Using Modern C++ to Eliminate Virtual Functions - Jonathan Gopel - CppCon 2022](https://www.youtube.com/watch?v=gTNJXVmuRRA&t=415s)
+- [Lightning Talk: MP: Template **Meta-Programming** in C++ - Kris Jusiak - CppCon 2022](https://www.youtube.com/watch?v=-4MSlna4gKE&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=47)
+- [Back to Basics: The C++ Core Guidelines - Rainer Grimm - CppCon 2022](https://www.youtube.com/watch?v=UONLB7wBVSc&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=32)
+- [Lightning Talk: Best Practices Every C++ Programmer Needs to Follow - Oz Syed - CppCon 2022](https://www.youtube.com/watch?v=xhTINjoihrk&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=31)
+- [import **CMake**, CMake and C++20 Modules - Bill Hoffman - CppCon 2022](https://www.youtube.com/watch?v=5X803cXe02Y&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=24)
+- [C++ Lambda Idioms - Timur Doumler - CppCon 2022](https://www.youtube.com/watch?v=xBAduq0RGes&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=9)
+- [Back to Basics: **Templates** in C++ - Nicolai Josuttis - CppCon 2022](https://www.youtube.com/watch?v=HqsEHG0QJXU&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=7)
+- [Principia Mathematica - The Foundations of **Arithmetic** in C++ - Lisa Lippincott - CppCon 2022](https://www.youtube.com/watch?v=0TDBna3PWgY&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=62)
+- [A Faster Serialization Library Based on Compile-time Reflection and C++ 20 - Yu Qi - CppCon 2022](https://www.youtube.com/watch?v=myhB8ZlwOlE&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=69)
+- [Exceptionally Bad: The Misuse of Exceptions in C++ & How to Do Better - Peter Muldoon - CppCon 2023](https://www.youtube.com/watch?v=Oy-VTqz1_58&list=PLHTh1InhhwT7gQEuYznhhvAYTel0qzl72&index=27)
+- [Fast, High-Quality Pseudo-Random Numbers for Non-Cryptographers in C++ - Roth Michaels - CppCon 2022](https://www.youtube.com/watch?v=I5UY3yb0128&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=121)
 
 ## Compilers
 - [CppCon 2017: Matt Godbolt “What Has My Compiler Done for Me Lately? Unbolting the Compiler's Lid”](https://youtu.be/bSkpMdDe4g4)
@@ -645,25 +725,18 @@ We need the following packages to build documentation:
 - [CppCon 2018: Jonathan Boccara “105 STL Algorithms in Less Than an Hour”](https://www.youtube.com/watch?v=2olsGf6JIkU)
 
 ## Julia
--
 
-# Containers
+Julia can be considered between low-level and high-level, as it combines the performance of low-level languages with the  scripting capabilities of Python.
 
-- [Building Python Data Science Container using Docker](https://faizanbashir.me/building-python-data-science-container-using-docker-c8e346295669)
+# OS stuff
 
-# Windows
+## Windows
 
 - [Using WSL to Build a Python Development Environment on Windows](https://pbpython.com/wsl-python.html) This is promising: maybe we finally have a an environment on Windows with a minimal difference from Linux an MacOSX.
 
-# Linux
+## Linux, Macos
 
 - [2020: The Year of the Linux Desktop - Moving from Macbook to Linux](https://monadical.com/posts/moving-to-linux-desktop.html)
-
-# Programming blogs
-
-- [julien danjou](https://julien.danjou.info)
-- [Patrick's software blog](http://www.patricksoftwareblog.com/)
-- [Ruslan Spivak](https://ruslanspivak.com/)
-- <https://rhodesmill.org/brandon/>
-- [testandcode](https://testandcode.com)
+- [How to Set Environment Variables in Linux and Mac: The Missing Manual](https://doppler.com/blog/how-to-set-environment-variables-in-linux-and-mac)
+- [a file browser for your terminal](https://github.com/juftin/browsr)
 

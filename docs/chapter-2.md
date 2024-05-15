@@ -52,6 +52,26 @@ Although this presentation explains why memory bandwidth and memory latency matt
         * $log_2 n$ binary search of a sorted array can beat $O(1)$ searches of heap-based hash tables.
         * Big-Oh wins for large $n$, but hardware caching takes early lead
 
+* [0:27:30] **cache coherency** explains the behavior of the multi-threaded example 2. It's called *false sharing*.
+
+* [0:45:00] Guidance
+
+    * for data 
+
+        * Where practical employ linear array traversals (if needed sort)
+        * Use as much of a cache line as possible
+        * Be alert for false sharing in multi-threaded systems
+
+    * for code
+
+        * Fit working set in cache. Avoid iteration over heterogeneous sequences with virtual calls, i.e. sort sequences by type.
+        * make 'fast-path' branch-free sequences, use up-front conditionals to screen out slow cases
+        * inline cautiously. Inlining reduces branching and facilitates code-reducing optimizations, but code duplications reduces the effective cache size.
+
+    * Take advantage of profile-guided optimization (PGO) and whole program optimization (WPO)
+
+* [1:01:00] **Cache associativity**
+
 Below, we explain some details of modern CPU architecture with an impact on performance. We start out with the memory of a CPU because, as the presentation explains, that is key to performance. Then, we explain some tricks of the CPU to achieve the peak performance delivered by modern CPUs.
 
 ## The hierarchical structure of CPU Memory
