@@ -5,10 +5,15 @@
 # Software engineering
 
 - [Cognitive Biases In Software Development](http://smyachenkov.com/posts/cognitive-biases-software-development/)
+- [Lies We Programmers Love to Believe](https://www.youtube.com/watch?v=XNhTZYl_qsM)
+  1. Binary thinking
+  2. Anecdotical overconfidence
+  3. Absolutist stances
+  4. Recency bias
+  5. Vanity metrics
 - [What scientists must know about hardware to write fast code](https://biojulia.net/post/hardware/) A simplified view - but not over-simplified - on how hardware affects performance. Written with Julia in mind rather than Python, but the principles remain valid.
 - [Clean architecture](https://github.com/preslavmihaylov/booknotes/tree/master/architecture/clean-architecture)
 - [The Grand Unified Theory of Software Architecture](https://danuker.go.ro/the-grand-unified-theory-of-software-architecture.html)
-- [best practices for writing code comments](https://stackoverflow.blog/2021/07/05/best-practices-for-writing-code-comments/)
 - [Software Engineering's Greatest Hits](https://www.youtube.com/watch?v=HrVtA-ue-x0) Very interesting.
 - [SOLID principles for software design](https://stackoverflow.blog/2021/11/01/why-solid-principles-are-still-the-foundation-for-modern-software-architecture/)
 - [Software engineering practices](https://simonwillison.net/2022/Oct/1/software-engineering-practices/?utm_source=tldrnewsletter)
@@ -17,12 +22,22 @@
 
 - [The mental game of Python - Raymond Hettinger - pybay 2019](https://www.youtube.com/watch?v=UANN2Eu6ZnM)
 - [You should be reading academic computer science papers](https://stackoverflow.blog/2022/12/30/you-should-be-reading-academic-computer-science-papers)
+- [7 Functional Programming Techniques Every Developer Should Know](https://www.youtube.com/watch?v=Rp9Ha0rVM1w)
+  1. recursion
+  2. structural pattern matching
+  3. immutability
+  4. pure functions
+  5. higher order functions
+  6. function composition
+  7. lazy evaluation
 
 
 # Python
 
 ## Python for Beginners
 
+- [Real Python](https://realpython.com): awesome tutorials on many Python subjects (not everything is free)
+- [Python morsels](https://www.pythonmorsels.com/articles/): awesome tutorials on many Python subjects (not everything is free)
 - [Harvard CS50’s Introduction to Programming with Python](https://www.youtube.com/watch?v=nLRL_NcnK-4)
 - [Learn Python: 7 of my favorite resources](https://opensource.com/article/22/11/learn-python)
 - [De Programmeursleerling - Pieter Spronck](http://www.spronck.net/pythonbook/dutchindex.xhtml) (in Dutch)
@@ -41,6 +56,7 @@
 - Python is known for being a language that’s easy to read, quick to develop in, and applicable to [a wide range of scenarios](https://realpython.com/what-can-i-do-with-python/)
 - [Writing your first Python program](https://able.bio/SamDev14/writing-your-first-python-program--31a3607)
 - [How long did it take you to learn Python](https://nedbatchelder.com/blog/202003/how_long_did_it_take_you_to_learn_python.html) Wait, don’t answer that. It doesn’t matter. Ned Batchelder
+- [PyVideo](https://pyvideo.org/?__s=uomxh09r5ztaf182f7p9&utm_source=drip&utm_medium=email&utm_campaign=Helpful+Python+resources&utm_content=How+to+improve+your+Python+skills) is a great resource for finding conference talks on specific topics.
 
 ## Python idioms, readability and internals
 
@@ -65,7 +81,7 @@
 - [Getting the most out of Python collections](https://sourcery.ai/blog/effective-collection-handling/)
 - [Understanding Attributes, Dicts and Slots in Python](https://bas.codes/posts/python-dict-slots)
 
-### Exceptions
+### Exceptions 
 - [Better Python tracebacks with Rich](https://www.willmcgugan.com/blog/tech/post/better-python-tracebacks-with-rich/)
 - [Write Unbreakable Python](https://jessewarden.com/2020/03/write-unbreakable-python.html)
 - [pretty-errors: Prettifies Python exception output to make it legible](https://github.com/onelivesleft/PrettyErrors/)
@@ -73,6 +89,9 @@
 - [Passing Exceptions 101 Paradigms in Error Handling - PyCon 2017](https://youtu.be/BMtJbrvwlmo)
 - [Exceptions](https://orbifold.xyz/raising-exceptions.html)
 - [pycon 2021 TALK / Reuven M. Lerner / When is an exception not an exception? Using warnings in Python](https://www.youtube.com/watch?v=X0AjcpicNOM&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=36)
+
+### Logging
+- [An Intro to Logging with Python and Loguru](https://www.blog.pythonlibrary.org/2024/05/15/an-intro-to-logging-with-python-and-loguru/)
 
 ### Type annotation
 - [Type-checked Python in the real world - PyCon 2018](https://www.youtube.com/watch?v=pMgmKJyWKn8) mypy
@@ -137,7 +156,10 @@
 - [How to write Python code people actually want to use](https://www.youtube.com/watch?v=spi0N_PNznE)
 - [The Elements of Python Style](https://github.com/amontalenti/elements-of-python-style)
 - [Elegant Solutions For Everyday Python Problems - PyCon 2018](https://youtu.be/WiQqqB9Mlk)
-- [Readability Counts - PyCon 2017](https://youtu.be/cbirFDKtT2w)
+- [Readability Counts - PyCon 2017](https://youtu.be/cbirFDKtT2w) Trey Hunner
+- [Transforming Code into Beautiful, Idiomatic Python](https://www.youtube.com/watch?v=OSGv2VnC0go) Raymond Hettinger
+- [Elegant Solutions For Everyday Python Problems](https://www.youtube.com/watch?v=WiQqqB9MlkA) Nina Zakharenko
+- [Craft Your Python Like Poetry](https://treyhunner.com/2017/07/craft-your-python-like-poetry/?__s=uomxh09r5ztaf182f7p9&utm_source=drip&utm_medium=email&utm_campaign=Helpful+Python+resources&utm_content=Writing+readable+Python+code) Trey Hunner on line length and wrapping lines
 - [Python module of the week](https://pymotw.com/2/contents.html)
 - [Python Tips and Tricks, You Haven't Already Seen - part 1](https://martinheinz.dev/blog/1)
 - [Python Tips and Tricks, You Haven't Already Seen - part 2](https://martinheinz.dev/blog/4)
@@ -174,13 +196,16 @@
 
 ### Installing packages
 - [A quick-and-dirty guide on how to install packages for Python](https://snarky.ca/a-quick-and-dirty-guide-on-how-to-install-packages-for-python/)
+- [uv - pip killer or yet another package manager?](https://blog.kusho.ai/uv-pip-killer-or-yet-another-package-manager/): uv is the "pip but blazingly fast™️ because it's written in rust" and is developed by the same folks that built ruff. It is designed as a drop-in replacement for pip and pip-tools for package management. uv supports everything you'd expect from a modern Python packaging tool: editable installs, Git dependencies, URL dependencies, local dependencies, constraint files, source distributions, custom indexes, and more, all designed around drop-in compatibility with your existing tools. uv's virtual environments are standards-compliant and work interchangeably with other tools — there's no lock-in or customization required. It supports Linux, Windows, and macOS, and has been tested at-scale against the public PyPI index.
 
 ### Single package/purpose links
-- [Show progress in your Python apps with tqdm](https://opensource.com/article/20/12/tqdm-python)
-- [No Really, Python's Pathlib is Great](https://rednafi.github.io/digressions/python/2020/04/13/python-pathlib.html)
-- [safer: a safer file writer](https://medium.com/@TomSwirly/%EF%B8%8F-safer-a-safer-file-writer-%EF%B8%8F-5fe267dbe3f5)
+
+- [Whenever](https://github.com/ariebovenberg/whenever?tab=readme-ov-file): Typed and DST-safe datetimes for Python, written in Rust
+- [tqdm](https://opensource.com/article/20/12/tqdm-python): Show progress in your Python apps
+- [Pathlib](https://rednafi.github.io/digressions/python/2020/04/13/python-pathlib.html)
+- [safer](https://medium.com/@TomSwirly/%EF%B8%8F-safer-a-safer-file-writer-%EF%B8%8F-5fe267dbe3f5): a safer file writer
 - [Python 101 – Creating Multiple Processes](https://www.blog.pythonlibrary.org/2020/07/15/python-101-creating-multiple-processes/)
-- [sproc: subprocesses for subhumans](https://medium.com/@TomSwirly/%EF%B8%8F-sproc-subprocesseses-for-subhumanses-dbee42f22af5)
+- [sproc](https://medium.com/@TomSwirly/%EF%B8%8F-sproc-subprocesseses-for-subhumanses-dbee42f22af5): subprocesses for subhumans
 - [Python and PDF: A Review of Existing Tools](https://johannesfilter.com/python-and-pdf-a-review-of-existing-tools/)
 - [Pickle’s nine flaws](https://nedbatchelder.com/blog/202006/pickles_nine_flaws.html)
 - [pycon 2023 Talks - Glyph: How To Keep A Secret](https://www.youtube.com/watch?v=Vqd964LGcI4&list=PL2Uw4_HvXqvY2zhJ9AMUa_Z6dtMGF3gtb&index=123) API keys, passwords, auth tokens, cryptographic secrets… in the era of cloud-based development, we've all got a bunch of them. But where do you put them? How do you keep them safe? And how can you access them conveniently from your Python code, both in development and production, without putting them at risk?
@@ -192,6 +217,7 @@
 - [bidict](https://towardsdatascience.com/python-bi-dictionary-key-can-be-value-and-value-can-be-key-50715a2046af)
 - [Python asyncio](https://superfastpython.com/python-asyncio/)
 - [stringzilla](https://github.com/ashvardanian/Stringzilla?utm_source=tldrnewsletter)
+- [module itertools overview](https://mathspp.com/blog/module-itertools-overview)
 
 ### Package overview links
 - [A curated list of awesome Python frameworks, libraries, software and resources](https://github.com/vinta/awesome-python)
@@ -201,10 +227,10 @@
 - [The most underrated python packages](https://towardsdatascience.com/the-most-underrated-python-packages-e22bf6049b5e)
 - [Python Packages: Five Real Python Favorites](https://realpython.com/python-packages/)
 
-
 ## Interactive Python
 
 ### Notebooks
+- [Satyrn]( https://satyrn.app): A modern Jupyter client for Mac
 - [Jupyter Notebooks in the IDE](https://towardsdatascience.com/jupyter-notebooks-in-the-ide-visual-studio-code-versus-pycharm-5e72218eb3e8)
 - [Jupyter everywhere](https://blog.jupyter.org/jupyter-everywhere-f8151c2cc6e8)
 - [8 surprising ways how to use Jupyter Notebook](https://mljar.com/blog/how-to-use-jupyter-notebook/)
@@ -217,9 +243,11 @@
 - [Speeding up your code](https://pythonspeed.com/performance/)
 - [Does it ever make sense to use more concurrent processes than processor cores?](https://softwareengineering.stackexchange.com/questions/415413/does-it-ever-make-sense-to-use-more-concurrent-processes-than-processor-cores?utm_source=Iterable&utm_medium=email&utm_campaign=the_overflow_newsletter) You can have as many threads as you want as long as they're doing nothing.
 - [Putting the “You” in CPU](https://cpu.land/?utm_source=tldrnewsletter) Curious exactly what happens when you run a program on your computer? Read this article to learn how multiprocessing works, what system calls really are, how computers manage memory with hardware interrupts, and how Linux loads executables.
+- [PyO3: From Python to Rust and Back Again](https://www.youtube.com/watch?v=UmL_CA-v3O8): improving Python's performance by integrating Rust code. The conversation explores the challenges and ongoing developments in making Python and Rust work seamlessly together, highlighting the complexities involved in bridging these two languages for enhanced performance.
 
 ### Numpy arrays
 - [pycon 2023 Talks - Jodie Burchell: Vectorize using linear algebra and NumPy to make your Python code fast](https://www.youtube.com/watch?v=wISl6LCL8XY&list=PL2Uw4_HvXqvY2zhJ9AMUa_Z6dtMGF3gtb&index=124)
+- [An overview of the Sparse Array Ecosystem for Python](https://labs.quansight.org/blog/sparse-array-ecosystem)
 
 ### Numba
 - [Numba](http://numba.pydata.org)
@@ -236,6 +264,7 @@
 - [How vectorization speeds up your Python code](https://pythonspeed.com/articles/vectorization-python/) Quite a few interesting ideas: - self-instrumenting a python program for performance measurements - using pypy
 - [Cython, Rust, and more: choosing a language for Python extensions](https://pythonspeed.com/articles/rust-cython-python-extensions/)
 - [Calling Rust from Python](https://blog.frankel.ch/rust-from-python/)
+- [Introduction to Coding In Rust for Pythonistas](https://www.youtube.com/watch?v=MoqtsYLGCC4) ArjanCodes
 - [nanobind, a fastder pybind11](https://github.com/wjakob/nanobind)
 
 ### Parallelization approaches mimicking or wrapping OpenMP and MPI:
@@ -243,6 +272,7 @@
 - [High performance Python 4](http://www.admin-magazine.com/HPC/Articles/High-Performance-Python-4) Mpi4py, doing mpi from Python.
 
 ### Other parallel processing approaches:
+- [Why your multiprocessing Pool is stuck](https://pythonspeed.com/articles/python-multiprocessing/): solving deadlocking issues
 - [Sequential Execution, Multiprocessing, and Multithreading IO-Bound Tasks in Python](https://zacs.site/blog/linear-python.html)
 - [Common Issues Using Celery (And Other Task Queues)](https://adamj.eu/tech/2020/02/03/common-celery-issues-on-django-projects/)
 - [The Parallelism Blues: when faster code is slower](https://pythonspeed.com/articles/parallelism-slower/)
@@ -260,7 +290,6 @@
 - [What Every Developer Should Know About GPU Computing](https://codeconfessions.substack.com/p/gpu-computing)
 - [How GPU computing works](https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s31151/)
 
-
 # Profiling and performance analysis
 
 - [Profiling python](http://www.admin-magazine.com/HPC/Articles/Profiling-Python-Code)
@@ -271,6 +300,11 @@
 - [Counting FLOPS and other CPU counters in Python](http://www.bnikolic.co.uk/blog/python/flops/2019/09/27/python-counting-events.html)
 - [A Comprehensive Guide to Profiling Python Programs](https://medium.com/better-programming/a-comprehensive-guide-to-profiling-python-programs-f8b7db772e6)
 - [Yet Another Python Profiler, but this time thread&coroutine&greenlet aware](https://github.com/sumerc/yappi)
+- [0x.Tools: X-Ray vision for Linux systems](https://github.com/tanelpoder/0xtools?tab=readme-ov-file): a set of open-source utilities for analyzing application performance on Linux.
+
+## POP - Performance Optimisation and Productivity CoE
+- [POP-COE Learning Material / Documentation](https://pop-coe.eu/further-information/learning-material)
+- [POP-COE Open-source toolsets (developed by POP partners and collaborators)](https://pop-coe.eu/partners/tools)
 
 ## Timing
 - [Python timer functions](https://realpython.com/python-timer/)
@@ -290,7 +324,6 @@
 - [My favorite Linux top command options](https://opensource.com/article/22/3/linux-top-command)
 
 ## LUMI (and AMD systems in general)
-
 
 - [LUMI training materials](https://lumi-supercomputer.github.io/LUMI-training-materials/)
 
@@ -313,6 +346,7 @@
 
 ## PyTest
 - [Getting Started Testing: pytest edition](https://nedbatchelder.com/text/test3.html)
+- [Pytest Fixtures](https://betterstack.com/community/guides/testing/pytest-fixtures-guide/): A Complete Guide to Pytest Fixtures
 - [A Gentle Introduction to Testing with PyTest](https://bas.codes/posts/python-pytest-introduction)
 - [Visual Testing with PyCharm and pytest - PyCon 2018](https://www.youtube.com/watch?v=FjojZxDZscQ)
 - [8 great pytest plugins](https://opensource.com/article/18/6/pytest-plugins)
@@ -416,6 +450,7 @@
 
 ## Click and typer
 - [Click](https://click.palletsprojects.com)
+- [Build AWESOME CLIs With Click in Python](https://www.youtube.com/watch?v=FWacanslfFM) (ArjanCodes)
 - [Things I’ve learned about building CLI tools in Pythonx](https://simonwillison.net/2023/Sep/30/cli-tools-python/)
 - [QUICK: A real quick GUI generator for click](https://github.com/szsdk/quick)
 - [typer: Python library for building CLI applications](https://github.com/tiangolo/typer) Built on top of click
@@ -470,6 +505,7 @@
 - [ModernGL : a python wrapper over OpenGL 3.3+](https://github.com/moderngl/moderngl)
 - [Magnum: Lightweight and modular C++11/C++14 graphics middleware for games and data visualization](https://doc.magnum.graphics/python/examples/)
 - [Grammar of graphics for Pyhon (using plotnine and pandas)](https://www.datascienceworkshops.com/blog/plotnine-grammar-of-graphics-for-python/)
+- [Annotated area charts with plotnine](https://nrennie.rbind.io/blog/plotnine-annotated-area-chart/)
 - [plotly Express](https://pbpython.com/plotly-look.html)
 - [How to build beautiful plots with Python and Seaborn](https://livecodestream.dev/post/how-to-build-beautiful-plots-with-python-and-seaborn/)
 - [HiPlot is a lightweight interactive visualization tool to help discover correlations and patterns in high-dimensional data](https://github.com/facebookresearch/hiplot)
@@ -505,6 +541,7 @@
 - [Xorbits: scalable Python data science, familiar & fast](https://doc.xorbits.io/en/latest/)
 - [The great Python dataframe showdown, part 1: Demystifying Apache Arrow](https://www.orchest.io/blog/the-great-python-dataframe-showdown-part-1-demystifying-apache-arrow)
 - [Python for Data Analysis, 3d Edition](https://wesmckinney.com/book/)
+- [Pydantic](https://www.youtube.com/watch?v=502XOB0u8OY): Pydantic provides the essential structure and validation for seamless data management.
 
 ## Pandas
 - [awesome polars](https://github.com/ddotta/awesome-polars)
@@ -540,6 +577,7 @@
 
 # Tools
 
+- [Beyond Hypermodern: Python is easy now](https://rdrn.me/postmodern-python/)
 - [pycon 2023 Talks - Al Sweigart: An Overview of the Python Code Tool Landscape 2023](https://www.youtube.com/watch?v=knUGpULAmn4&list=PL2Uw4_HvXqvY2zhJ9AMUa_Z6dtMGF3gtb&index=136)
 - [Software Development Checklist for Python Applications](http://www.patricksoftwareblog.com/software-development-checklist-for-python-applications/)
 - [Faster Python Programs - Measure, don't Guess - PyCon 2019](https://youtu.be/EcGWDNlGTNg)
@@ -563,8 +601,10 @@
 - [Professional CMake - a practical guide](https://crascit.com/professional-cmake/)
 
 ## Version control
+
 ### git
 
+- [Writing commit messages](https://www.chiark.greenend.org.uk/~sgtatham/quasiblog/commit-messages/?utm_source=tldrnewsletter)
 - [lazygit: A simple terminal UI for git commands](https://github.com/jesseduffield/lazygit?utm_source=tldrnewsletter)
 - [Introduction to Git In 16 Minutes](https://vickyikechukwu.hashnode.dev/introduction-to-git-in-16-minutes?utm_source=tldrnewsletter)
 - [9 useful tricks of git branch](https://gitbetter.substack.com/p/9-useful-tricks-of-git-branch-you)
@@ -588,6 +628,7 @@
 
 ### Other version control systems
 - [Pijul, a sound and fast distributed version control system based on a mathematical theory of asynchronous work.](https://nest.pijul.com/pijul/pijul)
+- [jj init - What if we actually could replace Git? Jujutsu might give us a real shot.](https://v5.chriskrycho.com/essays/jj-init/?utm_source=tldrnewsletter)
 
 ## Development environment/workflow
 
@@ -609,6 +650,7 @@
 ## (I)DE
 - [I tried 10 code editors](https://www.youtube.com/watch?v=8PhdfcX9tG0)
 - [VS Code](https://code.visualstudio.com)
+- [Visual Studio Code Extensions for Backend Development](https://www.youtube.com/watch?v=FQDtw_rV9Oc)
 - [PyCharm](https://www.jetbrains.com/pycharm/)
 - [Using Sublime Text for python](https://storiesinmypocket.com/articles/using-sublime-text-python/)
 - [C++ Coding with Neovim - Prateek Raman - CppCon 2022](https://www.youtube.com/watch?v=nzRnWUjGJl8)
@@ -629,6 +671,12 @@
 - [Write documentation as code](https://opensource.com/article/22/10/docs-as-code)
 - [pycon 2021 TALK / Meredydd Luff / Writing Good Documentation for Developers](https://www.youtube.com/watch?v=eWaWvUhpseM&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=11)
 - [pycon 2021 TALK / Paul Everitt / Static Sites with Sphinx and Markdown](https://www.youtube.com/watch?v=YclYtM56qjo&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=39)
+- [Schrijfwijzer UAntwerpen](https://pintra.uantwerpen.be/webapps/ua-pintrasite-BBLEARN/module/index.jsp?course_id=_17_1&tid=_46611_1&lid=_47642_1&l=nl_PINTRA#msdynttrid=wslYrG0378sc4OkgVaQ1XoBbO4OA8OctZMm9pk_lcQw)
+- [best practices for writing code comments](https://stackoverflow.blog/2021/07/05/best-practices-for-writing-code-comments/)
+
+### Figures
+
+- [Penrose](https://github.com/penrose/penrose): create beautiful diagrams just by typing notation in plain text
 
 ### Mkdocs and Markdown
 
@@ -665,6 +713,7 @@ We need the following packages to build documentation:
 ## Containers
 
 - [Building Python Data Science Container using Docker](https://faizanbashir.me/building-python-data-science-container-using-docker-c8e346295669)
+- [HPC-Admin Update on Containers in HPC](https://www.admin-magazine.com/HPC/Articles/Update-on-Containers-in-HPC)
 
 # Low-level programming languages
 
@@ -690,6 +739,7 @@ We need the following packages to build documentation:
 - [An Introduction to **Multithreading** in C++20 - Anthony Williams - CppCon 2022](https://www.youtube.com/watch?v=A7sVFJLJM-A&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=6)
 - [C++ Algorithmic Complexity, Data Locality, Parallelism, and Compiler Optimizations, seasoned with Some Concurrency - a deep dive into Performance](https://www.youtube.com/watch?v=0iXRRCnurvo&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=66): on the importance of cache-friendly code.
 - [C++ Performance Portability - A Decade of Lessons Learned - Christian Trott - CppCon 2022](https://www.youtube.com/watch?v=jNGGKFkt4lA&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=104) (from the developers of kokkos)
+- [Scale](https://docs.scale-lang.com/) Transforming CUDA code for AMD gpus, an alternative to HIP.
 
 
 - [Nobody Can Program Correctly - Lessons From 20 Years of Debugging C++ Code - Sebastian Theophil CppCon 2022](https://www.youtube.com/watch?v=2uk2Z6lSams&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=44)
@@ -724,9 +774,12 @@ We need the following packages to build documentation:
 - [CppCon 2016: Jason Turner “Practical Performance Practices"](https://www.youtube.com/watch?v=uzF4u9KgUWI)
 - [CppCon 2018: Jonathan Boccara “105 STL Algorithms in Less Than an Hour”](https://www.youtube.com/watch?v=2olsGf6JIkU)
 
-## Julia
+## Other performance-oriented programming languages
 
-Julia can be considered between low-level and high-level, as it combines the performance of low-level languages with the  scripting capabilities of Python.
+- [Julia](https://julialang.org) can be considered between low-level and high-level, as it combines the performance of low-level languages with the  scripting capabilities of Python.
+
+- [mojo](https://mojolang.org): The expressiveness of Python, with the performance of C
+  - [Python vs Mojo](https://www.youtube.com/watch?v=OJUorka-XLU) ArjanCodes
 
 # OS stuff
 
@@ -740,3 +793,6 @@ Julia can be considered between low-level and high-level, as it combines the per
 - [How to Set Environment Variables in Linux and Mac: The Missing Manual](https://doppler.com/blog/how-to-set-environment-variables-in-linux-and-mac)
 - [a file browser for your terminal](https://github.com/juftin/browsr)
 
+# Physics simulation
+
+- [Simulate Elastic Objects in Any Representation with NVIDIA Kaolin Library](https://developer.nvidia.com/blog/simulate-elastic-objects-in-any-representation-with-nvidia-kaolin-library/?mkt_tok=MTU2LU9GTi03NDIAAAGUilfQyYh1dqpgoMeYRvXtdwsWZDGGKJMlxNPr5opfzQlhVL3a1RYM-CRr2PV9IvaqalZiMnBIee5SwiEP78x_9lLoHgCG0U4WdJzWjN7zU0v49Nj_KzQ)
