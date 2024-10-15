@@ -125,6 +125,7 @@
 - [How to run a python script](https://realpython.com/run-python-scripts/)
 - [The many ways to pass code to Python from the terminal](https://snarky.ca/the-many-ways-to-pass-code-to-python-from-the-terminal/)
 - [pycon 2021 TALK / Graham Bleaney, the_storm/ Unexpected Execution: Wild Ways Code Execution can Occur in Python](https://www.youtube.com/watch?v=R1KrPc1IOeE&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=51)
+- [Python's many command-line utilities](https://www.pythonmorsels.com/cli-tools/?__s=uomxh09r5ztaf182f7p9&utm_source=drip&utm_medium=email&utm_campaign=weekly+email+-+2024-06-05&utm_content=Weekly+Python+tip%3A+use+Python%27s+many+CLI+utilities) by Trey Hunner
 
 ### Internals 
 - [Boolean short-circuiting](https://mathspp.com/blog/pydonts/boolean-short-circuiting)
@@ -200,6 +201,8 @@
 
 ### Single package/purpose links
 
+- [CPython API for asynchronous functions](https://github.com/ZeroIntensity/pyawaitable)
+- [The Right Way to Run Shell Commands From Python](https://martinheinz.dev/blog/98): If you find yourself orchestrating lots of other processes in Python, then you should at least take a look at `sh` library. (plus a lot of very useful comments on standard library ways to run OS tasks)
 - [Whenever](https://github.com/ariebovenberg/whenever?tab=readme-ov-file): Typed and DST-safe datetimes for Python, written in Rust
 - [tqdm](https://opensource.com/article/20/12/tqdm-python): Show progress in your Python apps
 - [Pathlib](https://rednafi.github.io/digressions/python/2020/04/13/python-pathlib.html)
@@ -218,6 +221,7 @@
 - [Python asyncio](https://superfastpython.com/python-asyncio/)
 - [stringzilla](https://github.com/ashvardanian/Stringzilla?utm_source=tldrnewsletter)
 - [module itertools overview](https://mathspp.com/blog/module-itertools-overview)
+- [PDF-Extract-Kit](https://github.com/opendatalab/PDF-Extract-Kit)
 
 ### Package overview links
 - [A curated list of awesome Python frameworks, libraries, software and resources](https://github.com/vinta/awesome-python)
@@ -244,6 +248,7 @@
 - [Does it ever make sense to use more concurrent processes than processor cores?](https://softwareengineering.stackexchange.com/questions/415413/does-it-ever-make-sense-to-use-more-concurrent-processes-than-processor-cores?utm_source=Iterable&utm_medium=email&utm_campaign=the_overflow_newsletter) You can have as many threads as you want as long as they're doing nothing.
 - [Putting the “You” in CPU](https://cpu.land/?utm_source=tldrnewsletter) Curious exactly what happens when you run a program on your computer? Read this article to learn how multiprocessing works, what system calls really are, how computers manage memory with hardware interrupts, and how Linux loads executables.
 - [PyO3: From Python to Rust and Back Again](https://www.youtube.com/watch?v=UmL_CA-v3O8): improving Python's performance by integrating Rust code. The conversation explores the challenges and ongoing developments in making Python and Rust work seamlessly together, highlighting the complexities involved in bridging these two languages for enhanced performance.
+- [When NumPy is too slow](https://pythonspeed.com/articles/numpy-is-slow/)
 
 ### Numpy arrays
 - [pycon 2023 Talks - Jodie Burchell: Vectorize using linear algebra and NumPy to make your Python code fast](https://www.youtube.com/watch?v=wISl6LCL8XY&list=PL2Uw4_HvXqvY2zhJ9AMUa_Z6dtMGF3gtb&index=124)
@@ -252,6 +257,7 @@
 ### Numba
 - [Numba](http://numba.pydata.org)
 - [Pycon 2023 Tutorial - Cheuk Ting Ho: Power up your work with compiling and profiling](https://www.youtube.com/watch?v=uI6T0y4Vbyc&list=PL2Uw4_HvXqvY2zhJ9AMUa_Z6dtMGF3gtb&index=28)
+- [Understanding CPUs can help speed up Numba and NumPy code](https://pythonspeed.com/articles/speeding-up-numba/)
 
 ### Python extensions in other languages
 - [High performance Python 1](http://www.admin-magazine.com/HPC/Articles/High-Performance-Python-1)
@@ -284,6 +290,7 @@
 - [pycon 2023 Talks - Alireza Farhidzadeh: Getting Around the GIL: Parallelizing Python for Better Performance](https://www.youtube.com/watch?v=7d2FLFu2zJY&list=PL2Uw4_HvXqvY2zhJ9AMUa_Z6dtMGF3gtb&index=128)
 - [Tracing the Python GIL](https://www.maartenbreddels.com/perf/jupyter/python/tracing/gil/2021/01/14/Tracing-the-Python-GIL.html)
 - [Python behind the scenes \#13: the GIL and its effects on Python multithreading](https://tenthousandmeters.com/blog/python-behind-the-scenes-13-the-gil-and-its-effects-on-python-multithreading/)
+- [Instrumenting Python GIL with eBPF](https://coroot.com/blog/engineering/instrumenting-python-gil-with-ebpf/)
 
 ### GPU computing in Python
 - [Accelerating Python on GPUs with nvc++ and Cython](https://developer.nvidia.com/blog/accelerating-python-on-gpus-with-nvc-and-cython/)
@@ -515,6 +522,7 @@
 
 # Artificial intelligence, machine learning
 
+- [How to get from high school math to cutting-edge ML/AI: a detailed 4-stage roadmap with links to the best learning resources that I’m aware of](https://www.justinmath.com/how-to-get-from-high-school-math-to-cutting-edge-ml-ai/?utm_source=tldrnewsletter)
 - [Deep Learning Course for Beginners](https://eur01.safelinks.protection.outlook.com/?url=https%3A%2F%2Fprogrammerweekly.us2.list-manage.com%2Ftrack%2Fclick%3Fu%3D72f68dcee17c92724bc7822fb%26id%3D76b6b2bd47%26e%3D4d28de90d0&data=05%7C02%7Cengelbert.tijskens%40uantwerpen.be%7C55d18ff3a6dc42f66c6808dc703ce148%7C792e08fb2d544a8eaf72202548136ef6%7C0%7C0%7C638508653984841541%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C0%7C%7C%7C&sdata=HBd2EZw3EE77yKEKHmo%2BQQE7U7C5tzC6B5I4wXrHPo8%3D&reserved=0)
 - [Scikit-learn, wrapping your head around machine learning - PyCon 2019](https://www.youtube.com/watch?v=kTdt0P0e3Qc)
 - [Applied Deep Learning for NLP Using PyTorch](https://youtu.be/VBM1u-UIoI0)
@@ -599,6 +607,7 @@
 - [A web-based math entry system](https://www.linux-magazine.com/index.php/Issues/2023/274/MathLex) (MathLex)
 - [Deep CMake for library authors](https://www.youtube.com/watch?v=m0DwB4OvDXk) CppCon 2019, Interesting CMake stuff by craig scott, the author of 
 - [Professional CMake - a practical guide](https://crascit.com/professional-cmake/)
+- [Developer essentials: How to search code using grep](https://developer.mozilla.org/en-US/blog/searching-code-with-grep/)
 
 ## Version control
 
@@ -796,3 +805,13 @@ We need the following packages to build documentation:
 # Physics simulation
 
 - [Simulate Elastic Objects in Any Representation with NVIDIA Kaolin Library](https://developer.nvidia.com/blog/simulate-elastic-objects-in-any-representation-with-nvidia-kaolin-library/?mkt_tok=MTU2LU9GTi03NDIAAAGUilfQyYh1dqpgoMeYRvXtdwsWZDGGKJMlxNPr5opfzQlhVL3a1RYM-CRr2PV9IvaqalZiMnBIee5SwiEP78x_9lLoHgCG0U4WdJzWjN7zU0v49Nj_KzQ)
+
+# Accelerators
+
+## Nvidia GPUs
+
+- [How GPU Computing Works](https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s31151/)
+- [How CUDA programming works](https://www.nvidia.com/en-us/on-demand/session/gtcspring22-s41487/)
+- [How to write a CUDA program](https://www.nvidia.com/en-us/on-demand/session/gtcspring23-s51210/)
+
+## AMD GPUs
