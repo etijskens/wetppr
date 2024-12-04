@@ -69,6 +69,7 @@
 - [pycon 2021 TUTORIAL / Geir Arne Hjelle / Introduction to Decorators: Power UP Your Python Code](https://www.youtube.com/watch?v=VWZAh1QrqRE&list=PL2Uw4_HvXqvYk1Y5P8kryoyd83L_0Uk5K&index=77)
 
 ### Regular expressions
+- [How on Earth does ^.?$|^(..+?)\1+$ produce primes?](https://www.youtube.com/watch?v=5vbk0TwkokM) interesting, entertaining, and explaining regexes
 - [Regular Expressions: Regexes in Python (Part 1)](https://realpython.com/regex-python/)
 - [Regular Expressions: Regexes in Python (Part 2)](https://realpython.com/regex-python-part-2/)
 - [Yes, It's Time to Learn Regular Expressions - PyCon 2017](https://youtu.be/abrcJ9MpF60)
@@ -94,6 +95,7 @@
 - [An Intro to Logging with Python and Loguru](https://www.blog.pythonlibrary.org/2024/05/15/an-intro-to-logging-with-python-and-loguru/)
 
 ### Type annotation
+- [Master Python typing (type hints) with interactive online exercises!](https://github.com/laike9m/Python-Type-Challenges)
 - [Type-checked Python in the real world - PyCon 2018](https://www.youtube.com/watch?v=pMgmKJyWKn8) mypy
 - [Applying mypy to real world projects](http://calpaterson.com/mypy-hints.html)
 - [Types at the Edges in Python](https://blog.meadsteve.dev/programming/2020/02/10/types-at-the-edges-in-python/)
@@ -258,6 +260,7 @@
 - [Numba](http://numba.pydata.org)
 - [Pycon 2023 Tutorial - Cheuk Ting Ho: Power up your work with compiling and profiling](https://www.youtube.com/watch?v=uI6T0y4Vbyc&list=PL2Uw4_HvXqvY2zhJ9AMUa_Z6dtMGF3gtb&index=28)
 - [Understanding CPUs can help speed up Numba and NumPy code](https://pythonspeed.com/articles/speeding-up-numba/)
+- [Bridging the CUDA C++ Ecosystem and Python Developers with Numbast](https://developer.nvidia.com/blog/bridging-the-cuda-c-ecosystem-and-python-developers-with-numbast/?mkt_tok=MTU2LU9GTi03NDIAAAGWhgzQRL0P2vAePtkrbE5QV1wfwSOVJL7aBfewyHIAcbpj51nzpgcwTkiUQYBnBXGUhULxLyutXhmggHRDUN01VI00vPca-vMpd6sspAziwbl-4MUaEKU)
 
 ### Python extensions in other languages
 - [High performance Python 1](http://www.admin-magazine.com/HPC/Articles/High-Performance-Python-1)
@@ -500,6 +503,8 @@
 # Visualization
 
 ## Matplotlib
+- [The animation tools of 3blue1brown](https://www.youtube.com/watch?v=rbu7Zu5X1zI)
+- [Manim: A community maintained Python library for creating mathematical animations](https://www.manim.community) (based on the animation tools from 3blue1brown)
 - [matplotlib](https://matplotlib.org)
 - [Effectively using matplotlib](https://pbpython.com/effective-matplotlib.html)
 - [Matplotlib Tutorial (2022): For Physicists, Engineers, and Mathematicians](https://www.youtube.com/watch?v=cTJBJH8hacc)
@@ -552,6 +557,7 @@
 - [Pydantic](https://www.youtube.com/watch?v=502XOB0u8OY): Pydantic provides the essential structure and validation for seamless data management.
 
 ## Pandas
+- [From Pandas to Polars Upgrading Your Data Workflow — Matt Harrison (PyBay 2024)](https://www.youtube.com/watch?v=s5DxsBHDi1o&list=PL85KuAjbN_gvx5b_BgLVcKfccnlZAVPMk&index=16)
 - [awesome polars](https://github.com/ddotta/awesome-polars)
 - [pandas 2.0 and the Arrow revolution (part I)](https://datapythonista.me/blog/pandas-20-and-the-arrow-revolution-part-i)
 - [Speeding up your pandas code](https://iip.readthedocs.io/en/latest/setup.html#setting-up-your-local-environment)
@@ -613,6 +619,7 @@
 
 ### git
 
+- [Git Productivity Toolkit](https://github.com/ahmetsait/toolgit)
 - [Writing commit messages](https://www.chiark.greenend.org.uk/~sgtatham/quasiblog/commit-messages/?utm_source=tldrnewsletter)
 - [lazygit: A simple terminal UI for git commands](https://github.com/jesseduffield/lazygit?utm_source=tldrnewsletter)
 - [Introduction to Git In 16 Minutes](https://vickyikechukwu.hashnode.dev/introduction-to-git-in-16-minutes?utm_source=tldrnewsletter)
@@ -657,6 +664,7 @@
 - [pipupgrade](https://github.com/achillesrasquinha/pipupgrade)
 
 ## (I)DE
+- [The AI code editor](https://www.cursor.com/?ref=blog.pragmaticengineer.com) Built to make you extraordinarily productive, Cursor is the best way to code with AI.
 - [I tried 10 code editors](https://www.youtube.com/watch?v=8PhdfcX9tG0)
 - [VS Code](https://code.visualstudio.com)
 - [Visual Studio Code Extensions for Backend Development](https://www.youtube.com/watch?v=FQDtw_rV9Oc)
@@ -689,7 +697,7 @@
 
 ### Mkdocs and Markdown
 
-[This tutorial by Real Python](https://realpython.com/python-project-documentation-with-mkdocs/) really got me going in an afternoon... The extension with autorefs is also very useful. Note that the command `mkdocs gh-deploy` makes publication on readthedocs superfluous! 
+[This tutorial by Real Python](https://realpython.com/python-project-documentation-with-mkdocs/) really got me going in an afternoon... The extension with autorefs is also very useful. Note that the command `mkdocs gh-deploy` makes publication on readthedocs superfluous!
 
 #### Installation
 We need the following packages to build documentation:
@@ -711,6 +719,9 @@ We need the following packages to build documentation:
 - [Presentations](https://sli.dev)
 - a Markdown viewer/browser for your terminal: https://github.com/Textualize/frogmouth
 - Markdown Code Runner: https://github.com/basnijholt/markdown-code-runner
+
+### latex
+- [This almost class-less CSS library turns your HTML document into a website that looks like a LATEX document](https://latex.vercel.app/?utm_source=tldrnewsletter)
  
 ### Sphinx and ReST
 (imho less practical than `mkdocs`)
