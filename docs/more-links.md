@@ -743,6 +743,7 @@ We need the following packages to build documentation:
 ## C++
 - <http://www.cplusplus.com>
 - <http://cppreference.com>
+- [two factions of C++](https://herecomesthemoon.net/2024/11/two-factions-of-cpp/?utm_source=tldrnewsletter )
 - [A friendly guide to the syntax of C++ method pointers](https://opensource.com/article/21/2/ccc-method-pointers?utm_medium=Email&utm_campaign=weekly&sc_cid=7013a000002vqnQAAQ)
 - [How Many Strings Does C++ Have?](https://blogs.msmvps.com/gdicanio/2018/05/28/how-many-strings-does-c-have/)
 - [Johnny's software lab](https://johnnysswlab.com) very thorough site on C++ performance issues.
@@ -786,6 +787,7 @@ We need the following packages to build documentation:
 ## Compilers
 - [CppCon 2017: Matt Godbolt “What Has My Compiler Done for Me Lately? Unbolting the Compiler's Lid”](https://youtu.be/bSkpMdDe4g4)
 - [A Complete Guide to LLVM for Programming Language Creators](https://mukulrathi.co.uk/create-your-own-programming-language/llvm-ir-cpp-api-tutorial/)
+- [Common Misconceptions about Compilers](https://sbaziotis.com/compilers/common-misconceptions-about-compilers.html?utm_source=tldrnewsletter)
 
 ## Code modernization
 - [Improving performance with SIMD intrinsics in three use cases](https://stackoverflow.blog/2020/07/08/improving-performance-with-simd-intrinsics-in-three-use-cases/?utm_source=Iterable&utm_medium=email&utm_campaign=the_overflow_newsletter)
