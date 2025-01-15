@@ -823,7 +823,7 @@ However, supercomputers are expensive machines and resources are limited. It sho
 <script type="math/tex; mode=display"> P_{max} = min(P_p,BI_c) </script>
 </p>
 <p>This is called the roof-line model, since its graph looks like a roof-line.</p>
-<p><img alt="roofline" src="public/roof-line.png"></p>
+<p><img alt="roof-line" src="../public/roofline.png"></p>
 <p>We can measure the actual performance and computational intensity of the program and plot it on the graph. The point must necessarily be under the roof-line. For a micro-benchmark, such as a loop with a simple body, we can compute <script type="math/tex">I_c</script> by hand, count the Flops and time the benchmark to obtain the computational intensity. For an entire program a performance analysis tool can construct the graph and measure where the program is in the graph. Let's discuss 4 different cases, corresponding to the four numbered spots in the graph above.</p>
 <ol>
 <li>Point 1 lies in the bandwidth limited region, but well below the roof-line. Something prevents the program to go at the maximum performance. There can be many causes: bad memory access causing cache misses, the code may fail to vectorize, pipeline stalls, ... for a micro-benchmark you can perhaps spot the cause without help. For a larger program a performance analyzer will highlight the problems. </li>
