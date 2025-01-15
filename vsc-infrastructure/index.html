@@ -547,9 +547,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#setting-up-a-git-account-required-for-micc2-projects" class="md-nav__link">
+  <a href="#setting-up-a-git-account-required-for-wiptools-projects" class="md-nav__link">
     <span class="md-ellipsis">
-      Setting up a git account (required for micc2 projects)
+      Setting up a git account (required for wiptools projects)
     </span>
   </a>
   
@@ -584,18 +584,18 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#micc2" class="md-nav__link">
+  <a href="#wiptools" class="md-nav__link">
     <span class="md-ellipsis">
-      Micc2
+      Wiptools
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#pybind11" class="md-nav__link">
+  <a href="#nanobind" class="md-nav__link">
     <span class="md-ellipsis">
-      Pybind11
+      nanobind
     </span>
   </a>
   
@@ -767,9 +767,9 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#setting-up-a-git-account-required-for-micc2-projects" class="md-nav__link">
+  <a href="#setting-up-a-git-account-required-for-wiptools-projects" class="md-nav__link">
     <span class="md-ellipsis">
-      Setting up a git account (required for micc2 projects)
+      Setting up a git account (required for wiptools projects)
     </span>
   </a>
   
@@ -804,18 +804,18 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#micc2" class="md-nav__link">
+  <a href="#wiptools" class="md-nav__link">
     <span class="md-ellipsis">
-      Micc2
+      Wiptools
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#pybind11" class="md-nav__link">
+  <a href="#nanobind" class="md-nav__link">
     <span class="md-ellipsis">
-      Pybind11
+      nanobind
     </span>
   </a>
   
@@ -1014,7 +1014,7 @@ Host vn1
 </ul>
 </div>
 <p>There is a helpfull tutorial on <a href="../presentations/TNT-VSCode.pptx">Using VSCode for Remote Development</a>, but before getting your hands dirty, please complete the steps below first.</p>
-<h3 id="setting-up-a-git-account-required-for-micc2-projects">Setting up a git account (required for micc2 projects)</h3>
+<h3 id="setting-up-a-git-account-required-for-wiptools-projects">Setting up a git account (required for wiptools projects)</h3>
 <p>See <a href="https://docs.github.com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account">signing up for a new GitHub account</a></p>
 <p>The code that you write must be regularly committed to a remote <a href="https://github">GitHub</a> repository. This has many advantages:</p>
 <ul>
@@ -1056,7 +1056,7 @@ Host vn1
 <p class="admonition-title">Tip</p>
 <p>To see the list of installed Python packages, load the LMOD module for the Python distribution of your choice, and execute <code>pip list -v</code>. This will show you also the location where the package is installed. Pre-installed packages, the ones that are made available by loading LMOD modules, will show up under <code>/apps/antwerpen</code>, while the packages you installed yourself with <code>pip install --user</code> will show up under <code>${PYTHONUSERBASE}</code>, <em>c.q.</em> <code>/scratch/antwerpen/201/vsc20170/.local</code>.  </p>
 </div>
-<p>The following LMOD modules are needed by <a href="https://et-micc2.%20readthedocs.io/en/latest/index.html">micc2</a> (see below):</p>
+<p>The following LMOD modules are needed by <a href="https://etijskens.github.io/wiptools/">wiptools</a> (see below):</p>
 <ul>
 <li><code>buildtools</code>,</li>
 <li><code>git</code>,</li>
@@ -1093,8 +1093,8 @@ export PATH="$PATH:${PYTHONUSERBASE}/bin"
 discover that such scripts depend on the project you work on, and that it is better to have it somewhere in your
 project directory.</p>
 </div>
-<h4 id="micc2">Micc2</h4>
-<p><a href="https://et-micc2.readthedocs.io/en/latest/index.html">Micc2</a> is a Python package that simplifies your project
+<h4 id="wiptools">Wiptools</h4>
+<p><a href="https://etijskens.github.io/wiptools/">Wiptools</a> is a Python package that simplifies your project
 management considerably. If you haven't already done so, source the environment script:</p>
 <pre><code class="language-shell">&gt; source path/to/wetppr-env.sh
 </code></pre>
@@ -1108,24 +1108,21 @@ management considerably. If you haven't already done so, source the environment 
 <code>${PYTHONUSERBASE}</code>. The default install path of <code>pip</code> is a system location for which you do not have write
 permissions. Omitting <code>--user</code> would raise a <code>PermissionError</code>.</p>
 </div>
-<p><a href="https://et-micc2.%20readthedocs.io/en/latest/index.html">Micc2</a> requires
+<p><a href="https://etijskens.github.io/wiptools/">Wiptools</a> requires
 <a href="https://et-micc2.readthedocs.io/en/latest/installation.html#first-time-micc2-setup">a little setup</a> before it is
 fully functional.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>You need a GitHub account before you can set up <code>micc2</code>.</p>
+<p>You need a GitHub account before you can set up <code>wiptools</code>.</p>
 </div>
-<p>To set up <code>micc2</code> , enter</p>
-<pre><code class="language-shell">&gt; micc2 setup
-</code></pre>
-<p>and supply <a href="https://et-micc2.readthedocs.io/en/latest/installation.%0Ahtml#first-time-micc2-setup">the data the application asks for</a>.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>Make sure that you get a personal access token (pat) to allow creating remote repositories at
 <a href="https://github.com">GitHub</a>! Check <a href="https://et-micc2.readthedocs.io/en/latest/installation.%0Ahtml#first-time-micc2-setup">this</a>.</p>
 </div>
-<h4 id="pybind11">Pybind11</h4>
-<p>You will also need <code>nanobind</code> if you want to use <code>wip</code> for building binary extension modules for Python from C++.</p>
+<h4 id="nanobind">nanobind</h4>
+<p><a href="https://github.com/wjakob/nanobind">Nanobind</a> is a small binding library that exposes C++ types in Python and vice versa. It is reminiscent of Boost.Python and pybind11 and uses near-identical syntax. In contrast to these existing tools, nanobind is more efficient: bindings compile in a shorter amount of time, produce smaller binaries, and have better runtime performance.</p>
+<p>If you want to use <code>wip</code> for building binary extension modules for Python from C++, You will also need <code>nanobind</code>.</p>
 <pre><code class="language-shell">&gt; pip install --user nanobind
 </code></pre>
 <h2 id="submitting-jobs-on-vaughan">Submitting jobs on Vaughan</h2>
