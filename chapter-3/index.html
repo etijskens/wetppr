@@ -20,7 +20,7 @@
     
     
       
-        <title>Chapter 3 - Parallel programmeren</title>
+        <title>Chapter 3 - Optimize first, then parallelize - Parallel programmeren</title>
       
     
     
@@ -64,7 +64,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#when-to-parallelize-and-what-to-do-first" class="md-skip">
+        <a href="#chapter-3-optimize-first-then-parallelize" class="md-skip">
           Skip to content
         </a>
       
@@ -100,7 +100,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Chapter 3
+              Chapter 3 - Optimize first, then parallelize
             
           </span>
         </div>
@@ -339,12 +339,14 @@
       <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           
   
   <span class="md-ellipsis">
-    Chapter 3
+    Chapter 3 - Optimize first, then parallelize
   </span>
   
 
@@ -355,7 +357,7 @@
         
   
   <span class="md-ellipsis">
-    Chapter 3
+    Chapter 3 - Optimize first, then parallelize
   </span>
   
 
@@ -366,6 +368,8 @@
 <nav class="md-nav md-nav--secondary" aria-label="Table of contents">
   
   
+  
+    
   
   
     <label class="md-nav__title" for="__toc">
@@ -619,6 +623,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -761,9 +767,7 @@
                   
 
 
-  <h1>Chapter 3</h1>
-
-<div><p>EXAS# Chapter 3 - Optimize first, then parallelize</p>
+<div><h1 id="chapter-3-optimize-first-then-parallelize">Chapter 3 - Optimize first, then parallelize</h1>
 <h2 id="when-to-parallelize-and-what-to-do-first">When to parallelize, and what to do first...</h2>
 <p>When your program takes too long, the memory of your machine is too small for your problem or the accuracy you need cannot be met, you're hitting the wall. Parallelization seems necessary, and you feel in need of a supercomputer.
 However, supercomputers are expensive machines and resources are limited. It should come to no surprise that it is expected that programs are allowed to run on supercomputers only if they make efficient use of their resources. Often, serial programs provide possibilities to improve the performance. These come in two categories: common sense optimizations (often completely overlooked by researchers) which rely on a good understanding of the mathematical formulation of the problem and the algorithm, and code optimizations which rely on understanding processor architecture and compilers. Let's first look at common sense optimizations. </p>
