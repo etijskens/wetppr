@@ -1,121 +1,792 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        
-        
-        <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>chapter 4 - Case studies - Parallel Programming</title>
-        <link href="../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../css/font-awesome.min.css" rel="stylesheet">
-        <link href="../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/color-brewer.min.css">
-        <link href="../assets/_mkdocstrings.css" rel="stylesheet">
 
-        <script src="../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
-    </head>
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../chapter-3/">
+      
+      
+        <link rel="next" href="../chapter-5/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+    
+    
+      
+        <title>chapter 4 - Case studies - Parallel programmeren</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
+      
+      
 
-    <body>
-        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-            <div class="container">
-                <a class="navbar-brand" href="..">Parallel Programming</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Expanded navigation -->
-                <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="navitem">
-                                <a href=".." class="nav-link">Home</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../glossary/" class="nav-link">Glossary</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../links/" class="nav-link">Useful links</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../overview/" class="nav-link">Overview</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../course-text/" class="nav-link">Course text</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../exercises/" class="nav-link">Exercises</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../evaluation/" class="nav-link">Evaluation of this course</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../vsc-infrastructure/" class="nav-link">VSC infrastructure</a>
-                            </li>
-                        </ul>
-
-                    <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> Search
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-level="1"><a href="#chapter-4-case-studies" class="nav-link">chapter 4 - Case studies</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#monte-carlo-ground-state-energy-calculation-of-a-small-atom-cluster" class="nav-link">Monte Carlo ground state energy calculation of a small atom cluster</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#study-of-data-access-patterns-in-a-large-lennard-jones-systems" class="nav-link">Study of data access patterns in a large Lennard-Jones systems</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-4-case-studies" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
-</div></div>
-                    <div class="col-md-9" role="main">
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Parallel programmeren" class="md-header__button md-logo" aria-label="Parallel programmeren" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Parallel programmeren
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              chapter 4 - Case studies
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Parallel programmeren" class="md-nav__button md-logo" aria-label="Parallel programmeren" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Parallel programmeren
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome at Parallel programming
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../over-de-auteur/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Over de auteur
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../links/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Useful links
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 1 - Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 2 - Aspects of modern CPU architecture impacting performance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    chapter 4 - Case studies
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    chapter 4 - Case studies
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#monte-carlo-ground-state-energy-calculation-of-a-small-atom-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monte Carlo ground state energy calculation of a small atom cluster
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monte Carlo ground state energy calculation of a small atom cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallelization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parallelization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#project-mcgse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project mcgse
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#study-of-data-access-patterns-in-a-large-lennard-jones-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Study of data access patterns in a large Lennard-Jones systems
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Study of data access patterns in a large Lennard-Jones systems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monte-carlo-setting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monte Carlo setting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#molecular-dynamics-setting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Molecular Dynamics setting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Molecular Dynamics setting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementing-cutoff" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementing cutoff
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moving-atoms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Moving atoms
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 5 - Developing Research Software
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 6 - Tools for parallellization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evaluation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Evaluation of this course
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vsc-infrastructure/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VSC infrastructure
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#monte-carlo-ground-state-energy-calculation-of-a-small-atom-cluster" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monte Carlo ground state energy calculation of a small atom cluster
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Monte Carlo ground state energy calculation of a small atom cluster">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#parallelization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parallelization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#project-mcgse" class="md-nav__link">
+    <span class="md-ellipsis">
+      Project mcgse
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#study-of-data-access-patterns-in-a-large-lennard-jones-systems" class="md-nav__link">
+    <span class="md-ellipsis">
+      Study of data access patterns in a large Lennard-Jones systems
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Study of data access patterns in a large Lennard-Jones systems">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introduction_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introduction
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monte-carlo-setting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monte Carlo setting
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#molecular-dynamics-setting" class="md-nav__link">
+    <span class="md-ellipsis">
+      Molecular Dynamics setting
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Molecular Dynamics setting">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementing-cutoff" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementing cutoff
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#moving-atoms" class="md-nav__link">
+    <span class="md-ellipsis">
+      Moving atoms
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
 
 <div><h1 id="chapter-4-case-studies">chapter 4 - Case studies</h1>
 <h2 id="monte-carlo-ground-state-energy-calculation-of-a-small-atom-cluster">Monte Carlo ground state energy calculation of a small atom cluster</h2>
 <h3 id="introduction">Introduction</h3>
-<p>The code for this benchmark was Kindly provided by Jesus Eduardo Galvan Moya, former PhD student of the Physics 
-Department, Condensed Matter Theory.</p>
-<p>It is a small molecular dynamics code which happens to serve many didactical purposes. It is simple code, not too big.
-Full of issues you should learn to pay attention to ;-)</p>
-<p>The goal of the program is to calculate the ground state energy of a small atomistic system of 10-150 atoms. The 
-system is at 0K, so there are no velocities, and the total energy of the system consist of the interaction energy 
-only. Interactions are described by a pair-wise interaction potential, without cutoff radius (brute force). 
-A Monte Carlo approach is used to find the configuration with the lowest energy, 1000 separate runs with different 
-initial configuration are run. Each run comprises 200 000 random atom moves. Finally, the run with the lowest energy is kept and subjected to Quasi-Newton iteration in order to find a 
-local energy minimum. </p>
+<p>The code for this benchmark was Kindly provided by Jesus Eduardo Galvan Moya, former PhD student of the Physics Department, Condensed Matter Theory.</p>
+<p>It is a small molecular dynamics code which happens to serve many didactic purposes. It is simple code, not too big and full of issues you should learn to pay attention to ;-)</p>
+<p>The goal of the program is to calculate the ground state energy of a small atomistic system of 10-150 atoms. The system is at 0K, so there are no velocities, and the total energy of the system consist of the interaction energy only. Interactions are described by a pair-wise interaction potential, without cutoff radius (brute force). A Monte Carlo approach is used to find the configuration with the lowest energy, 1000 separate runs with different initial configuration are run. Each run comprises 200 000 random atom moves. Finally, the run with the lowest energy is kept and subjected to Quasi-Newton iteration in order to find a local energy minimum.</p>
 <h3 id="implementation">Implementation</h3>
-<p>Here is how this algorithm goes (C++ pseudo code):   </p>
+<p>Here is how this algorithm goes (C++ pseudocode):</p>
 <pre><code class="language-C++">n_atoms = 50; // (for example)
 std::vector&lt;double&gt; x, y, z, xmin, ymin, zmin;
 double Emin = std::numeric_limits&lt;double&gt;::max();
@@ -123,10 +794,8 @@ for(int ic=0; ic&lt;1000; ++ic)
 {// loop over initial configurations
  // generate initial configuration
     initialize(x,y,z);
-    for(int ip=0; ip&lt;200000; ++ip) 
-    {// loop over random perturbations
-     // perturb the current configuration    
-        x += small_perturbation();
+    for(int ip=0; ip&lt;200000; ++ip)     {// loop over random perturbations
+     // perturb the current configuration            x += small_perturbation();
         y += small_perturbation();
         z += small_perturbation();
         E = 0;
@@ -145,82 +814,44 @@ for(int ic=0; ic&lt;1000; ++ic)
         zmin = z;
         Emin = E
     }
-} 
-// Perform a Newton-Raphsom iteration on E(x,y,z) with x0 = xmin, y0 = ymin, z = zmin.   
-...
+} // Perform a Newton-Raphsom iteration on E(x,y,z) with x0 = xmin, y0 = ymin, z = zmin.   ...
 </code></pre>
-<p>The memory footprint of this problem is (<code>n_atoms</code> x 3) <code>doubles</code> x 8 bytes/<code>double</code>. For <code>n_atoms = 150</code>, that is 
-3600 bytes, which is far less than the size of L1 cache (32KB). Hence, the problem fits easily in the L1 cache. As 
-soonas the entire problem is loaded in the cache, the code will run without needing to wait for data. Furthermore, the 
-interaction potential </p>
+<p>The memory footprint of this problem is (<code>n_atoms</code> x 3) <code>doubles</code> x 8 bytes/<code>double</code>. For <code>n_atoms = 150</code>, that is 3600 bytes, which is far less than the size of L1 cache (32KB). Hence, the problem fits easily in the L1 cache. As soon as the entire problem is loaded in the cache, the code will run without needing to wait for data. Furthermore, the interaction potential</p>
 <p>
-<script type="math/tex; mode=display"> V(r) = A \frac{exp{({\alpha}r)}}{r^n} - B \frac{exp{(-\beta(r-c_{att}))}} {(r-c_{att})^{n_{att}} + d_{att}} 
-- \frac{C}{r}</script>
+<script type="math/tex; mode=display"> V(r) = A \frac{exp{({\alpha}r)}}{r^n} - B \frac{exp{(-\beta(r-c_{att}))}} {(r-c_{att})^{n_{att}} + d_{att}} - \frac{C}{r}</script>
 </p>
-<p>is rather compute intensive, as it uses several expensive operations: two exponentials and two divisions, plus the 
-square root for the distance which here cannot be avoided:</p>
+<p>is rather compute intensive, as it uses several expensive operations: two exponentials and two divisions, plus the square root for the distance which here cannot be avoided:</p>
 <p>
 <script type="math/tex; mode=display"> r = r_{ij}(r_i,r_j) = \sqrt{(x_j-x_i)^2 + (y_j-y_i)^2 + (z_j-z_i)^2 } </script>
 </p>
 <p>Consequently, the code is certainly compute bound.</p>
-<h3 id="optimisation">Optimisation</h3>
-<p>Most of the work is carried out in the inner double loop over the interactions. Let's see if we can optimise this. </p>
-<p>Initially, both expressions for the interatomic distance <script type="math/tex">r_{ij}(r_i,r_j)</script> and the interaction potential <script type="math/tex">V(r)</script>
-were implemented as functions called in the double loop. The first timing for the double loop with 50 atoms is 144 
-<script type="math/tex">\mu</script>s. By checking the vectorisation report of the compiler, we learned that the two function calls prohibited 
-vectorisation. After inlining the functions,  the timing was reduced to 93 <script type="math/tex">\mu</script>s.<br>
-The inner loop contains a lot of short loops. This is bad for pipelining and vectorisation (many loops end with 
-incompletely filled vector registers.) If we split the loop in a double loop for calculating the interatomic 
-distances and storing them in a long array, and a long loop over that array to compute the interactions, the 
-situation might improve. </p>
+<h3 id="optimization">Optimization</h3>
+<p>Most of the work is carried out in the inner double loop over the interactions. Let's see if we can optimise this.</p>
+<p>Initially, both expressions for the interatomic distance <script type="math/tex">r_{ij}(r_i,r_j)</script> and the interaction potential <script type="math/tex">V(r)</script> were implemented as functions called in the double loop. The first timing for the double loop with 50 atoms is 144 <script type="math/tex">\mu</script>s. By checking the vectorization report of the compiler, we learned that the two function calls prohibited vectorization. After inlining the functions,  the timing was reduced to 93 <script type="math/tex">\mu</script>s.  The inner loop contains a lot of short loops. This is bad for pipelining and vectorization (many loops end with incompletely filled vector registers.) If we split the loop in a double loop for calculating the interatomic distances and storing them in a long array, and a long loop over that array to compute the interactions, the situation might improve.</p>
 <pre><code class="language-C++">        E = 0;
         int n_interactions = n_atoms*(n_atoms-1)/2;
-        std::vector&lt;double&gt; rij(n_interactions); 
-         // (in C++ std::vector is actually a contiguous array)
+        std::vector&lt;double&gt; rij(n_interactions);          // (in C++ std::vector is actually a contiguous array)
      // double loop over all interactions
         for(int i=0; i&lt;n_atoms; ++i)
-            for(int j=0; j&lt;i; ++j) 
-                rij = std::sqrt((x[j] - x[j])^2 + (y[j] - y[j])^2 + (z[j] - z[j])^2);
+            for(int j=0; j&lt;i; ++j)                 rij = std::sqrt((x[j] - x[j])^2 + (y[j] - y[j])^2 + (z[j] - z[j])^2);
         }
         for(int ij=0; ij&lt;n_interactions; ++ij)
             E += V(rij[ij]);
 </code></pre>
-<p>This reduces the time from 93 to 86 <script type="math/tex">\mu</script>s. Not much, but since we must runs this loop 1 000 x 200 000 times it 
-nevertheless represents a substantial gain. </p>
+<p>This reduces the time from 93 to 86 <script type="math/tex">\mu</script>s. Not much, but since we must run this loop 1 000 x 200 000 times it nevertheless represents a substantial gain.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>We implemented this both in C++ and Fortran. The results were almost identical. You sometimes hear that C++ is 
-an inefficient programming language and that the opposite holds for Fortran. This is not true. Both C++ and 
-Fortran compilers are capable to build optimally performant progams for the CPU at hand. We'll come to this 
-subject <a href="???">later</a>. </p>
+<p>We implemented this both in C++ and Fortran. The results were almost identical. Some say that C++ is an inefficient programming language and that the opposite holds for Fortran. This is not true. Both C++ and Fortran compilers are capable of building optimally performant programs for the CPU at hand. We'll come to this subject <a href="???">later</a>.</p>
 </div>
-<p>At this point, we seem to be done optimising the inner loops. Maybe there is something we can do to the 
-surrounding loops? The perturbation loop adds a small perturbation to every coordinate of every atom in the list to 
-see if the perturbation results in a lower energy. The perturbation involves <script type="math/tex">3n_{atoms}</script> random numbers and 
-generation random numbers is also rather expensive. We might wonder if it is really necessary to perturb all atoms. 
-What if we perturbed only one atom? That reduces the number of random number generations by a factor <script type="math/tex">n_{atoms}</script>. In 
-addition, most of the interactions remain the same, only the <script type="math/tex">n_{atoms}-1</script> interactions with the perturbed atom 
-change. Hence our program now has a complexity <script type="math/tex">O(N)</script>. In the original formulation the number of interaction to be 
-computed was <script type="math/tex">n_{atoms}(n_{atoms}-1)/2 = O(N^2)</script>. As the program is compute bound changing the computational 
-complexity  from <script type="math/tex">O(N^2)</script> to <script type="math/tex">O(N)</script> will have a big impact. This optimisation falls under the 
-<a class="autorefs autorefs-internal" href="../chapter-3/#common-sense-optimisations">common sense optimisations</a>. </p>
-<p>It is important to realize that this optimisation changes the nature of the algorithm. It remains to be seen whether 
-200 000 configurations is still sufficient to find the minimum. We might need more, or maybe less. This up to 
-the researcher to investigate. </p>
-<p>Let's see how we can implement this modification and how that effects the performance. We start with depicting the 
-relation between $r_{ij}) as a (lower triangular) matrix and as the linear <code>rij</code> array in the split loop above. </p>
+<p>At this point, we seem to be done optimising the inner loops. Maybe there is something we can do to the surrounding loops? The perturbation loop adds a small perturbation to every coordinate of every atom in the list to see if the perturbation results in a lower energy. The perturbation involves <script type="math/tex">3n_{atoms}</script> random numbers and generation random numbers is also rather expensive. We might wonder if it is really necessary to perturb all atoms. What if we perturbed only one atom? That reduces the number of random number generations by a factor <script type="math/tex">n_{atoms}</script>. In addition, most of the interactions remain the same, only the <script type="math/tex">n_{atoms}-1</script> interactions with the perturbed atom change. Hence, our program now has a complexity <script type="math/tex">O(N)</script>. In the original formulation the number of interaction to be computed was <script type="math/tex">n_{atoms}(n_{atoms}-1)/2 = O(N^2)</script>. As the program is compute-bound, changing the computational complexity from <script type="math/tex">O(N^2)</script> to <script type="math/tex">O(N)</script> will have a big impact. This optimization falls under the <a class="autorefs autorefs-internal" href="../chapter-3/#common-sense-optimizations">common sense optimizations</a>.</p>
+<p>It is important to realize that this optimization changes the nature of the algorithm. It remains to be seen whether 200 000 configurations is still sufficient to find the minimum. We might need more, or maybe less. This up to the researcher to investigate.</p>
+<p>Let's see how we can implement this modification and how that effects the performance. We start with depicting the relation between <script type="math/tex">r_{ij}</script> as a (lower triangular) matrix and as the linear <code>rij</code> array in the split loop above.</p>
 <p><img alt="rij" src="../public/rij.png"></p>
-<p>The linear array stores the rows of the lower triangular matrix: <script type="math/tex">[r_{10}</script>, <script type="math/tex">r_{20}</script>, <script type="math/tex">r_{21}</script>, <script type="math/tex">r_{30}</script>, <script type="math/tex">r_{31}</script>, 
-<script type="math/tex">r_{32}, r_{40}</script>, <script type="math/tex">r_{41}</script>, <script type="math/tex">r_{42}</script>, <script type="math/tex">r_{43}</script>, ... <script type="math/tex">]</script>. The matrix elements show the value or the 
-index into the linear array. Let's do something similar for the interaction energy:</p>
+<p>The linear array stores the rows of the lower triangular matrix: <script type="math/tex">[r_{10}</script>, <script type="math/tex">r_{20}</script>, <script type="math/tex">r_{21}</script>, <script type="math/tex">r_{30}</script>, <script type="math/tex">r_{31}</script>, <script type="math/tex">r_{32}, r_{40}</script>, <script type="math/tex">r_{41}</script>, <script type="math/tex">r_{42}</script>, <script type="math/tex">r_{43}</script>, ... <script type="math/tex">]</script>. The matrix elements show the value or the index into the linear array. Let's do something similar for the interaction energy:</p>
 <p><img alt="Eij" src="../public/Eij.png"></p>
-<p>We have added a column to compute the row sums and the total sum of the interaction energies <script type="math/tex">E_{ij}</script>. Let's now 
-visualize the changes when an atom, say atom 4, is perturbed.</p>
+<p>We have added a column to compute the row sums and the total sum of the interaction energies <script type="math/tex">E_{ij}</script>. Let's now visualize the changes when an atom, say atom 4, is perturbed.</p>
 <p><img alt="Eij" src="../public/Eij-perturb-4.png"></p>
-<p>The items changing due to perturbing <script type="math/tex">r_4</script> are marked in orange. The row sum for row 4 has to be computed from scratch
-and in row 5 and 6 the elements corresponding to column 4 change as well. The next figure shows how the perturbed 
-result can be computed from the previous result by first subtracting the previous result and then adding the new 
-result. </p>
+<p>The items changing due to perturbing <script type="math/tex">r_4</script> are marked in orange. The row sum for row 4 has to be computed from scratch and in row 5 and 6 the elements corresponding to column 4 change as well. The next figure shows how the perturbed result can be computed from the previous result by first subtracting the previous result and then adding the new result.</p>
 <p><img alt="Eij" src="../public/Eij-perturb-4-bis.png"></p>
 <p>Here is a comparison of the timings:</p>
 <table>
@@ -259,52 +890,30 @@ result. </p>
 </tr>
 </tbody>
 </table>
-<p>Clearly, the timings for the <script type="math/tex">O(N^2)</script> algorithm increase quadratically, while those for the <script type="math/tex">O(N)</script> algorithm increase 
-only linearly and the speedups are substantial. The <script type="math/tex">O(N)</script> algorithm for 500 atoms - a number that our researcher 
-considered unattainable because it would take too long to compute - is still faster than the <script type="math/tex">O(N)</script> algorithm.</p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p><strong><em>Look for algorithms of low computational complexity.</em></strong> However, The best algorithme may also depend on the 
-problem as we saw in <a class="autorefs autorefs-internal" href="../chapter-2/#selecting-algorithms-based-on-computational-complexity">Selecting algorithms based on computational complexity</a>.  </p>
-</div>
-<p>Despite the considerable performance improvement, there are a few disadvantages to it too. The <script type="math/tex">O(N)</script> algorithm has 
-more code, is more difficult to understand and thus harder to maintain. Morover, its loops are more complex, making 
-it harder for the compiler to optimize. Autovectorisation doesn't work. If it needs further optimization, it is 
-certainly no low-hanging fruit.   </p>
+<p>Clearly, the timings for the <script type="math/tex">O(N^2)</script> algorithm increase quadratically, while those for the <script type="math/tex">O(N)</script> algorithm increase only linearly and the speedups are substantial. The <script type="math/tex">O(N)</script> algorithm for 500 atoms - a number that our researcher considered unattainable because it would take too long to compute - is still faster than the <script type="math/tex">O(N)</script> algorithm.</p>
+<p>!!! Tip     <strong><em>Look for algorithms of low computational complexity.</em></strong> However, The best algorithme may also depend on the problem as we saw in <a class="autorefs autorefs-internal" href="../chapter-2/#selecting-algorithms-based-on-computational-complexity">Selecting algorithms based on computational complexity</a>.</p>
+<p>Despite the considerable performance improvement, there are a few disadvantages to it too. The <script type="math/tex">O(N)</script> algorithm has more code, is more difficult to understand and thus harder to maintain. Moreover, its loops are more complex, making it harder for the compiler to optimize. Auto-vectorization doesn't work. If it needs further optimization, it is certainly no low-hanging fruit.</p>
 <h3 id="parallelization">Parallelization</h3>
-<p>If the time of solution for this sofar sequential program is still too large, we might opt for parallelization. The 
-interaction loop is now doing relatively little work, and hard to parallelize. On the other hand the perturbation 
-loop can be easily distributed over more threads as this loop is 
-<a class="autorefs autorefs-internal" href="../chapter-1/#what-is-a-parallel-program">embarrassingly parallel</a>. As long as every thread generates a different series of 
-random numbers they can run their share of the perturbation iterations completely independent. This is very easy to 
-achieve with OpenMP. In the end every thread would have its own minimum energy configuration, and the overall 
-minimum energy configuration is simply found as the minimum of per thread minima. Since every core has its own L1 
-cache, the problem for each thread also fits in L1. </p>
+<p>If the time of solution for this sofar sequential program is still too large, we might opt for parallelization. The interaction loop is now doing relatively little work, and hard to parallelize. On the other hand the perturbation loop can be easily distributed over more threads as this loop is <a class="autorefs autorefs-internal" href="../chapter-1/#what-is-a-parallel-program">embarrassingly parallel</a>. As long as every thread generates a different series of random numbers they can run their share of the perturbation iterations completely independent. This is very easy to achieve with OpenMP. In the end every thread would have its own minimum energy configuration, and the overall minimum energy configuration is simply found as the minimum of per thread minima. Since every core has its own L1 cache, the problem for each thread also fits in L1. </p>
 <h3 id="project-mcgse">Project mcgse</h3>
 <p>The <code>wetppr/mcgse</code> folder repeats this case study for the <a href="https://en.wikipedia.%0Aorg/wiki/Morse_potential">Morse potential</a> (I lost the original code :-( )</p>
 <p>
 <script type="math/tex; mode=display"> V(r) = D_e(1 - e^{-\alpha(r-r_e)})^2 </script>
 </p>
-<p>We will assume that all parameters are unity. </p>
-<p>
-<script type="math/tex; mode=display"> V(r) = (1 - e^{1-r)})^2 </script>
+<p>We will assume that all parameters are unity. 
+<script type="math/tex; mode=display"> V(r) = (1 - e^{1-r})^2 </script>
 </p>
 <p>Here is its graph:</p>
 <p><img alt="morse" src="../public/morse.png"></p>
-<p>Using our <a href="../chapter-5/">research software devolopment strategy</a>, we start in Python, implement both algorithms and 
-test. A good test is the case of a cluster of 4 atoms. Energy minimum then consists of a tetrahedron with unit sides.
-Every pair is then at equilibrium distance and <script type="math/tex">E_{min}=0</script>. The vertices of the tetrahedron are on a sphere of 
-radius <script type="math/tex">\sqrt{3/8}</script>. Let us randomly distribute 4 points on a sphere of radius <script type="math/tex">\sqrt{3/8}</script> and see how well close 
-we get to <script type="math/tex">E_{min}=0</script>. </p>
+<p>Using our <a href="../chapter-5/">research software development strategy</a>, we start in Python, implement both algorithms and test. A good test is the case of a cluster of 4 atoms. Energy minimum then consists of a tetrahedron with unit sides.
+Every pair is then at equilibrium distance and <script type="math/tex">E_{min}=0</script>. The vertices of the tetrahedron are on a sphere of radius <script type="math/tex">\sqrt{3/8}</script>. Let us randomly distribute 4 points on a sphere of radius <script type="math/tex">\sqrt{3/8}</script> and see how well close we get to <script type="math/tex">E_{min}=0</script>. </p>
 <pre><code class="language-python">    import numpy as np
     import mcgse # our module for this project: wetppr/mcgse
     sample = mcgse.sample_unit_sphere(4) * np.sqrt(3/8)
     config = (sample[0], sample[1], sample[2]) # initial coordinates of the atoms (x,y,z)
     dist = mcgse.LogNormal(mean=-5, sigma=.4) # distribution to draw the length of the displacements from
-    #   the distribution and its parameters were selected using quite some trial and error to obtain 
-    #   useful results...
-    Emin_ON2, *config_min_ON2 = mcgse.execute_perturbation_loop(config=config, n_iterations=20000, dist=dist, algo='ON2', verbosity=1)
-    Emin_ON , *config_min_ON  = mcgse.execute_perturbation_loop(config=config, n_iterations=20000, dist=dist, algo='ON' , verbosity=1)
+    #   the distribution and its parameters were selected using quite some trial and error to obtain     #   useful results...
+    Emin_ON2, *config_min_ON2 = mcgse.execute_perturbation_loop(config=config, n_iterations=20000, dist=dist, algo='ON2', verbosity=1)  Emin_ON , *config_min_ON  = mcgse.execute_perturbation_loop(config=config, n_iterations=20000, dist=dist, algo='ON' , verbosity=1)
 </code></pre>
 <p>Here are the results for 5 runs:</p>
 <pre><code class="language-python">ON2 iteration 0: Emin=1.8642580817361518
@@ -336,21 +945,13 @@ ON iteration 200000: Emin=0.07936811573814093, last improvement: iteration = 258
 <ul>
 <li>Neither of the algorithms seem to get close to the minimum,</li>
 <li>In terms of closeness to the minimum there no clear winner, although <code>ON</code> got rather close twice,</li>
-<li>The higher the initial energy, the worse the solution, which is acceptable, as the average displacement magnitude 
-  is fixed.</li>
-<li>None of the algorithms seems to converge. In the first and the last run <code>ON2</code> found its best guess at 2044 and 
-  2621 iterations. None of the approximately 198_000 later attempts could reduce the energy. This seems to be the 
-  case for <code>ON</code> as well, although the numbers are a bit higher. Despite being far from the minimum, improvements 
-  seem to involve progressively more work. </li>
-</ul>
-<p>Especially the last conclusion is rather worrying. Our algorithms don't seem to sample the configuration space very 
-efficiently. </p>
-<p>Perhaps, rather than displacing the atoms randomly, it might be more efficient to move them in the direction of the 
-steepest descent of the energy surface. Since we have an analytical expression, we can compute it. The interaction 
-<script type="math/tex">V(r_{ij})</script> exerts a force </p>
-<p>
+<li>The higher the initial energy, the worse the solution, which is acceptable, as the average displacement magnitude   is fixed.</li>
+<li>None of the algorithms seems to converge. In the first and the last run <code>ON2</code> found its best guess at 2044 and   2621 iterations. None of the approximately 198_000 later attempts could reduce the energy. This seems to be the   case for <code>ON</code> as well, although the numbers are a bit higher. Despite being far from the minimum, improvements   seem to involve progressively more work. 
+Especially the last conclusion is rather worrying. Our algorithms don't seem to sample the configuration space very efficiently. 
+Perhaps, rather than displacing the atoms randomly, it might be more efficient to move them in the direction of the steepest descent of the energy surface. Since we have an analytical expression, we can compute it. The interaction <script type="math/tex">V(r_{ij})</script> exerts a force 
 <script type="math/tex; mode=display"> {\mathbf{F}}_k = -\nabla_{\mathbf{r}_k}E </script>
-</p>
+</li>
+</ul>
 <p>
 <script type="math/tex; mode=display"> = -\nabla_{\mathbf{r}_k} \sum_{i<j}V(r_{ij}) = -\sum_{i<j}
 \nabla_{\mathbf{r}_k}V(r_{ij})</script>
@@ -359,8 +960,7 @@ steepest descent of the energy surface. Since we have an analytical expression, 
 <script type="math/tex; mode=display">= -\sum_{i<j}
 \frac{d}{d_{r_{ij}}}V(r_{ij})\nabla_{\mathbf{r}_k}r_{ij} = -\sum_{i<j} V'(r_{ij})\nabla_{\mathbf{r}_k}r_{ij}</script>
 </p>
-<p>Here, </p>
-<p>
+<p>Here, 
 <script type="math/tex; mode=display">\nabla_{\mathbf{r}_k}r_{ij} = 0 \text{  if  } k \ne i,j </script>
 </p>
 <p>and</p>
@@ -370,82 +970,48 @@ steepest descent of the energy surface. Since we have an analytical expression, 
 <p>
 <script type="math/tex; mode=display">\nabla_{\mathbf{r}_k}r_{jk} = \frac{\mathbf{r}_{jk}}{r_{jk}} = {\hat{\mathbf{r}}}_{jk}</script>
 </p>
-<p>Thus, </p>
-<p>Hence:</p>
+<p>Thus, 
+Hence:</p>
 <p>
-<script type="math/tex; mode=display"> \mathbf{F}_k = \sum_{j\ne{k}} V'(r_{kj}){\hat{\mathbf{r}}}_{kj} = -\sum_{j<k} V'(r_{jk}){\hat{\mathbf{r}}}_{jk} 
-+ \sum_{k<j} V'(r_{kj}){\hat{\mathbf{r}}}_{kj}</script>
+<script type="math/tex; mode=display"> \mathbf{F}_k = \sum_{j\ne{k}} V'(r_{kj}){\hat{\mathbf{r}}}_{kj} = -\sum_{j<k} V'(r_{jk}){\hat{\mathbf{r}}}_{jk} + \sum_{k<j} V'(r_{kj}){\hat{\mathbf{r}}}_{kj}</script>
 </p>
-<p>Finally (setting all parameters to unity),  </p>
-<p>
+<p>Finally (setting all parameters to unity),<br>
 <script type="math/tex; mode=display"> V'(r) = -2(1-e^{1-r})e^{1-r}</script>
 </p>
-<p>Now that we have the forces on the atoms in the current configuration, we should be able to move the atoms in the 
-directon of the force, rather than in a random direction, as before. In fact we have a true minimisation problem now.</p>
+<p>Now that we have the forces on the atoms in the current configuration, we should be able to move the atoms in the direction of the force, rather than in a random direction, as before. In fact, we have a true minimization problem now.</p>
 <p>to be continued...</p>
 <h2 id="study-of-data-access-patterns-in-a-large-lennard-jones-systems">Study of data access patterns in a large Lennard-Jones systems</h2>
 <h3 id="introduction_1">Introduction</h3>
-<p>In this case study we consider a large system of atoms whose interaction is described by a Lennard-Jones potential. 
-By large we mean a system that does not fit in the cache. Consequently, the effect of caches will be noticabel in 
-the results. We will consider two different settings. A Monte Carlo setting, as above, in which the interaction 
-energy is computed as a sum of pairwise interactions. It is of little physical significance, but is useful to 
-demonstrate the effect of the caches on the computations. </p>
-<p>The second setting is a true molecular dynamics setting in which the time evolution of a collection of atoms is 
-computed by time integration of the interaction forces which are computed as the gradient of the interaction potential.
+<p>In this case study we consider a large system of atoms whose interaction is described by a Lennard-Jones potential. By large we mean a system that does not fit in the cache. Consequently, the effect of caches will be noticeable in the results. We will consider two different settings. A Monte Carlo setting, as above, in which the interaction energy is computed as a sum of pairwise interactions. It is of little physical significance, but is useful to demonstrate the effect of the caches on the computations. The second setting is a true molecular dynamics setting in which the time evolution of a collection of atoms is computed by time integration of the interaction forces which are computed as the gradient of the interaction potential.
 This gives rise to time dependent accelerations, velocities and positions of the atoms. </p>
 <h3 id="monte-carlo-setting">Monte Carlo setting</h3>
 <p>The interaction energy is given by:</p>
 <p>
 <script type="math/tex; mode=display"> E=\sum_{i<j}V(r_{ij}) </script>
 </p>
-<p>Since our sytem is large, say billions of atoms, computing this sum considering all pairs, is computationally 
-unfeasible because it has <script type="math/tex">O(N^2)</script> computational complexity. We will discuss approaches to reduce the computational 
-complexity to <script type="math/tex">O(N)</script>. To study the effect of the cache we will compute the partial sum  </p>
-<p>
+<p>Since our system is large, say billions of atoms, computing this sum considering all pairs, is computationally unfeasible because it has <script type="math/tex">O(N^2)</script> computational complexity. We will discuss approaches to reduce the computational complexity to <script type="math/tex">O(N)</script>. To study the effect of the cache we will compute the partial sum<br>
 <script type="math/tex; mode=display"> E_i=\sum_{j\ne{i}}V(r_{ij}) </script>
 </p>
-<p>for <script type="math/tex">i=0</script>, that is </p>
-<p>
+<p>for <script type="math/tex">i=0</script>, that is 
 <script type="math/tex; mode=display"> E_0=\sum_{j=1}^{N}V(r_{0j}) </script>
 </p>
-<p>Because our system is translationally invariant, we can put atom <script type="math/tex">0</script> at the origin, in which case <script type="math/tex">r_{0j}=r_j</script>. 
-Thus, we end up with:</p>
+<p>Because our system is translationally invariant, we can put atom <script type="math/tex">0</script> at the origin, in which case <script type="math/tex">r_{0j}=r_j</script>. Thus, we end up with:</p>
 <p>
 <script type="math/tex; mode=display"> E_0=\sum_{j=1}^{N}V(r_{j}) </script>
 </p>
-<p>We will use the best implementation for the Lennard-Jones potential that we discussed in 
-<a class="autorefs autorefs-internal" href="../chapter-2/#the-cost-of-floating-point-instructions">The cost of floating point instructions</a>, expressed as a function of <script type="math/tex">r^2</script>,
+<p>We will use the best implementation for the Lennard-Jones potential that we discussed in <a class="autorefs autorefs-internal" href="../chapter-2/#the-cost-of-floating-point-instructions">The cost of floating point instructions</a>, expressed as a function of <script type="math/tex">r^2</script>,
 as to avoid the square root needed to compute <script type="math/tex">r</script>. We consider three different cases:</p>
 <ol>
 <li>A contiguous loop over arrays <code>x[1:N]</code>, <code>y[1:N]</code>, <code>z[1:N]</code>. This is a structure of arrays (SoA) approach.</li>
-<li>A contiguous loop over a single array <code>xyz[1:3N</code>, in which the <script type="math/tex">x</script>, <script type="math/tex">y</script> and <script type="math/tex">z</script> coordinates of the <script type="math/tex">i</script>-th 
-   atom come after each other followed by the  <script type="math/tex">x</script>, <script type="math/tex">y</script> and <script type="math/tex">z</script> coordinates of the <script type="math/tex">i+1</script>-th atom. This is a array of 
-   structures approach (AoS).</li>
-<li>A contiguous loop over arrays <code>x[1:N]</code>, <code>y[1:N]</code>, <code>z[1:N]</code> in which the atoms are picked by random permutation of 
-   <script type="math/tex">1..N</script>. So, all atoms are visited, but in a random order. </li>
+<li>A contiguous loop over a single array <code>xyz[1:3N</code>, in which the <script type="math/tex">x</script>, <script type="math/tex">y</script> and <script type="math/tex">z</script> coordinates of the <script type="math/tex">i</script>-th atom come after each other followed by the  <script type="math/tex">x</script>, <script type="math/tex">y</script> and <script type="math/tex">z</script> coordinates of the <script type="math/tex">i+1</script>-th atom. This is an array of structures approach (AoS).</li>
+<li>A contiguous loop over arrays <code>x[1:N]</code>, <code>y[1:N]</code>, <code>z[1:N]</code> in which the atoms are picked by random permutation of <script type="math/tex">1..N</script>. So, all atoms are visited, but in a random order. </li>
 </ol>
-<p>For each case <script type="math/tex"> E_0=\sum_{j=1}^{N}V(r_{j}) </script> is computed for <script type="math/tex">N \in \{2^9,2^10,2^11,...,2^{29}\}</script> repeating the loop 
-over <script type="math/tex">j</script>
-<script type="math/tex">2^{29}/N</script> times. In this way the amount of interaction potential evaluations is exactly <script type="math/tex">2^{29}</script> 
-irrespective of the length of the array, and the timings can be compared. The smallest arrays fit in L1, while the 
-longest arrays (<script type="math/tex">2^29\approx0.5\times10^9</script>) do not even fit in L3. Here are the timings:</p>
+<p>For each case <script type="math/tex"> E_0=\sum_{j=1}^{N}V(r_{j}) </script> is computed for <script type="math/tex">N \in \{2^9,2^10,2^11,...,2^{29}\}</script> repeating the loop over <script type="math/tex">j</script>
+<script type="math/tex">2^{29}/N</script> times. In this way the amount of interaction potential evaluations is exactly <script type="math/tex">2^{29}</script> irrespective of the length of the array, and the timings can be compared. The smallest arrays fit in L1, while the longest arrays (<script type="math/tex">2^29\approx0.5\times10^9</script>) do not even fit in L3. Here are the timings:</p>
 <p><img alt="0" src="../public/LJ-system-MC-setting-0.png"></p>
-<p>It is clearly visible that the behaviour of the random case above is very different from the two contiguous cases. 
-For the longest arrays, the performance is a whopping 15x worse on the random loop, yet every case performs exactly 
-the same work. There burning question is of course: "what is causing the performance breakdown of the randomized 
-loop"? The second question, certainly less burning, but nevertheless important, is: "is the lowest curve (the AoS 
-case) the best we can get?". If you are really curious, you might wonder about the small difference between the AoS 
-case and the SoA case at larger <script type="math/tex">N</script>. To help your understanding of the problem, here is a different representation 
-of the same graph, this time the number of bytes used by the arrays on the x-axis instead of the array size <script type="math/tex">N</script>. 
-With this x-axis it is easy to draw the boundaries of the L1, L2 and L3 caches. </p>
-<p><img alt="1" src="../public/LJ-system-MC-setting-cache-boundaries.png"></p>
-<p>Surprisingly enough, the changes in 
-the curves coincide with the cache boundaries. As soon as the problem is too large for a cache, cache misses cause 
-pipeline stalls, and the CPU has to wait for the data needed. The latency increases at every cache boundary and the 
-slowdown becomes more pronounced each time. This also explains the slight advantage for the AoS case over the SoA 
-case for problems not fitting in L3. As x, y, and z follow contiguously in memory in the AoS case, when it needs new 
-data from memory, it has to wait for only a single cache line, while the SoA needs three. If you have difficulties 
-to grasp, revisit the talk by Scott Meyers <a href="https://www.youtube.com/watch?v=WDIkqP4JbkE"><em>CPU Caches and Why You Care</em></a>.</p>
+<p>It is clearly visible that the behaviour of the random case above is very different from the two contiguous cases. For the longest arrays, the performance is a whopping 15x worse on the random loop, yet every case performs exactly the same work. There burning question is of course: "what is causing the performance breakdown of the randomized loop"? The second question, certainly less burning, but nevertheless important, is: "is the lowest curve (the AoS case) the best we can get?". If you are really curious, you might wonder about the small difference between the AoS case and the SoA case at larger <script type="math/tex">N</script>. To help your understanding of the problem, here is a different representation of the same graph, this time the number of bytes used by the arrays on the x-axis instead of the array size <script type="math/tex">N</script>. With this x-axis it is easy to draw the boundaries of the L1, L2 and L3 caches. 
+<img alt="1" src="../public/LJ-system-MC-setting-cache-boundaries.png"></p>
+<p>Surprisingly enough, the changes in the curves coincide with the cache boundaries. As soon as the problem is too large for a cache, cache misses cause pipeline stalls, and the CPU has to wait for the data needed. The latency increases at every cache boundary and the slowdown becomes more pronounced each time. This also explains the slight advantage for the AoS case over the SoA case for problems not fitting in L3. As x, y, and z follow contiguously in memory in the AoS case, when it needs new data from memory, it has to wait for only a single cache line, while the SoA needs three. If you have difficulties to grasp, revisit the talk by Scott Meyers <a href="https://www.youtube.com/watch?v=WDIkqP4JbkE"><em>CPU Caches and Why You Care</em></a>.</p>
 <p>The second question is a bit harder to answer. Let us analyze the performance of the (Fortran) loop:</p>
 <pre><code class="language-fortran">! Contiguous access, SoA: p=[xxx…yyy…zzz…]
 do ik=1,k
@@ -461,10 +1027,8 @@ do ik=1,k
 enddo                                   ! 14 flops
 </code></pre>
 <p>The loop has 14 floating point operations. It is executed <script type="math/tex">2^29</script> times in 1.2s. That makes <script type="math/tex">6.26\times 10^9</script> flops/s.
-The peak performance of the machine is 1 core x 1 instruction per cycle x 4 SIMD registers per instruction x 2.8 GHz = 
-11.2 Gcycles/s = 11.2 Gflops/s. Consequently, we are running at 56% of the peak performance. So it looks as if we 
-could still do better.  </p>
-<p><img alt="2" src="../public/LJ-system-MC-setting-peak-performance.png"></p>
+The peak performance of the machine is 1 core x 1 instruction per cycle x 4 SIMD registers per instruction x 2.8 GHz = 11.2 Gcycles/s = 11.2 Gflops/s. Consequently, we are running at 56% of the peak performance. So it looks as if we could still do better.<br>
+<img alt="2" src="../public/LJ-system-MC-setting-peak-performance.png"></p>
 <p>Let us analyze the data traffic of the same loop:</p>
 <pre><code class="language-fortran">! Contiguous access, SoA: p=[xxx…yyy…zzz…]
 do ik=1,k
@@ -479,22 +1043,11 @@ do ik=1,k
     enddo                               !---------------!-----
 enddo                                   ! 14 flops      ! 24B
 </code></pre>
-<p>The loop reads 24 bytes x <script type="math/tex">2^29</script> iterations in 1.2 s. That makes 10.7 GB/s. The bandwidth of the machine is 109 
-GB/s for 10 cores, that is 10.9 GB for 1 core. Our loop runs at the maximum bandwidth. It is <strong>bandwith saturated</strong>. 
-This is a machine limit. It can simply not feed the CPU with data faster than this. It is instructive to draw a 
-roofline model for this. </p>
-<p><img alt="3" src="../public/LJ-system-MC-setting-roofline.png"></p>
-<p>The above loop, that is the contiguous cases, plot on the bandwidth part of the roofline indicating that the machine 
-limit (bandwidth) is reached, the random case sits close to the bottom far away from all machine limits. The 
-conclusion is that the loop as it is runs at its maximum speed, being bandwidth limited. However, 44% of the time 
-the CPU is not doing useful work, because it is waiting for data. That means that if we replaced the Lennard-Jones 
-potential with another one that is about twice as compute intensive, and for that reason more accurate, we would still 
-finish the computation in 1.2s and have a more accurate solution, because we are using the cycles that the CPU was 
-waiting for data to do the extra computations. </p>
+<p>The loop reads 24 bytes x <script type="math/tex">2^29</script> iterations in 1.2 s. That makes 10.7 GB/s. The bandwidth of the machine is 109 GB/s for 10 cores, that is 10.9 GB for 1 core. Our loop runs at the maximum bandwidth. It is <strong>bandwidth saturated</strong>. This is a machine limit. It can simply not feed the CPU with data faster than this. It is instructive to draw a roof-line model for this. 
+<img alt="3" src="../public/LJ-system-MC-setting-roofline.png"></p>
+<p>The above loop, that is the contiguous cases, plot on the bandwidth part of the roof-line indicating that the machine limit (bandwidth) is reached, the random case sits close to the bottom far away from all machine limits. The conclusion is that the loop as it is runs at its maximum speed, being bandwidth limited. However, 44% of the time the CPU is not doing useful work, because it is waiting for data. That means that if we replaced the Lennard-Jones potential with another one that is about twice as compute intensive, and for that reason more accurate, we would still finish the computation in 1.2s and have a more accurate solution, because we are using the cycles that the CPU was waiting for data to do the extra computations. </p>
 <h3 id="molecular-dynamics-setting">Molecular Dynamics setting</h3>
-<p>We consider the same system, a large collection of atoms interacting through a Lennard-Jones potential. In a 
-Molecular Dynamics setting the time evolution of th system is computed by time integration of the classical equation 
-of motion:</p>
+<p>We consider the same system, a large collection of atoms interacting through a Lennard-Jones potential. In a Molecular Dynamics setting the time evolution of th system is computed by time integration of the classical equation of motion:</p>
 <p>
 <script type="math/tex; mode=display"> \dot{\mathbf{r}} = \mathbf{v} </script>
 </p>
@@ -509,11 +1062,7 @@ of motion:</p>
 <script type="math/tex; mode=display"> \mathbf{F}_i = \nabla_{\mathbf{r}_i}{E} = \nabla_{\mathbf{r}_i} \sum_{j\ne{i}}^{N}V(r_{ij}) </script>
 </p>
 <p>We assume a system size of <script type="math/tex">N=10^9</script> atoms. The number of terms in the sum above is then <script type="math/tex">10^9(10^9-1)/2\approx{10^
-{18}}</script>. That will keep us busy, won't it... However, when you start evaluating all these contributions, you very 
-soon realize that most of them are really small, so small that they don't actually contribute to the result. They 
-are <strong>short-ranged</strong>. Mathematically, a force is short-ranged if it decays faster than <script type="math/tex">r^{-2}</script>. This is because the 
-area of a sphere with radius <script type="math/tex">r</script> is <script type="math/tex">4\pi r^2</script> and hence the number of particles at distance grows as <script type="math/tex">r^2</script>. 
-Consequently, in order for the force exerted by those particle to be negligible it has to decay faster than <script type="math/tex">r^{-2}</script>.</p>
+{18}}</script>. That will keep us busy, won't it? However, when you start evaluating all these contributions, you very soon realize that most of them are really small, so small that they don't actually contribute to the result. They are <strong>short-ranged</strong>. Mathematically, a force is short-ranged if it decays faster than <script type="math/tex">r^{-2}</script>. This is because the area of a sphere with radius <script type="math/tex">r</script> is <script type="math/tex">4\pi r^2</script> and hence the number of particles at distance grows as <script type="math/tex">r^2</script>. Consequently, in order for the force exerted by those particle to be negligible it has to decay faster than <script type="math/tex">r^{-2}</script>.</p>
 <p>The derivative of the Lennard-Jones potential is:</p>
 <p>
 <script type="math/tex; mode=display"> V'(r) = ({-6}/{r}) r^{-6}(2r^{-6}-1) </script>
@@ -527,28 +1076,24 @@ _i}r_{ij} = \sum_{j\ne{i}}^{N}V'(r_{ij}) \hat{\mathbf{r}}_{ij} </script>
 <script type="math/tex; mode=display"> = \sum_{j\ne{i}}^{N} ({-6}/{r_{ij}}) r_{ij}^{-6}(2r_{ij}^{-6}-1) \frac{\mathbf{r}_{ij}}{r_{ij}} = \sum_{j\ne{i}}^
 {N} -6 r_{ij}^{-8}(2r_{ij}^{-6}-1) \mathbf{r}_{ij} </script>
 </p>
-<p>Note that the force factor <script type="math/tex">f</script>, that is the factor in front of <script type="math/tex">\mathbf{r}_ij</script>, can also be expressed in terms of 
-<script type="math/tex">s=r^2=\delta{x}^2+\delta{y}^2+\delta{x}^2</script>:</p>
+<p>Note that the force factor <script type="math/tex">f</script>, that is the factor in front of <script type="math/tex">\mathbf{r}_ij</script>, can also be expressed in terms of <script type="math/tex">s=r^2=\delta{x}^2+\delta{y}^2+\delta{x}^2</script>:</p>
 <p>
 <script type="math/tex; mode=display"> f(s) = -6 s^{-4}(2s^{-3}-1) </script>
 </p>
 <p>
 <script type="math/tex; mode=display"> \mathbf{F}_i = \sum_{j\ne{i}}^{N} f(s_{ij}) \mathbf{r}_{ij} </script>
 </p>
-<p>So, we can avoid the square root in computing <script type="math/tex">r_ij</script>. Clearly, we can compute the interaction energy and the 
-interaction force in one go with little extra effort:</p>
+<p>So, we can avoid the square root in computing <script type="math/tex">r_ij</script>. Clearly, we can compute the interaction energy and the interaction force in one go with little extra effort:</p>
 <p>
 <script type="math/tex; mode=display"> V(s) = s^{-3}(s^{-3}-1) </script>
 </p>
 <p>
 <script type="math/tex; mode=display"> E = \sum_{i<j} V(s_{ij}) </script>
 </p>
-<p>The fact that the interaction force is short-ranged, allows us to neglect the interaction forces beyond a cutoff 
-distance <script type="math/tex">r_c</script>, thus offering a possibility to avoid the cost of an <script type="math/tex">O(N^2)</script> algorithm. </p>
+<p>The fact that the interaction force is short-ranged, allows us to neglect the interaction forces beyond a cutoff distance <script type="math/tex">r_c</script>, thus offering a possibility to avoid the cost of an <script type="math/tex">O(N^2)</script> algorithm. </p>
 <h4 id="implementing-cutoff">Implementing cutoff</h4>
-<p>As a first step we we can avoid the computation of the interaction energy and the interaction force if <script type="math/tex">r_{ij}>r_c</script>, 
-or <script type="math/tex">s_{ij}>s_c</script>:</p>
-<pre><code class="language-python"># (python psseudo-code)
+<p>As a first step we can avoid the computation of the interaction energy and the interaction force if <script type="math/tex">r_{ij}>r_c</script>, or <script type="math/tex">s_{ij}>s_c</script>:</p>
+<pre><code class="language-python"># (python pseudocode)
 for i in range(N):
     for j in range(i):
         x_ij = x[j]-x[i]
@@ -567,149 +1112,88 @@ for i in range(N):
             Fy[j] -= f*y_ij
             Fz[j] -= f*z_ij
 </code></pre>
-<p>Although this loop only computes the interactions wheen <script type="math/tex">s_{ij}\le{s_c}</script>, it still visits every pair to compute 
-<script type="math/tex">s_{ij}</script>. The corresponding amount of work is still <script type="math/tex">O(N^2)</script>. Some improvement is possible by using Verlet lists.
-The <strong>Verlet list</strong> of an atom <script type="math/tex">i</script> is the set of atoms <script type="math/tex">j</script> for which <script type="math/tex">r_{ij}<r_v</script>, where <script type="math/tex">r_v</script> is typically a bit 
-larger than <script type="math/tex">r_c</script>. The loop is now witten as:</p>
-<pre><code class="language-python"># (python psseudo-code)
+<p>Although this loop only computes the interactions wheen <script type="math/tex">s_{ij}\le{s_c}</script>, it still visits every pair to compute <script type="math/tex">s_{ij}</script>. The corresponding amount of work is still <script type="math/tex">O(N^2)</script>. Some improvement is possible by using Verlet lists.
+The <strong>Verlet list</strong> of an atom <script type="math/tex">i</script> is the set of atoms <script type="math/tex">j</script> for which <script type="math/tex">r_{ij}<r_v</script>, where <script type="math/tex">r_v</script> is typically a bit larger than <script type="math/tex">r_c</script>. The loop is now witten as:</p>
+<pre><code class="language-python"># (python pseudocode)
 for i in range(N):
     for j in verlet_list(i):
         # as above
 </code></pre>
-<p>The loop over <script type="math/tex">j</script> is now much shorter, its length is bounded, typically in the range <script type="math/tex">10..100</script>. Hence, the double 
-loop is effectively <script type="math/tex">O(N)</script>. The construction of the Verlet list, however, is still <script type="math/tex">O(N^2)</script>, but the cost of it is 
-amortised over a number of timesteps. Because atoms move only a little bit over a time step and <script type="math/tex">r_v>r_c</script>, the 
-Verlet list can indeed be reused a number of timesteps, before it needs to be updated. </p>
-<p>Algorithms for constructing the Verlet list with <script type="math/tex">O(N)</script> complexity do exist. Here's a 2-D version of <strong>cell-based 
-Verlet list construction</strong>. It can be easily extended to 3-D, but that is harder to visualise. In the left figure 
-below, atom <script type="math/tex">i</script> (the orange dot) is surrounded by a blue circle of radius <script type="math/tex">r_v</script>. Atoms inside the blue circle are in 
-the Verlet list of atom <script type="math/tex">i</script>. We now overlay the domain with a square grid, of grid size <script type="math/tex">r_v</script> (middle figure). Atom 
-pairs in  the same cell or in nearest neighbour cells are Verlet list candidates, but not pairs in second nearest 
-neighbours or further. To construct the Verlet list of atom <script type="math/tex">i</script>, we only have to test atoms in the same cell, or in 
-its 8 nearest neighbours, all coloured light-blue. By iterating over all cells and over the atoms it contains, the 
-Verlet lists of all atoms can be constructed with <script type="math/tex">O(N)</script> complexity. In fact, by looking for pairs in all 
-rearest neighbours, all candidate pairs are visited twice (<script type="math/tex">ij</script> and <script type="math/tex">ji</script>). Hence, only half of the nearest 
-neighbours needs to be visited (right figure). </p>
-<p><img alt="cell-based-verlet-list" src="../public/cell-based-verlet-list-construction-0-2.png"></p>
-<p>The algorithm requires that the grid implements: </p>
-<ul>
-<li>a cell list: a list of all the atoms that are in the cell, in order to iterate over all atoms in a cell. The cell 
-  lists can be constructed with <script type="math/tex">O(N)</script> complexity, and </li>
-<li>a method to find the neighbour cells of a cell. </li>
-</ul>
-<p>This is a good example for demonstrating the effectiveness of our 
-<a class="autorefs autorefs-internal" href="../chapter-5/#a-strategy-for-the-development-research-software">strategy for research software development</a>. Here are the steps 
-you should take</p>
+<p>The loop over <script type="math/tex">j</script> is now much shorter, its length is bounded, typically in the range <script type="math/tex">10..100</script>. Hence, the double loop is effectively <script type="math/tex">O(N)</script>. The construction of the Verlet list, however, is still <script type="math/tex">O(N^2)</script>, but the cost of it is amortised over a number of timesteps. Because atoms move only a little bit over a time step and <script type="math/tex">r_v>r_c</script>, the Verlet list can indeed be reused a number of timesteps, before it needs to be updated. 
+Algorithms for constructing the Verlet list with <script type="math/tex">O(N)</script> complexity do exist. Here's a 2-D version of <strong>cell-based Verlet list construction</strong>. It can be easily extended to 3-D, but that is harder to visualise. In the left figure below, atom <script type="math/tex">i</script> (the orange dot) is surrounded by a blue circle of radius <script type="math/tex">r_v</script>. Atoms inside the blue circle are in the Verlet list of atom <script type="math/tex">i</script>. We now overlay the domain with a square grid, of grid size <script type="math/tex">r_v</script> (middle figure). Atom pairs in  the same cell or in nearest neighbour cells are Verlet list candidates, but not pairs in second-nearest neighbours or further. To construct the Verlet list of atom <script type="math/tex">i</script>, we only have to test atoms in the same cell, or in its 8 nearest neighbours, all coloured light-blue. By iterating over all cells and over the atoms it contains, the Verlet lists of all atoms can be constructed with <script type="math/tex">O(N)</script> complexity. In fact, by looking for pairs in all nearest neighbours, all candidate pairs are visited twice (<script type="math/tex">ij</script> and <script type="math/tex">ji</script>). Hence, only half of the nearest neighbours needs to be visited (right figure). 
+<img alt="cell-based-verlet-list" src="../public/cell-based-verlet-list-construction-0-2.png"></p>
+<p>The algorithm requires that the grid implements: 
+- a cell list: a list of all the atoms that are in the cell, in order to iterate over all atoms in a cell. The cell   lists can be constructed with <script type="math/tex">O(N)</script> complexity, and - a method to find the neighbour cells of a cell. 
+This is a good example for demonstrating the effectiveness of our <a class="autorefs autorefs-internal" href="../chapter-5/#a-strategy-for-the-development-research-software">strategy for research software development</a>. Here are the steps you should take</p>
 <ol>
 <li>Start out in Python.</li>
 <li>Take a small system, <em>e.g.</em> <script type="math/tex">N=5</script>, use Numpy arrays for the positions, velocities, ...</li>
 <li>Implement brute force computation of interactions and interaction forces (<script type="math/tex">O(N^2)</script>).</li>
-<li>Implement brute force computation of interactions and interaction forces with cutoff (<script type="math/tex">O(N^2)</script>). </li>
-<li>Implement brute force construction of Verlet lists (<script type="math/tex">O(N^2)</script>). (You might need a larger system for testing this). </li>
-<li>Implement Verlet list computation of interactions and interaction forces (<script type="math/tex">O(N)</script>).</li>
+<li>Implement brute force computation of interactions and interaction forces with cutoff (<script type="math/tex">O(N^2)</script>). 4. Implement brute force construction of Verlet lists (<script type="math/tex">O(N^2)</script>). (You might need a larger system for testing this). 5. Implement Verlet list computation of interactions and interaction forces (<script type="math/tex">O(N)</script>).</li>
 <li>Implement cell-based Verlet list construction (<script type="math/tex">O(N)</script>). (You might need a larger system for testing this).</li>
-<li>
-<p>Optimise, try using Numba, or by taking the compute intensive parts to C++. </p>
-</li>
-<li>
-<p>Of course test and validate every step, <em>e.g.</em> by comparing to previous steps. </p>
-</li>
+<li>Optimise, try using Numba, or by taking the compute intensive parts to C++. </li>
+<li>Of course test and validate every step, <em>e.g.</em> by comparing to previous steps. </li>
 </ol>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p>Remember that, <strong><em>for performance</em></strong>, you should <strong><em>avoid using loops in Python</em></strong>. When I implemented the 
-cell-based Verlet list construction in Python, it turned out to be terribly slow, mainly because of 5 levels of 
-nesting Python loops. The C++ version turned out to be 1200x faster (twelve hundred indeed, no typo!). </p>
+<p>Remember that, <strong><em>for performance</em></strong>, you should <strong><em>avoid using loops in Python</em></strong>. When I implemented the     cell-based Verlet list construction in Python, it turned out to be terribly slow, mainly because of 5 levels of     nesting Python loops. The C++ version turned out to be 1200x faster (twelve hundred indeed, no typo!). </p>
 </div>
 <h4 id="moving-atoms">Moving atoms</h4>
-<p>The initalization of a physically consistent system of atoms is a non-trivial task in itself. Because molecular motion 
-conserves energy, random positions and velocities at time <script type="math/tex">t=0</script> may pos a lot of trouble for time integration. When 
-two atoms happen to be very close they experience very high repulsive force and thus are accelerated vigorously. 
-This can easily make the simulation explode. A practical way is to put atoms on a lattice with interatomic distances 
-close to the equilibrium distance of the Lennard-Jones potential, <em>e.g.</em> primitive cubic, body-centred cubic (BCC), 
-face-centred cubic (FCC), hexagonal closest packing (HCP). then slowly increase random velocities to increase the 
-kinetice energy and hence the temperature.</p>
-<p>When initializing the system on a lattice, often the performance is rather good because the regular arrangement 
-allows for a good data access pattern. However, as (simulation) time proceeds the atoms move and diffusion kicks in. 
-Every timestep, some atoms will move in and out of some other atom's Verlet sphere. Gradually, the atoms will move 
-further and further from their original positions, but their location in memory does not change, and, consequentially, 
-the data access pattern appproaches the random array access we discussed above, leading to considerable performance 
-degradation.</p></div></div>
-            </div>
-        </div>
+<p>The initialization of a physically consistent system of atoms is a non-trivial task in itself. Because molecular motion conserves energy, random positions and velocities at time <script type="math/tex">t=0</script> may pos a lot of trouble for time integration. When two atoms happen to be very close they experience very high repulsive force and thus are accelerated vigorously. This can easily make the simulation explode. A practical way is to put atoms on a lattice with interatomic distances close to the equilibrium distance of the Lennard-Jones potential, <em>e.g.</em> primitive cubic, body-centred cubic (BCC), face-centred cubic (FCC), hexagonal closest packing (HCP). then slowly increase random velocities to increase the kinetic energy and hence the temperature.</p>
+<p>When initializing the system on a lattice, often the performance is rather good because the regular arrangement allows for a good data access pattern. However, as (simulation) time proceeds the atoms move and diffusion kicks in. Every timestep, some atoms will move in and out of some other atom's Verlet sphere. Gradually, the atoms will move further and further from their original positions, but their location in memory does not change, and, consequentially, the data access pattern approaches the random array access we discussed above, leading to considerable performance degradation.</p></div>
 
-        <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-        <script>
-            var base_url = "..",
-                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
-        </script>
-        <script src="../js/base.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" defer></script>
-        <script src="../search/main.js" defer></script>
 
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
             </div>
-            <div class="modal-body">
-                <p>From here you can search these documents. Enter your search terms below.</p>
-                <form>
-                    <div class="form-group">
-                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
-    </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
 </div>
-
-    </body>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML"></script>
+      
+    
+  </body>
 </html>

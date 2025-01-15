@@ -1,147 +1,776 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        
-        
-        <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Chapter 3 - Optimise first, then parallelize - Parallel Programming</title>
-        <link href="../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../css/font-awesome.min.css" rel="stylesheet">
-        <link href="../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/color-brewer.min.css">
-        <link href="../assets/_mkdocstrings.css" rel="stylesheet">
 
-        <script src="../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
-    </head>
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../chapter-2/">
+      
+      
+        <link rel="next" href="../chapter-4/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+    
+    
+      
+        <title>Chapter 3 - Parallel programmeren</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
+      
+      
 
-    <body>
-        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-            <div class="container">
-                <a class="navbar-brand" href="..">Parallel Programming</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Expanded navigation -->
-                <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="navitem">
-                                <a href=".." class="nav-link">Home</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../glossary/" class="nav-link">Glossary</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../links/" class="nav-link">Useful links</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../overview/" class="nav-link">Overview</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../course-text/" class="nav-link">Course text</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../exercises/" class="nav-link">Exercises</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../evaluation/" class="nav-link">Evaluation of this course</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../vsc-infrastructure/" class="nav-link">VSC infrastructure</a>
-                            </li>
-                        </ul>
-
-                    <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> Search
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-level="1"><a href="#chapter-3-optimise-first-then-parallelize" class="nav-link">Chapter 3 - Optimise first, then parallelize</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#when-to-parallelize-and-what-to-do-first" class="nav-link">When to parallelize, and what to do first...</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#common-sense-optimisations" class="nav-link">Common sense optimisations</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#code-optimisations" class="nav-link">Code optimisations</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#when-is-code-optimized-enough" class="nav-link">When is code optimized enough?</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#common-approaches-towards-parallelization" class="nav-link">Common approaches towards parallelization</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#shared-memory-parallelization" class="nav-link">Shared memory parallelization</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#distributed-memory-parallelization" class="nav-link">Distributed memory parallelization</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#hybrid-memory-parallelization" class="nav-link">Hybrid memory parallelization</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#when-to-parallelize-and-what-to-do-first" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
-</div></div>
-                    <div class="col-md-9" role="main">
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
 
-<div><h1 id="chapter-3-optimise-first-then-parallelize">Chapter 3 - Optimise first, then parallelize</h1>
+  
 
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Parallel programmeren" class="md-header__button md-logo" aria-label="Parallel programmeren" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Parallel programmeren
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 3
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Parallel programmeren" class="md-nav__button md-logo" aria-label="Parallel programmeren" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Parallel programmeren
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome at Parallel programming
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../over-de-auteur/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Over de auteur
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../links/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Useful links
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 1 - Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 2 - Aspects of modern CPU architecture impacting performance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Chapter 3
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 3
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-parallelize-and-what-to-do-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      When to parallelize, and what to do first...
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-sense-optimizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common sense optimizations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common sense optimizations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-magnetization-of-bulk-ferro-magnets" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Magnetization of bulk ferro-magnets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-transforming-the-problem-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Transforming the problem domain
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-transforming-data-to-reduce-their-memory-footprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Transforming data to reduce their memory footprint
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-optimizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code optimizations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-is-code-optimized-well-enough" class="md-nav__link">
+    <span class="md-ellipsis">
+      When is code optimized well enough?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-approaches-towards-parallelization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common approaches towards parallelization
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shared-memory-parallelization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shared memory parallelization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Shared memory parallelization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pgas" class="md-nav__link">
+    <span class="md-ellipsis">
+      PGAS
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distributed-memory-parallelization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Distributed memory parallelization
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hybrid-memory-parallelization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hybrid memory parallelization
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    chapter 4 - Case studies
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 5 - Developing Research Software
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 6 - Tools for parallellization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evaluation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Evaluation of this course
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vsc-infrastructure/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VSC infrastructure
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#when-to-parallelize-and-what-to-do-first" class="md-nav__link">
+    <span class="md-ellipsis">
+      When to parallelize, and what to do first...
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-sense-optimizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common sense optimizations
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Common sense optimizations">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-magnetization-of-bulk-ferro-magnets" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Magnetization of bulk ferro-magnets
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-transforming-the-problem-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Transforming the problem domain
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-transforming-data-to-reduce-their-memory-footprint" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Transforming data to reduce their memory footprint
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-optimizations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Code optimizations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#when-is-code-optimized-well-enough" class="md-nav__link">
+    <span class="md-ellipsis">
+      When is code optimized well enough?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-approaches-towards-parallelization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common approaches towards parallelization
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#shared-memory-parallelization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Shared memory parallelization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Shared memory parallelization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pgas" class="md-nav__link">
+    <span class="md-ellipsis">
+      PGAS
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#distributed-memory-parallelization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Distributed memory parallelization
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hybrid-memory-parallelization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Hybrid memory parallelization
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>Chapter 3</h1>
+
+<div><p>EXAS# Chapter 3 - Optimize first, then parallelize</p>
 <h2 id="when-to-parallelize-and-what-to-do-first">When to parallelize, and what to do first...</h2>
-<p>When your program takes too long, the memory of your machine is too small for your problem or the accuracy you need 
-cannot be met, you're hitting the wall. Parallelization seems necessary, and you feel in need of a supercomputer.
-However, supercomputers are expensive machines and resources are limited. It should come to no surprise that it is 
-expected that programs are allowed to run on supercomputers only if they make efficient use of their resources. 
-Often, serial programs provide possibilities to improve the performance. These come in two categories: common sense 
-optimisations (often completely overlooked by researchers) which rely on a good understanding of the mathematical 
-formulation of the problem and the algorithm, and code optimisations which rely on understanding processor 
-architecture and compilers. Lets first look at common sense optimisations. </p>
-<h2 id="common-sense-optimisations">Common sense optimisations</h2>
-<p><strong>Common sense optimizations</strong> come from a good understanding of the mathematical formulation of the problem and seeing 
-opportunities to reduce the amount of work. We give three examples. </p>
-<h3 id="1-magnetization-of-bulk-ferromagnets">1. Magnetization of bulk ferromagnets</h3>
-<p>I was asked to speed up a program for computing the magnetisation <script type="math/tex">m(T)</script> of bulk ferromagnets as a function of 
-temperature <script type="math/tex">T</script>. This is given by a self-consistent solution of the equations:</p>
+<p>When your program takes too long, the memory of your machine is too small for your problem or the accuracy you need cannot be met, you're hitting the wall. Parallelization seems necessary, and you feel in need of a supercomputer.
+However, supercomputers are expensive machines and resources are limited. It should come to no surprise that it is expected that programs are allowed to run on supercomputers only if they make efficient use of their resources. Often, serial programs provide possibilities to improve the performance. These come in two categories: common sense optimizations (often completely overlooked by researchers) which rely on a good understanding of the mathematical formulation of the problem and the algorithm, and code optimizations which rely on understanding processor architecture and compilers. Let's first look at common sense optimizations. </p>
+<h2 id="common-sense-optimizations">Common sense optimizations</h2>
+<p><strong>Common sense optimizations</strong> come from a good understanding of the mathematical formulation of the problem and seeing opportunities to reduce the amount of work. We give three examples. </p>
+<h3 id="1-magnetization-of-bulk-ferro-magnets">1. Magnetization of bulk ferro-magnets</h3>
+<p>I was asked to speed up a program for computing the magnetization <script type="math/tex">m(T)</script> of bulk ferro-magnets as a function of temperature <script type="math/tex">T</script>. This is given by a self-consistent solution of the equations:</p>
 <p>
 <script type="math/tex; mode=display"> m = \frac{1}{2 + 4\Phi(m)} </script>
 </p>
@@ -156,291 +785,124 @@ temperature <script type="math/tex">T</script>. This is given by a self-consiste
 <p>
 <script type="math/tex; mode=display"> \Phi(m) = \sum_{n=1}^\infty \frac{a}{\pi} \left(\int_0^{\pi/a} dq e^{-nm\beta\eta_1(q)}\right)^3 </script>
 </p>
-<p>and the integral is computed using Gauss-Legendre integration on 64 points.  </p>
-<p>The choice of <script type="math/tex">m=0.5</script> as initial guess is obviously a good one close to <script type="math/tex">T=0</script>. However, looking at the graph above, 
-it becomes clear that as T increases the solution moves further and further away from <script type="math/tex">0.5</script>. Furthermore, if we 
-compute tempurature points at equidistant tempurature points, <script type="math/tex">T_j = \delta j</script> for some <script type="math/tex">\delta</script> and <script type="math/tex">j=0,1,2, .
-..</script>, it is also clear that the solution of the previous temperature point, <em>i.e.</em> <script type="math/tex">m_{j-1}</script>, is a far better initial 
-initial guess 
-guess than <script type="math/tex">m_0</script>. This turns out to be 1.4x faster. Not a tremendous improvement, but as the graph above seems 
-continuous w e can take this idea a step further: using interpolation from solutions a lower temperature points to 
-predict the next solution and use that as an initial guess. Linear interpolation of <script type="math/tex">m_j</script> from <script type="math/tex">m_{j-1}</script> and 
-<script type="math/tex">m_{j-2}</script> gives a speedup of 1.94x and quadratic interpolation from <script type="math/tex">m_{j-1}</script>, <script type="math/tex">m_{j-2}</script> and <script type="math/tex">m_{j-3}</script> a factor of 2.4x.<br>
-That is a substantial speedup achieved without acttually modifying the code. This optimisation comes entirely from 
-understanding what your algorithm actually does. Investigation of the code itself demonstrated that it made suffered 
-from a lot of dynamic memory management and that it did not vectorize. After fixing these issues, the code ran an 
-additional 13.6x faster. In total the code was sped up by an impressive 32.6x.</p>
+<p>and the integral is computed using Gauss-Legendre integration on 64 points.</p>
+<p>The choice of <script type="math/tex">m=0.5</script> as initial guess is obviously a good one close to <script type="math/tex">T=0</script>. However, looking at the graph above, it becomes clear that as T increases the solution moves further and further away from <script type="math/tex">0.5</script>. Furthermore, if we compute temperature points at equidistant temperature points, <script type="math/tex">T_j = \delta j</script> for some <script type="math/tex">\delta</script> and <script type="math/tex">j=0,1,2, ...</script>, it is also clear that the solution of the previous temperature point, <em>i.e.</em> <script type="math/tex">m_{j-1}</script>, is a far better initial initial guess guess than <script type="math/tex">m_0</script>. This turns out to be 1.4x faster. Not a tremendous improvement, but as the graph above seems continuous w e can take this idea a step further: using interpolation from solutions a lower temperature points to predict the next solution and use that as an initial guess. Linear interpolation of <script type="math/tex">m_j</script> from <script type="math/tex">m_{j-1}</script> and <script type="math/tex">m_{j-2}</script> gives a speedup of 1.94x and quadratic interpolation from <script type="math/tex">m_{j-1}</script>, <script type="math/tex">m_{j-2}</script> and <script type="math/tex">m_{j-3}</script> a factor of 2.4x.  That is a substantial speedup achieved without actually modifying the code. This optimization comes entirely from understanding what your algorithm actually does. Investigation of the code itself demonstrated that it made suffered from a lot of dynamic memory management and that it did not vectorize. After fixing these issues, the code ran an additional 13.6x faster. In total the code was sped up by an impressive 32.6x.</p>
 <h3 id="2-transforming-the-problem-domain">2. Transforming the problem domain</h3>
-<p>At another occasion I had to investigate a code for calculating a complicated sum of integrals in real space. After 
-fixing some bugs and some optimisation to improve the efficiency, it was still rather slow because the formula 
-converged slowly  As the code was running almost at peak performance, so there was little room for improvement. 
-However, at some point we tried to apply the Fourier transform to get an expression in frequency space. This 
-expression turned out to converge much faster and consequently far less terms had to be computed, yielding a speedup 
-of almost 2 orders of magnitude and was much more accurate. This is another example of common sense optimisation 
-originating in a good mathematical background. The natural formulation of a problem is not necessarily the best to 
-use for computation.    </p>
+<p>At another occasion I had to investigate a code for calculating a complicated sum of integrals in real space. After fixing some bugs and some optimization to improve the efficiency, it was still rather slow because the formula converged slowly  As the code was running almost at peak performance, so there was little room for improvement. However, at some point we tried to apply the Fourier transform to get an expression in frequency space. This expression turned out to converge much faster and consequently fewer terms had to be computed, yielding a speedup of almost 2 orders of magnitude and was much more accurate. This is another example of common sense optimization originating in a good mathematical background. The natural formulation of a problem is not necessarily the best to use for computation.</p>
 <h3 id="3-transforming-data-to-reduce-their-memory-footprint">3. Transforming data to reduce their memory footprint</h3>
-<p>I recently reviewed a Python code by the Vlaamse Milieumaatschappij for modelling the migration of invertebrate aquatic 
-species in response to improving (or deteriorating) water quality. The program read a lot data from .csv files. For 
-a project it was necessary to run a parameter optimisation. That is a procedure where model parameters are varied 
-until the outcome is satisfactory. If the number of model parameters is large the number of program runs required can 
-easily reach in the 100 000s. The program was parallellized on a single node. However, the program was using that many 
-data that 18 cores of the 128 cores available on a node already consumed all the available memory. By replacing the 
-data types of the columns of the datasets with datatypes with a smaller footprint, such as replacing categorical data 
-with integer IDs, replacing 32-bit integers with 16-bit or even 8-bit integers, float64 real numbers with float32 or 
-float16 numbers reduced the amount of data used by a factor 8. All of a sudden much more cores could be engaged in 
-the computation and the simulation sped up considerably.   </p>
-<p>Some of these "common sense optimisations" may seem obvious. Yet, of all the codes I reviewed during my career, few 
-of them were immune to common sense optimisation. Perhaps, developing (scientific) software takes a special mindset: </p>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p><strong><em>The scientific software developer mindset</em></strong>: Constantly ask yourself 'How can I improve this? How can I make 
-it faster, leaner, more readable, more flexible, more reusable, ... ?'</p>
-</div>
-<p>Common sense optimisations are optimisations that in general don't require complex code analysis, require very little 
-code changes and thus little effort to implement them. Yet they can make a significant contribution.</p>
-<h2 id="code-optimisations">Code optimisations</h2>
-<p><strong>Code optimisations</strong> are optimisations aiming at making your solution method run as efficient as possible on the 
-machine(s) that you have at your disposal. This is sometimes referred as <strong>code modernisation</strong>, because code that 
-was optimised for the CPUs of two years a go may well need some revision for the latest CPU technology. These 
-optimisations must, necessarily, take in account the specific processor architecture of your machine(s). Important 
-topics are: </p>
+<p>I recently reviewed a Python code by the Vlaamse Milieumaatschappij for modelling the migration of invertebrate aquatic species in response to improving (or deteriorating) water quality. The program read a lot of data from .csv files. For a project it was necessary to run a parameter optimization. That is a procedure where model parameters are varied until the outcome is satisfactory. If the number of model parameters is large the number of program runs required can easily reach in the 100 000s. The program was parallelized on a single node. However, the program was using that many data that 18 cores of the 128 cores available on a node already consumed all the available memory. By replacing the data types of the columns of the datasets with datatypes with a smaller footprint, such as replacing categorical data with integer IDs, replacing 32-bit integers with 16-bit or even 8-bit integers, float64 real numbers with float32 or float16 numbers reduced the amount of data used by a factor 8. All of a sudden much more cores could be engaged in the computation and the simulation sped up considerably.</p>
+<p>Some of these "common sense optimizations" may seem obvious. Yet, of all the codes I reviewed during my career, few of them were immune to common sense optimization. Perhaps, developing (scientific) software takes a special mindset:</p>
+<p>!!! tip     <strong><em>The scientific software developer mindset</em></strong>: Constantly ask yourself 'How can I improve this? How can I make     it faster, leaner, more readable, more flexible, more reusable, ... ?'</p>
+<p>Common sense optimizations are optimizations that in general don't require complex code analysis, require very little code changes and thus little effort to implement them. Yet they can make a significant contribution.</p>
+<h2 id="code-optimizations">Code optimizations</h2>
+<p><strong>Code optimizations</strong> are optimizations aiming at making your solution method run as efficient as possible on the machine(s) that you have at your disposal. This is sometimes referred as <strong>code modernization</strong>, because code that was optimized for the CPUs of two years a go may well need some revision for the latest CPU technology. These optimizations must, necessarily, take in account the specific processor architecture of your machine(s). Important topics are:</p>
 <ul>
-<li>Avoid pipeline stalls (due to impredictable branches, <em>e.g.</em>) </li>
-<li>Ensure SIMD vectorisation. On modern processors vector registers can contain 4 double precision floating point 
-  numbers or 8 single precision numbers and vector instructions operate on these in the same number of cycles as 
-  scalar instructions. Failing to vectorise can reduce the speed of your program by a factor up to 8x!   </li>
-<li>Smart data access patterns are indispensable for programs with a memory footprint that exceeds the size of the cache. 
-  Transferring data from main memory (DRAM) to the processor's registers is slow: typical latencies are in the order 
-  of 100 cycles (which potentially wastes ~800 single precision vectorised operations). Vector instructions are of 
-  no help if the processing unit must wait for the data. </li>
+<li>Avoid pipeline stalls (due to unpredictable branches, <em>e.g.</em>) - Ensure SIMD vectorization. On modern processors vector registers can contain 4 double precision floating point   numbers or 8 single precision numbers and vector instructions operate on these in the same number of cycles as   scalar instructions. Failing to vectorize can reduce the speed of your program by a factor up to 8x!   - Smart data access patterns are indispensable for programs with a memory footprint that exceeds the size of the cache.   Transferring data from main memory (DRAM) to the processor's registers is slow: typical latencies are in the order   of 100 cycles (which potentially wastes ~800 single precision vectorized operations). Vector instructions are of   no help if the processing unit must wait for the data.</li>
 </ul>
-<p>This is clearly much more technical and complicated (in the sense that it requires knowledge from outside the 
-scientific domain of the problem you are trying to solve). Especially fixing memory access patterns can be difficult 
-and a lot ofwork, as you may have to change the data structures used by your program, which usually also means 
-rewriting a lot of code accessing the data. Such code optimisations can contribute significantly to the performance 
-of a program, typically around 5-10x, but possibly more. As supercomputers are expensive research infrastructure in 
-high demand, we cannot effort to waste resources. That being said, the lifetime of your program is also of 
-importance. If you are developing a code that will be run a few times during your Master project or PhD, using only 
-a hundred of node days, and to be forgotten afterwards, it is perhaps not worth to spend 3 months optimising it.</p>
-<p>Often, however, there is a way around these technicalities. If the scientific problem you are trying to solve, can 
-be expressed in the formalism of common mathematical domains, <em>e.g.</em> linear algebra, Fourier analysis, ..., there is 
-a good chance that there are good software libraries, designed with HPC in mind, that solved these problems for you. 
-In most cases there are even bindings available for your favorite progamming language (C/C++, Fortran, Python, ...).<br>
-All you have to do is translate the mathematical formulation of your problem into library calls. </p>
+<p>This is clearly much more technical and complicated (in the sense that it requires knowledge from outside the scientific domain of the problem you are trying to solve). Especially fixing memory access patterns can be difficult and a lot of work, as you may have to change the data structures used by your program, which usually also means rewriting a lot of code accessing the data. Such code optimizations can contribute significantly to the performance of a program, typically around 5-10x, but possibly more. As supercomputers are expensive research infrastructure in high demand, we cannot afford to waste resources. That being said, the lifetime of your program is also of importance. If you are developing a code that will be run a few times during your Master project or PhD, using only a hundred of node days, and to be forgotten afterwards, it is perhaps not worth to spend 3 months optimising it.</p>
+<p>Often, however, there is a way around these technicalities. If the scientific problem you are trying to solve, can be expressed in the formalism of common mathematical domains, <em>e.g.</em> linear algebra, Fourier analysis, ..., there is a good chance that there are good software libraries, designed with HPC in mind, that solved these problems for you. In most cases there are even bindings available for your favorite programming language (C/C++, Fortran, Python, ...).  All you have to do is translate the mathematical formulation of your problem into library calls. </p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p><strong><em>Use HPC libraries as much as possible</em></strong>. There is little chance that you will outperform them. Quite to the 
-contrary: your own code will probably do significantly worse. By using HPC libraries you gain three times:</p>
-<ul>
-<li>you gain performance,</li>
-<li>you gain development time as you will need a lot less code to solve your problem, less debugging, simpler 
-  maintenance, ...</li>
-<li>your learn how to use the library which will get you at speed readily when you take on your next 
-  scientific problem.</li>
-</ul>
+<p><strong><em>Use HPC libraries as much as possible</em></strong>. There is little chance that you will outperform them. Quite to the     contrary: your own code will probably do significantly worse. By using HPC libraries you gain three times:
+    - you gain performance,
+- you gain development time as you will need a lot less code to solve your problem, less debugging, simpler       maintenance, ...
+- your learn how to use the library which will get you at speed readily when you take on your next       scientific problem.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p><strong><em>Don't reinvent the wheel</em></strong>. The wheel was invented ~8000 years ago. Many very clever people have put effort in 
-it and is pretty perfect by now. Reinventing it will unlikely result in an improvement. By extension: if you 
-need some code, spend some time google-ing around to learn what is already available and how other researchers 
-attack the problem. It can save you weeks of programming and debugging. Adapting someone else's code to your 
-needs will learn you more than coding it from scratch. You'll discover other approaches to coding problems than 
-yours, other language constructs, idioms, dependencies to build on, learn to read someone else's code, learn to 
-integrate pieces.    </p>
+<p><strong><em>Don't reinvent the wheel</em></strong>. The wheel was invented ~8000 years ago. Many very clever people have put effort in     it and is pretty perfect by now. Reinventing it will unlikely result in an improvement. By extension: if you     need some code, spend some time google-ing around to learn what is already available and how other researchers     attack the problem. It can save you weeks of programming and debugging. Adapting someone else's code to your     needs will learn you more than coding it from scratch. You'll discover other approaches to coding problems than     yours, other language constructs, idioms, dependencies to build on, learn to read someone else's code, learn to     integrate pieces.</p>
 </div>
-<h2 id="when-is-code-optimized-enough">When is code optimized enough?</h2>
+<h2 id="when-is-code-optimized-well-enough">When is code optimized well enough?</h2>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
-<p><strong><em>Premature optimization is the root of all evil</em></strong> <a href="https://effectiviology.%0Acom/premature-optimization/">Donald Knuth</a>. </p>
+<p><strong><em>Premature optimization is the root of all evil</em></strong> <a href="https://effectiviology.%0Acom/premature-optimization/">Donald Knuth</a>.</p>
 </div>
-<p>This quote by a famous computer scientist in 1974 is often used to argue that you should only optimize if there is a 
-real need. If code is too slow, measurements (<strong>profiling</strong>) should tell in which part of the code most time is 
-spent. That part needs optimision. Iterate this a few times. Blind optimisation leads to useless and developer time 
-wasting micro-optimisations rendering the code hard to read and maintain. On the other hand, if we are writing code 
-for a supercomputer, it better be super-efficient. But even then, depending on the lifetime of the program we are 
-writing, there is a point at which the efforts spent optimising are outweighed by having to wait for the program 
-going in production.</p>
-<p>How can one judge wether a code needs further optimization or not? Obviously, there are no tricks for exposing 
-opportunities for common sense optimisations, nor for knowing wether better algorithms exist. That is domain 
-knowledgs, it comes with experience, and requires a lot of background. But for a given code and given input, can we 
-know wether improvements are possible? In <a class="autorefs autorefs-internal" href="../chapter-1/#1-reduce-the-time-to-solution">Chapter 1</a> we mentioned the existence of 
-machine limits, the peak performance, <script type="math/tex">P_p</script>, the maximum number of floating point operstions that can be executed per 
-second, and the bandwidth, <script type="math/tex">B</script>, the maximum number of bytes that can be moved between main memory and the CPU's 
-registers per second. It is instructive to study how these machine limits govern the maximum performance <script type="math/tex">P_{max}</script> 
-as a function of the computational intensity <script type="math/tex">I_c</script>. If the CPU must not wait for data, <script type="math/tex">P_{max} = P_p</script>. In the 
-situation where the bandwidth is limiting the computation <script type="math/tex"> P_{max} = BI_c</script>. This leads to the formula: </p>
+<p>This quote by a famous computer scientist in 1974 is often used to argue that you should only optimize if there is a real need. If code is too slow, measurements (<strong>profiling</strong>) should tell in which part of the code most time is spent. That part needs optimization. Iterate this a few times. Blind optimization leads to useless and developer time-wasting micro-optimizations rendering the code hard to read and maintain. On the other hand, if we are writing code for a supercomputer, it better be super-efficient. But even then, depending on the lifetime of the program we are writing, there is a point at which the efforts spent optimising are outweighed by having to wait for the program going in production.</p>
+<p>How can one judge whether a code needs further optimization or not? Obviously, there are no tricks for exposing opportunities for common sense optimizations, nor for knowing whether better algorithms exist. That is domain knowledge, it comes with experience, and requires a lot of background. But for a given code and given input, can we know whether improvements are possible? In <a class="autorefs autorefs-internal" href="../chapter-1/#1-reduce-the-time-to-solution">Chapter 1</a> we mentioned the existence of machine limits, the peak performance, <script type="math/tex">P_p</script>, the maximum number of floating point operations that can be executed per second, and the bandwidth, <script type="math/tex">B</script>, the maximum number of bytes that can be moved between main memory and the CPU's registers per second. It is instructive to study how these machine limits govern the maximum performance <script type="math/tex">P_{max}</script> as a function of the computational intensity <script type="math/tex">I_c</script>. If the CPU must not wait for data, <script type="math/tex">P_{max} = P_p</script>. In the situation where the bandwidth is limiting the computation <script type="math/tex"> P_{max} = BI_c</script>. This leads to the formula: </p>
 <p>
 <script type="math/tex; mode=display"> P_{max} = min(P_p,BI_c) </script>
 </p>
-<p>This is called the roofling model, since its graph looks like a roofliine.</p>
-<p><img alt="roofline" src="../public/roofline.png"></p>
-<p>We can measure the actual performance and computational intensity of the program and plot it on the graph. The point 
-must necessarily be under the roofline. For a micro-benchmark, such as a loop with a simple body, we can compute 
-<script type="math/tex">I_c</script> by hand, count the Flops and time the benchmark to obtain the computational intensity. For an entire program 
-a performance analysis tool can construct the graph and measure where the program is in the graph. Let's discuss 4 
-different cases, corresponding to the four numbered spots in the graph above.</p>
+<p>This is called the roof-line model, since its graph looks like a roof-line.</p>
+<p><img alt="roof-line" src="public/roof-line.png"></p>
+<p>We can measure the actual performance and computational intensity of the program and plot it on the graph. The point must necessarily be under the roof-line. For a micro-benchmark, such as a loop with a simple body, we can compute <script type="math/tex">I_c</script> by hand, count the Flops and time the benchmark to obtain the computational intensity. For an entire program a performance analysis tool can construct the graph and measure where the program is in the graph. Let's discuss 4 different cases, corresponding to the four numbered spots in the graph above.</p>
 <ol>
-<li>Point 1 lies in the bandwidth limited region, but well below the roofline. Something prevents the program to go 
-   at the maximum performance. There can be many causes: bad memory access causing cache misses, the code may fail 
-   to vectorize, pipeline stalls, ... for a micro-benchmark you can perhaps spot the cause without help. For a 
-   larger program a performance analyzer will highlight the problems. </li>
-<li>Point 2 lies in the peak performance limited region, also well below the roofline. Hence, cache misses are 
-   unlikely the cause. </li>
-<li>Point 3 lies close to the roofline and the boundary between the bandwidth limited region and the peak performance 
-   limited region. This the sweet spot. Both peak performance and bandwith are fully used.</li>
-<li>Point 4 lies close to the roofline in the peak performance limited region. This is an energy-efficient 
-   computation at peak performance. It moves little data (high <script type="math/tex">I_c</script>). Moving data is by far the most energy 
-   consuming part in a computation.</li>
+<li>Point 1 lies in the bandwidth limited region, but well below the roof-line. Something prevents the program to go at the maximum performance. There can be many causes: bad memory access causing cache misses, the code may fail to vectorize, pipeline stalls, ... for a micro-benchmark you can perhaps spot the cause without help. For a larger program a performance analyzer will highlight the problems. </li>
+<li>Point 2 lies in the peak performance limited region, also well below the roof-line. Hence, cache misses are unlikely the cause. </li>
+<li>Point 3 lies close to the roof-line and the boundary between the bandwidth limited region and the peak performance limited region. This the sweet spot. Both peak performance and bandwith are fully used.</li>
+<li>Point 4 lies close to the roof-line in the peak performance limited region. This is an energy-efficient computation at peak performance. It moves little data (high <script type="math/tex">I_c</script>). Moving data is by far the most energy consuming part in a computation.</li>
 </ol>
 <h2 id="common-approaches-towards-parallelization">Common approaches towards parallelization</h2>
 <p>Before we discuss common parallelization approaches, we need to explain some concepts:</p>
 <ul>
-<li>
-<p><a href="https://en.wikipedia.org/wiki/Process_(computing)"><strong>process</strong> (wikipedia)</a>: "In computing, a process is the 
-  instance of a computer program that is being executed by one or more threads." A process has its own <strong>address 
-  space</strong>, the region of main memory that can be addressed by the process. Normally, a process cannot go outside its 
-  address space, nor can any other process go inside the process's own address space. An exception is when both 
-  processes agree to communicate, which is the basis of distributed memory parallelism (see below). In general, a 
-  process is restricted to a single node, and the maximum number of parallel threads is equal to the number of cores 
-  on that node. </p>
-</li>
-<li>
-<p><a href="https://en.wikipedia.org/wiki/Thread_(computing)"><strong>thread</strong> (wikipedia)</a>: "In computer science, a thread of 
-  execution is the smallest sequence of programmed instructions that can be managed ...". The instructions in a 
-  thread are thus by definition sequential. In the context of parallel computing, parallel threads are managed by the 
-  parent process to run different tasks in parallel. Obviously, parallel threads need to run on distinct cores to be 
-  truely concurrent. As threads belong to a process, they can in principle have access to the entire address space of 
-  the process. Sometimes a distinction is made between hardware threads and software threads. A <strong>software thread</strong> 
-  is a set of sequential instructions for a computational task that is scheduled by the program to execute. When its 
-  execution starts, it is assigned to a core. software threads can be interrupted, in order to let the core do other, 
-  more urgent work, <em>e.g.</em>, and restarted. There can be many more software threads in a program than it has cores 
-  available, but, obviously, they cannot all run in parallel. Software threads arre very useful in personal 
-  computers with many interactive applications opened simultaneously, where are many non-urgent tasks. For HPC 
-  applications they are a bit heavy weight. A <strong>hardware thread</strong> is a lightweight software thread that is 
-  exclusively tied to a core. When given work, it can start immediately and runs to completion without interruption. 
-  That is certainly useful in HPC where not loosing compute cycles is more important than flexibility.</p>
-</li>
+<li><a href="https://en.wikipedia.org/wiki/Process_(computing)"><strong>process</strong> (wikipedia)</a>: "In computing, a process is the  instance of a computer program that is being executed by one or more threads." A process has its own <strong>address   space</strong>, the region of main memory that can be addressed by the process. Normally, a process cannot go outside its address space, nor can any other process go inside the process's own address space. An exception is when both   processes agree to communicate, which is the basis of distributed memory parallelism (see below). In general, a   process is restricted to a single node, and the maximum number of parallel threads is equal to the number of cores   on that node. </li>
+<li><a href="https://en.wikipedia.org/wiki/Thread_(computing)"><strong>thread</strong> (wikipedia)</a>: "In computer science, a thread of   execution is the smallest sequence of programmed instructions that can be managed ...". The instructions in a   thread are thus by definition sequential. In the context of parallel computing, parallel threads are managed by the parent process to run different tasks in parallel. Obviously, parallel threads need to run on distinct cores to be truly concurrent. As threads belong to a process, they can in principle have access to the entire address space of the process. Sometimes a distinction is made between hardware threads and software threads. A <strong>software thread</strong> is a set of sequential instructions for a computational task that is scheduled by the program to execute. When its   execution starts, it is assigned to a core. software threads can be interrupted, in order to let the core do other, more urgent work, <em>e.g.</em>, and restarted. There can be many more software threads in a program than it has cores available, but, obviously, they cannot all run in parallel. Software threads are very useful in personal computers with many interactive applications opened simultaneously, where are many non-urgent tasks. For HPC applications they are a bit heavy-weight. A <strong>hardware thread</strong> is a lightweight software thread that is exclusively tied to a core. When given work, it can start immediately and runs to completion without interruption. That is certainly useful in HPC where not loosing compute cycles is more important than flexibility.</li>
 </ul>
-<p>Now that we understand the concepts of processes and threads, we can explain three different types of 
-parallelization:</p>
+<p>Now that we understand the concepts of processes and threads, we can explain three different types of parallelization:</p>
 <h2 id="shared-memory-parallelization">Shared memory parallelization</h2>
-<p>In <strong>shared memory parallelization</strong> there is one process managing a number of threads to do work in parallel. As all 
-the threads belong to the same process, they have access to the entire memory address space, that is, they 
-<em>share</em> memory. To avoid problems, as well as for performance reasons, the variables inside a thread are <em>private</em> by 
-default, <em>i.e.</em> they can only be accessed by the thread itself, and must be declare <em>shared</em> if other threads should 
-have access too. Cooperating threads must exchange information by reading and writing to shared variables. </p>
-<p>The fact that all the threads belong to the same process, implies that shared memory programs are limited to a single 
-node, because a process cannot span several nodes. However, there exist shared memory machines larger than a typical 
-supercomputer node, <em>e.g.</em> <a href="https://docs.vscentrum.be/en/latest/leuven/tier2_hardware/superdome_hardware.%0Ahtml">SuperDome</a> at KU leuven. Such systems allow to run a shared memory program with much more threads and much more memory. 
-This approach can be useful when distributed memory parallelization is not feasible for some reason. </p>
-<p>The most common framework for shared memory parallelization is <a href="https://www.openmp.org">OpenMP</a>. OpenMP 
-parallelization of a sequential program is relatively simple, requiring little changes to the source code in the
-form of directives. A good starting point for OpenMP parallelization is <a href="https://www.youtube.com/watch?%0Av=SnD8xlwLlZU">this video</a>. An important limitation of OpenMP is that it is only available in C/C++/Fortran, and not Python. 
-Fortunately, Python has other options, <em>e.g.</em> <a href="https://docs.python.org/3/library/multiprocessing.%0Ahtml">multiprocessing</a>, <a href="https://docs.python.org/3/library/concurrent.futures.html">concurrent.futures</a> and <a href="https://www.dask.%0Aorg">dask</a>. In addition it is possible to build your own Python modules from C++ or Fortran code, in which OpenMP is used 
-to parallelize some tasks. The popular <a href="https://numpy.org">numpy</a> is a good example.</p>
+<p>In <strong>shared memory parallelization</strong> there is one process managing a number of threads to do work in parallel. As all the threads belong to the same process, they have access to the entire memory address space, that is, they <em>share</em> memory. To avoid problems, as well as for performance reasons, the variables inside a thread are <em>private</em> by default, <em>i.e.</em> they can only be accessed by the thread itself, and must be declared <em>shared</em> if other threads should have access too. Cooperating threads must exchange information by reading and writing to shared variables. The fact that all the threads belong to the same process, implies that shared memory programs are limited to a single node, because a process cannot span several nodes. However, there exist shared memory machines larger than a typical supercomputer node, <em>e.g.</em> <a href="https://docs.vscentrum.be/en/latest/leuven/tier2_hardware/superdome_hardware.html">SuperDome</a> at KU leuven. Such systems allow to run a shared memory program with much more threads and much more memory. This approach can be useful when distributed memory parallelization is not feasible for some reason. </p>
+<p>The most common framework for shared memory parallelization is <a href="https://www.openmp.org">OpenMP</a>. OpenMP parallelization of a sequential program is relatively simple, requiring little changes to the source code in the form of directives. A good starting point for OpenMP parallelization is <a href="https://www.youtube.com/watch?v=SnD8xlwLlZU">this video</a>. An important limitation of OpenMP is that it is only available in C/C++/Fortran, and not Python. Fortunately, Python has other options, <em>e.g.</em> <a href="https://docs.python.org/3/library/multiprocessing.html">multiprocessing</a>, <a href="https://docs.python.org/3/library/concurrent.futures.html">concurrent.futures</a> and <a href="https://www.dask.org">dask</a>. In addition, it is possible to build your own Python modules from C++ or Fortran code, in which OpenMP is used to parallelize some tasks. The popular <a href="https://numpy.org">numpy</a> is a good example.</p>
 <h3 id="pgas">PGAS</h3>
-<p><a href="https://en.wikipedia.org/wiki/Partitioned_global_address_space">PGAS</a>, or <strong>Partitioned Global Address Space</strong>, 
-is a parallel programming paradigm that provide communication operations involving a global memory address space on 
-top of an otherwise distributed memory system.  </p>
+<p><a href="https://en.wikipedia.org/wiki/Partitioned_global_address_space">PGAS</a>, or <strong>Partitioned Global Address Space</strong>, is a parallel programming paradigm that provide communication operations involving a global memory address space on top of an otherwise distributed memory system. it therefore acts as a shared memory parallelization.  </p>
 <h2 id="distributed-memory-parallelization">Distributed memory parallelization</h2>
-<p><strong>Distributed memory parallelization</strong> is the opposite of shared memory parallelization. There are many process, 
-each with only a single-thread. Every process has its own memory address space. These address spaces are not shared, 
-they are distributed. Therefor, explicity communication is necessary to exchange information. For processes on the 
-same machine (=node) this communication is intra-node, but for processes on distinct machines messages are sent 
-over the interconnect.</p>
-<p>Distributed memory programs are considerably more complex to write, as the communication must be explicitly handled 
-by the programmer, but may use as many processes as you want. Transformation of a sequential program into a 
-distributed memory program is often a big programming effort. The most common framework is <a href="https://www.mpi.org">MPI</a>
-. MPI is available in C/C++/Fortran and also in Python by the <a href="https://mpi4py.readthedocs.io/en/stable/">mpi4py</a> 
-module. </p>
+<p><strong>Distributed memory parallelization</strong> is the opposite of shared memory parallelization. There are many process, each with only a single-thread. Every process has its own memory address space. These address spaces are not shared, they are distributed. Therefor, explicit communication is necessary to exchange information. For processes on the same machine (=node) this communication is intra-node, but for processes on distinct machines messages are sent over the interconnect.</p>
+<p>Distributed memory programs are considerably more complex to write, as the communication must be explicitly handled by the programmer, but may use as many processes as you want. Transformation of a sequential program into a distributed memory program is often a big programming effort. The most common framework is <a href="https://www.mpi.org">MPI</a>. MPI is available in C/C++/Fortran and also in Python by the <a href="https://mpi4py.readthedocs.io/en/stable/">mpi4py</a> module. </p>
 <h2 id="hybrid-memory-parallelization">Hybrid memory parallelization</h2>
-<p><strong>Hybrid memory parallelization</strong> combines both approaches. It has an unlimited number of processes, and a number of 
-threads per process, which run in parallel in a shared memory approach (OpenMP). The process communicate with each 
-other using MPI. Typically, the computation is organised as one proces per NUMA domain and one thread per core in 
-dat NUMA domain.  </p>
-<p>This approach uses shared memory parallelization where it is useful (on a NUMA domain), but removes the limitation 
-to a single machine. It has less processes, and thus less overhead in terms of memory footprint, and 
-communication overhead. It is also a bit more complex that pure distributed memory parallelization, and much more 
-complex than shared memory parallelization.</p>
-<p>Hybrid memoryy parallelization is usually implemented with OpenMP at the shared memory level and MPI at the 
-distributed level.</p></div></div>
-            </div>
-        </div>
+<p><strong>Hybrid memory parallelization</strong> combines both approaches. It has an unlimited number of processes, and a number of threads per process, which run in parallel in a shared memory approach (OpenMP). The process communicate with each other using MPI. Typically, the computation is organized as one proces per NUMA domain and one thread per core in dat NUMA domain.<br>
+This approach uses shared memory parallelization where it is useful (on a NUMA domain), but removes the limitation to a single machine. It has fewer processes, and thus less overhead in terms of memory footprint, and communication overhead. It is also a bit more complex that pure distributed memory parallelization, and much more complex than shared memory parallelization.</p>
+<p>Hybrid memory parallelization is usually implemented with OpenMP at the shared memory level and MPI at the distributed level.</p></div>
 
-        <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-        <script>
-            var base_url = "..",
-                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
-        </script>
-        <script src="../js/base.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" defer></script>
-        <script src="../search/main.js" defer></script>
 
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
             </div>
-            <div class="modal-body">
-                <p>From here you can search these documents. Enter your search terms below.</p>
-                <form>
-                    <div class="form-group">
-                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
-    </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
 </div>
-
-    </body>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML"></script>
+      
+    
+  </body>
 </html>

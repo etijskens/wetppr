@@ -1,117 +1,927 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        
-        
-        <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Chapter 2 - Aspects of modern CPU architecture - Parallel Programming</title>
-        <link href="../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../css/font-awesome.min.css" rel="stylesheet">
-        <link href="../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/color-brewer.min.css">
-        <link href="../assets/_mkdocstrings.css" rel="stylesheet">
 
-        <script src="../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
-    </head>
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../chapter-1/">
+      
+      
+        <link rel="next" href="../chapter-3/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+    
+    
+      
+        <title>Chapter 2 - Aspects of modern CPU architecture impacting performance - Parallel programmeren</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
+      
+      
 
-    <body>
-        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-            <div class="container">
-                <a class="navbar-brand" href="..">Parallel Programming</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Expanded navigation -->
-                <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="navitem">
-                                <a href=".." class="nav-link">Home</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../glossary/" class="nav-link">Glossary</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../links/" class="nav-link">Useful links</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../overview/" class="nav-link">Overview</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../course-text/" class="nav-link">Course text</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../exercises/" class="nav-link">Exercises</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../evaluation/" class="nav-link">Evaluation of this course</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../vsc-infrastructure/" class="nav-link">VSC infrastructure</a>
-                            </li>
-                        </ul>
-
-                    <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> Search
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-level="1"><a href="#chapter-2-aspects-of-modern-cpu-architecture" class="nav-link">Chapter 2 - Aspects of modern CPU architecture</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#the-hierarchical-structure-of-cpu-memory" class="nav-link">The hierarchical structure of CPU Memory</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#intra-core-parallellisation-features" class="nav-link">Intra-core parallellisation features</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#consequences-of-computer-architecture-for-performance" class="nav-link">Consequences of computer architecture for performance</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#supercomputer-architecture" class="nav-link">Supercomputer architecture</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    <div class="col-md-9" role="main">
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
 
-<div><h1 id="chapter-2-aspects-of-modern-cpu-architecture">Chapter 2 - Aspects of modern CPU architecture</h1>
-<p>You do not have to be a CPU architecture specialist in order to be able to write efficient code. However, there are 
-a few aspects of CPU architecture that you should understand.</p>
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-2-aspects-of-modern-cpu-architecture-impacting-performance" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Parallel programmeren" class="md-header__button md-logo" aria-label="Parallel programmeren" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Parallel programmeren
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 2 - Aspects of modern CPU architecture impacting performance
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Parallel programmeren" class="md-nav__button md-logo" aria-label="Parallel programmeren" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Parallel programmeren
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome at Parallel programming
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../over-de-auteur/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Over de auteur
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../links/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Useful links
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 1 - Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Chapter 2 - Aspects of modern CPU architecture impacting performance
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 2 - Aspects of modern CPU architecture impacting performance
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-how-gpu-computing-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary of How GPU computing works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-cpu-caches-and-why-you-care" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary of CPU Caches and Why You Care
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-hierarchical-structure-of-cpu-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      The hierarchical structure of CPU Memory
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The hierarchical structure of CPU Memory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loop-fusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Loop fusion
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tiling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tiling
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intra-core-parallellisation-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intra-core parallellisation features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Intra-core parallellisation features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instruction-pipelining" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instruction pipelining
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simd-vectorisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      SIMD vectorisation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-cost-of-floating-point-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      The cost of floating point instructions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences-of-computer-architecture-for-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consequences of computer architecture for performance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Consequences of computer architecture for performance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommendations-for-array-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommendations for array processing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommendations-for-data-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommendations for data structures
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selecting-algorithms-based-on-computational-complexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selecting algorithms based on computational complexity
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supercomputer-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supercomputer architecture
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    chapter 4 - Case studies
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-5/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 5 - Developing Research Software
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 6 - Tools for parallellization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evaluation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Evaluation of this course
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vsc-infrastructure/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VSC infrastructure
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-how-gpu-computing-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary of How GPU computing works
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary-of-cpu-caches-and-why-you-care" class="md-nav__link">
+    <span class="md-ellipsis">
+      Summary of CPU Caches and Why You Care
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-hierarchical-structure-of-cpu-memory" class="md-nav__link">
+    <span class="md-ellipsis">
+      The hierarchical structure of CPU Memory
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The hierarchical structure of CPU Memory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loop-fusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Loop fusion
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tiling" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tiling
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#intra-core-parallellisation-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Intra-core parallellisation features
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Intra-core parallellisation features">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instruction-pipelining" class="md-nav__link">
+    <span class="md-ellipsis">
+      Instruction pipelining
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#simd-vectorisation" class="md-nav__link">
+    <span class="md-ellipsis">
+      SIMD vectorisation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-cost-of-floating-point-instructions" class="md-nav__link">
+    <span class="md-ellipsis">
+      The cost of floating point instructions
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consequences-of-computer-architecture-for-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consequences of computer architecture for performance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Consequences of computer architecture for performance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#recommendations-for-array-processing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommendations for array processing
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recommendations-for-data-structures" class="md-nav__link">
+    <span class="md-ellipsis">
+      Recommendations for data structures
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#selecting-algorithms-based-on-computational-complexity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Selecting algorithms based on computational complexity
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supercomputer-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Supercomputer architecture
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<div><h1 id="chapter-2-aspects-of-modern-cpu-architecture-impacting-performance">Chapter 2 - Aspects of modern CPU architecture impacting performance</h1>
+<p>Modern CPUs deliver an enormous amount of <strong>FLOPs</strong> (floating point operations per second). This is the <strong>peak performance</strong> of the machine. The importance of peak performance, in general however, is rather limited. In practice, very little codes, or algorithms, can achieve the peak performance of modern CPUs. The reason for this astonishing fact is that instuctions must operate on data. That data must first be moved from the main memory (<strong>DRAM</strong>) to the registers of the <strong>ALU</strong> (Arithmetic and Logic Unit) that executes the instructions, and moving data takes time. In fact, generally much more than executing floating point operations. This is extremely well explained in this presentation by Stephen Jones from NVIDIA: <a href="https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s31151/">How GPU computing works</a>. Despite the title, it also explains how <strong><em>CPU</em></strong> computing works, contrasting the architectural design of CPUs and GPUs to achieve two different things. We will not deal with GPUs in this course, but for examining wether a code can profit from being run on a GPU an understanding of this presentation is highly beneficial.</p>
+<h2 id="summary-of-how-gpu-computing-works">Summary of <em>How GPU computing works</em></h2>
+<ul>
+<li>
+<p>[0:00-5:00] The <strong>compute intensity of a device</strong> is the peak performance (FLOPs) divided by the data rate. The <strong>data rate</strong> is the bandwidth of the device (GBytes/s) divided by the size of a single data item. A <strong>single precision</strong> (SP) floating point number is 4 Bytes and a <strong>double precision</strong> (SP) floating point number is 8 Bytes. The bandwidth of a device is the amount of data that can be transferred between the CPU and the main memory (DRAM) of the device. As the presentation explains, the compute intensity for double precision data of modern CPUs is 80 (40 for single precision). This basically means that, on average, a DP data item coming from main memory should be used by 80 floating point operations in order to keep the CPU busy. That is a pritty tall number. In fact there aren't many algorithms that have to do that much work to do on each data item. </p>
+</li>
+<li>
+<p>[5:30] "<em>Notice I count loads and not stores, because I don't care about stores, because I don't have to wait for them.</em>" Obviously, the loads of <code>x[i]</code> and <code>y[i]</code> must precede the computation, and the store of <code>y[i]</code> can, in principle be executed any time after the result is computed. This is a bit of a simplification. The store must at least be executed before the register can be reused, which is, in view of the limited number of registers pritty soon. Furthermore, stores consume bandwidth too. Roughly, two loads and one store use 1.5 times the bandwidth of a two loads. So, while you don't have to wait for the store, you wait a bit longer for the two loads.  </p>
+</li>
+<li>
+<p>[6:10] <strong>Memory latency</strong> the time between sending a load request and receiving the data item requested.</p>
+</li>
+<li>
+<p>[6:40] pipelining. See <a href="#instruction-pipelining">Instruction pipelining</a></p>
+</li>
+<li>
+<p>[15:10] The focus of the presentation is now on GPUs. </p>
+</li>
+</ul>
+<p>Although this presentation explains why memory bandwidth and memory latency matter more than FLOPs and how the GPU solves the latency problem, it does not talk about how the CPU solves it (probably intentionally). This is explained in another presentation by Scott Meyers <a href="https://www.youtube.com/watch?v=WDIkqP4JbkE"><em>CPU Caches and Why You Care</em></a>. Nothwithstanding the presentation is from 2013 and uses a CPU from 2010, the principles are fully valid today, although the numbers will be different for today's CPUs.</p>
+<h2 id="summary-of-cpu-caches-and-why-you-care">Summary of <em>CPU Caches and Why You Care</em></h2>
+<ul>
+<li>
+<p>[0:01:10-0:04:05] example 1: matrix traversal,traversal order matters.</p>
+</li>
+<li>
+<p>[0:04:05-0:10:30] example 2: parallel threads,thread memory access matters.</p>
+</li>
+<li>
+<p>[0:10:30-] understanding CPU caches (see <a href="#the-hierarchical-structure-of-cpu-memory">The hierarchical structure of CPU Memory</a> below).</p>
+</li>
+<li>
+<p>[0:20:20] '<em>Non-cache access can slow down things by orders of magnitude</em>' <strong>cache misses</strong>.</p>
+</li>
+<li>
+<p>[0:20:20] '<em>compact, well localized code that fits in cache is fastest</em>'</p>
+</li>
+<li>
+<p>[0:20:20] '<em>compact data structures that fit in cache are fastest</em>'.</p>
+</li>
+<li>
+<p>[0:20:20] '<em>data structure traversals touching only cached data are fastest</em>'.</p>
+</li>
+<li>
+<p>[0:21:40] The concept of <strong>cache lines</strong>. Cache favor linear traversal of memory. The concept of <strong>prefetching</strong>. A linear array, being traversed linearly, is the fastest data structure you can possibly have. CPU hardware is designed with this purpose in mind. </p>
+</li>
+<li>
+<p>[0:24:30] Implications</p>
+<ul>
+<li>
+<p>Locality counts: reads/writes at address A =&gt; contents near A are already cached</p>
+<ul>
+<li>e.g. on the same cache line</li>
+<li>e.g. on a nearby cache line that was prefetched</li>
+</ul>
+</li>
+<li>
+<p>Predictable access patterns count. </p>
+<ul>
+<li>predictable ~ forward or backward traversal.</li>
+</ul>
+</li>
+<li>
+<p>linear traversals <em>very</em> cache-friendly</p>
+<ul>
+<li>excellent locality, predictable traversal pattern</li>
+<li>linear array search can beat <script type="math/tex">log_2 n</script> searches of heap-based binary search trees</li>
+<li>
+<script type="math/tex">log_2 n</script> binary search of a sorted array can beat <script type="math/tex">O(1)</script> searches of heap-based hash tables.</li>
+<li>Big-Oh wins for large <script type="math/tex">n</script>, but hardware caching takes early lead</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>[0:27:30] <strong>cache coherency</strong> explains the behavior of the multi-threaded example 2. It's called <em>false sharing</em>.</p>
+</li>
+<li>
+<p>[0:45:00] Guidance</p>
+<ul>
+<li>
+<p>for data </p>
+<ul>
+<li>Where practical employ linear array traversals (if needed sort)</li>
+<li>Use as much of a cache line as possible</li>
+<li>Be alert for false sharing in multi-threaded systems</li>
+</ul>
+</li>
+<li>
+<p>for code</p>
+<ul>
+<li>Fit working set in cache. Avoid iteration over heterogeneous sequences with virtual calls, i.e. sort sequences by type.</li>
+<li>make 'fast-path' branch-free sequences, use up-front conditionals to screen out slow cases</li>
+<li>inline cautiously. Inlining reduces branching and facilitates code-reducing optimizations, but code duplications reduces the effective cache size.</li>
+</ul>
+</li>
+<li>
+<p>Take advantage of profile-guided optimization (PGO) and whole program optimization (WPO)</p>
+</li>
+</ul>
+</li>
+<li>
+<p>[1:01:00] <strong>Cache associativity</strong></p>
+</li>
+</ul>
+<p>Below, we explain some details of modern CPU architecture with an impact on performance. We start out with the memory of a CPU because, as the presentation explains, that is key to performance. Then, we explain some tricks of the CPU to achieve the peak performance delivered by modern CPUs.</p>
 <h2 id="the-hierarchical-structure-of-cpu-memory">The hierarchical structure of CPU Memory</h2>
 <p>CPU memory of modern CPUs is hierarchically organised. The memory levels close to the processor need to be fast, to 
 serve it with data so that it can continue its work. As fast memory is expensive, the levels close to the processor 
@@ -130,13 +940,11 @@ are also smaller. The farther away from the processor the bigger they are, but a
 Faster memory is more expensive and therefor smaller. The figure below illustrates the layout.</p>
 <p><img alt="1-socket" src="../public/1-socket.png"></p>
 <p>The I/O hub connects the cpu to the outside world, hard disk, network, ...</p>
-<p>When an instruction needs a data item in a register, the CPU 
-looks first in the L1 cache, if it is there it will it to the register that was requested. Otherwise, the CPU looks 
-in L2. If it is there, it is copied to L1 and the register. Otherwise, the CPU looks in L3. If it is there, it is 
+<p>When an instruction needs a data item in a register, the CPU looks first in the L1 cache, if it is there it will it to the register that was requested. Otherwise, the CPU looks in L2. If it is there, it is copied to L1 and the register. Otherwise, the CPU looks in L3. If it is there, it is 
 copied to L2, L1 and the register. Otherwise, the CPU looks copies the <strong>cache line</strong> surrounding the data item to 
 L3, L2, L1 and the data item itself to the register. A cache line is typically 64 bytes long and thus can contain 4 
 double precision floating point numbers or 8 single precision numbers. The main consequence of this strategy is that 
-if the data item is part of an array, the next elements of that array will also be copied to L1 so that when 
+if the data item is part of an array, the elements of that array surrounding the requested element will also be copied to L1 so that when 
 processing the array the latency associated with main memory is amortized over 4 or 8 iterations. In addition, the 
 CPU will notice when it is processing an array and prefetch the next cache line of the array in order to avoid that 
 the processor has to wait for the data again. This strategy for loading data leads to two important best practices for 
@@ -187,14 +995,15 @@ a good compromise to the many faces of a truly complex problem.\</p>
 <p class="admonition-title">Tip</p>
 <p><strong><em>An absolute must-see</em></strong> for this course is the excellent presentation on this matter by Scott Meyers: 
 <a href="https://www.youtube.com/watch?v=WDIkqP4JbkE"><em>CPU Caches and Why You Care</em></a>.  (We can also recommend all his 
-books on C++).</p>
+books on C++). </p>
 </div>
+<p>This, in fact, holds for GPUs as well. An equally interesting presentation is <a href="https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s31151/"><em>How GPU computing works</em></a> by Stephen Jones from NVIDIA.</p>
 <h2 id="intra-core-parallellisation-features">Intra-core parallellisation features</h2>
 <p>Modern CPUs are designed to (among other things) process loops as efficiently as possible, as loops typically 
 account for a large part of the work load of a program. To make that possible CPUs use two important concepts: 
 <strong>instruction pipelining</strong> (ILP) and <strong>SIMD vectorisation</strong>. </p>
 <h3 id="instruction-pipelining">Instruction pipelining</h3>
-<p>Instruction pipelining is very well explained <a href="https://en.wikipedia.org/wiki/Instruction_pipelining">here</a>.</p>
+<p><strong>Instruction pipelining</strong> is very well explained <a href="https://en.wikipedia.org/wiki/Instruction_pipelining">here</a>.</p>
 <p>Basically, instructions are composed of micro-instructions (typically 5: instruction Fetch (IF), instruction decode 
 (ID), execute (EX), memory access (MEM), write back (WB), <a href="https://courses.cs.washington.%0Aedu/courses/cse410/05sp/lectures/cse410-10-pipelining-a.pdf">details here</a>), each of which are executed in separate 
 hardware units of the CPU. By executing the instructions sequentially, only one of those units would be active at a 
@@ -475,82 +1284,60 @@ the name <strong>ccNUMA</strong>, or <strong>cache coherent non-uniform memory a
 of different copies hold copies of the same cache line, and one of them is modified, all copies are updated. 
 <strong>NUMA</strong> means that there are different domains in the global address space of the node with different latency and/or 
 bandwidth. CPU0 can access data in DRAM1, but this is significantly slower (typically 2x). </p>
-<p><img alt="node" src="../public/node.png"></p></div></div>
-            </div>
-        </div>
+<p><img alt="node" src="../public/node.png"></p></div>
 
-        <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-        <script>
-            var base_url = "..",
-                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
-        </script>
-        <script src="../js/base.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" defer></script>
-        <script src="../search/main.js" defer></script>
 
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
             </div>
-            <div class="modal-body">
-                <p>From here you can search these documents. Enter your search terms below.</p>
-                <form>
-                    <div class="form-group">
-                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
-    </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
 </div>
-
-    </body>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML"></script>
+      
+    
+  </body>
 </html>

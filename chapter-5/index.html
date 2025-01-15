@@ -1,249 +1,1028 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        
-        
-        <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Chapter 5 - Developing Research Software - Parallel Programming</title>
-        <link href="../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../css/font-awesome.min.css" rel="stylesheet">
-        <link href="../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/color-brewer.min.css">
-        <link href="../assets/_mkdocstrings.css" rel="stylesheet">
 
-        <script src="../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
-    </head>
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../chapter-4/">
+      
+      
+        <link rel="next" href="../chapter-6/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.2">
+    
+    
+      
+        <title>Chapter 5 - Developing Research Software - Parallel programmeren</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
+      
+      
 
-    <body>
-        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-            <div class="container">
-                <a class="navbar-brand" href="..">Parallel Programming</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Expanded navigation -->
-                <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="navitem">
-                                <a href=".." class="nav-link">Home</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../glossary/" class="nav-link">Glossary</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../links/" class="nav-link">Useful links</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../overview/" class="nav-link">Overview</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../course-text/" class="nav-link">Course text</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../exercises/" class="nav-link">Exercises</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../evaluation/" class="nav-link">Evaluation of this course</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../vsc-infrastructure/" class="nav-link">VSC infrastructure</a>
-                            </li>
-                        </ul>
-
-                    <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> Search
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
-    </div>
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-level="1"><a href="#chapter-5-developing-research-software" class="nav-link">Chapter 5 - Developing Research Software</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#a-strategy-for-the-development-research-software" class="nav-link">A strategy for the development research software</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#principle-1" class="nav-link">Principle 1</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#principle-2" class="nav-link">Principle 2</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#principle-3" class="nav-link">Principle 3</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            
-            <li class="nav-item" data-level="1"><a href="#todo-fix-the-link" class="nav-link">TODO: ## fix the link</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#principle-4" class="nav-link">Principle 4</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#principle-5" class="nav-link">Principle 5</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#principle-6" class="nav-link">Principle 6</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#chapter-5-developing-research-software" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
-</div></div>
-                    <div class="col-md-9" role="main">
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Parallel programmeren" class="md-header__button md-logo" aria-label="Parallel programmeren" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Parallel programmeren
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Chapter 5 - Developing Research Software
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Parallel programmeren" class="md-nav__button md-logo" aria-label="Parallel programmeren" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    Parallel programmeren
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome at Parallel programming
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../over-de-auteur/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Over de auteur
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../glossary/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Glossary
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../links/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Useful links
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Overview
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 1 - Introduction
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 2 - Aspects of modern CPU architecture impacting performance
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    chapter 4 - Case studies
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Chapter 5 - Developing Research Software
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 5 - Developing Research Software
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-strategy-for-the-development-research-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      A strategy for the development research software
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principle-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Principle 1
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-out-in-a-high-level-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start out in a high level language
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principle-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Principle 2
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-out-as-simple-as-possible" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start out as simple as possible
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principle-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Principle 3
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-and-validate-your-code-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test and validate your code (changes)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automating-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Automating tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debugging-a-failing-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debugging a failing test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-and-dirty-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick and dirty testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principle-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Principle 4
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 4">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#improve-and-extend-the-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Improve and extend the code
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principle-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Principle 5
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 5">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optimise-if-necessary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimise if necessary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#techniques-for-optimising-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Techniques for optimising performance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Techniques for optimising performance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-python-modules-built-for-hpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Python modules built for HPC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numba" class="md-nav__link">
+    <span class="md-ellipsis">
+      Numba
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#developing-your-own-modules-in-cfortran" class="md-nav__link">
+    <span class="md-ellipsis">
+      Developing your own modules in C++/Fortran
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principle-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Principle 6
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 6">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parallelise-if-necessary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parallelise if necessary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../chapter-6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Chapter 6 - Tools for parallellization
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evaluation/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Evaluation of this course
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../vsc-infrastructure/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VSC infrastructure
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#a-strategy-for-the-development-research-software" class="md-nav__link">
+    <span class="md-ellipsis">
+      A strategy for the development research software
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principle-1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Principle 1
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-out-in-a-high-level-language" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start out in a high level language
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principle-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      Principle 2
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 2">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#start-out-as-simple-as-possible" class="md-nav__link">
+    <span class="md-ellipsis">
+      Start out as simple as possible
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principle-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      Principle 3
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 3">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#test-and-validate-your-code-changes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Test and validate your code (changes)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#automating-tests" class="md-nav__link">
+    <span class="md-ellipsis">
+      Automating tests
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#debugging-a-failing-test" class="md-nav__link">
+    <span class="md-ellipsis">
+      Debugging a failing test
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quick-and-dirty-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quick and dirty testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principle-4" class="md-nav__link">
+    <span class="md-ellipsis">
+      Principle 4
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 4">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#improve-and-extend-the-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      Improve and extend the code
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principle-5" class="md-nav__link">
+    <span class="md-ellipsis">
+      Principle 5
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 5">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#optimise-if-necessary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Optimise if necessary
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#techniques-for-optimising-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      Techniques for optimising performance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Techniques for optimising performance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#use-python-modules-built-for-hpc" class="md-nav__link">
+    <span class="md-ellipsis">
+      Use Python modules built for HPC
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#numba" class="md-nav__link">
+    <span class="md-ellipsis">
+      Numba
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#developing-your-own-modules-in-cfortran" class="md-nav__link">
+    <span class="md-ellipsis">
+      Developing your own modules in C++/Fortran
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#principle-6" class="md-nav__link">
+    <span class="md-ellipsis">
+      Principle 6
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Principle 6">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#parallelise-if-necessary" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parallelise if necessary
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
 
 <div><h1 id="chapter-5-developing-research-software">Chapter 5 - Developing Research Software</h1>
 <h2 id="a-strategy-for-the-development-research-software">A strategy for the development research software</h2>
-<p>You are facing a new research question, to be solved computationally and on your shelf of computational tools nothing 
-useful is found. You start with an empty sheet of paper on you desk. or rather with an empty screen on your laptop. 
-How you take on such a challenge? This chapter is about a strategy for (research) code development that</p>
+<p>You are facing a new research question, to be solved computationally and on your shelf of computational tools nothing useful is found. You start with an empty sheet of paper on you desk. or rather with an empty screen on your laptop. How you take on such a challenge? This chapter is about a strategy for (research) code development that</p>
 <ol>
-<li>minimizes coding efforts, </li>
-<li>allows for high performance, </li>
+<li>minimizes coding efforts,</li>
+<li>allows for high performance,</li>
 <li>provides flexible and reusable software components.</li>
 </ol>
-<p><em>Coding efforts</em> is more than just the time to type your program in an editor or IDE. It is also the time you spend 
-making sure that your code is correct, and stays correct while you are working on it, restructuring its components, 
-improving performance, parallelising it, and ensuring that it solves the problem you need to solve.</p>
-<p>High performance is essential when we run our problem on a supercomputer, but perhaps that is not necessary. We want 
-to postpone performance optimisation until it is really needed. This principle was set in stone in a quote by Donald 
-Knuth in 1974 already: "Premature optimisation is the root of all evil". Spending time on optimisation before it is 
-needed is wasting time, and stopping progress. Initially, we want to focus on simplicity and correctness, and on 
-understanding  the characteristics of the problem at hand. If the algorithm we choose to solve is inadequate, we 
-want to know that as soon as possible. On the other hand, when it is needed, we want our project to be in a state 
-that facilitates performance optimisation where it is needed.  </p>
-<p>Finally, we want an approach that builds experience. Flexible and reusable software components are materializing the 
-experience that we build up. They enable us to proceed faster when pieces of a last year's problem may be useful 
-today. Two important aspects of reusable code are writing simple functions and classes with a single functionality, 
-and documentation. Well documenting your code increases the chance that when you check out your code three months 
-later, you will not be staring baffled at your screen wondering what it was all about. It happens to me, it can 
-certainly happen to you. </p>
-<p>None of these features come without effort. It is also not a bucket list of checkboxes to make sure that you did 
-not overlook something. <strong><em>They comprise a learning process, require attention, disipline and research</em></strong>. </p>
-<p>Here is a story that demonstrates an anti-pattern for research code development. </p>
+<p><em>Coding efforts</em> is more than just the time to type your program in an editor or IDE. It is also the time you spend making sure that your code is correct, and stays correct while you are working on it, restructuring its components, improving performance, parallelizing it, and ensuring that it solves the problem you need to solve.</p>
+<p>High performance is essential when we run our problem on a supercomputer, but perhaps that is not necessary. We want to postpone performance optimization until it is really needed. This principle was set in stone in a quote by Donald Knuth in 1974 already: "Premature optimization is the root of all evil". Spending time on optimization before it is needed is wasting time, and stopping progress. Initially, we want to focus on simplicity and correctness, and on understanding  the characteristics of the problem at hand. If the algorithm we choose to solve is inadequate, we want to know that as soon as possible. On the other hand, when it is needed, we want our project to be in a state that facilitates performance optimization where it is needed. </p>
+<p>Finally, we want an approach that builds experience. Flexible and reusable software components are materializing the experience that we build up. They enable us to proceed faster when pieces of a last year's problem may be useful today. Two important aspects of reusable code are writing simple functions and classes with a single functionality, and documentation. Well documenting your code increases the chance that when you check out your code three months later, you will not be staring baffled at your screen wondering what it was all about. It happens to me, it can certainly happen to you.</p>
+<p>None of these features come without effort. It is also not a bucket list of checkboxes to make sure that you did not overlook something. <strong><em>They comprise a learning process, require attention, discipline and research</em></strong>.</p>
+<p>Here is a story that demonstrates an anti-pattern for research code development.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The term <strong>pattern</strong> refers to a set problems with common features that can be efficiently solved with the same 
-approach, by applying the pattern. The term comes from a very useful 
-<a href="https://springframework.guru/gang-of-four-design-patterns/">book</a> "Design Patterns - Elements of reusable 
-object-oriented software", by Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides, 1995. Several 
-"pattern" books later transferred the approach to other domains. </p>
-<p>An <strong>anti-pattern</strong> is a pattern that perhaps solves the problem, or not, but if it does, in pessimal way. It is a 
-pattern NOT to follow.</p>
+<p>The term <strong>pattern</strong> refers to a set problems with common features that can be efficiently solved with the same approach, by applying the pattern. The term comes from a very useful <a href="https://springframework.guru/gang-of-four-design-patterns/">book</a> "Design Patterns - Elements of reusable object-oriented software", by Erich Gamma, Richard Helm, Ralph Johnson, and John Vlissides, 1995. Several "pattern" books later transferred the approach to other domains. An <strong>anti-pattern</strong> is a pattern that perhaps solves the problem, or not, but if it does, in pessimal way. It is a pattern NOT to follow.</p>
 </div>
-<p>A PhD student once asked me for support. He had written a 10 000 line Fortran program. When he ran it, the results 
-were not what he expected, and he suspected that there was a bug 'somewhere'. He asked if I could help him find the 
-bug and - no kidding - by the end of next week, because the program had to go into production by then. I had to 
-disappoint him and told him that he needed a 'true' magician, which I, unfortunately, was not. Obviously, the program 
-was flawed in some sense, but other than a bug it might just as well be one or more of the situations below:</p>
+<p>A PhD student once asked me for support. He had written a 10 000 line Fortran program. When he ran it, the results were not what he expected, and he suspected that there was a bug 'somewhere'. He asked if I could help him find the bug and - no kidding - by the end of next week, because the program had to go into production by then. I had to disappoint him and told him that he needed a 'true' magician, which I, unfortunately, was not. Obviously, the program was flawed in some sense, but other than a bug it might just as well be one or more of the situations below:</p>
 <ul>
-<li>The program may contain many bugs, which is very well possible in view of its size. On average a programmer 
-  introduces about 1 bug in every 10 lines of code! Check this link for <a href="https://www.%0A%20%20openrefactory.com/intelligent-code-repair-icr/">some amazing facts</a> </li>
-<li>The algorithm for solving the problem is inappropriate. </li>
-<li>There is an accuracy problem, related e.g. discretisation of time, space, or a insufficient basis function for 
-  expanding the solution, or related to the finite precision of floating point numbers. (Floating point numbers are a 
-  processor's approximation of the real numbers, but they do have different mathematical properties. <em>E.g.</em> floating 
-  point addition is <strong><em>not</em></strong> commutative.)</li>
+<li>The program may contain many bugs, which is very well possible in view of its size. On average a programmer introduces about 1 bug in every 10 lines of code! Check this link for <a href="https://www.openrefactory.com/intelligent-code-repair-icr/">some amazing facts</a></li>
+<li>The algorithm for solving the problem is inappropriate.</li>
+<li>There is an accuracy problem, related to space/time discretization, or a insufficient basis function for expanding the solution, or related to the finite precision of floating point numbers. (Floating point numbers are a processor's approximation of the real numbers, but they do have different mathematical properties. <em>E.g.</em> floating point addition is <strong><em>not</em></strong> commutative.)</li>
 <li>The mathematical formulation itself could be flawed or misunderstood.</li>
-<li>The program is correct, but the researchers expectations are wrong. </li>
-<li>...</li>
+<li>The program is correct, but the researchers expectations are wrong. - ...</li>
 </ul>
-<p>It could easily take weeks, if not months to write tests for the individual components to learn about the behaviour 
-of the program and narrow down to the source of the error. This anti-pattern is a disaster waiting to happy.</p>
-<p>For this reason a sound strategy that makes sure that the code you write is correct, that does what you want, and 
-builds understanding of the problem at hand as you proceed, is indispensable. The strategy proposed below has been 
-shaped by a lifetime of research software developement. I use it in nearly every software project I take on, whether 
-it is small or big, simple or complex, starting from scratch or from someone else code. </p>
-<p>The proposed strategy builds on five principles:</p>
+<p>It could easily take weeks, if not months to write tests for the individual components to learn about the behaviour of the program and narrow down to the source of the error. This anti-pattern is a disaster waiting to happy.</p>
+<p>For this reason a sound strategy that makes sure that the code you write is correct, that does what you want, and builds understanding of the problem at hand as you proceed, is indispensable. The strategy proposed below has been shaped by a lifetime of research software developement. I use it in nearly every software project I take on, whether it is small or big, simple or complex, starting from scratch or from someone else code. 
+The proposed strategy builds on five principles:</p>
 <ol>
 <li>Start out in a high level programming language. <a href="https://www.python.org">Python</a> is an excellent choice.</li>
-<li>Start out simple, as simple as possible, in order to build up understanding of your problem and how it should 
-   be solved fast. </li>
-<li>Test and validate your code, continuously, and for small code fragments, to discover bug and mistakes as soon as 
-   possible. </li>
-<li>Improve your code, adding better algorithms (which usually are more complex), pay attention to data structure 
-   facilitating good data access patterns, think of <a class="autorefs autorefs-internal" href="../chapter-3/#common-sense-optimisations">common sense optimisations</a>, 
-   gradually increase the complexity of the problem.<br>
-   Keep principle 3. in mind and continue testing and validating the improvements.</li>
+<li>Start out simple, as simple as possible, in order to build up understanding of your problem and how it should    be solved fast. 3. Test and validate your code, continuously, and for small code fragments, to discover bug and mistakes as soon as    possible. 4. Improve your code, adding better algorithms (which usually are more complex), pay attention to data structure    facilitating good data access patterns, think of <a class="autorefs autorefs-internal" href="../chapter-3/#common-sense-optimizations">common sense optimizations</a>,    gradually increase the complexity of the problem. Keep principle 3. in mind and continue testing and validating the improvements.</li>
 <li>If neccessary, optimise your code. Necessary is when the time to solution is too long.</li>
-<li>If necessary, parallelise your code. Necessary is when the time to solution is still too long after paying 
-   attention to principle 5., or if the problem does not fit in the memory of a single machine. In that case it it 
-   advisable to optimise anyway to not waste cycles on an expensive supercomputer. </li>
+<li>If necessary, parallelise your code. Necessary is when the time to solution is still too long after paying    attention to principle 5., or if the problem does not fit in the memory of a single machine. In that case it it    advisable to optimise anyway to not waste cycles on an expensive supercomputer. </li>
 </ol>
 <div class="admonition tip">
 <p class="admonition-title">Tip for researchers of the University of Antwerp and institutes affiliated with the <a href="https://www.vscentrum.be">VSC</a></p>
-<p>Researcher of the University of Antwerp and institutes affiliated with the <a href="https://www.vscentrum.be">VSC</a> are 
-wellcome to contact me for support when developing research software. The best time to do that would be before 
-having written any line of code at all for the problem, in order to follow all principles.    </p>
+<p>Researcher of the University of Antwerp and institutes affiliated with the <a href="https://www.vscentrum.be">VSC</a> are wellcome to contact me for support when developing research software. The best time to do that would be before having written any line of code at all for the problem, in order to follow all principles.    </p>
 </div>
-<p>The ordering of the list is important and reflects the successive steps in working on a project.<br>
-Below, we explain these principles in depth.</p>
+<p>The ordering of the list is important and reflects the successive steps in working on a project.  Below, we explain these principles in depth.</p>
 <p>Much of the wisdom of this strategy is integrated into a Python application <a class="autorefs autorefs-internal" href="../links/#project-management">micc2</a>.</p>
 <h2 id="principle-1">Principle 1</h2>
 <h3 id="start-out-in-a-high-level-language">Start out in a high level language</h3>
 <p><a href="https://www.python.org">Python</a> is an excellent choice:</p>
 <ul>
-<li><a href="https://docs.python.org/3/">Python</a> is a 
-  <a href="https://docs.python.org/3/faq/general.html#what-is-python-good-for">high-level general-purpose programming language</a> 
-  that can be applied to many different classes of problems. </li>
-<li>Python is easy to learn. It is an interpreted and interactive language and programming in Python is intuitive, 
-  producing very readable code, and typically significantly more productive than in low-level languages as 
-  C/C++/Fortran. Scripting provides a very flexible approach to formulating a research problem, as compared to an 
-  input file of a low-level language program. </li>
-<li>It comes with a <a href="https://docs.python.org/3/library/index.html#library-index">large standard Library</a></li>
-<li>There is wide variety of third-party extensions, the <a href="https://pypi.org">Python Package Index(PyPI)</a>. Many packages 
-  are built with HPC in mind, on top of high quality HPC libraries. </li>
-<li>The functionality of standard library and extension packages is enabled easily as <code>import module_name</code>, and 
-  installing packages is as easy as: <code>pip install numpy</code>. The use of modules is so practical and natural to Python 
-  that researchers do not so often feel the need to reinvent wheels.</li>
+<li><a href="https://docs.python.org/3/">Python</a> is a   <a href="https://docs.python.org/3/faq/general.html#what-is-python-good-for">high-level general-purpose programming language</a>   that can be applied to many different classes of problems. - Python is easy to learn. It is an interpreted and interactive language and programming in Python is intuitive,   producing very readable code, and typically significantly more productive than in low-level languages as   C/C++/Fortran. Scripting provides a very flexible approach to formulating a research problem, as compared to an   input file of a low-level language program. - It comes with a <a href="https://docs.python.org/3/library/index.html#library-index">large standard Library</a></li>
+<li>There is wide variety of third-party extensions, the <a href="https://pypi.org">Python Package Index(PyPI)</a>. Many packages   are built with HPC in mind, on top of high quality HPC libraries. - The functionality of standard library and extension packages is enabled easily as <code>import module_name</code>, and   installing packages is as easy as: <code>pip install numpy</code>. The use of modules is so practical and natural to Python   that researchers do not so often feel the need to reinvent wheels.</li>
 <li>Availability of High quality Python distributions (
   <a href="https://www.intel.com/content/www/us/en/developer/articles/technical/get-started-with-intel-distribution%0A%20%20-for-python.html">Intel</a>, <a href="https://www.anaconda.com/products/distribution">Anaconda</a>), cross-platform Windows/Linux/MACOS</li>
-<li>Python is open source. In itself that is not necessarily an advantage, but its large community guarantees an 
-  very good documentation, and for many problems high-quality solutions are found readily on user forums.  </li>
-<li>Python is used in probably any scientific domain, and may have many third party extension freely available in that 
-  domain. It is available with a lot scientific Python packages on all <a href="https://www.vscentrum.be">VSC</a>-clusters.</li>
-<li>Several high-quality Integrated Development Environments (IDEs) are freely available for Python: <em>e.g.</em> 
-  <a href="https://www.jetbrains.com/pycharm/">PyCharm</a>, <a href="https://code.visualstudio.com">VS Code</a>, which at the same time 
-  provide support for C/C++/Fortran.</li>
-<li>Although Python in itself is a rather slow language, as we will see, there are many ways to cope with performance 
-  bottlenecks in Python. </li>
+<li>Python is open source. In itself that is not necessarily an advantage, but its large community guarantees an   very good documentation, and for many problems high-quality solutions are found readily on user forums.  - Python is used in probably any scientific domain, and may have many third party extension freely available in that   domain. It is available with a lot scientific Python packages on all <a href="https://www.vscentrum.be">VSC</a>-clusters.</li>
+<li>Several high-quality Integrated Development Environments (IDEs) are freely available for Python: <em>e.g.</em>   <a href="https://www.jetbrains.com/pycharm/">PyCharm</a>, <a href="https://code.visualstudio.com">VS Code</a>, which at the same time   provide support for C/C++/Fortran.</li>
+<li>Although Python in itself is a rather slow language, as we will see, there are many ways to cope with performance   bottlenecks in Python.   The quality of Python is embodied it its design principles "The Zen of Python" which are printed when you <code>import this</code>. Many of these also apply to our strategy for developing research software.</li>
 </ul>
-<p>The quality of Python is embodied it its design principles "The Zen of Python" which are printed when you <code>import 
-this</code>. Many of these also apply to our strategy for developing research software.</p>
 <pre><code class="language-python">&gt; python
 &gt;&gt;&gt; import this
 The Zen of Python, by Tim Peters
@@ -270,37 +1049,20 @@ Namespaces are one honking great idea -- let's do more of those!
 </code></pre>
 <p>In many ways, Python gently pushes you in the right direction, providing a pleasant programming experience.</p>
 <p><img alt="excellent-just-ahead" src="../public/excellence-just-ahead.png"></p>
-<p>As an alternative on could consider <a href="https://julialang.org">Julia</a>. Following a different programming paradigm, called 
-<a href="https://docs.julialang.org/en/v1/manual/methods/">multiple dispatch</a>, its learning curve is probably a bit steeper 
-and it has a smaller community. However, it is more performant than Python. On the other hand its programming 
-productivity might not be that of Python. </p>
-<p>An other alternative could be <a href="https://www.mathworks.com/products/matlab.html">Matlab</a>. Although it has a long 
-history of scientific computing, from as a language is it not as well designed as Python, and it is not fit for HPC. 
-Moreover, it is a commercial product, and the community using it is not as willing to share its solutions as for 
-Python, and there are much less extensions available. Often, you will need to solve the problem yourself, and, as a 
-consequence, proceed at a slower pace.</p>
-<p>Starting out in a low-level programming language (C/C++/Fortran) is certainly a bad idea. Even if you are an 
-experienced programmer you will proceed slower. The productivity of Python is easily 10 times larger than for 
-C/C++/Fortran because:</p>
+<p>As an alternative on could consider <a href="https://julialang.org">Julia</a>. Following a different programming paradigm, called <a href="https://docs.julialang.org/en/v1/manual/methods/">multiple dispatch</a>, its learning curve is probably a bit steeper and it has a smaller community. However, it is more performant than Python. On the other hand its programming productivity might not be that of Python. 
+An other alternative could be <a href="https://www.mathworks.com/products/matlab.html">Matlab</a>. Although it has a long history of scientific computing, from as a language is it not as well designed as Python, and it is not fit for HPC. Moreover, it is a commercial product, and the community using it is not as willing to share its solutions as for Python, and there are much less extensions available. Often, you will need to solve the problem yourself, and, as a consequence, proceed at a slower pace.</p>
+<p>Starting out in a low-level programming language (C/C++/Fortran) is certainly a bad idea. Even if you are an experienced programmer you will proceed slower. The productivity of Python is easily 10 times larger than for C/C++/Fortran because:</p>
 <ul>
 <li>the advantages coming with an interpreted language, <em>vs.</em> a compiled language,</li>
 <li>the fact that Python is a very well designed, expressive and readable language with a rather flat learning curve,</li>
-<li>the availability of a large standard library and a wide range of domain-specific third party extensions, as well 
-  as the ease with which these are enabled in your code.</li>
+<li>the availability of a large standard library and a wide range of domain-specific third party extensions, as well   as the ease with which these are enabled in your code.</li>
 </ul>
 <p>Hence, this course sticks to Python. </p>
 <h2 id="principle-2">Principle 2</h2>
 <h3 id="start-out-as-simple-as-possible">Start out as simple as possible</h3>
-<p>Take a small toy problem, the smallest you can think of that still represents the problem that you want to 
-solve. There is a famous quote, attributed to Einstein 
-(<a href="https://skeptics.stackexchange.com/questions/34599/did-albert-einstein-say-make-everything-as-simple-as-possible-but-not-simpler">although it seems he formulated it differently</a>)
-"<strong><em>Make everything as simple as possible, but not simpler</em></strong>". That applies very well here. The simpler the problem 
-you start with, the faster you will build experience and understanding of the problem. Ideally, take a problem 
-with a known analytical solution. Look for something you can easily visualise. Four atoms are easier to visualise 
-than a hundred. Visualisation is a perfect way for obtaining insight (pun intended!) in your problem. Choose the 
-simplest algorithm that will do the trick, don't bother about performance. Once it works correctly, use it as a 
-reference case for validating improvements.  </p>
-<p>Here are some interesting Python modules for visualisation:</p>
+<p>Take a small toy problem, the smallest you can think of that still represents the problem that you want to solve. There is a famous quote, attributed to Einstein (<a href="https://skeptics.stackexchange.com/questions/34599/did-albert-einstein-say-make-everything-as-simple-as-possible-but-not-simpler">although it seems he formulated it differently</a>)
+"<strong><em>Make everything as simple as possible, but not simpler</em></strong>". That applies very well here. The simpler the problem you start with, the faster you will build experience and understanding of the problem. Ideally, take a problem with a known analytical solution. Look for something you can easily visualise. Four atoms are easier to visualise than a hundred. Visualization is a perfect way for obtaining insight (pun intended!) in your problem. Choose the simplest algorithm that will do the trick, don't bother about performance. Once it works correctly, use it as a reference case for validating improvements.<br>
+Here are some interesting Python modules for visualization:</p>
 <ul>
 <li><a href="https://matplotlib.org">matplotlib</a></li>
 <li><a href="https://docs.bokeh.org/en/latest/">bokeh</a></li>
@@ -309,23 +1071,12 @@ reference case for validating improvements.  </p>
 </ul>
 <h2 id="principle-3">Principle 3</h2>
 <h3 id="test-and-validate-your-code-changes">Test and validate your code (changes)</h3>
-<p>In view of these amazing facts on the abundance of <a href="https://www.openrefactory.com/intelligent-code-repair-icr/">bugs in code</a> there seems to be little chance that a programmer writes 100 lines of code without bugs. On average 7 bugs are to be 
-expected in every 100 lines of code. Probably not all these bugs affect the outcome of the program, but in research 
-code the outcome  is of course crucial. How can we ensure that our code is correct, and remains so as we continue to 
-work on it? The answer is unit-tests. <a href="https://en.wikipedia.org/wiki/Unit_testing">Unit-testing</a> are pieces of 
-test-code together with verified outcomes. In view of the abundancy of bus it is best to test small pieces of code, 
-in the order of 10 lines. Test code is also code and thus can contain bugs as well. The amount of test code for a 
-system can be large. An example is probaly the best way to demonstrate the concept. In chapter 4 we discussed the 
-case study 
-<a class="autorefs autorefs-internal" href="../chapter-4/#monte-carlo-ground-state-energy-calculation-of-a-small-atom-cluster">Monte Carlo ground state energy calculation of a small atom cluster</a>
-and a small project <a class="autorefs autorefs-internal" href="../chapter-4/#project-mcgse">wetppr/mcgse</a> where the original study is repeated with a Morse potential, 
-described by the formula:</p>
+<p>In view of these amazing facts on the abundance of <a href="https://www.openrefactory.com/intelligent-code-repair-icr/">bugs in code</a> there seems to be little chance that a programmer writes 100 lines of code without bugs. On average 7 bugs are to be expected in every 100 lines of code. Probably not all these bugs affect the outcome of the program, but in research code the outcome  is of course crucial. How can we ensure that our code is correct, and remains so as we continue to work on it? The answer is unit-tests. <a href="https://en.wikipedia.org/wiki/Unit_testing">Unit-testing</a> are pieces of test-code together with verified outcomes. In view of the abundancy of bus it is best to test small pieces of code, in the order of 10 lines. Test code is also code and thus can contain bugs as well. The amount of test code for a system can be large. An example is probaly the best way to demonstrate the concept. In chapter 4 we discussed the case study <a class="autorefs autorefs-internal" href="../chapter-4/#monte-carlo-ground-state-energy-calculation-of-a-small-atom-cluster">Monte Carlo ground state energy calculation of a small atom cluster</a>
+and a small project <a class="autorefs autorefs-internal" href="../chapter-4/#project-mcgse">wetppr/mcgse</a> where the original study is repeated with a Morse potential, described by the formula:</p>
 <p>
 <script type="math/tex; mode=display"> V(r) = D_e(1 - e^{-\alpha(r-r_e)})^2 </script>
 </p>
-<h1 id="todo-fix-the-link">TODO: ## fix the link</h1>
-<p>The code for this function is found in <a href="public/symlinks/__init__.py">wetppr/mcgse/<strong>init</strong>.py</a>. Note that we 
-provided default unit values for all the parameters: </p>
+<p>The code for this function is found in <a href="../public/symlinks/__init__.py">wetppr/mcgse/<strong>init</strong>.py</a>. Note that we provided default unit values for all the parameters: </p>
 <pre><code class="language-python">import numpy as np
 
 def morse_potential(r: float, D_e: float = 1, alpha: float = 1, r_e: float = 1) -&gt; float:
@@ -342,8 +1093,7 @@ def morse_potential(r: float, D_e: float = 1, alpha: float = 1, r_e: float = 1) 
     """
     return D_e * (1 - np.exp(-alpha*(r - r_e)))**2
 </code></pre>
-<p>The implementation of the function comprises only one line. How can we test its correctness? One approach would be 
-to list a few r-values for which we know the outcome. <em>E.g.</em> <script type="math/tex">V(r_e) = 0</script>. Here is a test funtion for it. Note that </p>
+<p>The implementation of the function comprises only one line. How can we test its correctness? One approach would be to list a few r-values for which we know the outcome. <em>E.g.</em> <script type="math/tex">V(r_e) = 0</script>. Here is a test funtion for it. Note that </p>
 <pre><code class="language-python">from math import isclose
 
 def test_morse_potential_at_r_e():
@@ -353,35 +1103,24 @@ def test_morse_potential_at_r_e():
     Vr_expected = 0
     assert isclose(Vr, Vr_expected, rel_tol=1e-15)
 </code></pre>
-<p>Because the function is using floating point arithmetic, the outcome could be subject to roundoff error. We account 
-for a relative error of <code>1e-15</code>. When running the test, an AssertionError will be raised whenever the relative 
-error is larger than <code>1e-15</code>. 
-When it comes to testing functions it is practical to focus on mathematical properties of the function (fixing 
-parameters to unity). <em>E.g.</em></p>
+<p>Because the function is using floating point arithmetic, the outcome could be subject to roundoff error. We account for a relative error of <code>1e-15</code>. When running the test, an AssertionError will be raised whenever the relative error is larger than <code>1e-15</code>. When it comes to testing functions it is practical to focus on mathematical properties of the function (fixing parameters to unity). <em>E.g.</em></p>
 <ul>
 <li>
 <script type="math/tex">0 \le V(r) </script> for <script type="math/tex">r \in ]0,1]</script>,</li>
 <li>
 <script type="math/tex">0 \le V(r) < 1 </script> for <script type="math/tex">r \in [1,+\infty[</script>,</li>
 <li>
-<script type="math/tex">V(r)</script> is monotonously decreasing on <script type="math/tex">]0,1]</script>, </li>
-<li>
-<script type="math/tex">V(r)</script> is monotonously increasing on <script type="math/tex">[1,+\infty[</script>, </li>
-<li>
-<script type="math/tex">V''(r)</script> is positive on <script type="math/tex">]0,1]</script>,</li>
+<script type="math/tex">V(r)</script> is monotonously decreasing on <script type="math/tex">]0,1]</script>, - <script type="math/tex">V(r)</script> is monotonously increasing on <script type="math/tex">[1,+\infty[</script>, - <script type="math/tex">V''(r)</script> is positive on <script type="math/tex">]0,1]</script>,</li>
 <li>
 <script type="math/tex">V''(r)</script> is positive on <script type="math/tex">]1,r_i]</script>, <script type="math/tex">r_i=1 - \log(1/2)</script> being the inflection point,</li>
 <li>
 <script type="math/tex">V''(r)</script> is negative on <script type="math/tex">]r_i, +\infty[</script>,</li>
 <li>...</li>
 </ul>
-<p>See <code>tests/wetppr/mcgse/test_mcgse.py</code> for details. The file contains many more tests for other functions in the file 
-<code>wetppr/mcgse/__init__.py</code>. </p>
+<p>See <code>tests/wetppr/mcgse/test_mcgse.py</code> for details. The file contains many more tests for other functions in the file <code>wetppr/mcgse/__init__.py</code>. </p>
 <h3 id="automating-tests">Automating tests</h3>
 <p>As soon as you have a few tests, running them manually after every code change, becomes impractical. We need to
-automate running the tests. Several automated test runners are available. <a href="https://docs.pytest.org/en/7.2.x/">Pytest</a> 
-is a good choice. When given a directory as a parameter, it will import all <code>test_*.py</code> files under it, look for 
-methods starting with <code>test</code>, execute them and produce a concise report about which tests pass and which tests fail.
+automate running the tests. Several automated test runners are available. <a href="https://docs.pytest.org/en/7.2.x/">Pytest</a> is a good choice. When given a directory as a parameter, it will import all <code>test_*.py</code> files under it, look for methods starting with <code>test</code>, execute them and produce a concise report about which tests pass and which tests fail.
 Details about test discovery are found <a href="https://docs.pytest.org/en/7.2.x/explanation/goodpractices.html">here</a>.</p>
 <pre><code class="language-bash">&gt; cd path/to/wetppr
 &gt; pytest tests
@@ -395,20 +1134,12 @@ tests/wetppr/mcgse/test_mcgse.py .....                                          
 
 ===================================== 5 passed in 1.65s ======================================
 </code></pre>
-<p>As is clear from the output above it 
-found 5 tests in <code>tests/wetppr/mcgse/test_mcgse.py</code>, all executed successfully. In the presence of errors it is 
-instructive to run <code>pytest</code> with <code>-v -s</code> options.</p>
-<p>For every new method added to your code, add some tests and run <code>pytest</code>. For every code change run all the tests 
-again. Make sure they pass before you continue to improve or extend the code.</p>
+<p>As is clear from the output above it found 5 tests in <code>tests/wetppr/mcgse/test_mcgse.py</code>, all executed successfully. In the presence of errors it is instructive to run <code>pytest</code> with <code>-v -s</code> options.</p>
+<p>For every new method added to your code, add some tests and run <code>pytest</code>. For every code change run all the tests again. Make sure they pass before you continue to improve or extend the code.</p>
 <h3 id="debugging-a-failing-test">Debugging a failing test</h3>
-<p><strong>Debugging</strong> is the process of stepping through a program, executing it line by line, and examining the results in 
-order to find the source of the error. IDEs like <a href="https://www.jetbrains.com/pycharm/">PyCharm</a> and 
-<a href="https://code.visualstudio.com">VS Code</a> provide a most friendly debugging experience, but you can also use the 
-Python debugging module <a href="https://docs.python.org/3/library/pdb.html">pdb</a>:</p>
-<p>Debugging a failing test is often the best way to investigate the source of the error. </p>
-<p>Python has an interesting idiom that allows a module to be run as a script, <em>i.e.</em><br>
-<a href="https://realpython.com/lessons/executing-module/">execute a module</a>. To that end you put this code snippet at the 
-end of a module:</p>
+<p><strong>Debugging</strong> is the process of stepping through a program, executing it line by line, and examining the results in order to find the source of the error. IDEs like <a href="https://www.jetbrains.com/pycharm/">PyCharm</a> and <a href="https://code.visualstudio.com">VS Code</a> provide a most friendly debugging experience, but you can also use the Python debugging module <a href="https://docs.python.org/3/library/pdb.html">pdb</a>:</p>
+<p>Debugging a failing test is often the best way to investigate the source of the error. 
+Python has an interesting idiom that allows a module to be run as a script, <em>i.e.</em>  <a href="https://realpython.com/lessons/executing-module/">execute a module</a>. To that end you put this code snippet at the end of a module:</p>
 <pre><code class="language-python">#
 # module code here
 #
@@ -416,20 +1147,11 @@ if __name__ == "__main__":
     #
     # script code here.
     #
-    print("-*# finished #*-") # if this line doesn't show up, something went wrong. 
+    print("-*# finished #*-") # if this line doesn't show up, something went wrong.
 </code></pre>
-<p>The idiom has no common name :-(, we will refer to it as the <code>if __name__ == "__main__":</code> idiom. </p>
-<p>If a module file is imported as in <code>import module_name</code>, only the module code is executed, and the body of the <code>if</code> 
-statement <code>if __name__ == "__main__":</code> is ignored, because the <code>import</code> statement sets the value of the <code>__name__</code> 
-variable to the module name. Thus, the condition evaluates to <code>False</code>. Most of the module code will consist of <code>def</code> 
-and <code>class</code> statements, defining methods (the Python term for a function) and classes. When Python executes a <code>def</code> 
-or a <code>class</code> statement, it interprets the code of the method or class and registers them under their respective 
-names, so that they can be called by the module or script that imported the module.</p>
-<p>If the module file is executed on the command line, as in the command <code>python module_name.py</code> or in an IDE, the 
-<code>python</code> executable sets the <code>__name__</code> variable to <code>"__main__"</code>. Thus, the condition evaluates to <code>True</code> and its 
-body is executed. </p>
-<p>This Python idiom provides us with a practical approach for executing a failing test. Assume that by running <code>pytest 
-tests</code> we find out that there is an error in the test function <code>test_morse_potential_mathematical_properties</code>:</p>
+<p>The idiom has no common name :-(, we will refer to it as the <code>if __name__ == "__main__":</code> idiom. If a module file is imported as in <code>import module_name</code>, only the module code is executed, and the body of the <code>if</code> statement <code>if __name__ == "__main__":</code> is ignored, because the <code>import</code> statement sets the value of the <code>__name__</code> variable to the module name. Thus, the condition evaluates to <code>False</code>. Most of the module code will consist of <code>def</code> and <code>class</code> statements, defining methods (the Python term for a function) and classes. When Python executes a <code>def</code> or a <code>class</code> statement, it interprets the code of the method or class and registers them under their respective names, so that they can be called by the module or script that imported the module.</p>
+<p>If the module file is executed on the command line, as in the command <code>python module_name.py</code> or in an IDE, the <code>python</code> executable sets the <code>__name__</code> variable to <code>"__main__"</code>. Thus, the condition evaluates to <code>True</code> and its body is executed. 
+This Python idiom provides us with a practical approach for executing a failing test. Assume that by running <code>pytest tests</code> we find out that there is an error in the test function <code>test_morse_potential_mathematical_properties</code>:</p>
 <pre><code class="language-bash">&gt; pytest tests
 ==================================== test session starts =====================================
 platform darwin -- Python 3.9.5, pytest-6.2.5, py-1.10.0, pluggy-1.0.0
@@ -448,8 +1170,7 @@ FAILED tests/wetppr/mcgse/test_mcgse.py::test_morse_potential_mathematical_prope
 ================================ 1 failed, 5 passed in 4.27s =================================
 
 </code></pre>
-<p>At the end of the test module <code>tests/wetppr/mcgse/test_mcgse.py</code>, which contains the failing test 
-<code>test_morse_potential_mathematical_properties</code> you will see this code snippet:</p>
+<p>At the end of the test module <code>tests/wetppr/mcgse/test_mcgse.py</code>, which contains the failing test <code>test_morse_potential_mathematical_properties</code> you will see this code snippet:</p>
 <pre><code class="language-python">#
 # test functions here
 #
@@ -460,70 +1181,42 @@ if __name__ == "__main__":
     the_test_you_want_to_debug()
     print("-*# finished #*-")
 </code></pre>
-<p>When we run <code>pytest tests</code>, pytest <em>imports</em> the test module, setting <code>__name__</code> to <code>"test_mcgse"</code>. Hence the 
-condition <code>__name__ == "__main__"</code> evaluates to <code>False</code> and its body is not executed. Only when the module is 
-<em>executed</em> the body will be executed too. Since we want to run the <code>test_morse_potential_mathematical_properties</code> 
-function, change the first line in the body to:</p>
+<p>When we run <code>pytest tests</code>, pytest <em>imports</em> the test module, setting <code>__name__</code> to <code>"test_mcgse"</code>. Hence the condition <code>__name__ == "__main__"</code> evaluates to <code>False</code> and its body is not executed. Only when the module is <em>executed</em> the body will be executed too. Since we want to run the <code>test_morse_potential_mathematical_properties</code> function, change the first line in the body to:</p>
 <pre><code class="language-python">    the_test_you_want_to_debug = test_morse_potential_mathematical_properties
 </code></pre>
-<p>The variable <code>the_test_you_want_to_debug</code> now is an alias for the test function that we want to debug, 
-<code>test_morse_potential_mathematical_properties</code>. The next statement is a print statement producing something like:</p>
+<p>The variable <code>the_test_you_want_to_debug</code> now is an alias for the test function that we want to debug, <code>test_morse_potential_mathematical_properties</code>. The next statement is a print statement producing something like:</p>
 <pre><code class="language-bash">__main__ running &lt;function test_morse_potential_mathematical_properties at 0x11098c310&gt;
 </code></pre>
-<p>which ensures us that we called the right test function. The test function is then called in the next statement 
-through its alias <code>the_test_you_want_to_debug</code>:</p>
+<p>which ensures us that we called the right test function. The test function is then called in the next statement through its alias <code>the_test_you_want_to_debug</code>:</p>
 <pre><code class="language-python">    the_test_you_want_to_debug()
 </code></pre>
 <p>To debug the test using pdb execute:</p>
 <pre><code class="language-bash">&gt; python -m pdb tests/wetppr/mcgse/test_mcgse.py
 </code></pre>
 <h3 id="quick-and-dirty-testing"><em>Quick and dirty</em> testing</h3>
-<p>The <code>if __name__ == "__main__":</code> idiom has another interesting application. When working on small projects, with only a 
-few functions, sometimes we don't want to set up a <code>tests</code> directory with a <code>test_small_module.py</code> file. Instead we 
-can use the <code>if __name__ == "__main__":</code> idiom to write a <em>quick and dirty</em> test inside the module, or just call the 
-function to check by running or debugging the module that it does the right thing. In this way your work is 
-restricted to a single file, and there is no need to switch between the test file and the module file.</p>
+<p>The <code>if __name__ == "__main__":</code> idiom has another interesting application. When working on small projects, with only a few functions, sometimes we don't want to set up a <code>tests</code> directory with a <code>test_small_module.py</code> file. Instead we can use the <code>if __name__ == "__main__":</code> idiom to write a <em>quick and dirty</em> test inside the module, or just call the function to check by running or debugging the module that it does the right thing. In this way your work is restricted to a single file, and there is no need to switch between the test file and the module file.</p>
 <h2 id="principle-4">Principle 4</h2>
 <h3 id="improve-and-extend-the-code">Improve and extend the code</h3>
-<p>Once the code for the simple problem you started with (see <a class="autorefs autorefs-internal" href="#start-out-as-simple-as-possible">Principle 2</a>) is 
-tested, validated, and understood, you can gradually add complexity, approaching the true problem you need to solve. 
-This may require improvements to the code because the time to solution will probably increase. Possible improvements 
-are: </p>
-<ul>
-<li>better algorithms with lower computational complexity,</li>
-<li>better data structures, facilitating good data access patterns,</li>
-<li><a class="autorefs autorefs-internal" href="../chapter-3/#common-sense-optimisations">common sense optimisations</a>, </li>
-<li>increasing the flexibility of the code,</li>
-<li>restructuring the code,</li>
-<li>gradually increase the complexity of the problem.</li>
-</ul>
+<p>Once the code for the simple problem you started with (see <a class="autorefs autorefs-internal" href="#start-out-as-simple-as-possible">Principle 2</a>) is tested, validated, and understood, you can gradually add complexity, approaching the true problem you need to solve. This may require improvements to the code because the time to solution will probably increase. Possible improvements are: 
+- better algorithms with lower computational complexity,
+- better data structures, facilitating good data access patterns,
+- <a class="autorefs autorefs-internal" href="../chapter-3/#common-sense-optimizations">common sense optimizations</a>, - increasing the flexibility of the code,
+- restructuring the code,
+- gradually increase the complexity of the problem.</p>
 <p>Obviously, continue to test and validate all code changes and extensions.</p>
 <h2 id="principle-5">Principle 5</h2>
 <h3 id="optimise-if-necessary">Optimise if necessary</h3>
-<p>If neccessary, optimise your code. Necessary is when the time to solution is too long. At this point you will 
-probably already have a considerable Python code base. Bearing in mind that 
-<strong><em>premature optimisation is the root of all evil</em></strong>, the important question is what needs optimisation and what not. 
-The answer is provided by using a profiler. Profiler are tools that tell you how much time your program spends in 
-the different parts of it and how many times tha part is executed.</p>
-<p>Some profilers provide information on a <em>per function</em> basis, and tell how many times that function was called and 
-the average or cumulative time spent in it. Other profilers provide information on a <em>per line</em> basis, an tell how 
-many times that line was executed and the average or cumulative time spent on it.
-<a href="https://www.admin-magazine.com/HPC/Articles/Profiling-Python-Code">This article</a> provides the necessary details.</p>
-<p>You should start profiling on a per function basis and then profile the function(s) consuming most time with a 
-line-by-line profiler. If it turns out that only a few lines of the function are responsible for the runtime 
-consumption, split them off in a new function and try optimising the new function using one of the techniques discussed 
-below. If not, try optimising the whole function with the very same techniques.</p>
+<p>If neccessary, optimise your code. Necessary is when the time to solution is too long. At this point you will probably already have a considerable Python code base. Bearing in mind that <strong><em>premature optimization is the root of all evil</em></strong>, the important question is what needs optimization and what not. The answer is provided by using a profiler. Profiler are tools that tell you how much time your program spends in the different parts of it and how many times tha part is executed.</p>
+<p>Some profilers provide information on a <em>per function</em> basis, and tell how many times that function was called and the average or cumulative time spent in it. Other profilers provide information on a <em>per line</em> basis, an tell how many times that line was executed and the average or cumulative time spent on it. <a href="https://www.admin-magazine.com/HPC/Articles/Profiling-Python-Code">This article</a> provides the necessary details.</p>
+<p>You should start profiling on a per function basis and then profile the function(s) consuming most time with a line-by-line profiler. If it turns out that only a few lines of the function are responsible for the runtime consumption, split them off in a new function and try optimising the new function using one of the techniques discussed below. If not, try optimising the whole function with the very same techniques.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>After optimising a (split-off) function, run the profiler again to check the performance.  </p>
 </div>
 <h3 id="techniques-for-optimising-performance">Techniques for optimising performance</h3>
-<p>Below a series of optimisation techniques is presented, ordered by development effort needed.</p>
+<p>Below a series of optimization techniques is presented, ordered by development effort needed.</p>
 <h4 id="use-python-modules-built-for-hpc">Use Python modules built for HPC</h4>
-<p>There exist excellent Python modules that provide very performant high level data structures and operations. Using 
-them can make a dramatic difference. E.g. the difference in performance between Python lists and <a href="https://numpy.%0Aorg">Numpy</a> arrays can easily be a factor 100. By using them you do not only gain performance. Once you have learned how to 
-use a Python module, such as Numpy, development time is also reduced as you no longer have to code the low-level 
-logic yourself. Here are a few interesting scientific Python modules:</p>
+<p>There exist excellent Python modules that provide very performant high level data structures and operations. Using them can make a dramatic difference. E.g. the difference in performance between Python lists and <a href="https://numpy.org">Numpy</a> arrays can easily be a factor 100. By using them you do not only gain performance. Once you have learned how to use a Python module, such as Numpy, development time is also reduced as you no longer have to code the low-level logic yourself. Here are a few interesting scientific Python modules:</p>
 <ul>
 <li><a href="https://numpy.org">Numpy</a>: n-dimensional arrays, mathematical functions, linear algebra, ...</li>
 <li><a href="https://scipy.org">SciPy</a>: fundamental algorithms for scientific computing...</li>
@@ -531,14 +1224,9 @@ logic yourself. Here are a few interesting scientific Python modules:</p>
 <li><a href="https://pandas.pydata.org">pandas</a>: data analysis</li>
 </ul>
 <h4 id="numba">Numba</h4>
-<p><a href="https://numba.readthedocs.io/en/stable/">Numba</a> is a compiler for Python array and numerical functions that gives 
-you the power to speed up your applications with high performance functions written directly in Python. It takes 
-your Python code, transforms it into C code, compiles it (on the fly) and calls the compiled C code version. Here is 
-how a Numba-optimized function, taking a Numpy array as argument, might look like: </p>
+<p><a href="https://numba.readthedocs.io/en/stable/">Numba</a> is a compiler for Python array and numerical functions that gives you the power to speed up your applications with high performance functions written directly in Python. It takes your Python code, transforms it into C code, compiles it (on the fly) and calls the compiled C code version. Here is how a Numba-optimized function, taking a Numpy array as argument, might look like: </p>
 <pre><code class="language-python">import numba 
-
-@numba.jit 
-def sum2d(arr):
+@numba.jit def sum2d(arr):
     M, N = arr.shape
     result = 0.0
     for i in range(M):
@@ -546,115 +1234,79 @@ def sum2d(arr):
             result += arr[i,j]
     return result
 </code></pre>
-<p>the <code>@numba.jit</code> decorator instructs the Python interpreter to use the numba just-in-time compiler (jit) to 
-translate the Python code int C. compile it, and use the compiled verson on every call. As pure Python loops are 
-quite expensive and the function has a double Python loop over 'i' and 'j' the performance gain is considerable.
-As in principle it only involves adding a decorator (and possibly some hinting at data types) using numba can be a 
-really quick win. </p>
+<p>The <code>@numba.jit</code> decorator instructs the Python interpreter to use the numba just-in-time compiler (jit) to translate the Python code int C. compile it, and use the compiled verson on every call. As pure Python loops are quite expensive and the function has a double Python loop over 'i' and 'j' the performance gain is considerable. As in principle it only involves adding a decorator (and possibly some hinting at data types) using numba can be a really quick win.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>The above function can also defined as <code>np.sum(np.sum(arr))</code>, using numpy function calls exclusively. That might 
-be even faster.</p>
+<p>The above function can also defined as <code>np.sum(np.sum(arr))</code>, using numpy function calls exclusively. That might be even faster.</p>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Numba is sensitive to data types. Changing the data type of the arguments can improve the situation a lot.  </p>
 </div>
 <h4 id="developing-your-own-modules-in-cfortran">Developing your own modules in C++/Fortran</h4>
-<p>If none of the above techniques helps, you might consider to develop your own Python modules compiled from C++ or 
-Fortran code, also known as binary Python extensions. This can be a real game changer. In fact, this is exactly what 
-the HPC Python modules like Numpy and SciPy do, and they do it because that is the way to harness the power of 
-modern CPUs and expose it to Python. Obviously, this requires good knowledge of C++ or Fortran, and good 
-understanding of performance critical characteristics fo modern CPU architecture. </p>
-<p>The application <a href="https://et-micc2.readthedocs.io/en/latest/index.html">micc2</a> 
-facilitates building your C++ and Fortran modules. Checkout its 
-<a href="https://et-micc2.readthedocs.io/en/latest/tutorials.html">tutorials</a>.</p>
+<p>If none of the above techniques helps, you might consider to develop your own Python modules compiled from C++ or Fortran code, also known as binary Python extensions. This can be a real game changer. In fact, this is exactly what the HPC Python modules like Numpy and SciPy do, and they do it because that is the way to harness the power of modern CPUs and expose it to Python. Obviously, this requires good knowledge of C++ or Fortran, and good understanding of performance critical characteristics fo modern CPU architecture. 
+The <a href="https://etijskens.github.io/wiptools">wip application</a> facilitates building your C++ and Fortran modules. </p>
 <h2 id="principle-6">Principle 6</h2>
 <h3 id="parallelise-if-necessary">Parallelise if necessary</h3>
-<p>If necessary, parallelise your code. Parallelisation is necessary is when the time to solution is still too long after 
-paying attention to <a href="improve-and-extend-the-code">principle 4</a> and <a href="optimise-if-necessary">principle 5</a>, or if the 
-research problem does not fit in the memory of a single machine. In that case it is advisable to optimise 
-(<a href="optimise-if-necessary">principle 5</a>) anyway to not waste cycles on an expensive supercomputer. </p>
-<p>To parallelise Python projects these tools come in handy: </p>
+<p>If necessary, parallelise your code. Parallelization is necessary is when the time to solution is still too long after paying attention to <a href="improve-and-extend-the-code">principle 4</a> and <a href="optimise-if-necessary">principle 5</a>, or if the research problem does not fit in the memory of a single machine. In that case it is advisable to optimise (<a href="optimise-if-necessary">principle 5</a>) anyway to not waste cycles on an expensive supercomputer.</p>
+<p>To parallelize Python projects these tools come in handy: </p>
 <ul>
-<li><a href="http://dask.pydata.org/en/latest/">dask</a>: multi-core and multi-node parallellisation</li>
-<li><a href="https://mpi4py.readthedocs.io/en/stable/">mpi4py</a>: MPI parallellisation with python</li>
-</ul></div></div>
-            </div>
-        </div>
+<li><a href="http://dask.pydata.org/en/latest/">dask</a>: multi-core and multi-node parallelization</li>
+<li><a href="https://mpi4py.readthedocs.io/en/stable/">mpi4py</a>: MPI parallelization with python</li>
+</ul></div>
 
-        <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-        <script>
-            var base_url = "..",
-                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
-        </script>
-        <script src="../js/base.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML" defer></script>
-        <script src="../search/main.js" defer></script>
 
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
             </div>
-            <div class="modal-body">
-                <p>From here you can search these documents. Enter your search terms below.</p>
-                <form>
-                    <div class="form-group">
-                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
         </div>
-    </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
-    </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
 </div>
-
-    </body>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS_HTML"></script>
+      
+    
+  </body>
 </html>
