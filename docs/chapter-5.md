@@ -336,7 +336,7 @@ The [wip application](https://etijskens.github.io/wiptools) facilitates building
 
 ### Parallelise if necessary
 
-If necessary, parallelise your code. Parallelization is necessary is when the time to solution is still too long after paying attention to [principle 4](improve-and-extend-the-code) and [principle 5](optimise-if-necessary), or if the research problem does not fit in the memory of a single machine. In that case it is advisable to optimise ([principle 5](optimise-if-necessary)) anyway to not waste cycles on an expensive supercomputer.
+If necessary, parallelise your code. Parallelization is necessary is when the time to solution is still too long after paying attention to [principle 4](#improve-and-extend-the-code) and [principle 5](#Optimise-if-necessary), or if the research problem does not fit in the memory of a single machine. In that case it is advisable to optimise ([principle 5](#optimise-if-necessary)) anyway to not waste cycles on an expensive supercomputer.
 
 To parallelize Python projects these tools come in handy: 
 

@@ -29,9 +29,9 @@ Here is an alphabetical list of terms with links to where they are explained in 
 - [cache-oblivious][tiling]
 - [ccNUMA][supercomputer-architecture]
 - [cell-based Verlet list construction][implementing-cutoff]
-- [code modernisation][code-optimisations]
-- [Code optimisations][code-optimisations]
-- [Common sense optimizations][common-sense-optimisations]
+- [code modernization][code-optimizations]
+- [Code optimization][code-optimizations]
+- [Common sense optimizations][common-sense-optimizations]
 - [communication][what-is-a-parallel-program]
 - [computational complexity][selecting-algorithms-based-on-computational-complexity]
 - [computational intensity][recommendations-for-array-processing]
@@ -67,8 +67,8 @@ Here is an alphabetical list of terms with links to where they are explained in 
 
 - [main memory][the-hierarchical-structure-of-cpu-memory]
 - [memory bandwidth][1-reduce-the-time-to-solution]
-- [multi-core][cant-i-just-by-a-faster-and-bigger-computer]
-- [multi-processor][cant-i-just-by-a-faster-and-bigger-computer]
+- [multi-core][why-cant-i-just-buy-a-bigger-and-faster-computer]
+- [multi-processor][why-cant-i-just-buy-a-bigger-and-faster-computer]
 
 ## N
 
@@ -83,7 +83,7 @@ Here is an alphabetical list of terms with links to where they are explained in 
 - [peak performance][1-reduce-the-time-to-solution]
 - [pipeline stalls][instruction-pipelining]
 - [process][common-approaches-towards-parallelization]
-- [profiling][when-is-code-optimized-enough]
+- [profiling][when-is-code-optimized-well-enough]
 
 ## R
 

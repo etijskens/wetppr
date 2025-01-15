@@ -17,6 +17,7 @@
 - [Software Engineering's Greatest Hits](https://www.youtube.com/watch?v=HrVtA-ue-x0) Very interesting.
 - [SOLID principles for software design](https://stackoverflow.blog/2021/11/01/why-solid-principles-are-still-the-foundation-for-modern-software-architecture/)
 - [Software engineering practices](https://simonwillison.net/2022/Oct/1/software-engineering-practices/?utm_source=tldrnewsletter)
+- [A high-velocity style of software development](https://mihaiolteanu.me/interactive-dev?utm_source=tldrnewsletter)
 
 # Problem solving
 
@@ -224,6 +225,7 @@
 - [stringzilla](https://github.com/ashvardanian/Stringzilla?utm_source=tldrnewsletter)
 - [module itertools overview](https://mathspp.com/blog/module-itertools-overview)
 - [PDF-Extract-Kit](https://github.com/opendatalab/PDF-Extract-Kit)
+- [ghostty](https://github.com/ghostty-org/ghostty?utm_source=tldrnewsletter) embed a terminal emulator in your package, [First impressions with ghostty](https://www.jonashietala.se/blog/2025/01/06/first_impressions_of_ghostty/?utm_source=tldrnewsletter)
 
 ### Package overview links
 - [A curated list of awesome Python frameworks, libraries, software and resources](https://github.com/vinta/awesome-python)
@@ -255,6 +257,10 @@
 ### Numpy arrays
 - [pycon 2023 Talks - Jodie Burchell: Vectorize using linear algebra and NumPy to make your Python code fast](https://www.youtube.com/watch?v=wISl6LCL8XY&list=PL2Uw4_HvXqvY2zhJ9AMUa_Z6dtMGF3gtb&index=124)
 - [An overview of the Sparse Array Ecosystem for Python](https://labs.quansight.org/blog/sparse-array-ecosystem)
+
+### JAX
+- [JAX, a high-performance numerical computation library with support for automatic differentiation.](https://jax.readthedocs.io/en/latest/)
+- [The PyTorch developer's guide to JAX fundamentals](https://cloud.google.com/blog/products/ai-machine-learning/guide-to-jax-for-pytorch-developers?utm_source=tldrnewsletter)
 
 ### Numba
 - [Numba](http://numba.pydata.org)
@@ -591,6 +597,7 @@
 
 # Tools
 
+- [Compile shell scripts to machine code.](https://github.com/yassinebenaid/bunster)
 - [Beyond Hypermodern: Python is easy now](https://rdrn.me/postmodern-python/)
 - [pycon 2023 Talks - Al Sweigart: An Overview of the Python Code Tool Landscape 2023](https://www.youtube.com/watch?v=knUGpULAmn4&list=PL2Uw4_HvXqvY2zhJ9AMUa_Z6dtMGF3gtb&index=136)
 - [Software Development Checklist for Python Applications](http://www.patricksoftwareblog.com/software-development-checklist-for-python-applications/)
@@ -671,6 +678,8 @@
 - [PyCharm](https://www.jetbrains.com/pycharm/)
 - [Using Sublime Text for python](https://storiesinmypocket.com/articles/using-sublime-text-python/)
 - [C++ Coding with Neovim - Prateek Raman - CppCon 2022](https://www.youtube.com/watch?v=nzRnWUjGJl8)
+- [waveterm](https://github.com/wavetermdev/waveterm?utm_source=tldrnewsletter)
+- [Zasper](https://github.com/zasper-io/zasper?utm_source=tldrnewsletter)
 
 ## CI/CD
 - [GitHub Actions: the full course](https://www.youtube.com/playlist?list=PLArH6NjfKsUhvGHrpag7SuPumMzQRhUKY)
@@ -681,6 +690,7 @@
 ## Documentation
 
 ### General ideas
+- [Rules for Writing Software Tutorials](https://refactoringenglish.com/chapters/rules-for-software-tutorials/)
 - [Write the Docs is a global community of people who care about documentation](https://www.writethedocs.org)
 - [How documentation works, and how to make it work for your project - PyCon 2017](https://youtu.be/azf6yzuJt54)
 - [How to document Python code with Sphinx](https://opensource.com/article/19/11/document-python-sphinx)  interesting section about tox
@@ -795,6 +805,7 @@ We need the following packages to build documentation:
 - [The Most Important Optimizations to Apply in Your C++ Programs - Jan Bielak - CppCon 2022](https://www.youtube.com/watch?v=qCjEN5XRzHc)\`
 - [CppCon 2016: Jason Turner “Practical Performance Practices"](https://www.youtube.com/watch?v=uzF4u9KgUWI)
 - [CppCon 2018: Jonathan Boccara “105 STL Algorithms in Less Than an Hour”](https://www.youtube.com/watch?v=2olsGf6JIkU)
+- [Introduction to OpenMP - Tim Mattson (Intel)](https://www.youtube.com/playlist?list=PLLX-Q6B8xqZ8n8bwjGdzBJ25X2utwnoEG) Youtube channel
 
 ## Other performance-oriented programming languages
 
@@ -818,6 +829,12 @@ We need the following packages to build documentation:
 # Physics simulation
 
 - [Simulate Elastic Objects in Any Representation with NVIDIA Kaolin Library](https://developer.nvidia.com/blog/simulate-elastic-objects-in-any-representation-with-nvidia-kaolin-library/?mkt_tok=MTU2LU9GTi03NDIAAAGUilfQyYh1dqpgoMeYRvXtdwsWZDGGKJMlxNPr5opfzQlhVL3a1RYM-CRr2PV9IvaqalZiMnBIee5SwiEP78x_9lLoHgCG0U4WdJzWjN7zU0v49Nj_KzQ)
+- [Genesis](https://github.com/Genesis-Embodied-AI/Genesis?utm_source=tldrnewsletter) is a physics platform designed for general purpose Robotics/Embodied AI/Physical AI applications. It is simultaneously multiple things:
+
+  1. A universal physics engine re-built from the ground up, capable of simulating a wide range of materials and physical phenomena.
+  2. A lightweight, ultra-fast, pythonic, and user-friendly robotics simulation platform.
+  3. A powerful and fast photo-realistic rendering system.
+  4. A generative data engine that transforms user-prompted natural language description into various modalities of data.
 
 # Accelerators
 

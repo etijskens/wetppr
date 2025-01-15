@@ -1,4 +1,4 @@
-EXAS# Chapter 3 - Optimize first, then parallelize
+# Chapter 3 - Optimize first, then parallelize
 
 ## When to parallelize, and what to do first...
 
@@ -79,7 +79,7 @@ $$ P_{max} = min(P_p,BI_c) $$
 
 This is called the roof-line model, since its graph looks like a roof-line.
 
-![roof-line](public/roof-line.png)
+![roof-line](public/roofline.png)
 
 We can measure the actual performance and computational intensity of the program and plot it on the graph. The point must necessarily be under the roof-line. For a micro-benchmark, such as a loop with a simple body, we can compute $I_c$ by hand, count the Flops and time the benchmark to obtain the computational intensity. For an entire program a performance analysis tool can construct the graph and measure where the program is in the graph. Let's discuss 4 different cases, corresponding to the four numbered spots in the graph above.
 

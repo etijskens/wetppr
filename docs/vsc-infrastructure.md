@@ -148,7 +148,7 @@ Here are some useful VSCode extensions that you should install. Click the `Exten
 
 There is a helpfull tutorial on [Using VSCode for Remote Development](presentations/TNT-VSCode.pptx), but before getting your hands dirty, please complete the steps below first.
 
-### Setting up a git account (required for micc2 projects)
+### Setting up a git account (required for wiptools projects)
 
 See [signing up for a new GitHub account](https://docs.github.com/en/get-started/signing-up-for-github/signing-up-for-a-new-github-account)
 
@@ -203,7 +203,7 @@ A HPC cluster provides you with many installed software packages. However, none 
 
     To see the list of installed Python packages, load the LMOD module for the Python distribution of your choice, and execute `pip list -v`. This will show you also the location where the package is installed. Pre-installed packages, the ones that are made available by loading LMOD modules, will show up under `/apps/antwerpen`, while the packages you installed yourself with `pip install --user` will show up under `${PYTHONUSERBASE}`, _c.q._ `/scratch/antwerpen/201/vsc20170/.local`.  
 
-The following LMOD modules are needed by [micc2](https://et-micc2. readthedocs.io/en/latest/index.html) (see below):
+The following LMOD modules are needed by [wiptools](https://etijskens.github.io/wiptools/) (see below):
 
 - `buildtools`,
 - `git`,
@@ -246,9 +246,9 @@ to load all modules and to modify the environment variables `PYTHONUSERBASE` and
     discover that such scripts depend on the project you work on, and that it is better to have it somewhere in your
     project directory.
 
-#### Micc2
+#### Wiptools
 
-[Micc2](https://et-micc2.readthedocs.io/en/latest/index.html) is a Python package that simplifies your project
+[Wiptools](https://etijskens.github.io/wiptools/) is a Python package that simplifies your project
 management considerably. If you haven't already done so, source the environment script:
 
 ```shell
@@ -268,22 +268,13 @@ and install it in a (_remote_) terminal as:
     `${PYTHONUSERBASE}`. The default install path of `pip` is a system location for which you do not have write
     permissions. Omitting `--user` would raise a `PermissionError`.
 
-[Micc2](https://et-micc2. readthedocs.io/en/latest/index.html) requires
+[Wiptools](https://etijskens.github.io/wiptools/) requires
 [a little setup](https://et-micc2.readthedocs.io/en/latest/installation.html#first-time-micc2-setup) before it is
 fully functional.
 
 !!! warning
 
-    You need a GitHub account before you can set up `micc2`.
-
-To set up `micc2` , enter
-
-```shell
-> micc2 setup
-```
-
-and supply [the data the application asks for](https://et-micc2.readthedocs.io/en/latest/installation.
-html#first-time-micc2-setup).
+    You need a GitHub account before you can set up `wiptools`.
 
 
 !!! warning
@@ -292,9 +283,11 @@ html#first-time-micc2-setup).
     [GitHub](https://github.com)! Check [this](https://et-micc2.readthedocs.io/en/latest/installation.
     html#first-time-micc2-setup).
 
-#### Pybind11
+#### nanobind 
 
-You will also need `nanobind` if you want to use `wip` for building binary extension modules for Python from C++.
+[Nanobind](https://github.com/wjakob/nanobind) is a small binding library that exposes C++ types in Python and vice versa. It is reminiscent of Boost.Python and pybind11 and uses near-identical syntax. In contrast to these existing tools, nanobind is more efficient: bindings compile in a shorter amount of time, produce smaller binaries, and have better runtime performance.
+
+If you want to use `wip` for building binary extension modules for Python from C++, You will also need `nanobind`.
 
 ```shell
 > pip install --user nanobind
@@ -475,7 +468,7 @@ The job script ends with a list of (``bash``) commands that compose the job:
 srun python mpi4py_hello_world.py
 ```
 
-The ``srun`` command calls `mpirun` with the resources requested in the [Job script parameters][job-script-parameters]. Consequentially, 64 MPI processes will be started, one on each core of a compute node. Their ranks will be numbered 0..63.
+The ``srun`` command calls `mpirun` with the resources requested in the [Job script parameters](#slurm-job-script-parameters). Consequentially, 64 MPI processes will be started, one on each core of a compute node. Their ranks will be numbered 0..63.
 
 # Recommended steps from here
 
