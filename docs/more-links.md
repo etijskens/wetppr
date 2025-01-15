@@ -840,6 +840,7 @@ We need the following packages to build documentation:
 
 ## Nvidia GPUs
 
+- [GPU Glossary](https://modal.com/gpu-glossary/readme?utm_source=tldrnewsletter)
 - [How GPU Computing Works](https://www.nvidia.com/en-us/on-demand/session/gtcspring21-s31151/)
 - [How CUDA programming works](https://www.nvidia.com/en-us/on-demand/session/gtcspring22-s41487/)
 - [How to write a CUDA program](https://www.nvidia.com/en-us/on-demand/session/gtcspring23-s51210/)
