@@ -626,6 +626,7 @@
 
 ### git
 
+- [beej guide to git](https://beej.us/guide/bggit/?utm_source=tldrnewsletter)
 - [Git Productivity Toolkit](https://github.com/ahmetsait/toolgit)
 - [Writing commit messages](https://www.chiark.greenend.org.uk/~sgtatham/quasiblog/commit-messages/?utm_source=tldrnewsletter)
 - [lazygit: A simple terminal UI for git commands](https://github.com/jesseduffield/lazygit?utm_source=tldrnewsletter)
