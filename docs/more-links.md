@@ -412,6 +412,9 @@
 # Debugging
 
 ## GDB
+- [Debugging An Undebuggable App](https://bryce.co/undebuggable/?utm_source=tldrnewsletter)
+- [Nobody Can Program Correctly - Lessons From 20 Years of Debugging C++ Code - Sebastian Theophil CppCon 2022](https://www.youtube.com/watch?v=2uk2Z6lSams&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=44)
+- [Back to Basics: Debugging in C++ - Mike Shah - CppCon 2022](https://www.youtube.com/watch?v=YzIBwqWC6EM&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=20)
 - [Learn to debug code with the GNU Debugger](https://opensource.com/article/21/3/debug-code-gdb?utm_medium=Email&utm_campaign=weekly&sc_cid=7013a000002vsCLAAY)
 - [GDBGUI - A browser-based frontend to gdb](https://www.gdbgui.com)
 - [GDB Tutorial - a walkthrough with examples](https://www.cs.umd.edu/~srhuang/teaching/cmsc212/gdb-tutorial-handout.pdf)
@@ -422,7 +425,8 @@
  - [Getting the Most Out of GDB - Mark Williamson & Greg Law - C++ on Sea 2022](https://www.youtube.com/watch?v=to8KkFQn7jE)
  - [CppCon 2018: Greg Law “Debugging Linux C++”](https://www.youtube.com/watch?v=V1t6faOKjuQ)
  - [Cool New Stuff in Gdb 9 and Gdb 10 - Greg Law - CppCon   2021](https://www.youtube.com/watch?v=xSnetY3eoIk)
- - [Cool New Stuff in GDB 9, 10 and 11 - Greg Law - ACCU   2022](https://www.youtube.com/watch?v=KLXnNWYa5YA) - []()
+ - [Cool New Stuff in GDB 9, 10 and 11 - Greg Law - ACCU   2022](https://www.youtube.com/watch?v=KLXnNWYa5YA) 
+
 
 ## PDB
 - [pdb - The Python debugger](https://docs.python.org/3/library/pdb.html)
@@ -774,9 +778,6 @@ We need the following packages to build documentation:
 - [Scale](https://docs.scale-lang.com/) Transforming CUDA code for AMD gpus, an alternative to HIP.
 
 
-- [Nobody Can Program Correctly - Lessons From 20 Years of Debugging C++ Code - Sebastian Theophil CppCon 2022](https://www.youtube.com/watch?v=2uk2Z6lSams&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=44)
-- [Back to Basics: Debugging in C++ - Mike Shah - CppCon 2022](https://www.youtube.com/watch?v=YzIBwqWC6EM&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=20)
-
 
 - [**C++23**: An Overview of Almost All New and Updated Features - Marc Gregoire - CppCon 2023](https://www.youtube.com/watch?v=Cttb8vMuq-Y)
 - [What’s New in **C++23** - Sy Brand - CppCon 2022](https://www.youtube.com/watch?v=vbHWDvY59SQ&list=PLHTh1InhhwT6c2JNtUiJkaH8YRqzhU7Ag&index=17)
@@ -826,6 +827,7 @@ We need the following packages to build documentation:
 - [2020: The Year of the Linux Desktop - Moving from Macbook to Linux](https://monadical.com/posts/moving-to-linux-desktop.html)
 - [How to Set Environment Variables in Linux and Mac: The Missing Manual](https://doppler.com/blog/how-to-set-environment-variables-in-linux-and-mac)
 - [a file browser for your terminal](https://github.com/juftin/browsr)
+- [How I Automated My Computer Routine With macOS Folder Actions](https://interfacecraft.online/posts/blog/2025/how-i-automated-my-computer-life-with-macos-folder-actions/?utm_source=tldrnewsletter)
 
 # Physics simulation
 
